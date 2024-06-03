@@ -1,4 +1,5 @@
 rootProject.name = 'LFVNCustomer'
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+def rootDir = file("../../../")
+apply from: file("${rootDir}/node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
+includeBuild("${rootDir}/node_modules/@react-native/gradle-plugin")
