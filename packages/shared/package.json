@@ -1,0 +1,22 @@
+{
+  "name": "@lfvn-customer/shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "postinstall": "yarn build",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.74.1"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "5.0.4"
+  },
+  "keywords": [],
+  "author": "ThucND",
+  "license": "ISC",
+  "packageManager": "yarn@3.6.4"
+}

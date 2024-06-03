@@ -2082,6 +2082,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lfvn-customer/shared@1.0.0, @lfvn-customer/shared@workspace:packages/shared":
+  version: 0.0.0-use.local
+  resolution: "@lfvn-customer/shared@workspace:packages/shared"
+  dependencies:
+    react: 18.2.0
+    react-native: 0.74.1
+    rimraf: ^3.0.2
+    typescript: 5.0.4
+  languageName: unknown
+  linkType: soft
+
 "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1":
   version: 5.1.1-v1
   resolution: "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1"
@@ -7211,6 +7222,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@lfvn-customer/shared": 1.0.0
     "@react-native/babel-preset": 0.74.83
     "@react-native/eslint-config": 0.74.83
     "@react-native/metro-config": 0.74.83

@@ -13,6 +13,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
@@ -24,6 +25,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {add} from '@lfvn-customer/shared';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -51,6 +53,12 @@ function Section({children, title}: SectionProps): React.JSX.Element {
         ]}>
         {children}
       </Text>
+      <TouchableOpacity
+        onPress={() => {
+          console.log(add(1, 2));
+        }}>
+        <Text>Press</Text>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -9,7 +9,7 @@ const watchFolders = [
   path.resolve(__dirname, 'node_modules'),
   path.resolve(rootPath, 'node_modules'),
   // Add other shared packages if needed
-//   path.resolve(rootPath, 'packages/shared'),
+  path.resolve(rootPath, 'packages/shared'),
 ];
 
 // Resolver settings
