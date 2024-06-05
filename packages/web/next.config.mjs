@@ -22,7 +22,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       'react-native$': 'react-native-web',
-      'shared': path.resolve('../shared'),
+      '@lfvn-customer/shared': path.resolve('../shared'),
     };
 
     return config;

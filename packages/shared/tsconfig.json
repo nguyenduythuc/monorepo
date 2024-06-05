@@ -14,6 +14,9 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "declaration": true,
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "react-native": ["../../node_modules/react-native-web"]
+    }
   },
 } 

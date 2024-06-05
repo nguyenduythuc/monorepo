@@ -26,6 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {add} from '@lfvn-customer/shared';
+import {Label} from '@lfvn-customer/shared/components/Text';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -80,6 +81,7 @@ function App(): React.JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <Label text="Text label from shared component" />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
