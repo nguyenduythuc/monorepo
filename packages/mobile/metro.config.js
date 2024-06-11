@@ -1,5 +1,5 @@
 const path = require('path');
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
 // Path to the root directory of your monorepo
 const rootPath = path.resolve(__dirname, '../../');
@@ -15,10 +15,6 @@ const watchFolders = [
 // Resolver settings
 const resolver = {
   unstable_enableSymlinks: true, // Enable symlink support
-//   extraNodeModules: {
-//     // Redirect all react-native imports to the project node_modules
-//     'react-native': path.resolve(__dirname, 'node_modules/react-native'),
-//   },
 };
 
 const config = {
