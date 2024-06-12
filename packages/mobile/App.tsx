@@ -8,14 +8,21 @@
 import React from 'react';
 import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
 import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from '@lfvn-customer/shared/redux/store';
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <SafeAreaView>
-        <MainComponent />
-      </SafeAreaView>
-    </ThemeProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <SafeAreaView>
+            <MainComponent />
+          </SafeAreaView>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 
