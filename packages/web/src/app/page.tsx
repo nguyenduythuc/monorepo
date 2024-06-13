@@ -3,26 +3,22 @@ import Image from "next/image";
 import {add} from '@lfvn-customer/shared';
 import {Label} from '@lfvn-customer/shared/components/Text';
 import { useEffect } from "react";
-import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
+import {useTheme} from '@lfvn-customer/shared/themes';
+import { useDispatch, useSelector } from "react-redux";
+import { increment } from "@lfvn-customer/shared/redux/slices/counterSlice";
+import { selectCounterValue } from "@lfvn-customer/shared/redux/selectors/counterSelector";
 
 export default function Home() {
+  const {colorScheme} = useTheme();
+  const dispatch = useDispatch()
+  const data = useSelector(selectCounterValue)
+  console.log('redux data: ', data)
   useEffect(() => {
     console.log(add(1,2))
+    dispatch(increment())
   }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <ThemeProvider>
-        <MainComponent /> 
-      </ThemeProvider>
-    </main>
-  );
-}
-
-const MainComponent = () => {
-  const {colorScheme, toggleTheme} = useTheme();
-
-  return (
-    <>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
@@ -128,7 +124,7 @@ const MainComponent = () => {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
-    </>
+      </div>      
+    </main>
   );
-};
+}

@@ -5,12 +5,15 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
 import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from '@lfvn-customer/shared/redux/store';
+import {useDispatch, useSelector} from 'react-redux';
+import {increment} from '@lfvn-customer/shared/redux/slices/counterSlice';
+import {selectCounterValue} from '@lfvn-customer/shared/redux/selectors/counterSelector';
 
 const App = () => {
   return (
@@ -28,6 +31,12 @@ const App = () => {
 
 const MainComponent = () => {
   const {colorScheme, toggleTheme} = useTheme();
+  const dispatch = useDispatch();
+  const data = useSelector(selectCounterValue);
+  console.log('redux data: ', data);
+  useEffect(() => {
+    dispatch(increment());
+  }, [dispatch]);
 
   return (
     <View className="w-full h-full justify-center items-center">
