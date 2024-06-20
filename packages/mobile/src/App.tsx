@@ -17,8 +17,25 @@ import LocaleProvider, {useLocale} from './providers/I18nContext';
 import {TextInputBase} from '@lfvn-customer/shared/components';
 import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
 import tw from 'twrnc';
+import {LogLevel, OneSignal} from 'react-native-onesignal';
 
 const App = () => {
+  OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+
+  // OneSignal Initialization
+  OneSignal.initialize('db151860-ad3a-48c3-a9e6-9dc40055e624');
+
+  // requestPermission will show the native iOS or Android notification permission prompt.
+  // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+  OneSignal.Notifications.requestPermission(true);
+
+  // Method for listening for notification clicks
+  OneSignal.InAppMessages.addTrigger('triggerKey', 'triggerValue');
+
+  OneSignal.Notifications.addEventListener('click', event => {
+    console.log('OneSignal: notification clicked:', event);
+  });
+
   return (
     <LocaleProvider>
       <ThemeProvider>
