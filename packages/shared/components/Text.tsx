@@ -1,15 +1,15 @@
-import React from 'react'
-import { Text } from 'react-native';
+import React from 'react';
+import {Text} from 'react-native';
 
 // Example function
 export const add = (a: number, b: number) => {
-	return a + b;
-}
+  return a + b;
+};
 
 interface ButtonProps {
-	text: string;
+  text: string;
 }
 
-export const Label: React.FC<ButtonProps> = ({ text }) => {
+export const Label: React.FC<ButtonProps> = ({text}) => {
   return <Text style={{color: 'red'}}>{text}</Text>;
 };

@@ -9,10 +9,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "nativewind": "^2.0.11",
     "react": "18.2.0",
+    "react-hook-form": "^7.52.0",
     "react-native": "0.74.1",
+    "react-native-keychain": "^8.2.0",
     "react-native-mmkv": "^2.12.2",
+    "twrnc": "^4.3.0",
     "use-intl": "^3.15.2"
   },
   "devDependencies": {
