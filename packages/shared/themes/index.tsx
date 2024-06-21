@@ -1,26 +1,16 @@
 "use client";
-import React, { createContext, useContext, ReactNode, useState } from 'react';
-import { NativeWindStyleSheet } from 'nativewind';
-import { ColorSchemeName } from 'react-native';
-
-interface ThemeContextProps {
-  colorScheme: ColorSchemeName;
-  toggleTheme: () => void;
-}
+import React, { createContext, useContext, ReactNode } from 'react';
+import tw, { useDeviceContext, useAppColorScheme } from 'twrnc';
+import { ThemeContextProps } from '../types/themeTypes';
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [colorScheme, setColorScheme] = useState<ColorSchemeName>();
+  useDeviceContext(tw, { observeDeviceColorSchemeChanges: false, initialColorScheme: 'light' });
 
-  const toggleTheme = () => {
-    setColorScheme(colorScheme === "light" ? "dark" : "light")
-  };
+  const [colorScheme, toggleTheme, setColorScheme] = useAppColorScheme(tw);
 
-  if (colorScheme)
-    NativeWindStyleSheet.setColorScheme(colorScheme);
-
-  const contextValue = React.useMemo(() => ({ colorScheme, toggleTheme }), [colorScheme, toggleTheme]);
+  const contextValue = React.useMemo((): ThemeContextProps => ({ colorScheme, toggleTheme, setColorScheme }), [colorScheme]);
 
   return (
     <ThemeContext.Provider value={contextValue}>

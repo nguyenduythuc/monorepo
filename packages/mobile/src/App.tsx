@@ -15,18 +15,21 @@ import {selectCounterValue} from '@lfvn-customer/shared/redux/selectors/counterS
 import {useTranslations} from 'use-intl';
 import LocaleProvider, {useLocale} from './providers/I18nContext';
 import {TextInputBase} from '@lfvn-customer/shared/components';
+import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
 import tw from 'twrnc';
 
 const App = () => {
   return (
     <LocaleProvider>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <SafeAreaView>
-            <MainComponent />
-          </SafeAreaView>
-        </PersistGate>
-      </Provider>
+      <ThemeProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <SafeAreaView>
+              <MainComponent />
+            </SafeAreaView>
+          </PersistGate>
+        </Provider>
+      </ThemeProvider>
     </LocaleProvider>
   );
 };
@@ -34,6 +37,7 @@ const App = () => {
 const MainComponent = () => {
   const dispatch = useDispatch();
   const data = useSelector(selectCounterValue);
+  const {colorScheme, toggleTheme} = useTheme();
 
   const t = useTranslations();
   const {setLocale} = useLocale();
@@ -48,9 +52,11 @@ const MainComponent = () => {
 
   return (
     <View style={tw`w-full h-full justify-center px-4`}>
-      <Text style={tw`text-xl text-blue-900`}>{t('welcome')}</Text>
+      <Text style={tw`text-xl text-blue-900`}>{`${t(
+        'welcome',
+      )}, Theme: ${colorScheme}`}</Text>
       <Text style={tw`text-xl text-blue-900`}>Current themes: 111</Text>
-      <TouchableOpacity style={tw`bg-orange-500 h-40`} onPress={() => null}>
+      <TouchableOpacity style={tw`bg-orange-500 h-40`} onPress={toggleTheme}>
         <Text style={tw`text-xl text-red-900`}>Toggle Theme</Text>
       </TouchableOpacity>
       <TextInputBase />

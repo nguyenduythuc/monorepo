@@ -2,6 +2,7 @@
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistorWeb, storeWeb } from "@lfvn-customer/shared/redux/storeWeb";
+import { ThemeProvider } from "@lfvn-customer/shared/themes";
 
 export default function StoreProvider({
   children,
@@ -9,10 +10,12 @@ export default function StoreProvider({
   readonly children: React.ReactNode;
 }) {
   return (
-    <Provider store={storeWeb}>
-      <PersistGate loading={null} persistor={persistorWeb}>
-        {children}
-      </PersistGate>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={storeWeb}>
+        <PersistGate loading={null} persistor={persistorWeb}>
+          {children}
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   );
 }
