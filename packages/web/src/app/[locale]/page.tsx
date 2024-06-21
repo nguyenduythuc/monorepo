@@ -7,11 +7,15 @@ import {useTheme} from '@lfvn-customer/shared/themes';
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "@lfvn-customer/shared/redux/slices/counterSlice";
 import { selectCounterValue } from "@lfvn-customer/shared/redux/selectors/counterSelector";
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
   const {colorScheme} = useTheme();
   const dispatch = useDispatch()
   const data = useSelector(selectCounterValue)
+
+  const t = useTranslations();
+
   console.log('redux data: ', data)
   useEffect(() => {
     console.log(add(1,2))
@@ -24,7 +28,7 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className="font-mono font-bold">src/app/page.tsx</code>
         </p>
-        <Label text={`Current theme is: ${colorScheme}`} />
+        <Label text={`${t('welcome')} Current theme is: ${colorScheme}`} />
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"

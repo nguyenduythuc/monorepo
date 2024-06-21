@@ -12,7 +12,8 @@
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.1",
-    "react-native-mmkv": "^2.12.2"
+    "react-native-mmkv": "^2.12.2",
+    "use-intl": "^3.15.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
