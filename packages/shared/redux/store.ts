@@ -2,7 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import rootReducer from './rootReducer';
-import { apiSlice } from './slices/apiSlice';
+import { apiSlice } from './slices/apiSlices';
 import { persistStore, persistReducer } from 'redux-persist';
 import { mmkvStorage } from '../utils/storage';
 
