@@ -18,6 +18,10 @@ import {TextInputBase} from '@lfvn-customer/shared/components';
 import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
 import tw from 'twrnc';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
+import {
+  useGetExampleQuery,
+  useSetExampleMutation,
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -52,20 +56,37 @@ const App = () => {
 };
 
 const MainComponent = () => {
-  const dispatch = useDispatch();
-  const data = useSelector(selectCounterValue);
+  // Theme example
   const {colorScheme, toggleTheme} = useTheme();
 
+  // Redux example
+  const dispatch = useDispatch();
+  const data = useSelector(selectCounterValue);
+
+  // i18n example
   const t = useTranslations();
   const {setLocale} = useLocale();
 
+  // API example
+  const {data: apiData, error, isLoading} = useGetExampleQuery();
+  const [setExample, {isLoading: isSaving, error: postError}] =
+    useSetExampleMutation();
   console.log('redux data: ', data);
+  console.log('get API data', apiData, 'error: ', error, 'loading:', isLoading);
+  console.log('set API data error: ', postError, 'saving:', isSaving);
+
   useEffect(() => {
     dispatch(increment());
+
     setTimeout(() => {
       setLocale('vi');
     }, 3000);
-  }, [dispatch, setLocale]);
+
+    (async () => {
+      const result = await setExample({status: 'success'});
+      console.log('result', result);
+    })();
+  }, [dispatch, setExample, setLocale]);
 
   return (
     <View style={tw`w-full h-full justify-center px-4`}>
