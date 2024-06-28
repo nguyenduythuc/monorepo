@@ -10,11 +10,11 @@ import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from '@lfvn-customer/shared/redux/store';
+import {TextInput, TextInputSearch} from '@lfvn-customer/shared/components';
 import {increment} from '@lfvn-customer/shared/redux/slices/counterSlice';
 import {selectCounterValue} from '@lfvn-customer/shared/redux/selectors/counterSelector';
 import {useTranslations} from 'use-intl';
 import LocaleProvider, {useLocale} from './providers/I18nContext';
-import {TextInputBase} from '@lfvn-customer/shared/components';
 import {ThemeProvider, useTheme} from '@lfvn-customer/shared/themes';
 import tw from 'twrnc';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
@@ -88,6 +88,12 @@ const MainComponent = () => {
     })();
   }, [dispatch, setExample, setLocale]);
 
+  const [text, setText] = React.useState('');
+
+  const onPressClearText = () => {
+    setText('');
+  };
+
   return (
     <View style={tw`w-full h-full justify-center px-4`}>
       <Text style={tw`text-xl text-blue-900`}>{`${t(
@@ -97,7 +103,30 @@ const MainComponent = () => {
       <TouchableOpacity style={tw`bg-orange-500 h-40`} onPress={toggleTheme}>
         <Text style={tw`text-xl text-red-900`}>Toggle Theme</Text>
       </TouchableOpacity>
-      <TextInputBase />
+      <TextInput
+        label="Label Name"
+        placeholder="Type Something"
+        containerStyle="mt-4"
+        required
+        value={text}
+        onChangeText={setText}
+        // error="Error Text is displayed here, up to 2 lines"
+        onPressRightComponent={onPressClearText}
+        // disabled
+        focus
+      />
+      <TextInputSearch
+        label="Label Name"
+        placeholder="Type Something"
+        containerStyle="mt-4"
+        required
+        value={text}
+        onChangeText={setText}
+        // error="Error Text is displayed here, up to 2 lines"
+        onPressRightComponent={onPressClearText}
+        // disabled
+        focus
+      />
     </View>
   );
 };

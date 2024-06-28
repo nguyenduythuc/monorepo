@@ -1,23 +1,47 @@
 import React from 'react';
-import {ITextInputProps} from '../../../types';
-import {View, TextInput, Text, TouchableOpacity} from 'react-native';
+import {ITextInputBaseProps} from '../../../types';
+import {View, TextInput} from 'react-native';
 import tw from 'twrnc';
+import {Label} from '../Label';
+import {TextError} from '../TextError';
 
-export const TextInputBase: React.FC<ITextInputProps> = ({
+export const TextInputBase: React.FC<ITextInputBaseProps> = ({
   touched,
   error,
+  focus,
   rightComponent,
   leftComponent,
   disabled,
-  value,
+  containerStyle,
+  containerInputStyle = '',
+  label,
+  required,
   ...props
 }) => {
   return (
-    <View>
-      <Text style={tw`text-xl text-yellow-900`}>Current themes: 2222</Text>
-      <TouchableOpacity style={tw`bg-amber-500 h-40`} onPress={() => null}>
-        <Text style={tw`text-xl text-red-900`}>Toggle 2222</Text>
-      </TouchableOpacity>
+    <View style={tw.style(containerStyle)}>
+      <Label title={label} required={required} />
+      <View
+        style={tw.style([
+          'flex-row border border-neutral-600 rounded-sm px-4 items-center bg-white',
+          disabled
+            ? 'border-neutral-400 bg-neutral-200 border-0'
+            : error
+            ? 'border-red-600'
+            : focus
+            ? 'border-amber-500'
+            : 'border-neutral-600',
+          containerInputStyle,
+        ])}>
+        {leftComponent && leftComponent}
+        <TextInput
+          {...props}
+          editable={!disabled}
+          style={tw.style(['flex-1 h-10'])}
+        />
+        {rightComponent && rightComponent}
+      </View>
+      <TextError title={error} />
     </View>
   );
 };
