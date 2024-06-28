@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.vn.lottefinance.efinance.dev.onesignal</string>
+		<string>group.vn.lottefinance.efinance.onesignal.dev</string>
 	</array>
 </dict>
 </plist>

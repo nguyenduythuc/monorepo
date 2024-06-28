@@ -6692,7 +6692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.2.4":
+"invariant@npm:^2.2.2, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -8557,6 +8557,7 @@ __metadata:
     react-native: 0.74.1
     react-native-keychain: ^8.2.0
     react-native-mmkv: ^2.12.2
+    react-native-onesignal: ^5.2.0
     react-test-renderer: 18.2.0
     reactotron-react-native: ^5.1.7
     tailwindcss: 3.3.2
@@ -9589,6 +9590,15 @@ __metadata:
     react: "*"
     react-native: ">=0.71.0"
   checksum: 8c79504a89fefd7f9c290a4a6bb24f1f9ef9e2a69d20d0f7d882b89f3943556e9c919c9d46583e44ab698f25213489277fccb6d4c856cce310267c5f907388f1
+  languageName: node
+  linkType: hard
+
+"react-native-onesignal@npm:^5.2.0":
+  version: 5.2.1
+  resolution: "react-native-onesignal@npm:5.2.1"
+  dependencies:
+    invariant: ^2.2.2
+  checksum: 29218acbf80624ffb8ca392e12125b18fa50ca65c86f366ca72af010c7ca0b9e58aea500862eba4c8b53f149b5adbb3d83236f5e13f8764a8abd1d16d70e596e
   languageName: node
   linkType: hard
 
