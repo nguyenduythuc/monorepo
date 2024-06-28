@@ -5,6 +5,19 @@
     "packages/*"
   ],
   "packageManager": "yarn@3.6.4",
+  "scripts": {
+    "web:build": "yarn workspace web build",
+    "web:start": "yarn workspace web start",
+    "web:dev": "yarn workspace web dev",
+    "web:lint": "yarn workspace web lint",
+    "mobile:android": "yarn workspace mobile android",
+    "mobile:ios": "yarn workspace mobile ios",
+    "mobile:lint": "yarn workspace mobile lint",
+    "mobile:start": "yarn workspace mobile start",
+    "mobile:test": "yarn workspace mobile test",
+    "pod-install": "cd packages/mobile/ios && bundle exec pod install",
+    "postinstall": "yarn pod-install"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react": "^18.3.3",
