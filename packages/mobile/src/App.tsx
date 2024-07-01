@@ -22,6 +22,7 @@ import {
   useGetExampleQuery,
   useSetExampleMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
+import SecuritiesChecking from './providers/SecuritiesChecking';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -41,17 +42,19 @@ const App = () => {
   });
 
   return (
-    <LocaleProvider>
-      <ThemeProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <SafeAreaView>
-              <MainComponent />
-            </SafeAreaView>
-          </PersistGate>
-        </Provider>
-      </ThemeProvider>
-    </LocaleProvider>
+    <SecuritiesChecking>
+      <LocaleProvider>
+        <ThemeProvider>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <SafeAreaView>
+                <MainComponent />
+              </SafeAreaView>
+            </PersistGate>
+          </Provider>
+        </ThemeProvider>
+      </LocaleProvider>
+    </SecuritiesChecking>
   );
 };
 
