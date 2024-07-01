@@ -6,7 +6,7 @@
  */
 
 import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from '@lfvn-customer/shared/redux/store';
@@ -23,6 +23,7 @@ import {
   useSetExampleMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import SecuritiesChecking from './providers/SecuritiesChecking';
+import {RootNavigator} from './navigators/RootNavigator';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -47,9 +48,7 @@ const App = () => {
         <ThemeProvider>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <SafeAreaView>
-                <MainComponent />
-              </SafeAreaView>
+              <RootNavigator />
             </PersistGate>
           </Provider>
         </ThemeProvider>

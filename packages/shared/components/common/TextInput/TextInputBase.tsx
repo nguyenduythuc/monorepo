@@ -9,7 +9,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
   (
     {
       touched,
-      error,
+      errorMessage,
       focus,
       rightComponent,
       leftComponent,
@@ -30,7 +30,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
             'flex-row border border-neutral-600 rounded-sm px-4 items-center bg-white',
             disabled
               ? 'border-neutral-400 bg-neutral-200 border-0'
-              : error
+              : !!errorMessage
               ? 'border-red-600'
               : focus
               ? 'border-amber-500'
@@ -46,7 +46,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
           />
           {rightComponent && rightComponent}
         </View>
-        <TextError title={error} />
+        <TextError title={errorMessage} />
       </View>
     );
   },

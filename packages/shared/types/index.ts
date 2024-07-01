@@ -1,3 +1,4 @@
+import {UseFormWatch} from 'react-hook-form';
 import {TextInputProps, TextProps, TextInput} from 'react-native';
 
 export interface SVGProps {
@@ -18,7 +19,6 @@ export enum IconName {
 
 export interface ITextInputBaseProps extends TextInputProps {
   touched?: boolean;
-  error?: string;
   focus?: boolean;
   rightComponent?: React.ReactNode;
   leftComponent?: React.ReactNode;
@@ -28,6 +28,8 @@ export interface ITextInputBaseProps extends TextInputProps {
   containerStyle?: string;
   containerInputStyle?: string;
   containerLabelStyle?: string;
+  watch: UseFormWatch<any>;
+  errorMessage?: string;
 }
 
 export interface ITextInputProps extends ITextInputBaseProps {
