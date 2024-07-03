@@ -1,5 +1,5 @@
 import React, {forwardRef, useMemo} from 'react';
-import {ITextInputProps, IconName} from '../../../types';
+import {ITextInputProps} from '../../../types';
 import {View, TextInput as NativeTextInput} from 'react-native';
 import tw from 'twrnc';
 // import Icon from 'react-native-vector-icons/AntDesign';
@@ -18,7 +18,7 @@ export const TextInput = forwardRef<NativeTextInput, ITextInputProps>(
     ref,
   ) => {
     const ClearTextIconComponent = useMemo(
-      () => (value ? <Icon name={IconName.closecircle} size={24} /> : null),
+      () => (value ? <Icon name="close-circle" size={24} /> : null),
       [value, onPressRightComponent],
     );
 

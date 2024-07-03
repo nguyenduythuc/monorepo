@@ -1,5 +1,5 @@
 import React, {forwardRef, useMemo} from 'react';
-import {ITextInputProps, IconName} from '../../../types';
+import {ITextInputProps} from '../../../types';
 import {View, TextInput as NativeTextInput} from 'react-native';
 import tw from 'twrnc';
 import {TextInputBase} from './TextInputBase';
@@ -14,12 +14,12 @@ export const TextInputSearch = forwardRef<NativeTextInput, ITextInputProps>(
     ...props
   }) => {
     const ClearTextIconComponent = useMemo(
-      () => (value ? <Icon name={IconName.closecircle} size={24} /> : null),
+      () => (value ? <Icon name="close-circle" size={24} /> : null),
       [value, onPressRightComponent],
     );
 
     const SearchIconComponent = useMemo(
-      () => <Icon name={IconName.search} size={24} />,
+      () => <Icon name="search" size={24} />,
       [value, onPressRightComponent],
     );
 

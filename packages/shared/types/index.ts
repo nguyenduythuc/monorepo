@@ -1,20 +1,18 @@
 import {UseFormWatch} from 'react-hook-form';
 import {TextInputProps, TextProps, TextInput} from 'react-native';
+import {IconKeys} from '../components';
 
 export interface SVGProps {
   color?: string;
   size?: number;
+  width?: number;
+  height?: number;
 }
 
 export interface IconProps extends SVGProps {
-  name: IconName;
+  name: IconKeys;
   onPress?: () => void;
   disabled?: boolean;
-}
-
-export enum IconName {
-  closecircle = 'closecircle',
-  search = 'search',
 }
 
 export interface ITextInputBaseProps extends TextInputProps {
