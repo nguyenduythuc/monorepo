@@ -6,11 +6,23 @@
  */
 
 import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from '@lfvn-customer/shared/redux/store';
-import {TextInput, TextInputSearch} from '@lfvn-customer/shared/components';
+import {
+  TextInput,
+  TextInputSearch,
+  PrimaryButton,
+  CustomButton,
+  RoundButton,
+} from '@lfvn-customer/shared/components';
 import {increment} from '@lfvn-customer/shared/redux/slices/counterSlice';
 import {selectCounterValue} from '@lfvn-customer/shared/redux/selectors/counterSelector';
 import {useTranslations} from 'use-intl';
@@ -98,38 +110,72 @@ const MainComponent = () => {
   };
 
   return (
-    <View style={tw`w-full h-full justify-center px-4`}>
-      <Text style={tw`text-xl text-blue-900`}>{`${t(
-        'welcome',
-      )}, Theme: ${colorScheme}`}</Text>
-      <Text style={tw`text-xl text-blue-900`}>Current themes: 111</Text>
-      <TouchableOpacity style={tw`bg-orange-500 h-40`} onPress={toggleTheme}>
-        <Text style={tw`text-xl text-red-900`}>Toggle Theme</Text>
-      </TouchableOpacity>
-      <TextInput
-        label="Label Name"
-        placeholder="Type Something"
-        containerStyle="mt-4"
-        required
-        value={text}
-        onChangeText={setText}
-        // error="Error Text is displayed here, up to 2 lines"
-        onPressRightComponent={onPressClearText}
-        // disabled
-        focus
-      />
-      <TextInputSearch
-        label="Label Name"
-        placeholder="Type Something"
-        containerStyle="mt-4"
-        required
-        value={text}
-        onChangeText={setText}
-        // error="Error Text is displayed here, up to 2 lines"
-        onPressRightComponent={onPressClearText}
-        // disabled
-        focus
-      />
+    <View style={tw`relative w-full h-full justify-center`}>
+      <ScrollView>
+        <View style={tw`px-4 bottom-20`}>
+          <Text style={tw`text-xl text-blue-900`}>{`${t(
+            'welcome',
+          )}, Theme: ${colorScheme}`}</Text>
+          <Text style={tw`text-xl text-blue-900`}>Current themes: 111</Text>
+          <TouchableOpacity
+            style={tw`bg-orange-500 h-40`}
+            onPress={toggleTheme}>
+            <Text style={tw`text-xl text-red-900`}>Toggle Theme</Text>
+          </TouchableOpacity>
+          <TextInput
+            label="Label Name"
+            placeholder="Type Something"
+            containerStyle="mt-4"
+            required
+            value={text}
+            onChangeText={setText}
+            // error="Error Text is displayed here, up to 2 lines"
+            onPressRightComponent={onPressClearText}
+            // disabled
+            focus
+          />
+          <TextInputSearch
+            label="Label Name"
+            placeholder="Type Something"
+            containerStyle="mt-4"
+            required
+            value={text}
+            onChangeText={setText}
+            // error="Error Text is displayed here, up to 2 lines"
+            onPressRightComponent={onPressClearText}
+            // disabled
+            focus
+          />
+
+          <View style={tw`my-2`}>
+            <CustomButton color="red" variant="text">
+              Continue
+            </CustomButton>
+            <CustomButton color="red" prefixIcon="add-icon" iconColor="white">
+              Continue
+            </CustomButton>
+          </View>
+
+          <View style={tw`my-2`}>
+            <CustomButton
+              variant="link"
+              onPress={() => console.log('Continue')}>
+              Continue
+            </CustomButton>
+            <CustomButton
+              variant="outlined"
+              prefixIcon="add-icon"
+              iconColor="blue">
+              Continue
+            </CustomButton>
+          </View>
+
+          <View style={tw`my-2`}>
+            <RoundButton prefixIcon="add-file-icon" />
+          </View>
+        </View>
+      </ScrollView>
+      <PrimaryButton title="Continue" onPress={() => console.log('Continue')} />
     </View>
   );
 };
