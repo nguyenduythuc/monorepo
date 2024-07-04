@@ -22,6 +22,12 @@ import {
   PrimaryButton,
   CustomButton,
   RoundButton,
+  Checkbox,
+  Radio,
+  RadioButton,
+  RadioGroup,
+  CheckButton,
+  SwitchCustom,
 } from '@lfvn-customer/shared/components';
 import {increment} from '@lfvn-customer/shared/redux/slices/counterSlice';
 import {selectCounterValue} from '@lfvn-customer/shared/redux/selectors/counterSelector';
@@ -72,11 +78,27 @@ const App = () => {
 
 const MainComponent = () => {
   // Theme example
-  const {colorScheme, toggleTheme} = useTheme();
 
   // Redux example
   const dispatch = useDispatch();
   const data = useSelector(selectCounterValue);
+  const {colorScheme, toggleTheme} = useTheme();
+
+  const handleSelect = (selectedOption: string) => {
+    console.log('Selected option:', selectedOption);
+    setSelectedValue(selectedOption);
+  };
+
+  const listCheck = [
+    {label: 'Select 1', value: 'select1', isChecked: false},
+    {label: 'Select 2', value: 'select2', isChecked: false},
+    {label: 'Select 3', value: 'select3', isChecked: false},
+  ];
+
+  const handleSelectCheckBox = (selectedOption: string) => {
+    console.log('Selected checkbox:', selectedOption);
+    // setSelectedValue(selectedOption);
+  };
 
   // i18n example
   const t = useTranslations();
@@ -108,6 +130,14 @@ const MainComponent = () => {
   const onPressClearText = () => {
     setText('');
   };
+
+  const [selectedValue, setSelectedValue] = React.useState('');
+
+  const options = [
+    {label: 'Option 1', value: 'option1'},
+    {label: 'Option 2', value: 'option2'},
+    {label: 'Option 3', value: 'option3'},
+  ];
 
   return (
     <View style={tw`relative w-full h-full justify-center`}>
@@ -172,6 +202,66 @@ const MainComponent = () => {
 
           <View style={tw`my-2`}>
             <RoundButton prefixIcon="add-file-icon" />
+          </View>
+
+          <View style={tw`flex flex-row my-2`}>
+            {listCheck.map(option => (
+              <Checkbox
+                key={option.value}
+                size="lg"
+                label={option.label}
+                isChecked={option.isChecked}
+                onChange={() => handleSelectCheckBox(option.label)}
+                color="red"></Checkbox>
+            ))}
+          </View>
+          <View style={tw`flex flex-row my-2`}>
+            {listCheck.map(option => (
+              <CheckButton
+                prefixIcon="close-circle"
+                key={option.value}
+                size="xl"
+                label={option.label}
+                isChecked={option.isChecked}
+                onChange={() => handleSelectCheckBox(option.label)}
+                color="blue"></CheckButton>
+            ))}
+          </View>
+          <View style={tw`flex-1 justify-center p-5 bg-gray-100`}>
+            <Text style={tw`text-xl mb-5`}>Select an option:</Text>
+            <View style={tw`flex flex-row`}>
+              {options.map(option => (
+                <Radio
+                  color="green"
+                  key={option.value}
+                  label={option.label}
+                  selected={selectedValue === option.value}
+                  onPress={() => setSelectedValue(option.value)}
+                />
+              ))}
+            </View>
+            <RadioGroup
+              listStyle={'col'}
+              options={options}
+              onSelect={handleSelect}
+            />
+            <View style={tw`flex flex-row`}>
+              {options.map(option => (
+                <RadioButton
+                  color="green"
+                  key={option.value}
+                  label={option.label}
+                  selected={selectedValue === option.value}
+                  onPress={() => setSelectedValue(option.value)}
+                />
+              ))}
+            </View>
+            <View style={tw`flex flex-row`}>
+              <SwitchCustom color="green" size="lg"></SwitchCustom>
+            </View>
+            <Text style={tw`mt-5 text-lg`}>
+              Selected Value: {selectedValue}
+            </Text>
           </View>
         </View>
       </ScrollView>
