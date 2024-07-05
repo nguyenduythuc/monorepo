@@ -1,9 +1,9 @@
 'use client';
-import React, {createContext, useContext, ReactNode} from 'react';
+import React, {createContext, ReactNode} from 'react';
 import tw, {useDeviceContext, useAppColorScheme} from 'twrnc';
 import {ThemeContextProps} from '../types/themeTypes';
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
   useDeviceContext(tw, {
@@ -23,12 +23,4 @@ export const ThemeProvider = ({children}: {children: ReactNode}) => {
       {children}
     </ThemeContext.Provider>
   );
-};
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
 };

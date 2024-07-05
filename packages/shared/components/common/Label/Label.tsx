@@ -1,7 +1,8 @@
 import React from 'react';
 import {ILabelProps} from '../../../types';
-import {View, Text, TouchableOpacity} from 'react-native';
-import tw from 'twrnc';
+import {View, Text} from 'react-native';
+import tw from '../../../themes/tailwind';
+import { useGetTheme } from '../../../hooks/useGetTheme';
 
 export const Label: React.FC<ILabelProps> = ({
   title,
@@ -9,10 +10,11 @@ export const Label: React.FC<ILabelProps> = ({
   labelStyle = '',
   containerStyle = '',
 }) => {
+  const { theme } = useGetTheme();
   if (!title) return null;
   return (
     <View style={tw.style(['flex-row mb-2', containerStyle])}>
-      <Text style={tw.style(['text-base text-slate-950'], labelStyle)}>
+      <Text style={tw.style([`text-base ${theme.text}`], labelStyle)}>
         {title}
       </Text>
       {required && <Text style={tw`text-base text-red-700`}>{' *'}</Text>}
