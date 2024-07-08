@@ -1,7 +1,7 @@
 import React, {forwardRef} from 'react';
 import {ITextInputBaseProps} from '../../../types';
 import {View, TextInput} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../../themes/tailwind';
 import {Label} from '../Label';
 import {TextError} from '../TextError';
 

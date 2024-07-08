@@ -1,7 +1,7 @@
 import React, {forwardRef, useMemo} from 'react';
 import {ITextInputProps} from '../../../types';
 import {View, TextInput as NativeTextInput} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../../themes/tailwind';
 import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';
 

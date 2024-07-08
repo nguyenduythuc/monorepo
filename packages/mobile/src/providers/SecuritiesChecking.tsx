@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Platform, Text, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import JailMonkey from 'jail-monkey';
 import {useIsEmulator} from 'react-native-device-info';
 
