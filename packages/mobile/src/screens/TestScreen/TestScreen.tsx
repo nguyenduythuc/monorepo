@@ -3,12 +3,24 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import useTestScreen from '@lfvn-customer/shared/hooks/useTest';
+import useLoginBiometrics from '@lfvn-customer/shared/hooks/useLoginBiometrics';
 
 const TestScreen = () => {
   const {renderFrom, handleSubmit, getValues} = useTestScreen();
+  const {callBiometric} = useLoginBiometrics();
 
   const onPressSubmit = handleSubmit(() => {
     console.log('submit', getValues());
+    callBiometric({
+      username: 'test',
+      password: 'test',
+    })
+      .then(res => {
+        console.log('res', res);
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
   });
 
   return (
@@ -20,6 +32,11 @@ const TestScreen = () => {
           onPress={onPressSubmit}
           style={tw.style('p-4 items-center bg-red-500')}>
           <Text>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={onPressSubmit}
+          style={tw.style('p-4 mt-4 items-center bg-red-500')}>
+          <Text>Login Biometric</Text>
         </TouchableOpacity>
       </SafeAreaView>
     </View>

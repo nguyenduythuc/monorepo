@@ -6,13 +6,16 @@ import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';
 
 export const TextInputSearch = forwardRef<NativeTextInput, ITextInputProps>(
-  ({
-    value,
-    containerStyle,
-    onPressLeftComponent,
-    onPressRightComponent,
-    ...props
-  }) => {
+  (
+    {
+      value,
+      containerStyle,
+      onPressLeftComponent,
+      onPressRightComponent,
+      ...props
+    },
+    ref,
+  ) => {
     const ClearTextIconComponent = useMemo(
       () => (value ? <Icon name="close-circle" size={24} /> : null),
       [value, onPressRightComponent],
@@ -27,6 +30,7 @@ export const TextInputSearch = forwardRef<NativeTextInput, ITextInputProps>(
       <View style={tw.style(containerStyle)}>
         <TextInputBase
           {...props}
+          ref={ref}
           value={value}
           rightComponent={ClearTextIconComponent}
           leftComponent={SearchIconComponent}
