@@ -31,8 +31,7 @@ export interface ITextInputBaseProps extends TextInputProps {
 }
 
 export interface ITextInputProps extends ITextInputBaseProps {
-  onPressRightComponent?: () => void;
-  onPressLeftComponent?: () => void;
+  onChangeValue: (value: string) => void;
 }
 
 export interface ILabelProps extends TextProps {

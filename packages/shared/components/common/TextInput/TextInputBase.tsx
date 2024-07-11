@@ -1,8 +1,8 @@
 import React, {forwardRef} from 'react';
-import {ITextInputBaseProps} from '../../../types';
+import {ITextInputBaseProps} from '@lfvn-customer/shared/types';
 import {View, TextInput} from 'react-native';
-import tw from '../../../themes/tailwind';
-import {Label} from '../Label';
+import tw from '@lfvn-customer/shared/themes/tailwind';
+import {Label} from '@lfvn-customer/shared/components/common/Label';
 import {TextError} from '../TextError';
 
 export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(

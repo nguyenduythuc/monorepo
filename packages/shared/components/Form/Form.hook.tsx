@@ -25,7 +25,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
               return (
                 <TextInput
                   keyboardType={field.keyboardType}
-                  onChangeText={onChange}
+                  onChangeValue={onChange}
                   value={value}
                   watch={watch}
                   onBlur={onBlur}
@@ -54,7 +54,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
               return (
                 <TextInputSearch
                   keyboardType={field.keyboardType}
-                  onChangeText={onChange}
+                  onChangeValue={onChange}
                   value={value}
                   watch={watch}
                   onBlur={onBlur}

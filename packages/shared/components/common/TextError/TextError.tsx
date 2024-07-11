@@ -1,7 +1,7 @@
 import React from 'react';
 import {IErorMsgProps} from '../../../types';
 import {View, Text} from 'react-native';
-import tw from '../../../themes/tailwind';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export const TextError: React.FC<IErorMsgProps> = ({
   title,
