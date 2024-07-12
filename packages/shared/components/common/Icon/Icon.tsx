@@ -6,6 +6,8 @@ import AddIcon from '../../../assets/images/svg/AddIcon';
 import AddFileIcon from '../../../assets/images/svg/AddFileIcon';
 import {IconProps} from '../../../types';
 import TransferMoneyIcon from '../../../assets/images/svg/TransferMoneyIcon';
+import ArrowLeft from '../../../assets/images/svg/ArrowLeft';
+import ArrowRight from '../../../assets/images/svg/ArrowRight';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -13,6 +15,8 @@ const iconList = (props: IconProps) => ({
   'add-icon': <AddIcon {...props} />,
   'add-file-icon': <AddFileIcon {...props} />,
   'transfer-money-icon': <TransferMoneyIcon {...props} />,
+  'arrow-left': <ArrowLeft {...props} />,
+  'arrow-right': <ArrowRight {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

@@ -1,9 +1,5 @@
 "use client";
-import {
-  add,
-  TextInputSearch,
-  TextInput,
-} from "@lfvn-customer/shared";
+import { add, TextInputSearch, TextInput } from "@lfvn-customer/shared";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTheme } from "@lfvn-customer/shared/hooks/useGetTheme";
@@ -35,9 +31,12 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <View style={tw`flex-1 ${theme.background}`}>
         <Text style={tw`text-xl ${theme.primary}`}>{`${t(
-          'welcome',
+          "welcome"
         )}, Theme: ${colorScheme}`}</Text>
-        <TouchableOpacity style={tw`${theme.buttonPrimary} h-40`} onPress={toggleTheme}>
+        <TouchableOpacity
+          style={tw`${theme.buttonPrimary} h-40`}
+          onPress={toggleTheme}
+        >
           <Text style={tw`text-xl ${theme.text}`}>Toggle Theme</Text>
         </TouchableOpacity>
         <TextInput

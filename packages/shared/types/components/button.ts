@@ -37,7 +37,7 @@ export interface BaseButtonProps extends React.ComponentProps<'button'> {
   prefixIcon?: IconKeys;
   disabled?: boolean;
   iconColor?: string;
-  onPress?: () => void;
+  onPress?: (data: any | undefined) => void;
   variant?: variant;
   size?: size;
   color?: color;

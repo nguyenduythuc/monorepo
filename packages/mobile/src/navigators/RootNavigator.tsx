@@ -1,10 +1,16 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import {RootParamList} from '../types/paramtypes';
-import {HomeScreen, TestScreen} from '../screens';
+import {HomeScreen, TestScreen, ComponentScreen} from '../screens';
 
 const Stack = createNativeStackNavigator<RootParamList>();
+
+export type PrimaryNavigatorNavigationProp =
+  NativeStackNavigationProp<RootParamList>;
 
 const RootStack = () => {
   return (
@@ -13,6 +19,13 @@ const RootStack = () => {
         headerShown: false,
         gestureEnabled: true,
       }}>
+      <Stack.Screen
+        name="ComponentScreen"
+        component={ComponentScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Test"
         component={TestScreen}
