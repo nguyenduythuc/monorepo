@@ -19,6 +19,7 @@
     "postinstall": "yarn pod-install"
   },
   "dependencies": {
+    "@gorhom/portal": "^1.0.14",
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react": "^18.3.3",
     "@types/react-native": "^0.73.0",

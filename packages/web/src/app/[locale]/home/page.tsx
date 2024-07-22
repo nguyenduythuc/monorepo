@@ -1,7 +1,7 @@
 "use client";
 import { add } from "@lfvn-customer/shared";
 import { Label } from "@lfvn-customer/shared/components/Text";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "@lfvn-customer/shared/redux/slices/counterSlice";
 import { selectCounterValue } from "@lfvn-customer/shared/redux/selectors/counterSelector";
@@ -14,6 +14,8 @@ import { Text, View } from "react-native";
 import {
   CheckButton,
   Checkbox,
+  CustomTable,
+  CustomTableProps,
   Radio,
   RadioButton,
   RadioGroup,
@@ -35,6 +37,132 @@ export default function Home() {
     { label: "Select 2", value: "select2", isChecked: false },
     { label: "Select 3", value: "select3", isChecked: false },
   ];
+
+  const headers = ["Id", "Name", "Age", "Job", "Address", "Show detail"];
+
+  const tableData = [
+    {
+      id: "2",
+      name: "John",
+      age: "22",
+      job: "DEV",
+      address: "Ba Dinh, Hanoi, Vietnam",
+      showDetail: {
+        type: "action",
+        styleWrapper: "flex flex-row",
+        props: [
+          {
+            label: "abc",
+            size: "sm",
+            color: "green",
+            variant: "outlined",
+          },
+        ],
+      },
+    },
+    {
+      id: "1",
+      name: "John",
+      age: "22",
+      job: "DEV",
+      address: "Ba Dinh, Hanoi, Vietnam",
+      showDetail: {
+        type: "action",
+        styleWrapper: "flex-row",
+        props: [
+          {
+            label: "abc",
+            size: "sm",
+            color: "green",
+            variant: "outlined",
+          },
+        ],
+      },
+    },
+    {
+      id: "1",
+      name: "John",
+      age: "22",
+      job: "DEV",
+      address: "Ba Dinh, Hanoi, Vietnam",
+      showDetail: {
+        type: "action",
+        styleWrapper: "flex-row",
+        props: [
+          {
+            label: "abc",
+            size: "sm",
+            color: "green",
+            variant: "outlined",
+          },
+        ],
+      },
+    },
+    {
+      id: "1",
+      name: "John",
+      age: "22",
+      job: "DEV",
+      address: "Ba Dinh, Hanoi, Vietnam",
+      showDetail: {
+        type: "action",
+        styleWrapper: "flex-row",
+        props: [
+          {
+            label: "abc",
+            size: "sm",
+            color: "green",
+            variant: "outlined",
+          },
+        ],
+      },
+    },
+    {
+      id: "1",
+      name: "John",
+      age: "22",
+      job: "DEV",
+      address: "Ba Dinh, Hanoi, Vietnam",
+      showDetail: {
+        type: "action",
+        styleWrapper: "flex-row",
+        props: [
+          {
+            label: "abc",
+            size: "sm",
+            color: "green",
+            variant: "outlined",
+          },
+        ],
+      },
+    },
+  ];
+
+  const tableProps: CustomTableProps = useMemo(() => {
+    return {
+      headers: headers,
+      data: tableData.map((data) => ({
+        id: data.id,
+        rawData: data,
+        data: [
+          data.id,
+          data.name,
+          data.age,
+          data.job,
+          data.address,
+          data.showDetail,
+        ],
+      })),
+      columnWidth: [60, 80, 160, 100, 220, 200],
+      columnStyles: ["underline font-bold", "font-bold"],
+      onRowPress: (rowData) => {
+        console.log("RowData123", rowData.rawData);
+      },
+      fixedLeftColumn: true,
+      fixedRightColumn: true,
+      // hasAction: true,
+    };
+  }, [tableData, headers]);
 
   const handleSelect = (selectedOption: string) => {
     console.log("Selected option:", selectedOption);
@@ -68,7 +196,7 @@ export default function Home() {
     })();
   }, []);
   return (
-    <main className="flex bg-white min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex bg-white min-h-screen flex-col items-center justify-between">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
         <Label text={`${t("welcome")} to home page`} />
         <View style={tw`flex flex-row`}>
@@ -129,6 +257,10 @@ export default function Home() {
             <SwitchCustom />
           </View>
           <Text style={tw`mt-5 text-lg`}>Selected Value: {selectedValue}</Text>
+        </View>
+        <View style={tw`mt-10`}>
+          <Text style={tw`mb-4`}>Data Table Component Example</Text>
+          <CustomTable {...tableProps}></CustomTable>
         </View>
       </div>
     </main>

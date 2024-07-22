@@ -14,6 +14,7 @@ import {ThemeProvider} from '@lfvn-customer/shared/themes';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
 import SecuritiesChecking from './providers/SecuritiesChecking';
 import {RootNavigator} from './navigators/RootNavigator';
+import {PortalProvider} from '@gorhom/portal';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -35,13 +36,15 @@ const App = () => {
   return (
     <SecuritiesChecking>
       <LocaleProvider>
-        <ThemeProvider>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <RootNavigator />
-            </PersistGate>
-          </Provider>
-        </ThemeProvider>
+        <PortalProvider>
+          <ThemeProvider>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
+                <RootNavigator />
+              </PersistGate>
+            </Provider>
+          </ThemeProvider>
+        </PortalProvider>
       </LocaleProvider>
     </SecuritiesChecking>
   );
