@@ -1,29 +1,27 @@
 import React, {forwardRef, useMemo} from 'react';
-import {ITextInputProps} from '../../../types';
+import {ITextInputProps} from '@lfvn-customer/shared/types';
 import {View, TextInput as NativeTextInput} from 'react-native';
-import tw from '../../../themes/tailwind';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';
 
 export const TextInputSearch = forwardRef<NativeTextInput, ITextInputProps>(
-  (
-    {
-      value,
-      containerStyle,
-      onPressLeftComponent,
-      onPressRightComponent,
-      ...props
-    },
-    ref,
-  ) => {
+  ({value, containerStyle, onChangeValue, ...props}, ref) => {
+    const onPressClearText = () => {
+      onChangeValue('');
+    };
+
     const ClearTextIconComponent = useMemo(
-      () => (value ? <Icon name="close-circle" size={24} /> : null),
-      [value, onPressRightComponent],
+      () =>
+        value ? (
+          <Icon name="close-circle" size={24} onPress={onPressClearText} />
+        ) : null,
+      [value],
     );
 
     const SearchIconComponent = useMemo(
       () => <Icon name="search" size={24} />,
-      [value, onPressRightComponent],
+      [value],
     );
 
     return (
@@ -32,6 +30,7 @@ export const TextInputSearch = forwardRef<NativeTextInput, ITextInputProps>(
           {...props}
           ref={ref}
           value={value}
+          onChangeText={onChangeValue}
           rightComponent={ClearTextIconComponent}
           leftComponent={SearchIconComponent}
         />
