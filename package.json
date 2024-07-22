@@ -19,6 +19,7 @@
     "postinstall": "yarn pod-install"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0",
     "@gorhom/portal": "^1.0.14",
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react": "^18.3.3",
@@ -29,7 +30,8 @@
     "react-native-svg": "^15.3.0",
     "react-native-web": "^0.19.12",
     "react-redux": "^9.1.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "tinycolor2": "^1.6.0"
   },
   "devDependencies": {
     "babel-plugin-react-native-web": "^0.19.12"
