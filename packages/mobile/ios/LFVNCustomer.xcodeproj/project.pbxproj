@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* LFVNCustomerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LFVNCustomerTests.m */; };
+		05734ACC8F2E1C27FA9DE9A2 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E837EF71BB1102A6F9ED6BE0 /* libPods-OneSignalNotificationServiceExtension.a */; };
 		0C80B921A6F3F58F76C31292 /* libPods-LFVNCustomer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-LFVNCustomer.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1EB7D5679EB7EBCD3FA9BB20 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E3DB77BE880DD9468C6E9E /* libPods-OneSignalNotificationServiceExtension.a */; };
 		4E7BF2612C1FE23100160378 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BF2602C1FE23100160378 /* NotificationService.swift */; };
 		4E7BF2652C1FE23100160378 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4E7BF25E2C1FE23100160378 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7699B88040F8A987B510C191 /* libPods-LFVNCustomer-LFVNCustomerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LFVNCustomer-LFVNCustomerTests.a */; };
@@ -64,6 +64,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LFVNCustomer/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = LFVNCustomer/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-LFVNCustomer-LFVNCustomerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LFVNCustomer-LFVNCustomerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F1A763CCE5C78FEF70AF3F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-LFVNCustomer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFVNCustomer.debug.xcconfig"; path = "Target Support Files/Pods-LFVNCustomer/Pods-LFVNCustomer.debug.xcconfig"; sourceTree = "<group>"; };
 		4E7BF2592C1FDF8D00160378 /* LFVNCustomerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LFVNCustomerDebug.entitlements; path = LFVNCustomer/LFVNCustomerDebug.entitlements; sourceTree = "<group>"; };
 		4E7BF25E2C1FE23100160378 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,15 +73,14 @@
 		4E7BF26A2C1FE2D300160378 /* OneSignalNotificationServiceExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtensionDebug.entitlements; sourceTree = "<group>"; };
 		4EC853DC2C2E5EB10072016B /* LFVNCustomer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LFVNCustomer.entitlements; path = LFVNCustomer/LFVNCustomer.entitlements; sourceTree = "<group>"; };
 		4EC853DD2C2E5F250072016B /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
-		54F5493D1823F6C3C38CC0EC /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-LFVNCustomer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFVNCustomer.release.xcconfig"; path = "Target Support Files/Pods-LFVNCustomer/Pods-LFVNCustomer.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-LFVNCustomer-LFVNCustomerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFVNCustomer-LFVNCustomerTests.debug.xcconfig"; path = "Target Support Files/Pods-LFVNCustomer-LFVNCustomerTests/Pods-LFVNCustomer-LFVNCustomerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-LFVNCustomer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LFVNCustomer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E66642CE9E3D35804A6B26A /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		78E3DB77BE880DD9468C6E9E /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LFVNCustomer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig"; path = "Target Support Files/Pods-LFVNCustomer-LFVNCustomerTests/Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig"; sourceTree = "<group>"; };
 		A72744192C2273F3001CA8FA /* LFVNCustomer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LFVNCustomer.entitlements; path = LFVNCustomer/LFVNCustomer.entitlements; sourceTree = "<group>"; };
+		A77E0D1168B6E9DE3C98982F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		E837EF71BB1102A6F9ED6BE0 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -105,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EB7D5679EB7EBCD3FA9BB20 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
+				05734ACC8F2E1C27FA9DE9A2 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +153,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-LFVNCustomer.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-LFVNCustomer-LFVNCustomerTests.a */,
-				78E3DB77BE880DD9468C6E9E /* libPods-OneSignalNotificationServiceExtension.a */,
+				E837EF71BB1102A6F9ED6BE0 /* libPods-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -209,8 +209,8 @@
 				5709B34CF0A7D63546082F79 /* Pods-LFVNCustomer.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-LFVNCustomer-LFVNCustomerTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig */,
-				5E66642CE9E3D35804A6B26A /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				54F5493D1823F6C3C38CC0EC /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+				A77E0D1168B6E9DE3C98982F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				21F1A763CCE5C78FEF70AF3F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -266,7 +266,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7BF2662C1FE23100160378 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
 			buildPhases = (
-				96B8E8A693CCDC3282F3C588 /* [CP] Check Pods Manifest.lock */,
+				783E0F19CFA838810DF4D8DC /* [CP] Check Pods Manifest.lock */,
 				4E7BF25A2C1FE23100160378 /* Sources */,
 				4E7BF25B2C1FE23100160378 /* Frameworks */,
 				4E7BF25C2C1FE23100160378 /* Resources */,
@@ -382,7 +382,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LFVNCustomer/Pods-LFVNCustomer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96B8E8A693CCDC3282F3C588 /* [CP] Check Pods Manifest.lock */ = {
+		783E0F19CFA838810DF4D8DC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -658,7 +658,7 @@
 		};
 		4E7BF2672C1FE23100160378 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E66642CE9E3D35804A6B26A /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = A77E0D1168B6E9DE3C98982F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -703,7 +703,7 @@
 		};
 		4E7BF2682C1FE23100160378 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54F5493D1823F6C3C38CC0EC /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = 21F1A763CCE5C78FEF70AF3F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;

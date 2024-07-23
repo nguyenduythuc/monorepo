@@ -5,7 +5,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import {RootParamList} from '../types/paramtypes';
-import {HomeScreen, TestScreen, ComponentScreen} from '../screens';
+import {HomeScreen, LoginScreen, TestScreen, ComponentScreen} from '../screens';
 
 const Stack = createNativeStackNavigator<RootParamList>();
 
@@ -18,7 +18,15 @@ const RootStack = () => {
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
-      }}>
+      }}
+      initialRouteName="Login">
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="ComponentScreen"
         component={ComponentScreen}

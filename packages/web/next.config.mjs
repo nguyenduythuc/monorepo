@@ -1,6 +1,9 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
+import dotenv from "dotenv";
+
+dotenv.config();
 
 /** @type {import('next').NextConfig} */
 import path from "path";
@@ -30,6 +33,9 @@ const nextConfig = {
     };
 
     return config;
+  },
+  env: {
+    BASE_API_URL: process.env.BASE_API_URL,
   },
 };
 

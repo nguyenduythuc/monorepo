@@ -4,13 +4,22 @@ import {Controller, useForm} from 'react-hook-form';
 import {TextInput, TextInputSearch} from '../common';
 import {View} from 'react-native';
 import tw from 'twrnc';
+import {useTranslations} from 'use-intl';
 
 export const useCustomForm = ({fields, defaultValues}: FormProps) => {
-  const {control, watch, formState, getValues, setValue, ...formReturn} =
-    useForm({
-      defaultValues,
-    });
+  const {
+    control,
+    watch,
+    formState,
+    getValues,
+    setValue,
+    register,
+    ...formReturn
+  } = useForm({
+    defaultValues,
+  });
   const {errors} = formState;
+  const t = useTranslations();
 
   const renderField = (field: FieldConfig, isRow: boolean) => {
     switch (field.type) {
@@ -30,14 +39,15 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   watch={watch}
                   onBlur={onBlur}
                   disabled={field.disabled}
-                  label={field.label}
+                  label={t(field.label)}
                   ref={ref}
                   errorMessage={
                     errors[field.controlProps.name]?.message?.toString() || ''
                   }
                   required={!!field.controlProps.rules?.required}
-                  placeholder={field.placeholder}
+                  placeholder={t(field.placeholder)}
                   containerStyle={field.containerStyle}
+                  secureTextEntry={field.secureTextEntry}
                 />
               );
             }}
@@ -59,13 +69,13 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   watch={watch}
                   onBlur={onBlur}
                   disabled={field.disabled}
-                  label={field.label}
+                  label={t(field.label)}
                   ref={ref}
                   errorMessage={
                     errors[field.controlProps.name]?.message?.toString() || ''
                   }
                   required={!!field.controlProps.rules?.required}
-                  placeholder={field.placeholder}
+                  placeholder={t(field.placeholder)}
                   containerStyle={field.containerStyle}
                 />
               );

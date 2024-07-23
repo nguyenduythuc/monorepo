@@ -7,7 +7,7 @@ import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';
 
 export const TextInput = forwardRef<NativeTextInput, ITextInputProps>(
-  ({value, containerStyle, onChangeValue, ...props}, ref) => {
+  ({value, containerStyle, onChangeValue, secureTextEntry, ...props}, ref) => {
     const onPressClearText = () => {
       onChangeValue('');
     };

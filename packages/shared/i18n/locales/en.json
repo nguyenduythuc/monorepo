@@ -1,4 +1,20 @@
 {
   "welcome": "Welcome!",
-  "hello": "Hello"
+  "hello": "Hello",
+  "Login": {
+    "title": "Chào mừng bạn đến với,",
+    "desc": "Lotte Finance Việt Nam",
+    "login": "Đăng nhập",
+    "descLogin": "Vui lòng đăng nhập để sử dụng tất cả tính năng của ứng dụng",
+    "account": "Tài khoản",
+    "accountPlaceholder": "Nhập tài khoản hoặc số điện thoại",
+    "password": "Mật khẩu",
+    "passwordPlaceholder": "Nhập mật khẩu",
+    "dontHaveAcc": "Bạn chưa có tài khoản?",
+    "forgotPassword": "Quên mật khẩu?",
+    "conditional": "Các điều khoản",
+    "and": "và",
+    "policy": "Chính sách bảo mật",
+    "otpLogin": "Đăng nhập bằng OTP"
+  }
 }

@@ -14,6 +14,7 @@ export type FieldConfig = {
   keyboardType?: KeyboardTypeOptions;
   placeholder?: string;
   containerStyle?: string;
+  secureTextEntry?: boolean;
 };
 
 export type FormProps = {
