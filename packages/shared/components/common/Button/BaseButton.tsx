@@ -56,7 +56,6 @@ export const CustomButton: FC<BaseButtonProps> = ({
     if (buttonState) {
       return defaultStyle.replace(`-${color}-600`, `-${color}-700`);
     } else {
-      console.log('defaultStyle', defaultStyle);
       return defaultStyle;
     }
   }, [buttonState]);

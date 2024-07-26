@@ -29,7 +29,12 @@ export const Icon: React.FC<IconProps> = ({
   ...props
 }) => {
   const renderIcon = (key: IconKeys): React.ReactNode => {
-    return iconList({name, disabled, onPress, ...props})[key];
+    return iconList({
+      name,
+      disabled,
+      onPress,
+      ...props,
+    })[key];
   };
 
   return (

@@ -17,7 +17,7 @@ export interface IconProps extends SVGProps {
 
 export interface ITextInputBaseProps extends TextInputProps {
   touched?: boolean;
-  focus?: boolean;
+  isFocus?: boolean;
   rightComponent?: React.ReactNode;
   leftComponent?: React.ReactNode;
   disabled?: boolean;
