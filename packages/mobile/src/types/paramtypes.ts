@@ -6,8 +6,15 @@ export type RootParamList = {
   Test: undefined;
   ComponentScreen: undefined;
   Login: undefined;
-  VerifyAccount: undefined;
-  OTPLogin: undefined;
+  VerifyAccount: {
+    typpe: 'LOGIN_OTP' | 'FORGOT_PASSWORD';
+  };
+  EnterOTP: {
+    authSeq: string;
+    phoneNumber: string;
+    identityNumber: string;
+  };
+  SignUp: undefined;
 };
 
 export type LoginScreenNavigationProps = NativeStackNavigationProp<
@@ -15,14 +22,14 @@ export type LoginScreenNavigationProps = NativeStackNavigationProp<
   'Login'
 >;
 
-export type LoginScreenRouteProps = RouteProp<RootParamList, 'Login'>;
-
 export type VerifyAccountScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
   'VerifyAccount'
 >;
 
-export type SignUpScreenNavigationProps = NativeStackNavigationProp<
+export type EnterOTPScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
-  'OTPLogin'
+  'EnterOTP'
 >;
+
+export type EnterOTPScreenRouteProps = RouteProp<RootParamList, 'EnterOTP'>;

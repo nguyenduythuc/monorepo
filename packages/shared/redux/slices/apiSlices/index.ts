@@ -19,5 +19,11 @@ export const apiSlice = createApi({
   }),
 });
 
-export const {useGetExampleQuery, useSetExampleMutation, useLoginMutation} =
-  apiSlice;
+export const {
+  useGetExampleQuery,
+  useSetExampleMutation,
+  useLoginMutation,
+  useGenerateOTPMutation,
+  useVerifyOTPMutation,
+  useResendOTPMutation,
+} = apiSlice;

@@ -5,3 +5,4 @@ export const add = (a: number, b: number) => {
 };
 export {Label} from './components/Text';
 export * from './components';
+export * from './screens';

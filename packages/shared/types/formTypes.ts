@@ -14,7 +14,9 @@ export type FieldConfig = {
   keyboardType?: KeyboardTypeOptions;
   placeholder?: string;
   containerStyle?: string;
+  textInputStyle?: string;
   secureTextEntry?: boolean;
+  leftComponent?: React.ReactNode;
 };
 
 export type FormProps = {

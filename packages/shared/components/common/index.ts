@@ -6,3 +6,4 @@ export * from './Radio';
 export * from './Switch';
 export * from './DataTable';
 export * from './AppModal';
+export * from './Modal';

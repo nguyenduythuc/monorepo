@@ -10,6 +10,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Label} from '@lfvn-customer/shared/components/common/Label';
 import {TextError} from '../TextError';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import {useTranslations} from 'use-intl';
 
 export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
   (
@@ -25,6 +26,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
       label,
       required,
       secureTextEntry,
+      textInputStyle = '',
       onBlur,
       onFocus,
       ...props
@@ -34,6 +36,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
     const [focus, setFocus] = useState(isFocus);
     const {theme} = useGetTheme();
     const {borderNegative100, borderUseful500, textNegative500} = theme;
+    const t = useTranslations();
 
     const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setFocus(true);
@@ -54,7 +57,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
         <Label title={label} required={required} />
         <View
           style={tw.style([
-            `flex-row border rounded-10px px-4 items-center bg-white`,
+            `flex-row border rounded-10px px-4 items-center bg-white h-14`,
             disabled
               ? 'border-neutral-400 bg-neutral-200 border-0'
               : !!errorMessage
@@ -64,15 +67,21 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
               : borderNegative100,
             containerInputStyle,
           ])}>
-          {leftComponent && leftComponent}
+          {leftComponent && (
+            <View style={tw.style('mr-2')}>{leftComponent}</View>
+          )}
           <TextInput
             {...props}
             ref={ref}
             editable={!disabled}
-            style={tw.style([`flex-1 h-10, border-0 ${textNegative500}`])}
+            style={tw.style([
+              `flex-1 h-14, border-0 ${textNegative500}`,
+              textInputStyle,
+            ])}
             onFocus={handleFocus}
             onBlur={handleBlur}
             secureTextEntry={secureTextEntry}
+            placeholder={props.placeholder ? t(props.placeholder) : ''}
           />
           {rightComponent && rightComponent}
         </View>

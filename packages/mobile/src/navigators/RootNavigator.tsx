@@ -5,7 +5,15 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import {RootParamList} from '../types/paramtypes';
-import {HomeScreen, LoginScreen, TestScreen, ComponentScreen} from '../screens';
+import {
+  HomeScreen,
+  TestScreen,
+  ComponentScreen,
+  VerifyAccountContainer,
+  EnterOTPContainer,
+  LoginContainer,
+  SignUpContainer,
+} from '../screens';
 
 const Stack = createNativeStackNavigator<RootParamList>();
 
@@ -22,7 +30,28 @@ const RootStack = () => {
       initialRouteName="Login">
       <Stack.Screen
         name="Login"
-        component={LoginScreen}
+        component={LoginContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="VerifyAccount"
+        component={VerifyAccountContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EnterOTP"
+        component={EnterOTPContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpContainer}
         options={{
           headerShown: false,
         }}

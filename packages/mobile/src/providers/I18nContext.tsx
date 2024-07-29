@@ -17,7 +17,7 @@ const LocaleContext = createContext<LocaleContextProps>({
 });
 
 const LocaleProvider: React.FC<LocaleProviderProps> = ({children}) => {
-  const [locale, setLocale] = useState<'en' | 'vi'>('en');
+  const [locale, setLocale] = useState<'en' | 'vi'>('vi');
   const intl = createIntlInstance(locale);
 
   const contextValue = useMemo(
