@@ -36,8 +36,7 @@ export const CustomButton: FC<BaseButtonProps> = ({
   ...props
 }) => {
   const {theme} = useGetTheme();
-  const {borderNegative100, borderUseful500, textUseful500, buttonDanger} =
-    theme;
+  const {borderNegative100, borderUseful500, textUseful500} = theme;
 
   const defaultStyle =
     variant === 'outlined'

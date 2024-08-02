@@ -29,7 +29,7 @@ const RootStack = () => {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName="SimulateScreen">
+      initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={LoginContainer}

@@ -42,15 +42,12 @@ export const SimulateScreen = () => {
 
   const {appNavigate} = useConfigRouting();
 
-  console.log('metadataError', metadataError);
-
   const repaymentScheduleScreen =
     Platform.OS !== 'web' ? 'RepaymentScheduleScreen' : 'repayment-schedule';
 
   if (!metadataError) {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
   } else {
-    console.log('metadataError', metadataError);
     const defaultSimulate =
       'b7uS4IfDq1C92rXDgHAWEW0g2LGpbLKAeNqYC0tRdIRTLhFbMXQEIgMPwIAg9jZLv1uuGTqSbLcvmf4/38l88u//9MRCOFw0lck9mnIyDTKj4iuvL3sPMDaog6mBJxdcpwcEvhOa0Z/GkGunWzv3xGNQ2wvEaSE66+cLZ/Xjfas=';
     dispatch(setSimulate(defaultSimulate));

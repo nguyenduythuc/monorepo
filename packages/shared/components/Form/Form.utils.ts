@@ -73,7 +73,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
 
 export const FieldSimulateConfig: Record<string, FieldConfig> = {
   SimulateLoanAmount: {
-    label: 'Loan Amount 1234123',
+    label: 'Simulate.loanAmount',
     maxValue: 5000000,
     minValue: 3000000,
     step: 100000,
@@ -87,7 +87,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     containerStyle: '',
   },
   SimulateTenor: {
-    label: 'Tenor',
+    label: 'Simulate.tenor',
     maxValue: 36,
     minValue: 6,
     step: 1,
@@ -101,7 +101,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     containerStyle: '',
   },
   SimulateLoanProduct: {
-    label: 'Loan Product',
+    label: 'Simulate.loanProduct',
     type: FieldType.SelectDropdown,
     controlProps: {
       name: 'simulateLoanProduct',
@@ -109,7 +109,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     },
   },
   SimulateLoanPurpose: {
-    label: 'Purpose',
+    label: 'Simulate.loanPurpose',
     type: FieldType.SelectDropdown,
     controlProps: {
       name: 'simulatePurpose',

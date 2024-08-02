@@ -10,12 +10,15 @@ export const simulateAPI = (
 ) => ({
   getProduct: builder.query<ProductResponseProps, void>({
     query: () => ({
-      url: 'api/loan/product',
+      url: '/loan/product',
       method: 'get',
     }),
   }),
   getPurpose: builder.query<PurposeResponseProps, void>({
-    query: () => ({url: 'api/loan/purpose', method: 'get'}),
+    query: () => ({
+      url: '/loan/purpose',
+      method: 'get',
+    }),
   }),
   getMetadata: builder.query<MetadataResponseProps, void>({
     query: () => ({

@@ -27,13 +27,6 @@ const useSimulateScreen = () => {
     isLoading: purposeLoading,
   } = useGetPurposeQuery();
 
-  const {
-    data: metaData,
-    error: metadataError,
-    isLoading: metadataLoading,
-  } = useGetMetadataQuery();
-
-  // dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
   const stringFunc: string | null = useMemo(() => {
