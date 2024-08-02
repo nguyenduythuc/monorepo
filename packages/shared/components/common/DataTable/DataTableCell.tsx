@@ -26,7 +26,7 @@ export const DataTableCell = ({
     <Pressable
       style={tw`${cellWidth} min-h-${
         numberOfLines * 6
-      } py-1.5 pr-2 pl-3 items-start ${style}`}
+      } py-1.5 pr-2 pl-3 items-start justify-center ${style}`}
       onPress={onPress}>
       {typeof children === 'string' ? (
         <Text numberOfLines={numberOfLines} style={tw`${textStyle}`}>

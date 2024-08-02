@@ -14,6 +14,11 @@ import CheckCircleIcon from '../../../assets/images/svg/CheckCircleIcon';
 import WarningCircleIcon from '../../../assets/images/svg/WarningCircleIcon';
 import EyeOpenIcon from '../../../assets/images/svg/EyeOpenIcon';
 import EyeCloseIcon from '../../../assets/images/svg/EyeCloseIcon';
+import ArrowDown from '../../../assets/images/svg/ArrowDown';
+import CheckboxIcon from '../../../assets/images/svg/CheckBoxIcon';
+import CheckCircle from '../../../assets/images/svg/CheckCircle';
+import InfoIcon from '../../../assets/images/svg/InfoIcon';
+import CalendarIcon from '../../../assets/images/svg/CalendarIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -29,6 +34,10 @@ const iconList = (props: IconProps) => ({
   'warning-circle': <WarningCircleIcon {...props} />,
   'eye-open': <EyeOpenIcon {...props} />,
   'eye-close': <EyeCloseIcon {...props} />,
+  'checkbox-icon': <CheckboxIcon {...props} />,
+  'info-icon': <InfoIcon {...props} />,
+  'arrow-down': <ArrowDown {...props} />,
+  'calendar-icon': <CalendarIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

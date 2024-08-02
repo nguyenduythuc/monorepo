@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import tw from 'twrnc';
-import {BaseModel} from '../AppModal';
+import {BaseModal} from '../AppModal';
 
 type DropdownProps = {
   label?: number;
@@ -31,7 +31,7 @@ export const PageSelectButton: React.FC<DropdownProps> = ({
         style={tw`bg-white border-gray-300 min-w-20 h-8 rounded-lg border px-2 flex-row items-center justify-center`}>
         <Text style={tw`text-base`}>{label}</Text>
       </TouchableOpacity>
-      <BaseModel ref={dropDownRef}>
+      <BaseModal ref={dropDownRef}>
         <>
           <View
             style={tw`py-2 justify-center items-center border-b border-gray-300`}>
@@ -54,7 +54,7 @@ export const PageSelectButton: React.FC<DropdownProps> = ({
             ))}
           </ScrollView>
         </>
-      </BaseModel>
+      </BaseModal>
     </>
   );
 };

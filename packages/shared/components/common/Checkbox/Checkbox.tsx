@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, ReactNode, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import tw from 'twrnc';
 import Svg, {Path} from 'react-native-svg';
@@ -6,11 +6,13 @@ import Svg, {Path} from 'react-native-svg';
 export type CheckboxProps = {
   disabled?: boolean;
   label: string;
-  onChange?: (label: string) => void;
+  onChange?: (isChecked?: boolean) => void;
   color?: string;
   isChecked?: boolean;
   checkboxRight?: boolean;
+  description?: string;
   size?: 'sm' | 'lg' | 'xl';
+  children?: React.ReactNode;
 };
 
 export const Checkbox: FC<CheckboxProps> = ({
@@ -21,14 +23,12 @@ export const Checkbox: FC<CheckboxProps> = ({
   isChecked = false,
   checkboxRight,
   size = 'sm',
+  description = '12341234',
+  children,
 }) => {
-  const [checked, setChecked] = useState(isChecked);
-
   const handlePress = () => {
-    const newChecked = !checked;
-    setChecked(newChecked);
     if (onChange) {
-      onChange(label);
+      onChange(!isChecked);
     }
   };
 
@@ -38,17 +38,24 @@ export const Checkbox: FC<CheckboxProps> = ({
     xl: 'w-8 h-8',
   };
 
-  const checkboxStyle = tw`${checkboxSz[size]} border-2 border-${color}-600 items-center justify-center rounded-lg`;
+  const checkboxStyle = tw`${checkboxSz[size]} border-2 border-gray-300 items-center justify-center rounded-lg`;
   return (
     <TouchableOpacity
-      style={[tw`flex flex-row items-center pr-3`, disabled && tw`opacity-50`]}
+      style={[tw`flex flex-row pr-8 items-start`, disabled && tw`opacity-50`]}
       disabled={disabled}
       onPress={handlePress}>
       {label && checkboxRight && (
-        <Text style={tw`ml-3 mr-3 text-${size}`}>{label}</Text>
+        <View>
+          <Text style={tw`ml-3 mr-3 text-base pb-2`}>{label}</Text>
+          <Text style={tw`ml-3 mr-3 text-sm text-blue-600`}>{description}</Text>
+        </View>
       )}
-      <View style={[checkboxStyle, checked && tw`bg-${color}-600`]}>
-        {checked && (
+      <View
+        style={[
+          checkboxStyle,
+          isChecked && tw`bg-${color}-600 border-${color}-600`,
+        ]}>
+        {isChecked && (
           <View style={tw`items-center`}>
             <Svg width="12" height="12" viewBox="0 0 11 9" fill="none">
               <Path
@@ -59,8 +66,12 @@ export const Checkbox: FC<CheckboxProps> = ({
           </View>
         )}
       </View>
+      {children}
       {label && !checkboxRight && (
-        <Text style={tw`ml-3 text-${size}`}>{label}</Text>
+        <View style={tw`items-start`}>
+          <Text style={tw`ml-3 mr-3 text-base pb-1`}>{label}</Text>
+          <Text style={tw`ml-3 mr-3 text-sm text-blue-600`}>{description}</Text>
+        </View>
       )}
     </TouchableOpacity>
   );

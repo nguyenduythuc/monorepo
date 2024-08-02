@@ -27,8 +27,9 @@ export interface ITextInputBaseProps extends TextInputProps {
   containerInputStyle?: string;
   containerLabelStyle?: string;
   textInputStyle?: string;
-  watch: UseFormWatch<any>;
+  watch?: UseFormWatch<any>;
   errorMessage?: string;
+  unit?: string;
 }
 
 export interface ITextInputProps extends ITextInputBaseProps {

@@ -1,7 +1,14 @@
 import React from 'react';
 import {FieldConfig, FieldType, FormProps} from '../../types/formTypes';
 import {Controller, useForm} from 'react-hook-form';
-import {TextInput, TextInputSearch} from '../common';
+import {
+  Checkbox,
+  DropDownSelect,
+  Icon,
+  SliderWithTextInput,
+  TextInput,
+  TextInputSearch,
+} from '../common';
 import {View} from 'react-native';
 import tw from 'twrnc';
 
@@ -78,6 +85,83 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   placeholder={field.placeholder}
                   containerStyle={field.containerStyle}
                 />
+              );
+            }}
+          />
+        );
+
+      case FieldType.SliderWithTextInput:
+        return (
+          <Controller
+            key={field.label}
+            {...field.controlProps}
+            control={control}
+            defaultValue={field.defaultValue}
+            render={({field: {onChange, onBlur, value, ref}}) => {
+              return (
+                <SliderWithTextInput
+                  color="red"
+                  onChange={onChange}
+                  onChangeSlider={onChange}
+                  value={value}
+                  max_value={field.maxValue || 10}
+                  min_value={field.minValue || 1}
+                  step={field.step || 1}
+                  unit={field.unit || 'unit'}
+                  label={field.label}
+                  defaultValue={field.defaultValue || ''}
+                />
+              );
+            }}
+          />
+        );
+
+      case FieldType.SelectDropdown:
+        return (
+          <Controller
+            key={field.label}
+            {...field.controlProps}
+            control={control}
+            defaultValue={''}
+            render={({field: {onChange, onBlur, value, ref}}) => {
+              return (
+                <DropDownSelect
+                  value={value}
+                  required={!!field.controlProps.rules?.required}
+                  label={field.label}
+                  options={field.options || []}
+                  onChange={onChange}
+                  placeholder="Choose Loan Purpose"
+                />
+              );
+            }}
+          />
+        );
+
+      case FieldType.CheckboxWithIcon:
+        return (
+          <Controller
+            key={field.label}
+            {...field.controlProps}
+            control={control}
+            defaultValue={false}
+            render={({field: {onChange, onBlur, value, ref}}) => {
+              return (
+                <View
+                  style={tw`flex flex-row justify-between items-start mt-6`}>
+                  <Checkbox
+                    label={field.label || ''}
+                    description={field.description}
+                    isChecked={value}
+                    onChange={onChange}
+                    color={field.checkboxColor}
+                  />
+                  <Icon
+                    size={20}
+                    color={field.iconColor || '#999999'}
+                    name={field.iconName || 'info-icon'}
+                  />
+                </View>
               );
             }}
           />

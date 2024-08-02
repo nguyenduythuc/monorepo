@@ -6,21 +6,27 @@ import React, {
   useState,
 } from 'react';
 
-import {View, TouchableOpacity, Platform, ViewStyle} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Platform,
+  ViewStyle,
+  SafeAreaView,
+} from 'react-native';
 import tw from 'twrnc';
 import {Portal} from '@gorhom/portal';
 import {createPortal} from 'react-dom';
 
 const isWeb = Platform.OS === 'web';
 
-type AppModelType = {
+type AppModalType = {
   contentStyle?: string | ViewStyle;
   backdropStyle?: string | ViewStyle;
   children?: React.ReactNode;
 };
 
-export const BaseModel = forwardRef(
-  ({contentStyle = '', backdropStyle = '', children}: AppModelType, ref) => {
+export const BaseModal = forwardRef(
+  ({contentStyle = '', backdropStyle = '', children}: AppModalType, ref) => {
     const [isOpen, setIsOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +64,7 @@ export const BaseModel = forwardRef(
           onPress={onClose}>
           <View
             style={tw.style(
-              `bg-white border border-gray-300 bottom-0 rounded-t-2xl max-h-66 w-full`,
+              `bg-white border border-gray-300 bottom-0 rounded-t-2xl max-h-96 w-full pb-6`,
               {position: isWeb ? 'fixed' : 'absolute'},
               contentStyle,
             )}>
