@@ -4,7 +4,6 @@ import {Controller, useForm} from 'react-hook-form';
 import {TextInput, TextInputSearch} from '../common';
 import {View} from 'react-native';
 import tw from 'twrnc';
-import {useTranslations} from 'use-intl';
 
 export const useCustomForm = ({fields, defaultValues}: FormProps) => {
   const {
@@ -19,14 +18,13 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
     defaultValues,
   });
   const {errors} = formState;
-  const t = useTranslations();
 
   const renderField = (field: FieldConfig, isRow: boolean) => {
     switch (field.type) {
       case FieldType.TextInput:
         return (
           <Controller
-            key={field.label}
+            key={field.controlProps.name}
             {...field.controlProps}
             control={control}
             defaultValue=""
@@ -39,15 +37,17 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   watch={watch}
                   onBlur={onBlur}
                   disabled={field.disabled}
-                  label={t(field.label)}
+                  label={field.label}
                   ref={ref}
                   errorMessage={
                     errors[field.controlProps.name]?.message?.toString() || ''
                   }
                   required={!!field.controlProps.rules?.required}
-                  placeholder={t(field.placeholder)}
+                  placeholder={field.placeholder}
                   containerStyle={field.containerStyle}
                   secureTextEntry={field.secureTextEntry}
+                  leftComponent={field.leftComponent}
+                  textInputStyle={field.textInputStyle}
                 />
               );
             }}
@@ -56,7 +56,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
       case FieldType.TextInputSearch:
         return (
           <Controller
-            key={field.label}
+            key={field.controlProps.name}
             {...field.controlProps}
             control={control}
             defaultValue=""
@@ -69,13 +69,13 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   watch={watch}
                   onBlur={onBlur}
                   disabled={field.disabled}
-                  label={t(field.label)}
+                  label={field.label}
                   ref={ref}
                   errorMessage={
                     errors[field.controlProps.name]?.message?.toString() || ''
                   }
                   required={!!field.controlProps.rules?.required}
-                  placeholder={t(field.placeholder)}
+                  placeholder={field.placeholder}
                   containerStyle={field.containerStyle}
                 />
               );

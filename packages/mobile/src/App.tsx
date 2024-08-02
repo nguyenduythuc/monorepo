@@ -15,6 +15,8 @@ import {LogLevel, OneSignal} from 'react-native-onesignal';
 import SecuritiesChecking from './providers/SecuritiesChecking';
 import {RootNavigator} from './navigators/RootNavigator';
 import {PortalProvider} from '@gorhom/portal';
+import Toast from 'react-native-toast-message';
+import toastConfig from './toastConfig';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -41,6 +43,7 @@ const App = () => {
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
                 <RootNavigator />
+                <Toast config={toastConfig} />
               </PersistGate>
             </Provider>
           </ThemeProvider>

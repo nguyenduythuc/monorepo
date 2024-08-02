@@ -1,5 +1,5 @@
 import {UseFormWatch} from 'react-hook-form';
-import {TextInputProps, TextProps, TextInput} from 'react-native';
+import {TextInputProps, TextProps} from 'react-native';
 import {IconKeys} from '../components';
 
 export interface SVGProps {
@@ -26,6 +26,7 @@ export interface ITextInputBaseProps extends TextInputProps {
   containerStyle?: string;
   containerInputStyle?: string;
   containerLabelStyle?: string;
+  textInputStyle?: string;
   watch: UseFormWatch<any>;
   errorMessage?: string;
 }
@@ -45,4 +46,16 @@ export interface IErorMsgProps extends TextProps {
   title?: string;
   errorStyle?: string;
   containerErrorStyle?: string;
+}
+
+export interface IConfirmModalProps {
+  visiable: boolean;
+  setVisiable?: (value: boolean) => void;
+  title?: string;
+  content?: string;
+  labelButton1?: string;
+  onButton1Press?: () => void;
+  labelButton2?: string;
+  onButton2Press?: () => void;
+  onPressClose?: () => void;
 }

@@ -1,6 +1,22 @@
 {
   "welcome": "Welcome!",
   "hello": "Hello",
+  "Modal": {
+    "notSuccess": "Không thành công",
+    "agree": "Đồng ý"
+  },
+  "OTPStatusCode": {
+    "00": "Success",
+    "80": "Process send otp failed",
+    "82": "Process generate otp failed",
+    "83": "Over limit time for generate otp",
+    "84": "Your account blocked in 24 hours. Because more session OTP fail",
+    "85": "Over limit time for verify otp",
+    "86": "OTP Code not valid",
+    "87": "OTP Code expired",
+    "88": "Your account blocked in 24 hours. Because more session verify OTP fail",
+    "89": "Process verify otp failed"
+  },
   "Login": {
     "title": "Chào mừng bạn đến với,",
     "desc": "Lotte Finance Việt Nam",
@@ -15,6 +31,39 @@
     "conditional": "Các điều khoản",
     "and": "và",
     "policy": "Chính sách bảo mật",
-    "otpLogin": "Đăng nhập bằng OTP"
+    "otpLogin": "Đăng nhập bằng OTP",
+    "msgLoginFail": "Thông tin đăng nhập không chính xác, vui lòng kiểm tra lại"
+  },
+  "VerifyAccount": {
+    "title": "Verify account",
+    "desc": "Enter your phone number to receive\nthe OTP verification code",
+    "getOTP": "Get OTP",
+    "haveAnAccount": "Already have an account?",
+    "loginID": "Login ID",
+    "phonenumberPlaceholder": "Nhập số điện thoại",
+    "idCardPlacegholder": "Nhập số CCCD",
+    "msgVerifyFail": "Thông tin đăng nhập không hợp lệ"
+  },
+  "EnterOTP": {
+    "title": "Please enter OTP code",
+    "desc": "Enter the OTP code sent to the phone number:",
+    "remainTimeResentOTP": "Code can be sent again after:",
+    "resendOTP": "Resend code",
+    "msgVerifyFail": "Xảy ra lỗi khi xác thực mã OTP",
+    "msgResendFail": "Xảy ra lỗi khi gửi lại mã OTP"
+  },
+  "SignUp": {
+    "title": "Đăng ký tài khoản",
+    "desc": "Vui lòng nhập đầy đủ thông tin để đăng ký và sử dụng dịch vụ của LOTTE Finance",
+    "fullname": "Họ và tên",
+    "fullnamePlaceholder": "Nhập họ và tên",
+    "phonenumber": "Số điện thoại",
+    "phonenumberPlaceholder": "Nhập số điện thoại",
+    "idCard": "Số CCCD",
+    "idCardPlaceholder": "Nhập số CCCD",
+    "signup": "Tạo tài khoản mới",
+    "readAndAgree": "Tôi đã đọc và chấp nhận",
+    "conditional": "Điều kiện và điều khoản",
+    "useService": "sử dụng dịch vụ"
   }
 }
