@@ -13,6 +13,8 @@ import {
   EnterOTPContainer,
   LoginContainer,
   SignUpContainer,
+  SimulateScreenContainer,
+  RepaymentScheduleScreen,
 } from '../screens';
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -57,12 +59,27 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
+        name="SimulateScreen"
+        component={SimulateScreenContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RepaymentScheduleScreen"
+        component={RepaymentScheduleScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="ComponentScreen"
         component={ComponentScreen}
         options={{
           headerShown: false,
         }}
       />
+
       <Stack.Screen
         name="Test"
         component={TestScreen}

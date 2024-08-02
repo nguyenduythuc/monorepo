@@ -7,3 +7,6 @@ export * from './Switch';
 export * from './DataTable';
 export * from './AppModal';
 export * from './Modal';
+export * from './Slider';
+export * from './Dropdown';
+export * from './Appbar';

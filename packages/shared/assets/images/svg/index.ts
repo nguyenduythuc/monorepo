@@ -11,3 +11,7 @@ export * from './CheckCircleIcon';
 export * from './WarningCircleIcon';
 export * from './EyeCloseIcon';
 export * from './EyeOpenIcon';
+export * from './CheckBoxIcon';
+export * from './CheckCircle';
+export * from './InfoIcon';
+export * from './CalendarIcon';

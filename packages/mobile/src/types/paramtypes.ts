@@ -15,6 +15,8 @@ export type RootParamList = {
     identityNumber: string;
   };
   SignUp: undefined;
+  SimulateScreen: undefined;
+  RepaymentScheduleScreen: undefined;
 };
 
 export type LoginScreenNavigationProps = NativeStackNavigationProp<

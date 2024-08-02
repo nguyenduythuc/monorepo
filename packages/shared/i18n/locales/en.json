@@ -65,5 +65,11 @@
     "readAndAgree": "Tôi đã đọc và chấp nhận",
     "conditional": "Điều kiện và điều khoản",
     "useService": "sử dụng dịch vụ"
+  },
+  "Simulate": {
+    "tenor": "Tenor",
+    "loanAmount": "Loan Amount",
+    "purpose": "Purpose",
+    "Product": "Product"
   }
 }

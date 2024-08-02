@@ -17,6 +17,12 @@
     "88": "Your account blocked in 24 hours. Because more session verify OTP fail",
     "89": "Process verify otp failed"
   },
+  "Simulate": {
+    "tenor": "Tenor",
+    "loanAmount": "Loan Amount",
+    "loanPurpose": "Purpose",
+    "loanProduct": "Loan product"
+  },
   "Login": {
     "title": "Chào mừng bạn đến với,",
     "desc": "Lotte Finance Việt Nam",

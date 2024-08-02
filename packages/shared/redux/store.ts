@@ -5,6 +5,7 @@ import rootReducer from './rootReducer';
 import {apiSlice} from './slices/apiSlices';
 import {persistStore, persistReducer} from 'redux-persist';
 import {mmkvStorage} from '../utils/storage';
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
 
 // Mobile store
 const persistConfig = {
@@ -28,3 +29,4 @@ setupListeners(store.dispatch);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

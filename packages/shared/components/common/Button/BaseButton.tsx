@@ -20,6 +20,7 @@ import {
 } from '@lfvn-customer/shared/themes/components/button';
 import tw from 'twrnc';
 import {Icon} from '../Icon';
+import {useGetTheme} from '../../../hooks/useGetTheme';
 
 export const CustomButton: FC<BaseButtonProps> = ({
   variant = 'filled',
@@ -31,11 +32,12 @@ export const CustomButton: FC<BaseButtonProps> = ({
   onPress,
   children,
   loading = false,
+  styleTextLeft,
   ...props
 }) => {
-  // Todo : Breakdown component more ( TextButton Extends from BaseButton )
-  // Todo : more Style customize
-  // Todo : can use library if necessary
+  const {theme} = useGetTheme();
+  const {borderNegative100, borderUseful500, textUseful500} = theme;
+
   const defaultStyle =
     variant === 'outlined'
       ? buttonOutlined(color)
@@ -83,9 +85,9 @@ export const CustomButton: FC<BaseButtonProps> = ({
   return (
     <View>
       <Pressable
-        style={tw`${buttonType} items-center justify-center flex flex-row rounded-lg ${
-          disabled ? ' opacity-50' : ''
-        }`}
+        style={tw`${buttonType} items-center  flex flex-row rounded-lg ${
+          disabled ? 'opacity-50' : ''
+        } ${styleTextLeft ? 'justify-start' : 'justify-center'}`}
         disabled={disabled}
         onPress={onPress}
         onHoverIn={onHoverInFunc}
