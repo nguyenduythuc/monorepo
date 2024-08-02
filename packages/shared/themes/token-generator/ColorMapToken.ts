@@ -13,7 +13,13 @@ export const generateColorPalettes = (baseColor: string, prefix: string) => {
   return colors;
 };
 
-const genColorMapToken = (seed: BaseColorType) => {
+type SeedType = {
+  [key: string]: {
+    [key: string]: string;
+  };
+};
+
+const genColorMapToken = (seed: BaseColorType & SeedType) => {
   const themeColor = Object.keys(seed).reduce((result, key) => {
     const color = Object.keys(seed[key]).reduce((colorResult, key2) => {
       return {...colorResult, ...generateColorPalettes(seed[key][key2], key2)};

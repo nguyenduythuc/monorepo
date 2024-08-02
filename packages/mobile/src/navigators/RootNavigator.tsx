@@ -16,6 +16,7 @@ import {
   SimulateScreenContainer,
   RepaymentScheduleScreen,
 } from '../screens';
+import {Linking} from 'react-native';
 
 const Stack = createNativeStackNavigator<RootParamList>();
 
@@ -98,9 +99,40 @@ const RootStack = () => {
   );
 };
 
+const linking = {
+  prefixes: ['lfvncustomer://', 'https://duythuc.vercel.app'],
+
+  // Custom function to subscribe to incoming links
+  subscribe(listener: (url: string) => void) {
+    // Listen to incoming links from deep linking
+    const linkingSubscription = Linking.addEventListener('url', ({url}) => {
+      console.log(url);
+      listener(url);
+    });
+
+    return () => {
+      linkingSubscription.remove();
+    };
+  },
+
+  config: {
+    screens: {
+      Login: {
+        path: 'login',
+      },
+      Test: {
+        path: 'test',
+      },
+      Home: {
+        path: 'home',
+      },
+    },
+  },
+};
+
 export const RootNavigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <RootStack />
     </NavigationContainer>
   );
