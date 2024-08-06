@@ -1,13 +1,16 @@
-import {useCustomForm} from '../components/Form/Form.hook';
-import {FieldTestConfig} from '../components/Form/Form.utils';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {useGenerateOTPMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useNavigation} from '@react-navigation/native';
 import {EnterOTPScreenNavigationProps} from '../../mobile/src/types/paramtypes';
 import Toast from 'react-native-toast-message';
 import {useEffect} from 'react';
 import {useTranslations} from 'use-intl';
-import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
-import {API_SUCCESS_CODE, API_SUCCESS_MESSAGE} from '../utils/constants';
+import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
+import {
+  API_SUCCESS_CODE,
+  API_SUCCESS_MESSAGE,
+} from '@lfvn-customer/shared/utils/constants';
 import {Keyboard} from 'react-native';
 
 const useVerifyAccount = () => {

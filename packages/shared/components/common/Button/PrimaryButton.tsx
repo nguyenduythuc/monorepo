@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import {CustomButton} from '../Button/BaseButton';
-import React, {FC, useEffect, useMemo, useState} from 'react';
+import React from 'react';
 import tw from 'twrnc';
 
 export const PrimaryButton = ({title = '', onPress = () => {}}) => {

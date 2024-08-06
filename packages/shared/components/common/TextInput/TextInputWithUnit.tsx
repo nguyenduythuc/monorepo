@@ -1,7 +1,7 @@
 import React, {forwardRef, useMemo} from 'react';
-import {ITextInputProps} from '../../../types';
+import {ITextInputProps} from '@lfvn-customer/shared/types';
 import {View, Text, TextInput as NativeTextInput} from 'react-native';
-import tw from '../../../themes/tailwind';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 // import Icon from 'react-native-vector-icons/AntDesign';
 import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';

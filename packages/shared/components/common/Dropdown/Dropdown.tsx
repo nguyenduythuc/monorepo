@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import {BaseModal} from '../AppModal';
 import {Icon, Radio} from '@lfvn-customer/shared/components';
 import {Label} from '@lfvn-customer/shared/components/common/Label';
-import {dropdownOptionProduct} from '../../../types/components/dropdown';
+import {dropdownOptionProduct} from '@lfvn-customer/shared/types/components/dropdown';
 
 type DropdownProps = {
   label?: string;

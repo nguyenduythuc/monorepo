@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path, Rect} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const InfoIcon = ({width, height, size, color = '#999999'}: SVGProps) => (
   <Svg width={size} height={size} viewBox="0 0 19 19" fill="none">

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path, Rect} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const CheckCircle = ({
   width = 20,

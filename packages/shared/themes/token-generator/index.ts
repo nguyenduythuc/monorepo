@@ -1,4 +1,4 @@
-import {ColorProps} from '../../types/themeTypes';
+import {ColorProps} from '@lfvn-customer/shared/types/themeTypes';
 import genColorMapToken from './ColorMapToken';
 
 const seedToken = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {IErorMsgProps} from '../../../types';
+import {IErorMsgProps} from '@lfvn-customer/shared/types';
 import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 

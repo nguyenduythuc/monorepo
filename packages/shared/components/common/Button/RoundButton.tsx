@@ -1,8 +1,8 @@
 import React, {FC, useMemo} from 'react';
 import {ButtonProps, TouchableOpacity, View, Image} from 'react-native';
-import {BaseButtonProps} from '../../../types/components/button';
+import {BaseButtonProps} from '@lfvn-customer/shared/types/components/button';
 import tw from 'twrnc';
-import {roundButtonSize} from '../../../themes/components/button';
+import {roundButtonSize} from '@lfvn-customer/shared/themes/components/button';
 import {Icon} from '../Icon';
 
 export const RoundButton: FC<BaseButtonProps> = ({

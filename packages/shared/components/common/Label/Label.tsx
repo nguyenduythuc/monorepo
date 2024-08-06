@@ -1,7 +1,7 @@
 import React from 'react';
-import {ILabelProps} from '../../../types';
+import {ILabelProps} from '@lfvn-customer/shared/types';
 import {View, Text} from 'react-native';
-import tw from '../../../themes/tailwind';
+import tw from 'twrnc';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {useTranslations} from 'use-intl';
 

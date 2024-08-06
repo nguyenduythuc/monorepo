@@ -1,6 +1,6 @@
 import {TinyColor} from '@ctrl/tinycolor';
 import {BaseColorType} from '.';
-import {ColorProps} from '../../types/themeTypes';
+import {ColorProps} from '@lfvn-customer/shared/types/themeTypes';
 
 export const generateColorPalettes = (baseColor: string, prefix: string) => {
   const colors: {[key: string]: string} = {};

@@ -1,9 +1,11 @@
 'use client';
 import React, {createContext, ReactNode} from 'react';
 import tw, {useDeviceContext, useAppColorScheme} from 'twrnc';
-import {ThemeContextProps} from '../types/themeTypes';
+import {ThemeContextProps} from '@lfvn-customer/shared/types/themeTypes';
 
-export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextProps | undefined>(
+  undefined,
+);
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
   useDeviceContext(tw, {

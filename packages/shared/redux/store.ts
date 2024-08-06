@@ -4,7 +4,7 @@ import {setupListeners} from '@reduxjs/toolkit/query';
 import rootReducer from './rootReducer';
 import {apiSlice} from './slices/apiSlices';
 import {persistStore, persistReducer} from 'redux-persist';
-import {mmkvStorage} from '../utils/storage';
+import {mmkvStorage} from '@lfvn-customer/shared/utils/storage';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
 
 // Mobile store

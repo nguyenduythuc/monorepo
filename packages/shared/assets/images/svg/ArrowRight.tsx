@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const ArrowRight = ({width = 9, height = 17, color = '#fff'}: SVGProps) => (
   <Svg width={width} height={height} viewBox="0 0 9 17" fill="none">

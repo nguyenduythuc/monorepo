@@ -1,6 +1,6 @@
 import {UseFormWatch} from 'react-hook-form';
 import {TextInputProps, TextProps} from 'react-native';
-import {IconKeys} from '../components';
+import {IconKeys} from '@lfvn-customer/shared/components';
 
 export interface SVGProps {
   color?: string;

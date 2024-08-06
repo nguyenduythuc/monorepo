@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const CheckCircleIcon = ({size = 25, color = 'white'}: SVGProps) => (
   <Svg width={size} height={size} viewBox="0 0 25 25" fill="none">

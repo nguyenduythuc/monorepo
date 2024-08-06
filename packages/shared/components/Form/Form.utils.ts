@@ -1,5 +1,5 @@
-import {validateOnlyNumberFloat} from '../../hooks/validations';
-import {FieldConfig, FieldType} from '../../types/formTypes';
+import {validateOnlyNumberFloat} from '@lfvn-customer/shared/hooks/validations';
+import {FieldConfig, FieldType} from '@lfvn-customer/shared/types/formTypes';
 
 export const FieldTestConfig: Record<string, FieldConfig> = {
   TestInput: {

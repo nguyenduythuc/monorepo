@@ -8,7 +8,7 @@ import {
   VerifyOTPResponseProps,
   ResendOTPResponseProps,
   ResendOTPRequestProps,
-} from '../../../types/services';
+} from '@lfvn-customer/shared/types/services';
 
 export const loginAPI = (
   builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,

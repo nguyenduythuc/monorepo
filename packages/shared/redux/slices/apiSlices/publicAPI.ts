@@ -1,5 +1,5 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
-import {MetadataResponseProps} from '../../../types/services/productTypes';
+import {MetadataResponseProps} from '@lfvn-customer/shared/types/services/productTypes';
 
 export const publicAPI = (
   builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,

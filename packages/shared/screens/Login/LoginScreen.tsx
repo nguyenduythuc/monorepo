@@ -11,7 +11,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {logoAppTransparent} from '@lfvn-customer/shared/assets';
 import useLoginScreen from '@lfvn-customer/shared/hooks/useLogin';
-import {CustomButton, Icon} from '@lfvn-customer/shared/components';
+import {Appbar, CustomButton, Icon} from '@lfvn-customer/shared/components';
 import Toast from 'react-native-toast-message';
 
 const LoginScreen = ({t}: {t: any}) => {
@@ -45,6 +45,7 @@ const LoginScreen = ({t}: {t: any}) => {
         }
         style={styles.imgLogo}
       />
+
       <Text style={tw.style('text-white mt-24 text-2xl font-semibold px-4')}>
         {t('Login.title')}
       </Text>

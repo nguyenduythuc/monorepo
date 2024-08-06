@@ -5,7 +5,7 @@ import {
   useGetMetadataQuery,
   useGetProductQuery,
   useGetPurposeQuery,
-} from '../redux/slices/apiSlices';
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {
   ProductDataType,
   PurposeDataType,

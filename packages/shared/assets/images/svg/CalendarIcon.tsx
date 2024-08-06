@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const CalendarIcon = ({size = 17, color = '#2F6BFF'}: SVGProps) => (
   <Svg width={size} height={size} viewBox="0 0 17 17" fill={color}>

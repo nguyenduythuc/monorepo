@@ -11,8 +11,8 @@ import {
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useTranslations} from 'use-intl';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import useSignUp from '../../hooks/useSignUp';
-import {Checkbox} from '../../components';
+import useSignUp from '@lfvn-customer/shared/hooks/useSignUp';
+import {Checkbox} from '@lfvn-customer/shared/components';
 
 const SignUpScreen = () => {
   const t = useTranslations();

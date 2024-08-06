@@ -13,7 +13,7 @@ import {useTranslations} from 'use-intl';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useEnterOTP from '@lfvn-customer/shared/hooks/useEnterOTP';
 import {CodeField} from 'react-native-confirmation-code-field';
-import {ConfirmModal, Icon} from '../../components';
+import {ConfirmModal, Icon} from '@lfvn-customer/shared/components';
 import {maskPhoneNumber, formatTime} from '@lfvn-customer/shared/utils';
 
 const EnterOTPScreen = ({

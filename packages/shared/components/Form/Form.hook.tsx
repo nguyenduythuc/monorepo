@@ -1,5 +1,9 @@
 import React from 'react';
-import {FieldConfig, FieldType, FormProps} from '../../types/formTypes';
+import {
+  FieldConfig,
+  FieldType,
+  FormProps,
+} from '@lfvn-customer/shared/types/formTypes';
 import {Controller, useForm} from 'react-hook-form';
 import {
   Checkbox,
@@ -8,7 +12,7 @@ import {
   SliderWithTextInput,
   TextInput,
   TextInputSearch,
-} from '../common';
+} from '@lfvn-customer/shared/components/common';
 import {View} from 'react-native';
 import tw from 'twrnc';
 

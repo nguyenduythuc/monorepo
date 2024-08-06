@@ -12,8 +12,11 @@ import {
 } from 'react-native-confirmation-code-field';
 import Toast from 'react-native-toast-message';
 import {useTranslations} from 'use-intl';
-import {API_SUCCESS_CODE, API_SUCCESS_MESSAGE} from '../utils/constants';
-import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
+import {
+  API_SUCCESS_CODE,
+  API_SUCCESS_MESSAGE,
+} from '@lfvn-customer/shared/utils/constants';
+import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
 import {Keyboard} from 'react-native';
 
 const CELL_COUNT = 6;

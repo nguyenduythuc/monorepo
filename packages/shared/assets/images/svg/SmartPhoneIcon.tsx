@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Rect, Circle} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const SmartPhoneIcon = ({size = 25, color = '#E7252B'}: SVGProps) => (
   <Svg width={size} height={size} viewBox="0 0 25 25" fill="none">
