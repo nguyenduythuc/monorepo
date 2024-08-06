@@ -1,12 +1,10 @@
 import {useRouter} from 'next/navigation';
-import {Platform} from 'react-native';
-import {PrimaryNavigatorNavigationProp} from '../../../mobile/src/navigators/RootNavigator';
-import {RootParamList} from '../../../mobile/src/types/paramtypes';
+import {RootParamListWeb} from '../../../mobile/src/types/paramtypes';
 
 export const useConfigRouting = () => {
   const navigation = useRouter();
 
-  const appNavigate = (nextScreen: string) => {
+  const appNavigate = (nextScreen: keyof RootParamListWeb) => {
     console.log('nextScreenMobile', nextScreen);
     navigation.push(nextScreen);
   };

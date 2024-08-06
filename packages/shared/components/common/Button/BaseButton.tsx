@@ -20,7 +20,7 @@ import {
 } from '@lfvn-customer/shared/themes/components/button';
 import tw from 'twrnc';
 import {Icon} from '../Icon';
-import {useGetTheme} from '../../../hooks/useGetTheme';
+import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 
 export const CustomButton: FC<BaseButtonProps> = ({
   variant = 'filled',

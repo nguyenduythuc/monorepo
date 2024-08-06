@@ -1,5 +1,5 @@
-import {useCustomForm} from '../components/Form/Form.hook';
-import {FieldTestConfig} from '../components/Form/Form.utils';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 
 const useTestScreen = () => {
   const fields = [FieldTestConfig.TestInput, FieldTestConfig.SearchTestInput];

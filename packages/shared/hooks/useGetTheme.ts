@@ -1,6 +1,6 @@
 import {useContext, useMemo} from 'react';
-import {ThemeContext} from '../themes';
-import themeTokens, {themeStyles} from '../themes/colors';
+import {ThemeContext} from '@lfvn-customer/shared/themes';
+import themeTokens, {themeStyles} from '@lfvn-customer/shared/themes/colors';
 
 export const useGetTheme = () => {
   const context = useContext(ThemeContext);

@@ -1,18 +1,21 @@
 import {useDispatch} from 'react-redux';
-import {useCustomForm} from '../components/Form/Form.hook';
-import {FieldTestConfig} from '../components/Form/Form.utils';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {useLoginMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {setToken} from '../redux/slices/authSlice';
+import {setToken} from '@lfvn-customer/shared/redux/slices/authSlice';
 import {useNavigation} from '@react-navigation/native';
 import {LoginScreenNavigationProps} from '../../mobile/src/types/paramtypes';
 import {useEffect} from 'react';
 import {Keyboard} from 'react-native';
+import {setAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
+import {useConfigRouting} from './routing';
 
 const useLoginScreen = () => {
   const fields = [FieldTestConfig.Account, FieldTestConfig.Password];
   const [login, {isError, isLoading}] = useLoginMutation();
   const dispatch = useDispatch();
   const navigation = useNavigation<LoginScreenNavigationProps>();
+  const {appNavigate} = useConfigRouting();
 
   useEffect(() => {
     // Clear token when start login
@@ -33,6 +36,10 @@ const useLoginScreen = () => {
       password,
     });
     dispatch(setToken(result.data?.id_token));
+    if (result.data?.id_token) {
+      setAppToken(result.data?.id_token || '');
+      appNavigate('SimulateScreen');
+    }
   });
 
   const onPressOTPLogin = () => {

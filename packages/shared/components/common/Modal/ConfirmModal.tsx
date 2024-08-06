@@ -1,7 +1,7 @@
 import React from 'react';
-import {IConfirmModalProps} from '../../../types';
+import {IConfirmModalProps} from '@lfvn-customer/shared/types';
 import {View, Text, TouchableOpacity} from 'react-native';
-import tw from '../../../themes/tailwind';
+import tw from 'twrnc';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 
 export const ConfirmModal: React.FC<IConfirmModalProps> = ({

@@ -1,6 +1,6 @@
 import {UseControllerProps} from 'react-hook-form';
 import {KeyboardTypeOptions} from 'react-native';
-import {IconKeys} from '../components';
+import {IconKeys} from '@lfvn-customer/shared/components';
 import {dropdownOptionProduct} from './components/dropdown';
 
 export enum FieldType {

@@ -19,6 +19,10 @@ export type RootParamList = {
   RepaymentScheduleScreen: undefined;
 };
 
+export type RootParamListWeb = {
+  'repayment-schedule': undefined;
+};
+
 export type LoginScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
   'Login'

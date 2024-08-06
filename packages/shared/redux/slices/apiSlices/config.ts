@@ -1,6 +1,15 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import axios, {AxiosRequestConfig, AxiosError} from 'axios';
 
+let token = '';
+export const setAppToken = (newToken: string) => {
+  token = newToken;
+};
+
+export const getToken = () => {
+  return token;
+};
+
 const axiosBaseQuery =
   ({
     baseUrl,
@@ -17,14 +26,16 @@ const axiosBaseQuery =
     unknown
   > =>
   async ({url, method, data, params}, {getState}) => {
-    const token = (getState() as any).auth.token;
+    const savedToken = getToken();
     try {
       const result = await axios({
         url: baseUrl + url,
         method,
         data,
         params,
-        headers: token ? {Authorization: `Bearer ${token}`} : undefined,
+        headers: savedToken
+          ? {Authorization: `Bearer ${savedToken}`}
+          : undefined,
       });
       return {data: result.data};
     } catch (axiosError) {

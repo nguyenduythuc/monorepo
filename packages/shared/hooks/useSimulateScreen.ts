@@ -1,20 +1,42 @@
 import {useEffect, useMemo, useState} from 'react';
-import {useCustomForm} from '../components/Form/Form.hook';
-import {FieldSimulateConfig} from '../components/Form/Form.utils';
-import {dropdownOptionProduct} from '../types/components/dropdown';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
   useGetPurposeQuery,
-} from '../redux/slices/apiSlices';
-import {ProductDataType, PurposeDataType} from '../types/services/productTypes';
-import {handleExecute} from '../utils/simulateCalculate';
-import {decryptAES} from '../utils/decryptText';
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {
+  ProductDataType,
+  PurposeDataType,
+} from '@lfvn-customer/shared/types/services/productTypes';
+import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
+import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
 import {useDispatch} from 'react-redux';
-import {setSimulate} from '../redux/slices/publicSlices';
-import {useAppSelector} from '../redux/store';
+import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import Config from 'react-native-config';
+import {Platform} from 'react-native';
 
 const useSimulateScreen = () => {
+  const dispatch = useDispatch();
+
+  const {
+    data: metaData,
+    error: metadataError,
+    isLoading: metadataLoading,
+  } = useGetMetadataQuery();
+
+  if (!metadataError) {
+    dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
+  } else {
+    const defaultSimulate =
+      Platform.OS !== 'web'
+        ? Config.DEAULT_SIMULATE_FORMULATE
+        : process.env.DEAULT_SIMULATE_FORMULATE;
+    dispatch(setSimulate(defaultSimulate));
+  }
+
   const {
     data: productData,
     error: productError,
@@ -31,9 +53,10 @@ const useSimulateScreen = () => {
 
   const stringFunc: string | null = useMemo(() => {
     // console.log((getState() as any).public.simulate)
-    // console.log('loanSimulate', loanSimulate);
-    return decryptAES(loanSimulate, 'bG90dGVmaW5hbmNlMjAyNGVmaW5hbmNl');
-  }, []);
+    const decodeKey =
+      Platform.OS !== 'web' ? Config.DECODE_KEY : process.env.DECODE_KEY;
+    return decryptAES(loanSimulate, decodeKey);
+  }, [loanSimulate]);
 
   const defaultData = {
     productCode: '999995',
@@ -76,7 +99,7 @@ const useSimulateScreen = () => {
       },
       FieldSimulateConfig.SimulateLoanInsurance,
     ];
-  }, [selectProduct]);
+  }, [selectProduct, productData, purposeData]);
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({

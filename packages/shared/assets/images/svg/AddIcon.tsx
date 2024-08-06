@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-import {SVGProps} from '../../../types';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
 const AddIcon = ({width = 20, height = 21, color = '#000'}: SVGProps) => (
   <Svg width={width} height={height} viewBox={`0 0 20 21`} fill="none">

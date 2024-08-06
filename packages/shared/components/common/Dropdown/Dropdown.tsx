@@ -1,10 +1,10 @@
-import React, {useMemo, useRef} from 'react';
+import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import tw from 'twrnc';
 import {BaseModal} from '../AppModal';
 import {Icon, Radio} from '@lfvn-customer/shared/components';
 import {Label} from '@lfvn-customer/shared/components/common/Label';
-import {dropdownOptionProduct} from '../../../types/components/dropdown';
+import {dropdownOptionProduct} from '@lfvn-customer/shared/types/components/dropdown';
 
 type DropdownProps = {
   label?: string;
@@ -81,7 +81,7 @@ export const DropDownSelect = ({
                   {item.productName || item.name}
                 </Text>
                 {value === (item.productCode || item.code) && (
-                  <Icon name="check-circle"></Icon>
+                  <Icon name="check-circle" color="green"></Icon>
                 )}
               </TouchableOpacity>
             ))}

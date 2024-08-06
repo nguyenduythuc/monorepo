@@ -1,5 +1,5 @@
 import type {ReactNode} from 'react';
-import {IconKeys} from '../../components';
+import {IconKeys} from '@lfvn-customer/shared/components';
 /**
  * This file contains the types and prop-types for Button and IconButton component.
  */

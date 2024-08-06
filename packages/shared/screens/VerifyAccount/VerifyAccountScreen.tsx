@@ -11,7 +11,7 @@ import {
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useTranslations} from 'use-intl';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import useVerifyAccount from '../../hooks/useVerifyAccount';
+import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
 
 const VerifyAccountScreen = () => {
   const t = useTranslations();

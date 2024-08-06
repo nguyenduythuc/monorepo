@@ -3,7 +3,7 @@ import {
   MetadataResponseProps,
   ProductResponseProps,
   PurposeResponseProps,
-} from '../../../types/services/productTypes';
+} from '@lfvn-customer/shared/types/services/productTypes';
 
 export const simulateAPI = (
   builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,

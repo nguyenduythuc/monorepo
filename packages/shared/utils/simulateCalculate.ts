@@ -1,5 +1,4 @@
 const executeStringAsFunction = (codeString: string, ...params: any) => {
-  console.log('codeString', codeString), console.log('params', params);
   try {
     // Construct the function with parameters
     const functionWithParams = new Function(
