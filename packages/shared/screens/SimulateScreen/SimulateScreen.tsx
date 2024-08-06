@@ -8,20 +8,15 @@ import {
   Icon,
 } from '@lfvn-customer/shared/components';
 import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
-import React, {useEffect, useMemo} from 'react';
-import {View, Text, ScrollView, TouchableOpacity, Platform} from 'react-native';
+import React from 'react';
+import {View, Text, ScrollView, Platform} from 'react-native';
 import tw from 'twrnc';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
-import {PrimaryNavigatorNavigationProp} from '../../../mobile/src/navigators/RootNavigator';
-import {useNavigation} from '@react-navigation/native';
 import {useConfigRouting} from '../../hooks/routing';
 import {useAppSelector} from '../../redux/store';
-import {useGetMetadataQuery} from '../../redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';
-import {setSimulate} from '../../redux/slices/publicSlices';
 
 export const SimulateScreen = () => {
-  //   const navigation = useNavigation<PrimaryNavigatorNavigationProp>();
   const {
     renderFrom: simulateForm,
     handleSubmit: handleSimulate,
@@ -32,26 +27,10 @@ export const SimulateScreen = () => {
     submitAction,
   } = useSimulateScreen();
 
-  const {
-    data: metaData,
-    error: metadataError,
-    isLoading: metadataLoading,
-  } = useGetMetadataQuery();
-
-  const dispatch = useDispatch();
-
   const {appNavigate} = useConfigRouting();
 
   const repaymentScheduleScreen =
     Platform.OS !== 'web' ? 'RepaymentScheduleScreen' : 'repayment-schedule';
-
-  if (!metadataError) {
-    dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
-  } else {
-    const defaultSimulate =
-      'b7uS4IfDq1C92rXDgHAWEW0g2LGpbLKAeNqYC0tRdIRTLhFbMXQEIgMPwIAg9jZLv1uuGTqSbLcvmf4/38l88u//9MRCOFw0lck9mnIyDTKj4iuvL3sPMDaog6mBJxdcpwcEvhOa0Z/GkGunWzv3xGNQ2wvEaSE66+cLZ/Xjfas=';
-    dispatch(setSimulate(defaultSimulate));
-  }
 
   return (
     <>

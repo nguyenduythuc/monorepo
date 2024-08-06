@@ -1,4 +1,4 @@
-import React, {useMemo, useRef} from 'react';
+import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import tw from 'twrnc';
 import {BaseModal} from '../AppModal';
@@ -81,7 +81,7 @@ export const DropDownSelect = ({
                   {item.productName || item.name}
                 </Text>
                 {value === (item.productCode || item.code) && (
-                  <Icon name="check-circle"></Icon>
+                  <Icon name="check-circle" color="green"></Icon>
                 )}
               </TouchableOpacity>
             ))}

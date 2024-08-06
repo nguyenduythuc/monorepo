@@ -15,7 +15,7 @@ import tw from 'twrnc';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {PrimaryNavigatorNavigationProp} from '../../navigators/RootNavigator';
 import {useNavigation} from '@react-navigation/native';
-import {SimulateScreen} from '@lfvn-customer/shared/screen';
+import {SimulateScreen} from '@lfvn-customer/shared/screens';
 
 export const SimulateScreenContainer = () => {
   return (

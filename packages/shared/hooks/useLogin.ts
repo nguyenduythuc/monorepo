@@ -7,12 +7,15 @@ import {useNavigation} from '@react-navigation/native';
 import {LoginScreenNavigationProps} from '../../mobile/src/types/paramtypes';
 import {useEffect} from 'react';
 import {Keyboard} from 'react-native';
+import {setAppToken} from '../redux/slices/apiSlices/config';
+import {useConfigRouting} from './routing';
 
 const useLoginScreen = () => {
   const fields = [FieldTestConfig.Account, FieldTestConfig.Password];
   const [login, {isError, isLoading}] = useLoginMutation();
   const dispatch = useDispatch();
   const navigation = useNavigation<LoginScreenNavigationProps>();
+  const {appNavigate} = useConfigRouting();
 
   useEffect(() => {
     // Clear token when start login
@@ -33,6 +36,10 @@ const useLoginScreen = () => {
       password,
     });
     dispatch(setToken(result.data?.id_token));
+    if (result.data?.id_token) {
+      setAppToken(result.data?.id_token || '');
+      appNavigate('SimulateScreen');
+    }
   });
 
   const onPressOTPLogin = () => {
