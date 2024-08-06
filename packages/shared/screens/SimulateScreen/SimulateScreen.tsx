@@ -12,9 +12,7 @@ import React from 'react';
 import {View, Text, ScrollView, Platform} from 'react-native';
 import tw from 'twrnc';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
-import {useConfigRouting} from '../../hooks/routing';
-import {useAppSelector} from '../../redux/store';
-import {useDispatch} from 'react-redux';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
 
 export const SimulateScreen = () => {
   const {

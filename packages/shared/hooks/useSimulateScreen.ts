@@ -1,17 +1,20 @@
 import {useEffect, useMemo, useState} from 'react';
-import {useCustomForm} from '../components/Form/Form.hook';
-import {FieldSimulateConfig} from '../components/Form/Form.utils';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
   useGetPurposeQuery,
 } from '../redux/slices/apiSlices';
-import {ProductDataType, PurposeDataType} from '../types/services/productTypes';
-import {handleExecute} from '../utils/simulateCalculate';
-import {decryptAES} from '../utils/decryptText';
+import {
+  ProductDataType,
+  PurposeDataType,
+} from '@lfvn-customer/shared/types/services/productTypes';
+import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
+import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
 import {useDispatch} from 'react-redux';
-import {setSimulate} from '../redux/slices/publicSlices';
-import {useAppSelector} from '../redux/store';
+import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import Config from 'react-native-config';
 import {Platform} from 'react-native';
 
