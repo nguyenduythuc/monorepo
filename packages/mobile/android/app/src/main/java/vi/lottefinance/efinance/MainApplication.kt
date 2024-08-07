@@ -1,4 +1,4 @@
-package com.lfvncustomer
+package vn.lottefinance.efinance
 
 import android.app.Application
 import com.facebook.react.PackageList

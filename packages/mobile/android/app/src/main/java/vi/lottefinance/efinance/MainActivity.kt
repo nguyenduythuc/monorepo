@@ -1,4 +1,4 @@
-package com.lfvncustomer
+package vn.lottefinance.efinance
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

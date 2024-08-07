@@ -76,9 +76,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.lfvncustomer"
+    namespace "vn.lottefinance.efinance"
     defaultConfig {
-        applicationId "com.lfvncustomer"
+        applicationId "vn.lottefinance.efinance"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
