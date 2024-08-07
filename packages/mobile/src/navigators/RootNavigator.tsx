@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {LinkingOptions, NavigationContainer} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
@@ -22,6 +22,30 @@ const Stack = createNativeStackNavigator<RootParamList>();
 
 export type PrimaryNavigatorNavigationProp =
   NativeStackNavigationProp<RootParamList>;
+
+// Prefixes for deep link
+const prefixes = ['lfvncustomer://', 'https://duythuc.vercel.app'];
+// Config path for deep link
+const config: LinkingOptions<RootParamList>['config'] = {
+  screens: {
+    Login: {
+      path: 'login',
+    },
+    Home: {
+      path: 'home',
+    },
+    Test: {
+      // example for full config
+      path: 'test/:id/:section',
+      parse: {
+        id: (id: string) => `user-${id}`,
+      },
+      stringify: {
+        id: (id: string) => id.replace(/^user-/, ''),
+      },
+    },
+  },
+};
 
 const RootStack = () => {
   return (
@@ -100,10 +124,9 @@ const RootStack = () => {
 };
 
 const linking = {
-  prefixes: ['lfvncustomer://', 'https://duythuc.vercel.app'],
-
-  // Custom function to subscribe to incoming links
+  prefixes,
   subscribe(listener: (url: string) => void) {
+    // Custom function to subscribe to incoming links
     // Listen to incoming links from deep linking
     const linkingSubscription = Linking.addEventListener('url', ({url}) => {
       console.log(url);
@@ -114,20 +137,7 @@ const linking = {
       linkingSubscription.remove();
     };
   },
-
-  config: {
-    screens: {
-      Login: {
-        path: 'login',
-      },
-      Test: {
-        path: 'test',
-      },
-      Home: {
-        path: 'home',
-      },
-    },
-  },
+  config,
 };
 
 export const RootNavigator = () => {
