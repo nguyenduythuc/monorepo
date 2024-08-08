@@ -10,6 +10,7 @@ module.exports = {
       rounded: {
         'rounded-20px': '20px',
         'rounded-10px': '10px',
+        'rounded-37px': '37px',
       },
     },
   },

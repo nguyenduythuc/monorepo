@@ -30,6 +30,15 @@ const nextConfig = {
       ...(config.resolve.alias || {}),
       "react-native$": "react-native-web",
       "@lfvn-customer/shared": path.resolve("../shared"),
+      // Thêm alias để bỏ qua thư viện không tương thích
+      "react-native-keychain": path.resolve("./src/emptyModule.ts"),
+      "react-native-toast-message": path.resolve("./src/emptyModule.ts"),
+      "@react-native/assets-registry/registry": path.resolve(
+        "./src/emptyModule.ts"
+      ),
+      "react-native-confirmation-code-field": path.resolve(
+        "./src/emptyModule.ts"
+      ),
     };
 
     return config;
