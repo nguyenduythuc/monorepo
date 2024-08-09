@@ -18,6 +18,10 @@ import {
   RepaymentScheduleScreen,
 } from '../screens';
 import {Linking} from 'react-native';
+import {
+  setAppToken,
+  getToken,
+} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 
 const Stack = createNativeStackNavigator<RootParamList>();
 
@@ -49,6 +53,9 @@ const config: LinkingOptions<RootParamList>['config'] = {
 };
 
 const RootStack = () => {
+  const savedToken = getToken();
+  setAppToken(savedToken);
+
   return (
     <Stack.Navigator
       screenOptions={{
