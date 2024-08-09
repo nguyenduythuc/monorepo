@@ -10,3 +10,4 @@ export * from './Modal';
 export * from './Slider';
 export * from './Dropdown';
 export * from './Appbar';
+export * from './Image';

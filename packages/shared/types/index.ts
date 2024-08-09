@@ -1,6 +1,13 @@
 import {UseFormWatch} from 'react-hook-form';
-import {TextInputProps, TextProps} from 'react-native';
+import {
+  ImageSourcePropType,
+  ImageStyle,
+  StyleProp,
+  TextInputProps,
+  TextProps,
+} from 'react-native';
 import {IconKeys} from '@lfvn-customer/shared/components';
+import {CSSProperties} from 'react';
 
 export interface SVGProps {
   color?: string;
@@ -59,4 +66,14 @@ export interface IConfirmModalProps {
   labelButton2?: string;
   onButton2Press?: () => void;
   onPressClose?: () => void;
+}
+
+export interface IImageProps {
+  source: {
+    android: string;
+    ios: ImageSourcePropType;
+    web: string;
+  };
+  style?: CSSProperties | StyleProp<ImageStyle> | string;
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
 }

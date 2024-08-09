@@ -155,3 +155,61 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     containerStyle: 'mt-4',
   },
 };
+
+export const FieldSimulateConfig: Record<string, FieldConfig> = {
+  SimulateLoanAmount: {
+    label: 'Simulate.loanAmount',
+    maxValue: 5000000,
+    minValue: 3000000,
+    step: 100000,
+    // defaultValue: '4000000',
+    unit: 'VND',
+    controlProps: {
+      name: 'simulateLoanAmount',
+      rules: {},
+    },
+    type: FieldType.SliderWithTextInput,
+    containerStyle: '',
+  },
+  SimulateTenor: {
+    label: 'Simulate.tenor',
+    maxValue: 36,
+    minValue: 6,
+    step: 1,
+    defaultValue: '18',
+    unit: 'tháng',
+    controlProps: {
+      name: 'simulateTenor',
+      rules: {},
+    },
+    type: FieldType.SliderWithTextInput,
+    containerStyle: '',
+  },
+  SimulateLoanProduct: {
+    label: 'Simulate.loanProduct',
+    type: FieldType.SelectDropdown,
+    controlProps: {
+      name: 'simulateLoanProduct',
+      rules: {},
+    },
+  },
+  SimulateLoanPurpose: {
+    label: 'Simulate.loanPurpose',
+    type: FieldType.SelectDropdown,
+    controlProps: {
+      name: 'simulatePurpose',
+      rules: {},
+    },
+  },
+  SimulateLoanInsurance: {
+    label: 'Tham gia bảo hiểm khoản vay',
+    description: 'Bảo hiểm An tâm Tài chính 600.000đ',
+    checkboxColor: 'red',
+    iconName: 'info-icon',
+    type: FieldType.CheckboxWithIcon,
+    controlProps: {
+      name: 'insurance',
+      rules: {},
+    },
+  },
+};
