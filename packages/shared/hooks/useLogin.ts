@@ -38,7 +38,7 @@ const useLoginScreen = () => {
     dispatch(setToken(result.data?.id_token));
     if (result.data?.id_token) {
       setAppToken(result.data?.id_token || '');
-      appNavigate('SimulateScreen');
+      appNavigate('Home');
     }
   });
 

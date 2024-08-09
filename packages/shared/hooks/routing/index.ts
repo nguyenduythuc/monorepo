@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   RootParamList,
@@ -6,23 +6,21 @@ import {
 } from '../../../mobile/src/types/paramtypes';
 
 export const useConfigRouting = () => {
-  const {dispatch} = useNavigation<NativeStackNavigationProp<RootParamList>>();
+  const {dispatch, goBack} =
+    useNavigation<NativeStackNavigationProp<RootParamList>>();
 
   const appNavigate = <T extends keyof RootParamList | keyof RootParamListWeb>(
-    nextScreen: T,
+    nextScreen: T | 'goBack',
     params?: object | undefined,
   ) => {
-    console.log('nextScreenWeb', nextScreen);
-    if (typeof nextScreen === 'string') {
-      if (params) {
-        dispatch({type: 'NAVIGATE', payload: {name: nextScreen, params}});
-      } else {
-        dispatch({type: 'NAVIGATE', payload: {name: nextScreen}});
-      }
+    if (nextScreen === 'goBack') {
+      goBack();
+    } else if (typeof nextScreen === 'string') {
+      console.log('nextScreenWeb', nextScreen);
+      dispatch(CommonActions.navigate({name: nextScreen, params} as any));
     } else {
       throw new Error('Invalid screen type');
     }
   };
-
   return {appNavigate};
 };

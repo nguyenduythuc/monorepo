@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native-stack';
 import {RootParamList} from '../types/paramtypes';
 import {
-  HomeScreen,
+  HomeScreenContainer,
   TestScreen,
   ComponentScreen,
   VerifyAccountContainer,
@@ -14,9 +14,14 @@ import {
   LoginContainer,
   SignUpContainer,
   SimulateScreenContainer,
+  ProductIntroductionScreenContainer,
   RepaymentScheduleScreen,
 } from '../screens';
 import {Linking} from 'react-native';
+import {
+  setAppToken,
+  getToken,
+} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 
 const Stack = createNativeStackNavigator<RootParamList>();
 
@@ -48,6 +53,9 @@ const config: LinkingOptions<RootParamList>['config'] = {
 };
 
 const RootStack = () => {
+  const savedToken = getToken();
+  setAppToken(savedToken);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -58,6 +66,13 @@ const RootStack = () => {
       <Stack.Screen
         name="Login"
         component={LoginContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProductIntroductionScreen"
+        component={ProductIntroductionScreenContainer}
         options={{
           headerShown: false,
         }}
@@ -114,7 +129,7 @@ const RootStack = () => {
       />
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeScreenContainer}
         options={{
           headerShown: false,
         }}

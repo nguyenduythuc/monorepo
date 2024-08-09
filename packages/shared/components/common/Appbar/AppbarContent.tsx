@@ -22,7 +22,8 @@ export const AppbarContent = ({
   ...rest
 }: AppbarContentProp) => {
   return (
-    <View style={tw`absolute ml-4 w-full flex-1 z-10 items-center `}>
+    <View
+      style={tw`inset-x-20 flex justify-center absolute self-center items-center`}>
       <Text style={[tw`font-semibold text-xl`, titleStyle]}>{title}</Text>
       {children}
     </View>

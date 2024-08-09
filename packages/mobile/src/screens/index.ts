@@ -6,3 +6,4 @@ export * from './VerifyAccountContainer';
 export * from './EnterOTPContainer';
 export * from './SignUpContainer';
 export * from './SimulateScreenContainer';
+export * from './ProductIntroductionScreen';

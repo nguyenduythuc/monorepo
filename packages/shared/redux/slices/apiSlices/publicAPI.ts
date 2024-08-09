@@ -6,7 +6,7 @@ export const publicAPI = (
 ) => ({
   getMetadata: builder.query<MetadataResponseProps, void>({
     query: () => ({
-      url: '/.well-know/metadata?appVersion=1.0.0',
+      url: '/public/.well-know/metadata?appVersion=1.0.0',
       method: 'get',
     }),
   }),

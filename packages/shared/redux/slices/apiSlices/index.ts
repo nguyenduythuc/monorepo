@@ -6,6 +6,7 @@ import Config from 'react-native-config';
 import {Platform} from 'react-native';
 import {simulateAPI} from './simulateAPI';
 import {publicAPI} from './publicAPI';
+import {productAPI} from './productAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -19,21 +20,23 @@ export const apiSlice = createApi({
     ...testAPI(builder),
     ...loginAPI(builder),
     ...simulateAPI(builder),
-  }),
-});
-
-export const pulicApiSlice = createApi({
-  reducerPath: 'LFVN-API',
-  baseQuery: axiosBaseQuery({
-    baseUrl:
-      (Platform.OS !== 'web'
-        ? Config.BASE_API_URL_PUBLIC
-        : process.env.BASE_API_URL_PUBLIC) ?? '',
-  }),
-  endpoints: builder => ({
+    ...productAPI(builder),
     ...publicAPI(builder),
   }),
 });
+
+// export const pulicApiSlice = createApi({
+//   reducerPath: 'LFVN-API',
+//   baseQuery: axiosBaseQuery({
+//     baseUrl:
+//       (Platform.OS !== 'web'
+//         ? Config.BASE_API_URL_PUBLIC
+//         : process.env.BASE_API_URL_PUBLIC) ?? '',
+//   }),
+//   endpoints: builder => ({
+//     ...publicAPI(builder),
+//   }),
+// });
 
 export const {
   useGetExampleQuery,
@@ -44,5 +47,8 @@ export const {
   useResendOTPMutation,
   useGetProductQuery,
   useGetPurposeQuery,
+  useGetProductListQuery,
+  useGetMetadataQuery,
 } = apiSlice;
-export const {useGetMetadataQuery} = pulicApiSlice;
+
+// export const {useGetMetadataQuery} = pulicApiSlice;

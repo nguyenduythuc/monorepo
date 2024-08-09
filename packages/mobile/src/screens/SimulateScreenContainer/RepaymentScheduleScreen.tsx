@@ -19,12 +19,14 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from 'twrnc';
+import React from 'react';
 import {PrimaryNavigatorNavigationProp} from '../../navigators/RootNavigator';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
+import {useTranslations} from 'use-intl';
 
 export const RepaymentScheduleScreen = () => {
   const navigation = useNavigation<PrimaryNavigatorNavigationProp>();
-
+  const t = useTranslations();
   const headers = ['Id', 'Name', 'Age', 'Job', 'Address', 'Action'];
 
   const tableData = [
@@ -155,15 +157,12 @@ export const RepaymentScheduleScreen = () => {
   return (
     <View>
       <SafeAreaView style={tw`bg-white h-screen`}>
-        <Appbar>
-          <AppbarBackAction
-            onPress={() => {
-              navigation.navigate('SimulateScreen');
-            }}
-          />
-          {/* <AppbarContent title={''} /> */}
-          <AppbarAction title="Back" titleStyle={tw`text-black text-lg`} />
-        </Appbar>
+        <Appbar
+          backAction
+          backIconColor="black"
+          labelContent={''}
+          contentTextStyle={tw.style('text-black')}
+        />
         <ScrollView>
           <View style={tw`px-4`}>
             {/* <Text> RepaymentScheduleScreen </Text> */}

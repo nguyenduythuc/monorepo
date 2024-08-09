@@ -17,10 +17,14 @@ export type RootParamList = {
   SignUp: undefined;
   SimulateScreen: undefined;
   RepaymentScheduleScreen: undefined;
+  ProductIntroductionScreen: undefined;
 };
 
 export type RootParamListWeb = {
   'repayment-schedule': undefined;
+  'product-introduction': undefined;
+  simulate: undefined;
+  goBack: undefined;
 };
 
 export type LoginScreenNavigationProps = NativeStackNavigationProp<

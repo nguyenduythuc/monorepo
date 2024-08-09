@@ -67,9 +67,29 @@
     "useService": "sử dụng dịch vụ"
   },
   "Simulate": {
+    "simulate": "Simulate",
     "tenor": "Tenor",
     "loanAmount": "Loan Amount",
-    "purpose": "Purpose",
-    "Product": "Product"
+    "loanPurpose": "Purpose",
+    "loanProduct": "Loan product",
+    "loanInfo": "Loan Information",
+    "loanInfoDes": "Please input your lending need to calculate the repayment schedule",
+    "loanInsurance": "Tham gia bảo hiểm khoản vay",
+    "loanInsuranceDes": "Bảo hiểm An tâm Tài chính 600.000đ",
+    "loanEstimate": "Loan estimate",
+    "monthlyPay": "Pay monthly",
+    "interestRate": "Interest rate",
+    "repaymentSchedule": "Repayment schedule",
+    "year": "năm",
+    "save": "Lưu",
+    "submit": "Submit"
+  },
+  "ProductIntroduction": {
+    "cashLoan": "Cash Loan",
+    "loanAmountUp": "Loan amount up to",
+    "interestRateDes": "Interest rate only from 28%/year",
+    "approveTime": "Approve within 24h",
+    "loanTerm": "Loan term up to 3 year",
+    "chooseProductFromList": "Please choose the loan product in line with your needs and income source. "
   }
 }
