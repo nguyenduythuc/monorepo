@@ -14,7 +14,7 @@ import tw from 'twrnc';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
 
-export const SimulateScreen = () => {
+export const SimulateScreen = ({t}: {t: any}) => {
   const {
     renderFrom: simulateForm,
     handleSubmit: handleSimulate,
@@ -32,35 +32,29 @@ export const SimulateScreen = () => {
 
   return (
     <>
-      <Appbar>
-        <AppbarBackAction
-          onPress={() => {
-            // navigation.navigate('SimulateScreen');
-          }}
-        />
-        <AppbarContent title={'Simulate Screen'} />
-        <AppbarAction
-          title="Save"
-          titleStyle={tw`text-blue-500 font-semibold`}
-        />
-      </Appbar>
+      <Appbar
+        backAction
+        backIconColor="black"
+        labelContent={t('Simulate.simulate')}
+        contentTextStyle={tw.style('text-black')}
+      />
       <ScrollView style={tw`flex-1`}>
         <View style={tw`px-4 mt-4`}>
-          <Text style={tw`text-3xl font-bold`}>Loan information</Text>
-          <Text style={tw`text-lg mt-2`}>
-            Please input your lending need to calculate the repayment schedule
-          </Text>
+          <Text style={tw`text-3xl font-bold`}>{t('Simulate.loanInfo')}</Text>
+          <Text style={tw`text-lg mt-2`}>{t('Simulate.loanInfoDes')}</Text>
           <View style={tw``}>
             {simulateForm()}
 
-            <Text style={tw`text-xl font-bold mt-5`}>Loan estimate</Text>
+            <Text style={tw`text-xl font-bold mt-5`}>
+              {t('Simulate.loanEstimate')}
+            </Text>
 
             <View style={tw`flex flex-row justify-around mt-4`}>
               <View
                 style={tw`bg-red-100 flex-1 rounded-xl py-2 px-3 items-center`}>
                 <View style={tw`flex-row items-center`}>
                   <Text style={tw`text-base font-semibold pr-2`}>
-                    Pay monthly
+                    {t('Simulate.monthlyPay')}
                   </Text>
                   <Icon size={15} color="#E7252B" name="info-icon" />
                 </View>
@@ -79,13 +73,15 @@ export const SimulateScreen = () => {
                 style={tw`bg-red-100 flex-1 rounded-xl py-2 px-3 items-center`}>
                 <View style={tw`flex-row items-center`}>
                   <Text style={tw`text-base font-semibold pr-2`}>
-                    Interest rate
+                    {t('Simulate.interestRate')}
                   </Text>
                   <Icon size={15} color="#E7252B" name="info-icon" />
                 </View>
                 <Text style={tw`text-xl font-semibold text-red-500`}>
                   {selectProduct.interest}%
-                  <Text style={tw`font-normal text-black`}> /year</Text>
+                  <Text style={tw`font-normal text-black`}>
+                    /{t('Simulate.year')}
+                  </Text>
                 </Text>
               </View>
             </View>
@@ -95,7 +91,7 @@ export const SimulateScreen = () => {
                 styleTextLeft
                 variant="text"
                 prefixIcon="calendar-icon">
-                Repayment Schedule
+                {t('Simulate.repaymentSchedule')}
               </CustomButton>
             </View>
           </View>
@@ -103,7 +99,7 @@ export const SimulateScreen = () => {
       </ScrollView>
       <View style={tw`px-4 pt-3 pb-1 border-t border-gray-200`}>
         <CustomButton onPress={submitAction} color="red">
-          Submit
+          {t('Simulate.submit')}
         </CustomButton>
       </View>
     </>

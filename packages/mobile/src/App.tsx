@@ -17,7 +17,10 @@ import {RootNavigator} from './navigators/RootNavigator';
 import {PortalProvider} from '@gorhom/portal';
 import Toast from 'react-native-toast-message';
 import toastConfig from './toastConfig';
-
+import {
+  setAppToken,
+  getToken,
+} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
 
@@ -34,6 +37,9 @@ const App = () => {
   OneSignal.Notifications.addEventListener('click', event => {
     console.log('OneSignal: notification clicked:', event);
   });
+
+  const savedToken = getToken();
+  setAppToken(savedToken);
 
   return (
     <SecuritiesChecking>

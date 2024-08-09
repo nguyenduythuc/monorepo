@@ -15,6 +15,7 @@ export type AppbarBackActionProp = {
   icon?: IconKeys;
   title?: string;
   titleStyle?: TextStyle;
+  backIconColor?: string;
 };
 
 export const AppbarBackAction = ({
@@ -22,12 +23,15 @@ export const AppbarBackAction = ({
   icon = 'arrow-left',
   title,
   titleStyle,
+  backIconColor = '#333333',
   ...rest
 }: AppbarBackActionProp) => {
   return (
     <View style={tw`flex-1 items-start`}>
       <TouchableOpacity onPress={onPress} style={tw`flex-row items-center`}>
-        {icon && <Icon name={icon} width={15} color="#333333" disabled></Icon>}
+        {icon && (
+          <Icon name={icon} width={15} color={backIconColor} disabled></Icon>
+        )}
         <Text style={[tw`text-base`, titleStyle]}>{title}</Text>
         {/* <Text style={tw`text-black text-lg`}>Menu</Text> */}
       </TouchableOpacity>

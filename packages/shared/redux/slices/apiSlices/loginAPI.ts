@@ -15,7 +15,7 @@ export const loginAPI = (
 ) => ({
   login: builder.mutation<LoginResponseProps, LoginRequestProps>({
     query: (body: LoginRequestProps) => ({
-      url: '/authenticate',
+      url: '/api/authenticate',
       method: 'post',
       data: body,
     }),
@@ -25,21 +25,21 @@ export const loginAPI = (
     GenerateOTPRequestProps
   >({
     query: (body: GenerateOTPRequestProps) => ({
-      url: '/otp-logs/generate',
+      url: '/api/otp-logs/generate',
       method: 'post',
       data: body,
     }),
   }),
   verifyOTP: builder.mutation<VerifyOTPResponseProps, VerifyOTPRequestProps>({
     query: (body: VerifyOTPRequestProps) => ({
-      url: '/otp-logs/verify',
+      url: '/api/otp-logs/verify',
       method: 'post',
       data: body,
     }),
   }),
   resendOTP: builder.mutation<ResendOTPResponseProps, ResendOTPRequestProps>({
     query: (body: ResendOTPRequestProps) => ({
-      url: '/otp-logs/resend',
+      url: '/api/otp-logs/resend',
       method: 'post',
       data: body,
     }),

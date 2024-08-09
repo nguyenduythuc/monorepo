@@ -3,12 +3,15 @@ import {View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import {SimulateScreen} from '@lfvn-customer/shared/screens';
+import {useTranslations} from 'use-intl';
 
 export const SimulateScreenContainer = () => {
+  const t = useTranslations();
+
   return (
     <View style={tw`h-screen bg-white`}>
       <SafeAreaView style={tw`h-screen`}>
-        <SimulateScreen />
+        <SimulateScreen t={t} />
       </SafeAreaView>
     </View>
   );

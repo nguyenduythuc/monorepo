@@ -19,6 +19,19 @@ import CheckboxIcon from '@lfvn-customer/shared/assets/images/svg/CheckBoxIcon';
 import CheckCircle from '@lfvn-customer/shared/assets/images/svg/CheckCircle';
 import InfoIcon from '@lfvn-customer/shared/assets/images/svg/InfoIcon';
 import CalendarIcon from '@lfvn-customer/shared/assets/images/svg/CalendarIcon';
+import InterestMoneyIcon from '@lfvn-customer/shared/assets/images/svg/InterestMoneyIcon';
+import TimeCoinIcon from '@lfvn-customer/shared/assets/images/svg/TimeCoinIcon';
+import CalendarDollarIcon from '@lfvn-customer/shared/assets/images/svg/CalendarDollarIcon';
+import FastLoanIcon from '@lfvn-customer/shared/assets/images/svg/FastLoanIcon';
+import SalaryBaseLoanIcon from '@lfvn-customer/shared/assets/images/svg/SalaryBaseLoanIcon';
+import GovStaffLoanIcon from '@lfvn-customer/shared/assets/images/svg/GovStaffLoanIcon';
+import LadyLoanIcon from '@lfvn-customer/shared/assets/images/svg/LadyLoanIcon';
+import LifeInsuranceLoanIcon from '@lfvn-customer/shared/assets/images/svg/LifeInsuranceLoanIcon';
+import TopUpLoanIcon from '@lfvn-customer/shared/assets/images/svg/TopUpLoanIcon';
+import CashIcon from '@lfvn-customer/shared/assets/images/svg/CashIcon';
+import CarLoanMenuIcon from '@lfvn-customer/shared/assets/images/svg/CarLoanMenuIcon';
+import FastLoanMenuIcon from '@lfvn-customer/shared/assets/images/svg/FastLoanMenuIcon';
+import CreditCardIcon from '@lfvn-customer/shared/assets/images/svg/CreditCardIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -38,6 +51,19 @@ const iconList = (props: IconProps) => ({
   'info-icon': <InfoIcon {...props} />,
   'arrow-down': <ArrowDown {...props} />,
   'calendar-icon': <CalendarIcon {...props} />,
+  'interest-money-icon': <InterestMoneyIcon {...props} />,
+  'time-coin-icon': <TimeCoinIcon {...props} />,
+  'calendar-dollar-icon': <CalendarDollarIcon {...props} />,
+  'fast-loan-icon': <FastLoanIcon {...props} />,
+  'salary-base-loan-icon': <SalaryBaseLoanIcon {...props} />,
+  'gov-staff-loan-icon': <GovStaffLoanIcon {...props} />,
+  'lady-loan-icon': <LadyLoanIcon {...props} />,
+  'life-insurance-loan-icon': <LifeInsuranceLoanIcon {...props} />,
+  'top-up-loan-icon': <TopUpLoanIcon {...props} />,
+  'cash-loan-icon': <CashIcon {...props} />,
+  'credit-card-icon': <CreditCardIcon {...props} />,
+  'fast-loan-menu-icon': <FastLoanMenuIcon {...props} />,
+  'car-loan-icon': <CarLoanMenuIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

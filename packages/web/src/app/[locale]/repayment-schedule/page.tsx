@@ -6,7 +6,7 @@ import { Platform, ScrollView, View, Text } from "react-native";
 
 import tw from "twrnc";
 import useSimulateScreen from "@lfvn-customer/shared/hooks/useSimulateScreen";
-import { SimulateScreen } from "@lfvn-customer/shared/screen/SimulateScreen";
+import { SimulateScreen } from "@lfvn-customer/shared/screens/SimulateScreen";
 import { useConfigRouting } from "@lfvn-customer/shared/hooks/routing";
 import {
   Appbar,
@@ -159,15 +159,12 @@ export default function RepaymentSchedule() {
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
         <View style={tw``}>
           <>
-            <Appbar>
-              <AppbarBackAction
-                onPress={() => {
-                  appNavigate("simulate");
-                }}
-              />
-              {/* <AppbarContent title={''} /> */}
-              <AppbarAction title="Back" titleStyle={tw`text-black text-lg`} />
-            </Appbar>
+            <Appbar
+              backAction
+              backIconColor="black"
+              labelContent={""}
+              contentTextStyle={tw.style("text-black")}
+            />
             <ScrollView>
               <View style={tw`px-4`}>
                 {/* <Text> RepaymentScheduleScreen </Text> */}
@@ -180,7 +177,7 @@ export default function RepaymentSchedule() {
             <View style={tw`px-4 pt-4 border-t border-gray-200`}>
               <CustomButton
                 onPress={() => {
-                  appNavigate("SimulateScreen");
+                  appNavigate("goBack");
                 }}
                 color="red"
               >

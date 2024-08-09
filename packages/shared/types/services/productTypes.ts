@@ -4,6 +4,32 @@ export interface ProductResponseProps {
   message: string;
 }
 
+export interface ProductGroupProps {
+  data: ProductIntroDataType[];
+  code: string;
+  message: string;
+}
+
+export interface ProductIntroDataType {
+  id: number;
+  name: string;
+  code: string;
+  desc: null;
+  maxAmount: null;
+  title: null;
+  fromDate: null;
+  toDate: null;
+  status: number;
+  createdBy: string;
+  createdDate: string;
+  checkedBy: null;
+  checkedDate: null;
+  syncBy: null;
+  syncDate: null;
+  icon: null;
+  productGroupInfos: [];
+}
+
 export interface PurposeResponseProps {
   data: PurposeDataType[];
   code: string;

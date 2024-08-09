@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native-stack';
 import {RootParamList} from '../types/paramtypes';
 import {
-  HomeScreen,
+  HomeScreenContainer,
   TestScreen,
   ComponentScreen,
   VerifyAccountContainer,
@@ -14,6 +14,7 @@ import {
   LoginContainer,
   SignUpContainer,
   SimulateScreenContainer,
+  ProductIntroductionScreenContainer,
   RepaymentScheduleScreen,
 } from '../screens';
 import {Linking} from 'react-native';
@@ -58,6 +59,13 @@ const RootStack = () => {
       <Stack.Screen
         name="Login"
         component={LoginContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProductIntroductionScreen"
+        component={ProductIntroductionScreenContainer}
         options={{
           headerShown: false,
         }}
@@ -114,7 +122,7 @@ const RootStack = () => {
       />
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeScreenContainer}
         options={{
           headerShown: false,
         }}
