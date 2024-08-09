@@ -1,7 +1,6 @@
 "use client";
 import { LoginScreen } from "@lfvn-customer/shared";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/router";
 import tw from "@lfvn-customer/shared/themes/tailwind";
 
 export default function Login() {

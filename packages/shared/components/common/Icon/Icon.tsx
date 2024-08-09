@@ -32,6 +32,7 @@ import CashIcon from '@lfvn-customer/shared/assets/images/svg/CashIcon';
 import CarLoanMenuIcon from '@lfvn-customer/shared/assets/images/svg/CarLoanMenuIcon';
 import FastLoanMenuIcon from '@lfvn-customer/shared/assets/images/svg/FastLoanMenuIcon';
 import CreditCardIcon from '@lfvn-customer/shared/assets/images/svg/CreditCardIcon';
+import FaceIdIcon from '@lfvn-customer/shared/assets/images/svg/FaceIdIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -64,6 +65,7 @@ const iconList = (props: IconProps) => ({
   'credit-card-icon': <CreditCardIcon {...props} />,
   'fast-loan-menu-icon': <FastLoanMenuIcon {...props} />,
   'car-loan-icon': <CarLoanMenuIcon {...props} />,
+  'faceid-icon': <FaceIdIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

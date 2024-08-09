@@ -1,23 +1,19 @@
 import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
 import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {useGenerateOTPMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {useNavigation} from '@react-navigation/native';
-import {EnterOTPScreenNavigationProps} from '../../mobile/src/types/paramtypes';
-import Toast from 'react-native-toast-message';
 import {useEffect} from 'react';
-import {useTranslations} from 'use-intl';
-import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
-import {
-  API_SUCCESS_CODE,
-  API_SUCCESS_MESSAGE,
-} from '@lfvn-customer/shared/utils/constants';
+import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
+import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {Keyboard} from 'react-native';
+import {useConfigRouting} from './routing';
+import useShowToast from './useShowToast';
 
-const useVerifyAccount = () => {
-  const t = useTranslations();
+const useVerifyAccount = ({t}: {t: any}) => {
   const fields = [FieldTestConfig.IdCard, FieldTestConfig.PhoneNumber];
   const [generateOTP, {isError, isLoading}] = useGenerateOTPMutation();
-  const navigation = useNavigation<EnterOTPScreenNavigationProps>();
+
+  const {appNavigate} = useConfigRouting();
+  const {handleShowToast} = useShowToast();
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({
@@ -27,9 +23,9 @@ const useVerifyAccount = () => {
 
   useEffect(() => {
     if (isError) {
-      Toast.show({
+      handleShowToast({
+        msg: t('VerifyAccount.msgVerifyFail'),
         type: 'error',
-        text1: t('VerifyAccount.msgVerifyFail'),
       });
     }
   }, [isError]);
@@ -43,35 +39,29 @@ const useVerifyAccount = () => {
       authSeq: null,
       type: 'AUTH',
     });
-    if (result.data?.code !== API_SUCCESS_CODE) {
-      Toast.show({
-        type: 'error',
-        text1: t('VerifyAccount.msgVerifyFail'),
-      });
-    } else {
-      const msgResponseCode = handleResponseOTPGenerateAPI(
-        result.data?.data.code,
-      );
-      if (msgResponseCode !== API_SUCCESS_MESSAGE) {
-        Toast.show({
+    const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
+    if (responseCode.msg !== API_SUCCESS_MESSAGE) {
+      if (responseCode.type === 'toast') {
+        handleShowToast({
+          msg: t(responseCode.msg),
           type: 'error',
-          text1: t(msgResponseCode),
         });
-      } else {
-        const authSeq = result.data?.data.authSeq;
-        if (authSeq) {
-          navigation.navigate('EnterOTP', {
-            authSeq,
-            phoneNumber,
-            identityNumber: idCard,
-          });
-        }
+      }
+    } else {
+      const authSeq = result.data?.authSeq;
+      if (authSeq) {
+        appNavigate('enter-otp', {
+          authSeq,
+          phoneNumber,
+          identityNumber: idCard,
+          type: 'LOGIN_OTP',
+        });
       }
     }
   });
 
   const onPressGoBack = () => {
-    navigation.goBack();
+    appNavigate('goBack');
   };
 
   return {

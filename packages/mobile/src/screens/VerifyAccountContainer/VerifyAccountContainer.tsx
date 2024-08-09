@@ -5,9 +5,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import {VerifyAccountScreen} from '@lfvn-customer/shared/screens/VerifyAccount';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
+import {useTranslations} from 'use-intl';
 
 const VerifyAccountContainer = () => {
-  const {onPressGoBack} = useVerifyAccount();
+  const t = useTranslations();
+  const {onPressGoBack} = useVerifyAccount({t});
 
   return (
     <View style={tw.style('flex-1 bg-white')}>
@@ -23,7 +25,7 @@ const VerifyAccountContainer = () => {
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <VerifyAccountScreen />
+          <VerifyAccountScreen t={t} />
         </KeyboardAwareScrollView>
       </SafeAreaView>
     </View>

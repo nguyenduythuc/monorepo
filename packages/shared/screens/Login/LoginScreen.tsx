@@ -1,18 +1,11 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {logoAppTransparent} from '@lfvn-customer/shared/assets';
 import useLoginScreen from '@lfvn-customer/shared/hooks/useLogin';
-import {Appbar, CustomButton, Icon} from '@lfvn-customer/shared/components';
-import Toast from 'react-native-toast-message';
+import {CustomButton, Icon, Image} from '@lfvn-customer/shared/components';
+import useLoginBiometrics from '@lfvn-customer/shared/hooks/useLoginBiometrics';
 
 const LoginScreen = ({t}: {t: any}) => {
   const {theme, colors} = useGetTheme();
@@ -20,33 +13,31 @@ const LoginScreen = ({t}: {t: any}) => {
 
   const {
     renderFrom,
-    isError,
+    isLoading,
     onPressSubmit,
     onPressOTPLogin,
     onPressSignUp,
     onPressForgotPassword,
-  } = useLoginScreen();
+    onPressGoBack,
+    onPressBiometricLogin,
+  } = useLoginScreen({t});
 
-  useEffect(() => {
-    if (isError) {
-      Toast.show({
-        type: 'error',
-        text1: t('Login.msgLoginFail'),
-      });
-    }
-  }, [isError]);
+  const {biometricType} = useLoginBiometrics({t});
+
   return (
     <View style={tw.style('flex-1')}>
+      <TouchableOpacity style={tw.style('p-4 w-20')} onPress={onPressGoBack}>
+        <Icon name="arrow-left" color={'white'} />
+      </TouchableOpacity>
       <Image
-        source={
-          Platform.OS === 'android'
-            ? {uri: 'logo_app_transparent'}
-            : logoAppTransparent
-        }
+        source={{
+          android: 'logo_app_transparent',
+          ios: logoAppTransparent,
+          web: '/images/logo_app_transparent.png',
+        }}
         style={styles.imgLogo}
       />
-
-      <Text style={tw.style('text-white mt-24 text-2xl font-semibold px-4')}>
+      <Text style={tw.style('text-white mt-8 text-2xl font-semibold px-4')}>
         {t('Login.title')}
       </Text>
       <Text style={tw.style('text-white mt-1 text-32px font-semibold px-4')}>
@@ -60,6 +51,16 @@ const LoginScreen = ({t}: {t: any}) => {
           <Text style={tw.style(`text-lg mt-3 ${textNegative500}`)}>
             {t('Login.descLogin')}
           </Text>
+          {!!biometricType && (
+            <CustomButton
+              onPress={onPressBiometricLogin}
+              color={'red'}
+              prefixIcon="faceid-icon"
+              buttonStyle={'mt-4 rounded-37px'}
+              variant="outlined">
+              {t('Login.faceIDLogin')}
+            </CustomButton>
+          )}
           {renderFrom()}
           <View style={tw.style('flex-row justify-between mb-4')}>
             <TouchableOpacity onPress={onPressSignUp}>
@@ -75,11 +76,13 @@ const LoginScreen = ({t}: {t: any}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={tw.style('mt-4')}>
-            <CustomButton onPress={onPressSubmit} color={'red'}>
-              {t('Login.login')}
-            </CustomButton>
-          </View>
+          <CustomButton
+            onPress={onPressSubmit}
+            color={'red'}
+            buttonStyle={'mt-4'}
+            loading={isLoading}>
+            {t('Login.login')}
+          </CustomButton>
           <TouchableOpacity
             style={tw.style('flex-row justify-center mt-6 items-center')}
             onPress={onPressOTPLogin}>
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
   imgLogo: {
     width: 115,
     height: 41,
-    marginTop: 16,
-    marginHorizontal: 16,
+    marginTop: 32,
+    marginLeft: 16,
   },
 });

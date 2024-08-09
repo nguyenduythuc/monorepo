@@ -7,6 +7,8 @@ import {Platform} from 'react-native';
 import {simulateAPI} from './simulateAPI';
 import {publicAPI} from './publicAPI';
 import {productAPI} from './productAPI';
+import {loginBiometricsAPI} from './loginBiometricsAPI';
+import {authAPI} from './authAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -19,6 +21,8 @@ export const apiSlice = createApi({
   endpoints: builder => ({
     ...testAPI(builder),
     ...loginAPI(builder),
+    ...loginBiometricsAPI(builder),
+    ...authAPI(builder),
     ...simulateAPI(builder),
     ...productAPI(builder),
     ...publicAPI(builder),
@@ -49,6 +53,13 @@ export const {
   useGetPurposeQuery,
   useGetProductListQuery,
   useGetMetadataQuery,
+  useCheckBiometricMutation,
+  useActiveBiometricMutation,
+  useDeactiveBiometricMutation,
+  useBiometricTokenMutation,
+  useGetAccountMutation,
+  useRegisterMutation,
+  useLazyActiveQuery,
 } = apiSlice;
 
 // export const {useGetMetadataQuery} = pulicApiSlice;

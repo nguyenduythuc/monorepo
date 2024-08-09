@@ -6,15 +6,16 @@ export type RootParamList = {
   Test: undefined;
   ComponentScreen: undefined;
   Login: undefined;
-  VerifyAccount: {
-    typpe: 'LOGIN_OTP' | 'FORGOT_PASSWORD';
+  'verify-account': {
+    type: 'LOGIN_OTP' | 'FORGOT_PASSWORD' | 'SIGN_UP';
   };
-  EnterOTP: {
+  'enter-otp': {
     authSeq: string;
     phoneNumber: string;
     identityNumber: string;
+    type: 'LOGIN_OTP' | 'FORGOT_PASSWORD' | 'SIGN_UP';
   };
-  SignUp: undefined;
+  'sign-up': undefined;
   SimulateScreen: undefined;
   RepaymentScheduleScreen: undefined;
   ProductIntroductionScreen: undefined;
@@ -34,12 +35,12 @@ export type LoginScreenNavigationProps = NativeStackNavigationProp<
 
 export type VerifyAccountScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
-  'VerifyAccount'
+  'verify-account'
 >;
 
 export type EnterOTPScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
-  'EnterOTP'
+  'enter-otp'
 >;
 
-export type EnterOTPScreenRouteProps = RouteProp<RootParamList, 'EnterOTP'>;
+export type EnterOTPScreenRouteProps = RouteProp<RootParamList, 'enter-otp'>;

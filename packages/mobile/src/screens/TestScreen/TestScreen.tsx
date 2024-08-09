@@ -1,49 +1,71 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from 'twrnc';
-import useTestScreen from '@lfvn-customer/shared/hooks/useTest';
 import useLoginBiometrics from '@lfvn-customer/shared/hooks/useLoginBiometrics';
-import {CustomButton} from '@lfvn-customer/shared/components';
+import {CustomButton, SwitchCustom} from '@lfvn-customer/shared/components';
 import {useNavigation} from '@react-navigation/native';
 import {PrimaryNavigatorNavigationProp} from '../../navigators/RootNavigator';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import {useTranslations} from 'use-intl';
+import uuid from 'react-native-uuid';
+import {mmkvStorage} from '@lfvn-customer/shared/utils/storage';
+import {UUID} from '@lfvn-customer/shared/utils/constants';
 
 const TestScreen = () => {
+  const t = useTranslations();
   const navigation = useNavigation<PrimaryNavigatorNavigationProp>();
+  const {user} = useAppSelector(state => state.auth);
 
-  const {renderFrom, handleSubmit, getValues} = useTestScreen();
-  const {callBiometric} = useLoginBiometrics();
+  useEffect(() => {
+    // generate new uuid and save it to storage
+    // TODO: will move this func to Flash Screen
+    (async () => {
+      const deviceUUID = await mmkvStorage.getItem(UUID);
+      if (!deviceUUID) {
+        const newUUID = uuid.v4();
+        await mmkvStorage.setItem(UUID, newUUID);
+      }
+    })();
+  }, []);
 
-  const onPressSubmit = handleSubmit(() => {
-    console.log('submit', getValues());
-    callBiometric({
-      username: 'test',
-      password: 'test',
-    })
-      .then(res => {
-        console.log('res', res);
-      })
-      .catch(err => {
-        console.log('err', err);
-      });
-  });
+  const {biometricType, handleChangeBiometricStatus, enableBiometric} =
+    useLoginBiometrics({t});
+
+  const onPressLoginScreen = () => {
+    navigation.navigate('Login');
+  };
+
+  const onPressStatusBiometrics = () => {
+    handleChangeBiometricStatus();
+    // onPressSubmit();
+  };
 
   return (
     <View style={tw.style('flex-1')}>
       <SafeAreaView style={tw.style('flex-1 p-4')}>
         <Text style={tw.style('text-red-500')}>Test screen</Text>
-        {renderFrom()}
         <TouchableOpacity
-          onPress={onPressSubmit}
+          onPress={onPressLoginScreen}
           style={tw.style('p-4 items-center bg-red-500')}>
-          <Text>Submit</Text>
+          <Text>{!user ? 'Login' : 'Logout'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPressSubmit}
-          style={tw.style('p-4 mt-4 items-center bg-red-500')}>
-          <Text>Login Biometric</Text>
-        </TouchableOpacity>
+        {user && (
+          <View style={tw`flex flex-row mt-4`}>
+            <SwitchCustom
+              color="green"
+              size="lg"
+              value={enableBiometric}
+              onChange={onPressStatusBiometrics}
+              disabled={!biometricType}
+            />
+          </View>
+        )}
+        <Text style={tw`mt-5 text-lg`}>
+          Biometric login: {!biometricType ? 'Not supported' : biometricType}
+        </Text>
         <CustomButton
+          buttonStyle="mt-4"
           onPress={() => {
             navigation.navigate('ComponentScreen');
           }}>

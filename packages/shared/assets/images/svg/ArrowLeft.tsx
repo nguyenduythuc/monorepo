@@ -1,13 +1,25 @@
 import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
-import {SVGProps} from '@lfvn-customer/shared/types';
+import Svg, {G, Path, Defs, ClipPath, Rect} from 'react-native-svg';
+import {SVGProps} from '../../../types';
 
-const ArrowLeft = ({width = 10, height = 17, color = '#fff'}: SVGProps) => (
-  <Svg width={width} height={height} viewBox="0 0 10 17" fill="none">
-    <Path
-      d="M9.21231 0.943126C9.12092 0.844916 9.01234 0.766997 8.89281 0.713832C8.77328 0.660667 8.64513 0.633301 8.51571 0.633301C8.3863 0.633301 8.25815 0.660667 8.13862 0.713832C8.01908 0.766997 7.91051 0.844916 7.81911 0.943126L4.50927 4.49076L1.19943 8.0384C1.12646 8.11645 1.06857 8.20916 1.02907 8.31122C0.989569 8.41328 0.969238 8.52269 0.969238 8.63319C0.969238 8.74368 0.989569 8.85309 1.02907 8.95515C1.06857 9.05722 1.12646 9.14993 1.19943 9.22798L7.81911 16.3233C8.2048 16.7367 8.82662 16.7367 9.21231 16.3233C9.598 15.9099 9.598 15.2434 9.21231 14.83L3.43485 8.63741L9.22018 2.43642C9.598 2.02303 9.598 1.35652 9.21231 0.943126Z"
-      fill={color}
-    />
+const ArrowLeft = ({size = 25, color = '#fff'}: SVGProps) => (
+  <Svg width={size} height={size} viewBox="0 0 25 25" fill="none">
+    <G clipPath="url(#clip0_1473_5335)">
+      <Path
+        d="M18.177 4.56075C18.7073 4.03045 18.7073 3.17067 18.177 2.64037C17.6467 2.11007 16.7869 2.11007 16.2566 2.64037L7.07429 11.8227C6.68377 12.2132 6.68377 12.8464 7.07429 13.2369L16.2566 22.4192C16.7869 22.9495 17.6467 22.9495 18.177 22.4192C18.7073 21.8889 18.7073 21.0291 18.177 20.4988L10.208 12.5298L18.177 4.56075Z"
+        fill={color}
+      />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_1473_5335">
+        <Rect
+          width={size - 1}
+          height={size - 1}
+          fill={color}
+          transform="translate(0.753906 0.529785)"
+        />
+      </ClipPath>
+    </Defs>
   </Svg>
 );
 export default ArrowLeft;

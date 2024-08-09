@@ -1,30 +1,26 @@
 import {otpIcon} from '@lfvn-customer/shared/assets';
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {useTranslations} from 'use-intl';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
+import {Image} from '@lfvn-customer/shared/components';
 
-const VerifyAccountScreen = () => {
-  const t = useTranslations();
+const VerifyAccountScreen = ({t}: {t: any}) => {
   const {theme} = useGetTheme();
   const {textNegative500, bgDanger500, textUseful500} = theme;
 
-  const {renderFrom, onPressSubmit, onPressGoBack} = useVerifyAccount();
+  const {renderFrom, onPressSubmit, onPressGoBack} = useVerifyAccount({t});
 
   return (
     <View style={tw.style('flex-1')}>
       <View style={tw.style('flex-1 items-center')}>
         <Image
-          source={Platform.OS === 'android' ? {uri: 'otp_icon'} : otpIcon}
+          source={{
+            android: 'otp_icon',
+            ios: otpIcon,
+            web: '/images/otp_icon.png',
+          }}
           style={styles.imgLogo}
         />
         <Text

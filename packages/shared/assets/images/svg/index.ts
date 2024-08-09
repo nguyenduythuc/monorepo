@@ -28,3 +28,4 @@ export * from './CashIcon';
 export * from './FastLoanMenuIcon';
 export * from './CreditCardIcon';
 export * from './CarLoanMenuIcon';
+export * from './FaceIdIcon';

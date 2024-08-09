@@ -7,6 +7,33 @@ export interface LoginResponseProps {
   id_token: string;
 }
 
+export interface RegisterRequestProps {
+  login: string;
+  fullName: string;
+  phoneNumber: string;
+  identityNumber: string;
+  password: string;
+}
+
+export interface RegisterResponseProps {
+  authSeq: string;
+  code: string;
+  message: string | null;
+  status: boolean;
+}
+
+export interface ActiveAccountRequestProps {
+  key: string;
+  otp: string;
+}
+
+export interface ActiveAccountResponseProps {
+  authSeq: string;
+  code: string;
+  message: string | null;
+  status: boolean;
+}
+
 export interface GenerateOTPRequestProps {
   phoneNumber: string;
   identityNumber: string;
@@ -15,15 +42,10 @@ export interface GenerateOTPRequestProps {
 }
 
 export interface GenerateOTPResponseProps {
+  authSeq: string;
+  message: string | null;
   code: string;
-  message: string;
-  data: {
-    phoneNumber: string;
-    authSeq: string;
-    type: string | null;
-    code: string;
-    status: boolean;
-  };
+  status: boolean;
 }
 
 export interface VerifyOTPRequestProps {
@@ -33,15 +55,10 @@ export interface VerifyOTPRequestProps {
 }
 
 export interface VerifyOTPResponseProps {
+  authSeq: string;
   code: string;
-  message: string;
-  data: {
-    phoneNumber: string;
-    authSeq: string;
-    type: string | null;
-    code: string;
-    status: boolean;
-  };
+  status: boolean;
+  token: string;
 }
 
 export interface ResendOTPRequestProps {

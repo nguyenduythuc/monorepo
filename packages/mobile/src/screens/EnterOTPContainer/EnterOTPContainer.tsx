@@ -7,13 +7,15 @@ import {EnterOTPScreen} from '@lfvn-customer/shared/screens/EnterOTP';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
 import {useRoute} from '@react-navigation/native';
 import {EnterOTPScreenRouteProps} from '../../types/paramtypes';
+import {useTranslations} from 'use-intl';
 
 const EnterOTPContainer = () => {
-  const {onPressGoBack} = useVerifyAccount();
+  const t = useTranslations();
+  const {onPressGoBack} = useVerifyAccount({t});
 
   const route = useRoute<EnterOTPScreenRouteProps>();
 
-  const {authSeq, phoneNumber, identityNumber} = route.params;
+  const {authSeq, phoneNumber, identityNumber, type} = route.params;
 
   return (
     <View style={tw.style('flex-1 bg-white')}>
@@ -33,6 +35,8 @@ const EnterOTPContainer = () => {
             authSeq={authSeq}
             phoneNumber={phoneNumber}
             identityNumber={identityNumber}
+            t={t}
+            type={type}
           />
         </KeyboardAwareScrollView>
       </SafeAreaView>
