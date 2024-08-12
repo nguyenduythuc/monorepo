@@ -1,14 +1,10 @@
 import {useDispatch} from 'react-redux';
 import {
+  useLazyActiveQuery,
   useResendOTPMutation,
   useVerifyOTPMutation,
-  useLazyActiveQuery,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
-import {
-  useBlurOnFulfill,
-  useClearByFocusCell,
-} from 'react-native-confirmation-code-field';
 import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
 import {Keyboard} from 'react-native';
@@ -38,21 +34,16 @@ const useEnterOTP = ({
     useResendOTPMutation();
   const [active] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
-  const {handleShowToast} = useShowToast();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [value, setValue] = useState('');
   const [counter, setCounter] = useState(180); // Đếm ngược từ 180 giây (3 phút)
   const [isCounting, setIsCounting] = useState(true);
   const [msgRequestError, setMsgRequestError] = useState('');
-  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
-  });
 
   const dispatch = useDispatch();
   const {appNavigate} = useConfigRouting();
+  const {handleShowToast} = useShowToast();
 
   const onPressGoBack = () => {
     appNavigate('goBack');
@@ -125,8 +116,8 @@ const useEnterOTP = ({
           if (type === 'LOGIN_OTP') {
             dispatch(setToken((result.data as VerifyOTPResponseProps)?.token));
             onHandleGetUserProfile();
+            // navigation.popToTop();
           }
-          // navigation.popToTop();
         }
       }
     })();
@@ -161,9 +152,6 @@ const useEnterOTP = ({
     setValue,
     counter,
     isCounting,
-    ref,
-    props,
-    getCellOnLayoutHandler,
     CELL_COUNT,
     isModalVisible,
     setIsModalVisible,

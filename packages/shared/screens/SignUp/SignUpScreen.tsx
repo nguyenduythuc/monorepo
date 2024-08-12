@@ -1,25 +1,15 @@
-import {otpIcon} from '@lfvn-customer/shared/assets';
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {useTranslations} from 'use-intl';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useSignUp from '@lfvn-customer/shared/hooks/useSignUp';
 import {Checkbox} from '@lfvn-customer/shared/components';
 
-const SignUpScreen = () => {
-  const t = useTranslations();
-  const {theme, colors} = useGetTheme();
-  const {textNegative500, bgDanger500, textUseful500} = theme;
+const SignUpScreen = ({t}: {t: any}) => {
+  const {theme} = useGetTheme();
+  const {textNegative500, bgDanger500} = theme;
 
-  const {renderFrom, onPressSubmit} = useSignUp();
+  const {renderFrom, onPressSubmit, isAcceptTC, setIsAcceptTC} = useSignUp({t});
 
   return (
     <View style={tw.style('flex-1')}>
@@ -36,13 +26,19 @@ const SignUpScreen = () => {
         {renderFrom()}
         <TouchableOpacity
           onPress={onPressSubmit}
+          disabled={!isAcceptTC}
           style={tw.style(`p-4 mt-4 items-center ${bgDanger500} rounded-10px`)}>
           <Text style={tw.style('text-lg font-semibold text-white')}>
             {t('SignUp.signup')}
           </Text>
         </TouchableOpacity>
         <View style={tw.style('flex-row mt-8 items-center')}>
-          <Checkbox label={t('SignUp.readAndAgree')} color={'red'} />
+          <Checkbox
+            isChecked={isAcceptTC}
+            onChange={newValue => setIsAcceptTC(Boolean(newValue))}
+            label={t('SignUp.readAndAgree')}
+            color={'red'}
+          />
           {/* <View style={tw.style('flex-row ml-2 flex-1 items-center')}>
             <Text style={tw.style(`text-base ${textNegative500}`)}>
               {t('SignUp.readAndAgree')}

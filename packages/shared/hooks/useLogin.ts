@@ -3,30 +3,42 @@ import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
 import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {useLoginMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {setToken} from '@lfvn-customer/shared/redux/slices/authSlice';
-import {useNavigation} from '@react-navigation/native';
-import {LoginScreenNavigationProps} from '../../mobile/src/types/paramtypes';
 import {useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {setAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 import {useConfigRouting} from './routing';
+import useAuth from './useAuth';
+import useLoginBiometrics from './useLoginBiometrics';
+import useShowToast from './useShowToast';
 
-const useLoginScreen = () => {
+const useLoginScreen = ({t}: {t: any}) => {
   const fields = [FieldTestConfig.Account, FieldTestConfig.Password];
   const [login, {isError, isLoading}] = useLoginMutation();
-  const dispatch = useDispatch();
-  const navigation = useNavigation<LoginScreenNavigationProps>();
-  const {appNavigate} = useConfigRouting();
+  const {onHandleGetUserProfile} = useAuth();
+  const {onPressBiometricLogin} = useLoginBiometrics({t});
 
-  useEffect(() => {
-    // Clear token when start login
-    dispatch(setToken(''));
-  });
+  const dispatch = useDispatch();
+  const {appNavigate} = useConfigRouting();
+  const {handleShowToast} = useShowToast();
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({
       fields,
       defaultValues: {},
     });
+
+  useEffect(() => {
+    if (isError) {
+      handleShowToast({
+        msg: t('VerifyAccount.msgVerifyFail'),
+        type: 'error',
+      });
+    }
+  }, [isError]);
+
+  const onPressGoBack = () => {
+    appNavigate('goBack');
+  };
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
@@ -38,23 +50,25 @@ const useLoginScreen = () => {
     dispatch(setToken(result.data?.id_token));
     if (result.data?.id_token) {
       setAppToken(result.data?.id_token || '');
+      // appNavigate('SimulateScreen');
+      onHandleGetUserProfile();
       appNavigate('Home');
     }
   });
 
   const onPressOTPLogin = () => {
-    navigation.navigate('VerifyAccount', {
-      typpe: 'LOGIN_OTP',
+    appNavigate('verify-account', {
+      type: 'LOGIN_OTP',
     });
   };
 
   const onPressSignUp = () => {
-    navigation.navigate('SignUp');
+    appNavigate('sign-up');
   };
 
   const onPressForgotPassword = () => {
-    navigation.navigate('VerifyAccount', {
-      typpe: 'FORGOT_PASSWORD',
+    appNavigate('verify-account', {
+      type: 'FORGOT_PASSWORD',
     });
   };
 
@@ -72,6 +86,8 @@ const useLoginScreen = () => {
     onPressOTPLogin,
     onPressSignUp,
     onPressForgotPassword,
+    onPressGoBack,
+    onPressBiometricLogin,
   };
 };
 

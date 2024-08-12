@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import useEnterOTP from '@lfvn-customer/shared/hooks/useEnterOTP';
-import {CodeField} from 'react-native-confirmation-code-field';
-import {ConfirmModal, Icon} from '@lfvn-customer/shared/components';
+import useEnterOTP from '@lfvn-customer/shared/hooks/useEnterOTP.web';
+import {ConfirmModal, Icon} from '../../components';
 import {maskPhoneNumber, formatTime} from '@lfvn-customer/shared/utils';
+import OtpInput from 'react-otp-input';
 
 const EnterOTPScreen = ({
   authSeq,
@@ -28,23 +28,19 @@ const EnterOTPScreen = ({
   type: string;
   t: any;
 }) => {
-  const {theme} = useGetTheme();
+  const {theme, colors} = useGetTheme();
   const {textNegative500, borderDanger500, textDanger500, textNegative300} =
     theme;
 
   const {
     onPressResendOTP,
-    value,
-    setValue,
     counter,
     isCounting,
-    ref,
-    props,
-    CELL_COUNT,
-    getCellOnLayoutHandler,
-    isModalVisible,
     setIsModalVisible,
     msgRequestError,
+    value,
+    setValue,
+    CELL_COUNT,
   } = useEnterOTP({authSeq, phoneNumber, identityNumber, t, type});
 
   return (
@@ -69,38 +65,15 @@ const EnterOTPScreen = ({
           </Text>
         </View>
       </View>
-      <CodeField
-        ref={ref}
-        {...props}
-        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+      <OtpInput
         value={value}
-        onChangeText={setValue}
-        cellCount={CELL_COUNT}
-        rootStyle={styles.codeFieldRoot}
-        keyboardType="number-pad"
-        textContentType="oneTimeCode"
-        testID="my-code-input"
-        renderCell={({index, symbol, isFocused}) => (
-          <View
-            key={index}
-            style={tw.style(
-              `${
-                isFocused || index + 1 > value.length
-                  ? 'border-neutral-200'
-                  : borderDanger500
-              }`,
-              'items-center justify-center',
-              styles.cell,
-            )}
-            onLayout={getCellOnLayoutHandler(index)}>
-            <Text
-              style={tw.style(
-                `text-2xl text-center font-medium ${textNegative500}`,
-              )}>
-              {symbol}
-            </Text>
-          </View>
+        onChange={setValue}
+        numInputs={CELL_COUNT}
+        containerStyle={tw.style('justify-around mt-8')}
+        inputStyle={tw.style(
+          'border-red-500 border rounded-10px w-50px h-50px',
         )}
+        renderInput={props => <input {...props} />}
       />
       <View style={tw.style('flex-row items-center justify-between mt-6 mx-4')}>
         <View style={tw.style('flex-row items-center')}>
@@ -118,7 +91,7 @@ const EnterOTPScreen = ({
         </TouchableOpacity>
       </View>
       <ConfirmModal
-        visiable={isModalVisible}
+        visiable={false}
         setVisiable={setIsModalVisible}
         title={t('Modal.notSuccess')}
         content={msgRequestError}

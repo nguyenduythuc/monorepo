@@ -8,6 +8,9 @@ import {
   VerifyOTPResponseProps,
   ResendOTPResponseProps,
   ResendOTPRequestProps,
+  RegisterResponseProps,
+  RegisterRequestProps,
+  ActiveAccountRequestProps,
 } from '@lfvn-customer/shared/types/services';
 
 export const loginAPI = (
@@ -18,6 +21,19 @@ export const loginAPI = (
       url: '/api/authenticate',
       method: 'post',
       data: body,
+    }),
+  }),
+  register: builder.mutation<RegisterResponseProps, RegisterRequestProps>({
+    query: (body: RegisterRequestProps) => ({
+      url: '/api/register',
+      method: 'post',
+      data: body,
+    }),
+  }),
+  active: builder.query<RegisterResponseProps, ActiveAccountRequestProps>({
+    query: ({key, otp}: ActiveAccountRequestProps) => ({
+      url: `/activate?key=${key}&otp=${otp}`,
+      method: 'get',
     }),
   }),
   generateOTP: builder.mutation<

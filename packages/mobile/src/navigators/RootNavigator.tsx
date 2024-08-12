@@ -62,7 +62,14 @@ const RootStack = () => {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName="Login">
+      initialRouteName="Test">
+      <Stack.Screen
+        name="Test"
+        component={TestScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Login"
         component={LoginContainer}
@@ -78,21 +85,21 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="VerifyAccount"
+        name="verify-account"
         component={VerifyAccountContainer}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="EnterOTP"
+        name="enter-otp"
         component={EnterOTPContainer}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="SignUp"
+        name="sign-up"
         component={SignUpContainer}
         options={{
           headerShown: false,
@@ -115,14 +122,6 @@ const RootStack = () => {
       <Stack.Screen
         name="ComponentScreen"
         component={ComponentScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="Test"
-        component={TestScreen}
         options={{
           headerShown: false,
         }}

@@ -5,9 +5,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import {SignUpScreen} from '@lfvn-customer/shared/screens/SignUp';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
+import {useTranslations} from 'use-intl';
 
 const SignUpContainer = () => {
-  const {onPressGoBack} = useVerifyAccount();
+  const t = useTranslations();
+  const {onPressGoBack} = useVerifyAccount({t});
 
   return (
     <View style={tw.style('flex-1 bg-white')}>
@@ -23,7 +25,7 @@ const SignUpContainer = () => {
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <SignUpScreen />
+          <SignUpScreen t={t} />
         </KeyboardAwareScrollView>
       </SafeAreaView>
     </View>

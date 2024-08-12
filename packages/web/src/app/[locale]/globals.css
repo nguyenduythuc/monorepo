@@ -36,3 +36,10 @@ textarea:focus,
 input:focus {
   outline: none;
 }
+
+/* Đảm bảo rằng HTML và body có chiều cao 100% */
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
