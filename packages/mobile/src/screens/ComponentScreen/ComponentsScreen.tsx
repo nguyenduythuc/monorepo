@@ -13,7 +13,7 @@ import {
 import React, {useMemo} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 const ComponentScreen = () => {
   const [selectedValue, setSelectedValue] = React.useState('');

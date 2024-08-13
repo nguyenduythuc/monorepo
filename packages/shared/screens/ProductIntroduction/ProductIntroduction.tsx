@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {View, Text, Pressable, Platform} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
   Appbar,

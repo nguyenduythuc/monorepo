@@ -94,5 +94,11 @@
     "readAndAgree": "Tôi đã đọc và chấp nhận",
     "conditional": "Điều kiện và điều khoản",
     "useService": "sử dụng dịch vụ"
+  },
+  "Home": {
+    "welcome": "Chào mừng bạn đến với,",
+    "lfvn": "Lotte Finance Việt Nam",
+    "login": "Đăng nhập",
+    "registerNow": "Đăng ký ngay"
   }
 }

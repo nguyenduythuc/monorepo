@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {SimulateScreen} from '@lfvn-customer/shared/screens';
 import {useTranslations} from 'use-intl';
 

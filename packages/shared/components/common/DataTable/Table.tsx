@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {View, ViewStyle} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {DataTableColumn} from '@lfvn-customer/shared/components';
 import {Pagination} from '../Pagination';
 

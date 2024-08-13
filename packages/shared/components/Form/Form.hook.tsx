@@ -14,7 +14,7 @@ import {
   TextInputSearch,
 } from '@lfvn-customer/shared/components/common';
 import {View} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export const useCustomForm = ({fields, defaultValues}: FormProps) => {
   const {

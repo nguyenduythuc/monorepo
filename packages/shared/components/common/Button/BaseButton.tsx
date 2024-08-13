@@ -18,7 +18,7 @@ import {
   buttonSize,
   buttonText,
 } from '@lfvn-customer/shared/themes/components/button';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon} from '../Icon';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 

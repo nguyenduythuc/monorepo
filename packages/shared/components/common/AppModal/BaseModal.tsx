@@ -13,7 +13,7 @@ import {
   ViewStyle,
   SafeAreaView,
 } from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Portal} from '@gorhom/portal';
 import {createPortal} from 'react-dom';
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {View, ScrollView} from 'react-native';
 import {DataTableTitle} from './DataTableTitle';
 import {FC, useRef} from 'react';

@@ -6,10 +6,13 @@ import {logoAppTransparent} from '@lfvn-customer/shared/assets';
 import useLoginScreen from '@lfvn-customer/shared/hooks/useLogin';
 import {CustomButton, Icon, Image} from '@lfvn-customer/shared/components';
 import useLoginBiometrics from '@lfvn-customer/shared/hooks/useLoginBiometrics';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
-const LoginScreen = ({t}: {t: any}) => {
+const LoginScreen = () => {
   const {theme, colors} = useGetTheme();
   const {textNegative500, textUseful500, textNegative300} = theme;
+
+  const t = useTranslations();
 
   const {
     renderFrom,
@@ -18,17 +21,13 @@ const LoginScreen = ({t}: {t: any}) => {
     onPressOTPLogin,
     onPressSignUp,
     onPressForgotPassword,
-    onPressGoBack,
     onPressBiometricLogin,
-  } = useLoginScreen({t});
+  } = useLoginScreen();
 
-  const {biometricType} = useLoginBiometrics({t});
+  const {biometricType} = useLoginBiometrics();
 
   return (
     <View style={tw.style('flex-1')}>
-      <TouchableOpacity style={tw.style('p-4 w-20')} onPress={onPressGoBack}>
-        <Icon name="arrow-left" color={'white'} />
-      </TouchableOpacity>
       <Image
         source={{
           android: 'logo_app_transparent',

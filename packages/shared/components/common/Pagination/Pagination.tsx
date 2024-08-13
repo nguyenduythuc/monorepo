@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useMemo} from 'react';
 import {View, Text} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {ArrowButton} from './ArrowButton';
 import {PageSelectButton} from './PageSelectButton';
 

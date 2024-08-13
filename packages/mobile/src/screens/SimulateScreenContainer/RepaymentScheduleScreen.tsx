@@ -18,7 +18,7 @@ import {
   Pressable,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import React from 'react';
 import {PrimaryNavigatorNavigationProp} from '../../navigators/RootNavigator';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';

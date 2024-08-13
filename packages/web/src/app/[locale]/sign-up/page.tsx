@@ -1,14 +1,15 @@
 "use client";
-import { SignUpScreen } from "@lfvn-customer/shared";
-import { useTranslations } from "next-intl";
+import { AppbarBackAction, SignUpScreen } from "@lfvn-customer/shared";
 import tw from "@lfvn-customer/shared/themes/tailwind";
+import { View } from "react-native";
 
 export default function SignUp() {
-  const t = useTranslations();
-
   return (
-    <div style={tw.style("flex-1 bg-white h-full pt-20")}>
-      <SignUpScreen t={t} />
-    </div>
+    <View style={tw.style("flex-1 bg-white h-full")}>
+      <View style={tw.style("pt-2")}>
+        <AppbarBackAction containerStyle="mx-2 mt-4" />
+        <SignUpScreen />
+      </View>
+    </View>
   );
 }

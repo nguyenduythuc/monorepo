@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, Pressable} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
 
 type ArrowIconProps = {

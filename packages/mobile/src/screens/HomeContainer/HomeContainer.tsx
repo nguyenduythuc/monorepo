@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, ImageBackground, Platform} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {homeBg} from '@lfvn-customer/shared/assets';
 import {HomeScreen} from '@lfvn-customer/shared/screens/Home';
 
-const HomeScreenContainer = () => {
+const HomeContainer = () => {
   return (
     <View style={tw.style('flex-1')}>
       <ImageBackground
@@ -19,4 +19,4 @@ const HomeScreenContainer = () => {
   );
 };
 
-export default HomeScreenContainer;
+export default HomeContainer;

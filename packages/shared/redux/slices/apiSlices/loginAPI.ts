@@ -12,7 +12,7 @@ import {
   RegisterRequestProps,
   ActiveAccountRequestProps,
 } from '@lfvn-customer/shared/types/services';
-import { getPath } from './config';
+import {getPath} from './config';
 
 export const loginAPI = (
   builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
@@ -42,21 +42,21 @@ export const loginAPI = (
     GenerateOTPRequestProps
   >({
     query: (body: GenerateOTPRequestProps) => ({
-      url: getPath('/api/otp-logs/generate'),
+      url: getPath('/api/otp-login/generate'),
       method: 'post',
       data: body,
     }),
   }),
   verifyOTP: builder.mutation<VerifyOTPResponseProps, VerifyOTPRequestProps>({
     query: (body: VerifyOTPRequestProps) => ({
-      url: getPath('/api/otp-logs/verify'),
+      url: getPath('/api/otp-login/verify'),
       method: 'post',
       data: body,
     }),
   }),
   resendOTP: builder.mutation<ResendOTPResponseProps, ResendOTPRequestProps>({
     query: (body: ResendOTPRequestProps) => ({
-      url: getPath('/api/otp-logs/resend'),
+      url: getPath('/api/otp-login/resend'),
       method: 'post',
       data: body,
     }),

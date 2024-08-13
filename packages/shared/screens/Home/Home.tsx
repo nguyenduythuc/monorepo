@@ -1,15 +1,19 @@
 import {Platform, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
-import tw from 'twrnc';
-import {Icon, IconKeys} from '@lfvn-customer/shared/components';
+import tw from '@lfvn-customer/shared/themes/tailwind';
+import {CustomButton, Icon, IconKeys} from '@lfvn-customer/shared/components';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {
   useGetMetadataQuery,
   useGetProductListQuery,
-} from '../../redux/slices/apiSlices';
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';
-import {setListProduct} from '../../redux/slices/productSlices';
-import {setSimulate} from '../../redux/slices/publicSlices';
+import {setListProduct} from '@lfvn-customer/shared/redux/slices/productSlices';
+import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import useHome from '@lfvn-customer/shared/hooks/useHome';
 
 export type ListFeatureType = {
   iconName: IconKeys;
@@ -17,8 +21,17 @@ export type ListFeatureType = {
 };
 
 export const HomeScreen = ({}) => {
+  const t = useTranslations();
   const {appNavigate} = useConfigRouting();
   const dispatch = useDispatch();
+
+  const {user} = useAppSelector(state => state.auth);
+
+  const {theme} = useGetTheme();
+  const {textDanger500} = theme;
+
+  const {onPressLogin, onPressSignUp} = useHome();
+
   const {
     data: productListData,
     isError: productListError,
@@ -56,12 +69,46 @@ export const HomeScreen = ({}) => {
     {iconName: 'car-loan-icon', title: 'Car loan'},
   ];
 
+  const renderHeaderComponent = () => {
+    return (
+      <>
+        {user ? (
+          <View>
+            <Text>Chào buổi sáng</Text>
+            <Text style={tw.style('text-2xl font-semibold')}>
+              {user.fullName}
+            </Text>
+          </View>
+        ) : (
+          <>
+            <Text>{t('Home.welcome')}</Text>
+            <Text style={tw.style(`text-2xl font-semibold ${textDanger500}`)}>
+              {t('Home.lfvn')}
+            </Text>
+            <View style={tw.style('flex-row mt-5')}>
+              <View style={tw.style('flex-1 mr-3')}>
+                <CustomButton onPress={onPressLogin} color={'red'}>
+                  {t('Home.login')}
+                </CustomButton>
+              </View>
+              <View style={tw.style('flex-1')}>
+                <CustomButton
+                  variant="outlined"
+                  onPress={onPressSignUp}
+                  color={'red'}>
+                  {t('Home.registerNow')}
+                </CustomButton>
+              </View>
+            </View>
+          </>
+        )}
+      </>
+    );
+  };
+
   return (
     <View style={tw.style('mt-10 mx-4')}>
-      <View>
-        <Text>Chào buổi sáng</Text>
-        <Text style={tw.style('text-2xl font-semibold')}>Vũ Phúc Hưng</Text>
-      </View>
+      {renderHeaderComponent()}
       <View
         style={tw.style(
           'flex-row  bg-white rounded-2xl px-4 py-3 shadow-md mt-8 justify-between',

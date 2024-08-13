@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import {View, TouchableOpacity, Text, Pressable, Animated} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export type SwitchProps = {
   disabled?: boolean;

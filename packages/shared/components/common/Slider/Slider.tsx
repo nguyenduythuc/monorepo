@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {Text, View} from 'react-native';
 import {Slider} from '@miblanchard/react-native-slider';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export interface BaseSliderProps {
   maxValue?: number;

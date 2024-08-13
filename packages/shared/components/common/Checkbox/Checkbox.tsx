@@ -1,6 +1,6 @@
 import React, {FC, ReactNode, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import Svg, {Path} from 'react-native-svg';
 
 export type CheckboxProps = {

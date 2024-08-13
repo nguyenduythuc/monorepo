@@ -1,4 +1,4 @@
-export * from './HomeScreen';
+export * from './HomeContainer';
 export * from './TestScreen';
 export * from './ComponentScreen';
 export * from './LoginContainer';

@@ -11,45 +11,38 @@ import {
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useEnterOTP from '@lfvn-customer/shared/hooks/useEnterOTP';
-import {CodeField} from 'react-native-confirmation-code-field';
 import {ConfirmModal, Icon} from '@lfvn-customer/shared/components';
 import {maskPhoneNumber, formatTime} from '@lfvn-customer/shared/utils';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+import {OTPInput} from '../../components/common/OTPInput';
 
 const EnterOTPScreen = ({
   authSeq,
   phoneNumber,
   identityNumber,
   type,
-  t,
 }: {
   authSeq: string;
   phoneNumber: string;
   identityNumber: string;
   type: string;
-  t: any;
 }) => {
+  const t = useTranslations();
   const {theme} = useGetTheme();
-  const {textNegative500, borderDanger500, textDanger500, textNegative300} =
-    theme;
+  const {textNegative500, textDanger500, textNegative300} = theme;
 
   const {
     onPressResendOTP,
-    value,
-    setValue,
     counter,
     isCounting,
-    ref,
-    props,
-    CELL_COUNT,
-    getCellOnLayoutHandler,
     isModalVisible,
     setIsModalVisible,
     msgRequestError,
-  } = useEnterOTP({authSeq, phoneNumber, identityNumber, t, type});
+  } = useEnterOTP({authSeq, phoneNumber, identityNumber, type});
 
   return (
     <View style={tw.style('flex-1')}>
-      <View style={tw.style('flex-1 items-center')}>
+      <View style={tw.style('items-center')}>
         <Image
           source={Platform.OS === 'android' ? {uri: 'otp_icon'} : otpIcon}
           style={styles.imgLogo}
@@ -69,39 +62,7 @@ const EnterOTPScreen = ({
           </Text>
         </View>
       </View>
-      <CodeField
-        ref={ref}
-        {...props}
-        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-        value={value}
-        onChangeText={setValue}
-        cellCount={CELL_COUNT}
-        rootStyle={styles.codeFieldRoot}
-        keyboardType="number-pad"
-        textContentType="oneTimeCode"
-        testID="my-code-input"
-        renderCell={({index, symbol, isFocused}) => (
-          <View
-            key={index}
-            style={tw.style(
-              `${
-                isFocused || index + 1 > value.length
-                  ? 'border-neutral-200'
-                  : borderDanger500
-              }`,
-              'items-center justify-center',
-              styles.cell,
-            )}
-            onLayout={getCellOnLayoutHandler(index)}>
-            <Text
-              style={tw.style(
-                `text-2xl text-center font-medium ${textNegative500}`,
-              )}>
-              {symbol}
-            </Text>
-          </View>
-        )}
-      />
+      <OTPInput authSeq={authSeq} type={type} />
       <View style={tw.style('flex-row items-center justify-between mt-6 mx-4')}>
         <View style={tw.style('flex-row items-center')}>
           <Text style={tw.style(`text-sm`)}>
@@ -112,7 +73,12 @@ const EnterOTPScreen = ({
           </Text>
         </View>
         <TouchableOpacity onPress={onPressResendOTP} disabled={isCounting}>
-          <Text style={tw.style(`text-base font-semibold ${textNegative300}`)}>
+          <Text
+            style={tw.style(
+              `text-base font-semibold ${
+                isCounting ? textNegative300 : textNegative500
+              }`,
+            )}>
             {t('EnterOTP.resendOTP')}
           </Text>
         </TouchableOpacity>
@@ -135,19 +101,5 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     marginTop: 16,
-  },
-  codeFieldRoot: {
-    marginTop: 20,
-    marginHorizontal: 16,
-  },
-  cell: {
-    width: 50,
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 10,
-    textAlign: 'center',
-  },
-  focusCell: {
-    borderColor: '#000',
   },
 });

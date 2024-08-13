@@ -2,10 +2,10 @@ import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export type RootParamList = {
-  Home: undefined;
+  home: undefined;
   Test: undefined;
   ComponentScreen: undefined;
-  Login: undefined;
+  login: undefined;
   'verify-account': {
     type: 'LOGIN_OTP' | 'FORGOT_PASSWORD' | 'SIGN_UP';
   };
@@ -30,10 +30,15 @@ export type RootParamListWeb = {
 
 export type LoginScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
-  'Login'
+  'login'
 >;
 
 export type VerifyAccountScreenNavigationProps = NativeStackNavigationProp<
+  RootParamList,
+  'verify-account'
+>;
+
+export type VerifyAccountScreenRouteProps = RouteProp<
   RootParamList,
   'verify-account'
 >;
