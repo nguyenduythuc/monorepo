@@ -12,27 +12,28 @@ import {
   RegisterRequestProps,
   ActiveAccountRequestProps,
 } from '@lfvn-customer/shared/types/services';
+import { getPath } from './config';
 
 export const loginAPI = (
   builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
 ) => ({
   login: builder.mutation<LoginResponseProps, LoginRequestProps>({
     query: (body: LoginRequestProps) => ({
-      url: '/api/authenticate',
+      url: getPath('/api/authenticate'),
       method: 'post',
       data: body,
     }),
   }),
   register: builder.mutation<RegisterResponseProps, RegisterRequestProps>({
     query: (body: RegisterRequestProps) => ({
-      url: '/api/register',
+      url: getPath('/api/register'),
       method: 'post',
       data: body,
     }),
   }),
   active: builder.query<RegisterResponseProps, ActiveAccountRequestProps>({
     query: ({key, otp}: ActiveAccountRequestProps) => ({
-      url: `/activate?key=${key}&otp=${otp}`,
+      url: getPath(`/api/activate?key=${key}&otp=${otp}`),
       method: 'get',
     }),
   }),
@@ -41,21 +42,21 @@ export const loginAPI = (
     GenerateOTPRequestProps
   >({
     query: (body: GenerateOTPRequestProps) => ({
-      url: '/api/otp-logs/generate',
+      url: getPath('/api/otp-logs/generate'),
       method: 'post',
       data: body,
     }),
   }),
   verifyOTP: builder.mutation<VerifyOTPResponseProps, VerifyOTPRequestProps>({
     query: (body: VerifyOTPRequestProps) => ({
-      url: '/api/otp-logs/verify',
+      url: getPath('/api/otp-logs/verify'),
       method: 'post',
       data: body,
     }),
   }),
   resendOTP: builder.mutation<ResendOTPResponseProps, ResendOTPRequestProps>({
     query: (body: ResendOTPRequestProps) => ({
-      url: '/api/otp-logs/resend',
+      url: getPath('/api/otp-logs/resend'),
       method: 'post',
       data: body,
     }),

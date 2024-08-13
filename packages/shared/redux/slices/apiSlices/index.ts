@@ -16,7 +16,7 @@ export const apiSlice = createApi({
     baseUrl:
       (Platform.OS !== 'web'
         ? Config.BASE_API_URL
-        : process.env.BASE_API_URL) ?? '',
+        : '') ?? '',
   }),
   endpoints: builder => ({
     ...testAPI(builder),
