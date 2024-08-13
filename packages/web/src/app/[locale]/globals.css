@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'appFontBold';
+  src: url('/fonts/SF-Pro-Display-Bold.otf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'appFontSemibold';
+  src: url('/fonts/SF-Pro-Display-Semibold.otf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'appFontMedium';
+  src: url('/fonts/SF-Pro-Display-Medium.otf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'appFontRegular';
+  src: url('/fonts/SF-Pro-Display-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -14,6 +43,10 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+}
+
+html, body, * {
+  font-family: 'appFontRegular', sans-serif;
 }
 
 body {

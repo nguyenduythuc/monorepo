@@ -35,4 +35,11 @@ export const themeStyles = {
   },
 };
 
+export const fontStyles = {
+  appFontRegular: 'appFontRegular',
+  appFontBold: 'appFontBold',
+  appFontSemibold: 'appFontSemibold',
+  appFontMedium: 'appFontMedium',
+};
+
 export default themeTokens;
