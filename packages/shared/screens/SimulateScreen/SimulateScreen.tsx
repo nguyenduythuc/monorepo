@@ -10,7 +10,7 @@ import {
 import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
 import React from 'react';
 import {View, Text, ScrollView, Platform} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
 

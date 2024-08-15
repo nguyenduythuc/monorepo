@@ -1,15 +1,17 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {VerifyAccountScreen} from '@lfvn-customer/shared/screens/VerifyAccount';
-import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
-import {useTranslations} from 'use-intl';
+import {useRoute} from '@react-navigation/native';
+import {VerifyAccountScreenRouteProps} from '../../types/paramtypes';
+import {AppbarBackAction} from '@lfvn-customer/shared/components';
 
 const VerifyAccountContainer = () => {
-  const t = useTranslations();
-  const {onPressGoBack} = useVerifyAccount({t});
+  const route = useRoute<VerifyAccountScreenRouteProps>();
+
+  const {type} = route.params;
 
   return (
     <View style={tw.style('flex-1 bg-white')}>
@@ -19,13 +21,11 @@ const VerifyAccountContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <TouchableOpacity onPress={onPressGoBack}>
-          <Text>Back</Text>
-        </TouchableOpacity>
+        <AppbarBackAction containerStyle="mx-2" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <VerifyAccountScreen t={t} />
+          <VerifyAccountScreen type={type} />
         </KeyboardAwareScrollView>
       </SafeAreaView>
     </View>

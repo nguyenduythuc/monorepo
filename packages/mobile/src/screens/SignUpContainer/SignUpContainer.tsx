@@ -1,16 +1,12 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {SignUpScreen} from '@lfvn-customer/shared/screens/SignUp';
-import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
-import {useTranslations} from 'use-intl';
+import {AppbarBackAction} from '@lfvn-customer/shared/components';
 
 const SignUpContainer = () => {
-  const t = useTranslations();
-  const {onPressGoBack} = useVerifyAccount({t});
-
   return (
     <View style={tw.style('flex-1 bg-white')}>
       <StatusBar
@@ -19,13 +15,11 @@ const SignUpContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <TouchableOpacity onPress={onPressGoBack}>
-          <Text>Back</Text>
-        </TouchableOpacity>
+        <AppbarBackAction containerStyle="mx-2" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <SignUpScreen t={t} />
+          <SignUpScreen />
         </KeyboardAwareScrollView>
       </SafeAreaView>
     </View>

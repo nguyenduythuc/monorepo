@@ -12,8 +12,9 @@ import {mmkvStorage} from '../utils/storage';
 import {USER_LOGIN, UUID} from '../utils/constants';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import Toast from 'react-native-toast-message';
+import useTranslations from './useTranslations';
 
-const useLoginBiometrics = ({t}: {t: any}) => {
+const useLoginBiometrics = () => {
   const {user, token} = useAppSelector(state => state.auth);
   const [checkBiometric] = useCheckBiometricMutation();
   const [activeBiometric] = useActiveBiometricMutation();
@@ -24,6 +25,8 @@ const useLoginBiometrics = ({t}: {t: any}) => {
     'TOUCH_ID' | 'FACE_ID' | null
   >(null);
   const [enableBiometric, setEnableBiometric] = useState<boolean>(false);
+
+  const t = useTranslations();
 
   useEffect(() => {
     (async () => {

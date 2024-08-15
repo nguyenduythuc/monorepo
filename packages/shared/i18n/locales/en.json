@@ -94,5 +94,11 @@
     "approveTime": "Approve within 24h",
     "loanTerm": "Loan term up to 3 year",
     "chooseProductFromList": "Please choose the loan product in line with your needs and income source. "
+  },
+  "Home": {
+    "welcome": "Chào mừng bạn đến với,",
+    "lfvn": "Lotte Finance Việt Nam",
+    "login": "Đăng nhập",
+    "registerNow": "Đăng ký ngay"
   }
 }

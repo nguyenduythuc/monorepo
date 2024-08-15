@@ -1,19 +1,22 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useSignUp from '@lfvn-customer/shared/hooks/useSignUp';
-import {Checkbox} from '@lfvn-customer/shared/components';
+import {Checkbox, CustomButton} from '@lfvn-customer/shared/components';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
-const SignUpScreen = ({t}: {t: any}) => {
+const SignUpScreen = () => {
+  const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500, bgDanger500} = theme;
 
-  const {renderFrom, onPressSubmit, isAcceptTC, setIsAcceptTC} = useSignUp({t});
+  const {renderFrom, onPressSubmit, isAcceptTC, setIsAcceptTC, isLoading} =
+    useSignUp();
 
   return (
     <View style={tw.style('flex-1')}>
-      <View style={tw.style('flex-1 px-4')}>
+      <View style={tw.style('px-4')}>
         <Text
           style={tw.style(`text-32px ${textNegative500} font-semibold mt-6`)}>
           {t('SignUp.title')}
@@ -24,14 +27,14 @@ const SignUpScreen = ({t}: {t: any}) => {
       </View>
       <View style={tw.style('mx-4')}>
         {renderFrom()}
-        <TouchableOpacity
+        <CustomButton
           onPress={onPressSubmit}
+          color={'red'}
+          buttonStyle={'mt-4'}
           disabled={!isAcceptTC}
-          style={tw.style(`p-4 mt-4 items-center ${bgDanger500} rounded-10px`)}>
-          <Text style={tw.style('text-lg font-semibold text-white')}>
-            {t('SignUp.signup')}
-          </Text>
-        </TouchableOpacity>
+          loading={isLoading}>
+          {t('SignUp.signup')}
+        </CustomButton>
         <View style={tw.style('flex-row mt-8 items-center')}>
           <Checkbox
             isChecked={isAcceptTC}

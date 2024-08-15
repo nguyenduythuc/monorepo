@@ -7,8 +7,10 @@ import useShowToast from './useShowToast';
 import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
 import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {useConfigRouting} from './routing';
+import useTranslations from './useTranslations';
 
-const useSignUp = ({t}: {t: any}) => {
+const useSignUp = () => {
+  const t = useTranslations();
   const fields = [
     FieldTestConfig.SignUpFullName,
     FieldTestConfig.SignUpPhoneNumber,

@@ -10,12 +10,14 @@ import {useConfigRouting} from './routing';
 import useAuth from './useAuth';
 import useLoginBiometrics from './useLoginBiometrics';
 import useShowToast from './useShowToast';
+import useTranslations from './useTranslations';
 
-const useLoginScreen = ({t}: {t: any}) => {
+const useLoginScreen = () => {
+  const t = useTranslations();
   const fields = [FieldTestConfig.Account, FieldTestConfig.Password];
   const [login, {isError, isLoading}] = useLoginMutation();
   const {onHandleGetUserProfile} = useAuth();
-  const {onPressBiometricLogin} = useLoginBiometrics({t});
+  const {onPressBiometricLogin} = useLoginBiometrics();
 
   const dispatch = useDispatch();
   const {appNavigate} = useConfigRouting();
@@ -36,10 +38,6 @@ const useLoginScreen = ({t}: {t: any}) => {
     }
   }, [isError]);
 
-  const onPressGoBack = () => {
-    appNavigate('goBack');
-  };
-
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
     const {username, password} = getValues();
@@ -52,7 +50,7 @@ const useLoginScreen = ({t}: {t: any}) => {
       setAppToken(result.data?.id_token || '');
       // appNavigate('SimulateScreen');
       onHandleGetUserProfile();
-      appNavigate('Home');
+      appNavigate('home');
     }
   });
 
@@ -86,7 +84,6 @@ const useLoginScreen = ({t}: {t: any}) => {
     onPressOTPLogin,
     onPressSignUp,
     onPressForgotPassword,
-    onPressGoBack,
     onPressBiometricLogin,
   };
 };

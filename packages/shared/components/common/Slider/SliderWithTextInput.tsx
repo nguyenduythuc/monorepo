@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {Text, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {
   TextInput,
   BaseSlider,

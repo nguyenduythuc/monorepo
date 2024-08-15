@@ -1,22 +1,11 @@
-import {useDispatch} from 'react-redux';
-import {
-  useResendOTPMutation,
-  useVerifyOTPMutation,
-  useLazyActiveQuery,
-} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {useResendOTPMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
-import {
-  useBlurOnFulfill,
-  useClearByFocusCell,
-} from 'react-native-confirmation-code-field';
-import {API_SUCCESS_MESSAGE} from '../utils/constants';
-import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
+import {API_SUCCESS_MESSAGE} from '@lfvn-customer/shared/utils/constants';
+import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
 import {Keyboard} from 'react-native';
-import useAuth from './useAuth';
-import {setToken} from '../redux/slices/authSlice';
-import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
-import {VerifyOTPResponseProps} from '../types/services';
+import useTranslations from './useTranslations';
+import {useConfigRouting} from './routing';
 
 const CELL_COUNT = 6;
 const useEnterOTP = ({
@@ -24,48 +13,21 @@ const useEnterOTP = ({
   phoneNumber,
   identityNumber,
   type,
-  t,
 }: {
   authSeq: string;
   phoneNumber: string;
   identityNumber: string;
   type: string;
-  t: any;
 }) => {
-  const [verifyOTP, {isError: isVerifyError, isLoading: isVerifyLoading}] =
-    useVerifyOTPMutation();
-  const [resendOTP, {isError: isResendError, isLoading: isResendLoading}] =
-    useResendOTPMutation();
-  const [active] = useLazyActiveQuery();
-  const {onHandleGetUserProfile} = useAuth();
+  const t = useTranslations();
+  const [resendOTP, {isError: isResendError}] = useResendOTPMutation();
   const {handleShowToast} = useShowToast();
+  const {appNavigate} = useConfigRouting();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [value, setValue] = useState('');
   const [counter, setCounter] = useState(180); // Đếm ngược từ 180 giây (3 phút)
   const [isCounting, setIsCounting] = useState(true);
   const [msgRequestError, setMsgRequestError] = useState('');
-  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
-  });
-
-  const dispatch = useDispatch();
-  const {appNavigate} = useConfigRouting();
-
-  const onPressGoBack = () => {
-    appNavigate('goBack');
-  };
-
-  useEffect(() => {
-    if (isVerifyError) {
-      handleShowToast({
-        msg: t('EnterOTP.msgVerifyFail'),
-        type: 'error',
-      });
-    }
-  }, [isVerifyError]);
 
   useEffect(() => {
     if (isResendError) {
@@ -86,52 +48,6 @@ const useEnterOTP = ({
     return () => clearTimeout(timer);
   }, [counter, isCounting]);
 
-  useEffect(() => {
-    (async () => {
-      if (value.length === CELL_COUNT) {
-        const result =
-          type === 'LOGIN_OTP'
-            ? await verifyOTP({
-                authSeq,
-                code: value,
-                type: 'AUTH',
-              })
-            : type === 'SIGN_UP'
-            ? await active({
-                key: authSeq,
-                otp: value,
-              })
-            : await verifyOTP({
-                authSeq,
-                code: value,
-                type: 'AUTH',
-              }); // TODO : handle case forgot password
-        const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
-        if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-          if (responseCode.type === 'toast') {
-            handleShowToast({
-              msg: t(responseCode.msg),
-              type: 'error',
-            });
-          }
-        } else {
-          handleShowToast({
-            msg:
-              type === 'LOGIN_OTP'
-                ? 'Đăng nhập thành công'
-                : 'Đăng ký thành công', // TODO : handle case forgot password
-            type: 'success',
-          });
-          if (type === 'LOGIN_OTP') {
-            dispatch(setToken((result.data as VerifyOTPResponseProps)?.token));
-            onHandleGetUserProfile();
-          }
-          // navigation.popToTop();
-        }
-      }
-    })();
-  }, [value]);
-
   const onPressResendOTP = async () => {
     Keyboard.dismiss();
     const result = await resendOTP({
@@ -140,7 +56,7 @@ const useEnterOTP = ({
       authSeq,
       type: 'AUTH',
     });
-    const responseCode = handleResponseOTPGenerateAPI(result.data?.data.code);
+    const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
     if (responseCode.msg !== API_SUCCESS_MESSAGE) {
       if (responseCode.type === 'toast') {
         handleShowToast({
@@ -149,21 +65,22 @@ const useEnterOTP = ({
         });
       }
     } else {
-      setCounter(180); // Đặt lại bộ đếm về 180 giây (3 phút)
+      setIsModalVisible(true);
+      setCounter(180);
       setIsCounting(true);
+      setMsgRequestError('');
     }
+  };
+
+  const onPressGoBack = () => {
+    appNavigate('goBack');
   };
 
   return {
     onPressGoBack,
     onPressResendOTP,
-    value,
-    setValue,
     counter,
     isCounting,
-    ref,
-    props,
-    getCellOnLayoutHandler,
     CELL_COUNT,
     isModalVisible,
     setIsModalVisible,

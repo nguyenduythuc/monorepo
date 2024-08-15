@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextStyle,
 } from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
 
 export type AppbarActionProp = {

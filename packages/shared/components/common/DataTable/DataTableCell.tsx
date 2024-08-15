@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Pressable} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export type DataTableCellProps = {
   style?: string;

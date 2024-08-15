@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   TextStyle,
 } from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 
 export type AppbarBackActionProp = {
   onPress?: () => void;
@@ -16,6 +17,7 @@ export type AppbarBackActionProp = {
   title?: string;
   titleStyle?: TextStyle;
   backIconColor?: string;
+  containerStyle?: string;
 };
 
 export const AppbarBackAction = ({
@@ -24,14 +26,20 @@ export const AppbarBackAction = ({
   title,
   titleStyle,
   backIconColor = '#333333',
+  containerStyle = '',
   ...rest
 }: AppbarBackActionProp) => {
+  const {appNavigate} = useConfigRouting();
+  const onPressBack = () => {
+    if (onPress) {
+      onPress();
+    }
+    appNavigate('goBack');
+  };
   return (
-    <View style={tw`flex-1 items-start`}>
-      <TouchableOpacity onPress={onPress} style={tw`flex-row items-center`}>
-        {icon && (
-          <Icon name={icon} width={15} color={backIconColor} disabled></Icon>
-        )}
+    <View style={tw`items-start ${containerStyle}`}>
+      <TouchableOpacity onPress={onPressBack} style={tw`flex-row items-center`}>
+        {icon && <Icon name={icon} color={backIconColor} disabled></Icon>}
         <Text style={[tw`text-base`, titleStyle]}>{title}</Text>
         {/* <Text style={tw`text-black text-lg`}>Menu</Text> */}
       </TouchableOpacity>

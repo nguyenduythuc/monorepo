@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {BaseModal} from '../AppModal';
 
 type DropdownProps = {

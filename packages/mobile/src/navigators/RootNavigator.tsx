@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native-stack';
 import {RootParamList} from '../types/paramtypes';
 import {
-  HomeScreenContainer,
+  HomeContainer,
   TestScreen,
   ComponentScreen,
   VerifyAccountContainer,
@@ -33,12 +33,12 @@ const prefixes = ['lfvncustomer://', 'https://duythuc.vercel.app'];
 // Config path for deep link
 const config: LinkingOptions<RootParamList>['config'] = {
   screens: {
-    Login: {
-      path: 'login',
-    },
-    Home: {
-      path: 'home',
-    },
+    // login: {
+    //   path: 'login',
+    // },
+    // home: {
+    //   path: 'home',
+    // },
     Test: {
       // example for full config
       path: 'test/:id/:section',
@@ -62,7 +62,7 @@ const RootStack = () => {
         headerShown: false,
         gestureEnabled: true,
       }}
-      initialRouteName="Test">
+      initialRouteName="home">
       <Stack.Screen
         name="Test"
         component={TestScreen}
@@ -71,7 +71,7 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="Login"
+        name="login"
         component={LoginContainer}
         options={{
           headerShown: false,
@@ -127,8 +127,8 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="Home"
-        component={HomeScreenContainer}
+        name="home"
+        component={HomeContainer}
         options={{
           headerShown: false,
         }}

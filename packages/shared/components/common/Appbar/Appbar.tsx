@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 
 import {View, TextStyle} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {AppbarBackAction} from './AppbarBackAction';
 import {AppbarContent} from './AppbarContent';
 import {AppbarAction} from './AppbarAction';

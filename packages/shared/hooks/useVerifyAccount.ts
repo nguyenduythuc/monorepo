@@ -7,8 +7,11 @@ import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {Keyboard} from 'react-native';
 import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
+import useTranslations from './useTranslations';
 
-const useVerifyAccount = ({t}: {t: any}) => {
+const useVerifyAccount = ({type}: {type: string}) => {
+  const t = useTranslations();
+
   const fields = [FieldTestConfig.IdCard, FieldTestConfig.PhoneNumber];
   const [generateOTP, {isError, isLoading}] = useGenerateOTPMutation();
 
@@ -54,7 +57,7 @@ const useVerifyAccount = ({t}: {t: any}) => {
           authSeq,
           phoneNumber,
           identityNumber: idCard,
-          type: 'LOGIN_OTP',
+          type,
         });
       }
     }

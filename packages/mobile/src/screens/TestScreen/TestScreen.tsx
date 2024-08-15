@@ -1,19 +1,17 @@
 import React, {useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import useLoginBiometrics from '@lfvn-customer/shared/hooks/useLoginBiometrics';
 import {CustomButton, SwitchCustom} from '@lfvn-customer/shared/components';
 import {useNavigation} from '@react-navigation/native';
 import {PrimaryNavigatorNavigationProp} from '../../navigators/RootNavigator';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {useTranslations} from 'use-intl';
 import uuid from 'react-native-uuid';
 import {mmkvStorage} from '@lfvn-customer/shared/utils/storage';
 import {UUID} from '@lfvn-customer/shared/utils/constants';
 
 const TestScreen = () => {
-  const t = useTranslations();
   const navigation = useNavigation<PrimaryNavigatorNavigationProp>();
   const {user} = useAppSelector(state => state.auth);
 
@@ -30,10 +28,10 @@ const TestScreen = () => {
   }, []);
 
   const {biometricType, handleChangeBiometricStatus, enableBiometric} =
-    useLoginBiometrics({t});
+    useLoginBiometrics();
 
   const onPressLoginScreen = () => {
-    navigation.navigate('Login');
+    navigation.navigate('login');
   };
 
   const onPressStatusBiometrics = () => {

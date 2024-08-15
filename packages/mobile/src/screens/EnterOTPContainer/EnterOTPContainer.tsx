@@ -1,18 +1,14 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {EnterOTPScreen} from '@lfvn-customer/shared/screens/EnterOTP';
-import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
 import {useRoute} from '@react-navigation/native';
 import {EnterOTPScreenRouteProps} from '../../types/paramtypes';
-import {useTranslations} from 'use-intl';
+import {AppbarBackAction} from '@lfvn-customer/shared/components';
 
 const EnterOTPContainer = () => {
-  const t = useTranslations();
-  const {onPressGoBack} = useVerifyAccount({t});
-
   const route = useRoute<EnterOTPScreenRouteProps>();
 
   const {authSeq, phoneNumber, identityNumber, type} = route.params;
@@ -25,9 +21,7 @@ const EnterOTPContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <TouchableOpacity onPress={onPressGoBack}>
-          <Text>Back</Text>
-        </TouchableOpacity>
+        <AppbarBackAction containerStyle="mx-2" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
@@ -35,7 +29,6 @@ const EnterOTPContainer = () => {
             authSeq={authSeq}
             phoneNumber={phoneNumber}
             identityNumber={identityNumber}
-            t={t}
             type={type}
           />
         </KeyboardAwareScrollView>

@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '@lfvn-customer/shared/components/common/Icon';
 import {useGetTheme} from '../../../hooks/useGetTheme';
 
