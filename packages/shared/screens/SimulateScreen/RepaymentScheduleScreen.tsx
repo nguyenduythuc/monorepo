@@ -1,32 +1,16 @@
 import {
   Appbar,
-  AppbarAction,
-  AppbarBackAction,
-  AppbarContent,
   CustomButton,
   CustomTable,
   CustomTableProps,
   Icon,
 } from '@lfvn-customer/shared/components';
-import {useNavigation} from '@react-navigation/native';
 import {useMemo} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {View, Text, ScrollView, Pressable, Platform} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import React from 'react';
-import {PrimaryNavigatorNavigationProp} from '../../navigators/RootNavigator';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
-import {useTranslations} from 'use-intl';
 
-export const RepaymentScheduleScreen = () => {
-  const navigation = useNavigation<PrimaryNavigatorNavigationProp>();
-  const t = useTranslations();
+export const RepaymentScheduleScreen = ({t}: {t: any}) => {
   const headers = ['Id', 'Name', 'Age', 'Job', 'Address', 'Action'];
 
   const tableData = [
@@ -152,36 +136,22 @@ export const RepaymentScheduleScreen = () => {
     };
   }, [tableData, headers]);
 
-  const {appNavigate} = useConfigRouting();
-
   return (
-    <View>
-      <SafeAreaView style={tw`bg-white h-screen`}>
-        <Appbar
-          backAction
-          backIconColor="black"
-          labelContent={''}
-          contentTextStyle={tw.style('text-black')}
-        />
-        <ScrollView>
-          <View style={tw`px-4`}>
-            {/* <Text> RepaymentScheduleScreen </Text> */}
-            <View style={tw`mt-10`}>
-              <Text style={tw`mb-4`}>Data Table Component Example</Text>
-              <CustomTable {...tableProps}></CustomTable>
-            </View>
+    <>
+      <Appbar labelContent={t('Simulate.repaymentSchedule')} />
+      <ScrollView style={tw`flex-1`}>
+        <View style={tw`mx-4 flex-1`}>
+          <View style={tw`mt-2`}>
+            <Text style={tw`mb-4`}>Data Table Component Example</Text>
+            <CustomTable {...tableProps}></CustomTable>
           </View>
-        </ScrollView>
-        <View style={tw`px-4 pt-4 border-t border-gray-200`}>
-          <CustomButton
-            onPress={() => {
-              appNavigate('SimulateScreen');
-            }}
-            color="red">
-            Back
-          </CustomButton>
         </View>
-      </SafeAreaView>
-    </View>
+      </ScrollView>
+      <View style={tw`bg-white px-4 pt-3 pb-1 border-t border-gray-200`}>
+        <CustomButton onPress={() => {}}>
+          {t('Simulate.exportTable')}
+        </CustomButton>
+      </View>
+    </>
   );
 };

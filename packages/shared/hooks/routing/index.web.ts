@@ -8,16 +8,16 @@ export const useConfigRouting = () => {
     nextScreen: keyof RootParamListWeb,
     params?: {[key: string]: string | number | boolean} | undefined,
   ) => {
-    if (nextScreen === 'goBack') {
-      navigation.back();
-    } else {
-      const queryString = params
-        ? '?' + new URLSearchParams(params as Record<string, string>).toString()
-        : '';
-      console.log('nextScreenMobile', nextScreen);
-      navigation.push(`${nextScreen}${queryString}`);
-    }
+    const queryString = params
+      ? '?' + new URLSearchParams(params as Record<string, string>).toString()
+      : '';
+    console.log('nextScreenMobile', nextScreen);
+    navigation.push(`${nextScreen}${queryString}`);
   };
 
-  return {appNavigate};
+  const goBack = () => {
+    navigation.back();
+  };
+
+  return {appNavigate, goBack};
 };

@@ -105,7 +105,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
               return (
                 <SliderWithTextInput
                   color="red"
-                  onChange={onChange}
+                  onChangeText={onChange}
                   onChangeSlider={onChange}
                   value={value}
                   max_value={field.maxValue || 10}
@@ -135,6 +135,9 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   label={field.label}
                   options={field.options || []}
                   onChange={onChange}
+                  errorMessage={
+                    errors[field.controlProps.name]?.message?.toString() || ''
+                  }
                   placeholder="Choose Loan Purpose"
                 />
               );
@@ -159,6 +162,10 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                     isChecked={value}
                     onChange={onChange}
                     color={field.checkboxColor}
+                    required={!!field.controlProps.rules?.required}
+                    errorMessage={
+                      errors[field.controlProps.name]?.message?.toString() || ''
+                    }
                   />
                   <Icon
                     size={20}

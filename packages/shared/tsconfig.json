@@ -18,5 +18,5 @@
     "paths": {
       "react-native": ["../../node_modules/react-native-web"]
     }
-  },
-} 
+  }
+}

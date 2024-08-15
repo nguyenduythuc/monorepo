@@ -29,12 +29,9 @@ export const AppbarBackAction = ({
   containerStyle = '',
   ...rest
 }: AppbarBackActionProp) => {
-  const {appNavigate} = useConfigRouting();
+  const {goBack} = useConfigRouting();
   const onPressBack = () => {
-    if (onPress) {
-      onPress();
-    }
-    appNavigate('goBack');
+    goBack();
   };
   return (
     <View style={tw`items-start ${containerStyle}`}>

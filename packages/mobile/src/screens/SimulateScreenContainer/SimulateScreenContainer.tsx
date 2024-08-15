@@ -9,8 +9,8 @@ export const SimulateScreenContainer = () => {
   const t = useTranslations();
 
   return (
-    <View style={tw`h-screen bg-white`}>
-      <SafeAreaView style={tw`h-screen`}>
+    <View style={tw`flex-1 bg-white`}>
+      <SafeAreaView style={tw`flex-1`}>
         <SimulateScreen t={t} />
       </SafeAreaView>
     </View>

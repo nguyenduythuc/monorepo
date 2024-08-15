@@ -62,6 +62,7 @@ const useSimulateScreen = () => {
     productCode: '999995',
     productName: 'Car Loan Stepup',
     maxAmount: '1000000000',
+    minAmount: '10000000',
     interest: 10,
   };
 
@@ -84,8 +85,8 @@ const useSimulateScreen = () => {
       {
         ...FieldSimulateConfig.SimulateLoanAmount,
         maxValue: parseInt(selectProduct?.maxAmount || '1'),
-        minValue: 1,
-        step: 100000,
+        minValue: 10000000,
+        step: 1000000,
         defaultValue: (
           parseInt(selectProduct?.maxAmount || '1') / 2
         ).toString(),
@@ -126,6 +127,7 @@ const useSimulateScreen = () => {
 
   const submitAction = handleSubmit(() => {
     const simulateForm = getValues();
+    console.log('simulateForm', simulateForm);
   });
 
   useEffect(() => {

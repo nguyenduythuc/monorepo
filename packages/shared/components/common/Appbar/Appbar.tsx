@@ -6,6 +6,7 @@ import {AppbarBackAction} from './AppbarBackAction';
 import {AppbarContent} from './AppbarContent';
 import {AppbarAction} from './AppbarAction';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {IconKeys} from '../Icon';
 
 export type AppbarProp = {
   backAction?: boolean;
@@ -13,16 +14,24 @@ export type AppbarProp = {
   labelContent?: string;
   rightComponent?: boolean;
   contentTextStyle?: TextStyle;
+  iconAction?: IconKeys;
+  iconActionColor?: string;
+  actionTitle?: string;
+  actionTitleStyle?: TextStyle;
 };
 
 export const Appbar = ({
-  backAction,
+  backAction = true,
   backIconColor,
-  labelContent,
+  labelContent = '',
   rightComponent,
   contentTextStyle,
+  iconAction,
+  iconActionColor,
+  actionTitle,
+  actionTitleStyle,
 }: AppbarProp) => {
-  const {appNavigate} = useConfigRouting();
+  const {goBack} = useConfigRouting();
 
   return (
     <View
@@ -30,14 +39,16 @@ export const Appbar = ({
       {backAction && (
         <AppbarBackAction
           backIconColor={backIconColor}
-          onPress={() => appNavigate('goBack')}
+          onPress={() => goBack()}
         />
       )}
       <AppbarContent title={labelContent} titleStyle={contentTextStyle} />
       {rightComponent && (
         <AppbarAction
-          title="Save"
-          titleStyle={tw`text-blue-500 font-semibold`}
+          icon={iconAction}
+          iconColor={iconActionColor}
+          title={actionTitle}
+          titleStyle={actionTitleStyle}
         />
       )}
     </View>

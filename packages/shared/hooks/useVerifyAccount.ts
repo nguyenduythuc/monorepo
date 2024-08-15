@@ -8,6 +8,7 @@ import {Keyboard} from 'react-native';
 import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
+import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 
 const useVerifyAccount = ({type}: {type: string}) => {
   const t = useTranslations();
@@ -15,7 +16,7 @@ const useVerifyAccount = ({type}: {type: string}) => {
   const fields = [FieldTestConfig.IdCard, FieldTestConfig.PhoneNumber];
   const [generateOTP, {isError, isLoading}] = useGenerateOTPMutation();
 
-  const {appNavigate} = useConfigRouting();
+  const {appNavigate, goBack} = useConfigRouting();
   const {handleShowToast} = useShowToast();
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
@@ -53,7 +54,7 @@ const useVerifyAccount = ({type}: {type: string}) => {
     } else {
       const authSeq = result.data?.authSeq;
       if (authSeq) {
-        appNavigate('enter-otp', {
+        appNavigate(ScreenParamEnum.EnterOtp, {
           authSeq,
           phoneNumber,
           identityNumber: idCard,
@@ -64,7 +65,7 @@ const useVerifyAccount = ({type}: {type: string}) => {
   });
 
   const onPressGoBack = () => {
-    appNavigate('goBack');
+    goBack();
   };
 
   return {

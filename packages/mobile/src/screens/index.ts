@@ -7,3 +7,5 @@ export * from './EnterOTPContainer';
 export * from './SignUpContainer';
 export * from './SimulateScreenContainer';
 export * from './ProductIntroductionScreen';
+export * from './ProductDetailContainer';
+export * from './CreateLoanAPLContainer';

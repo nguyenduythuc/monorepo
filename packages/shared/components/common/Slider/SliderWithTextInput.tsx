@@ -17,7 +17,7 @@ export interface SliderWithTextInputProps {
   onChangeSlider: (value: number) => void;
   value: number;
   defaultValue: string;
-  onChange: (value: any) => void;
+  onChangeText: (value: string) => void;
 }
 
 export const SliderWithTextInput = ({
@@ -30,7 +30,7 @@ export const SliderWithTextInput = ({
   onChangeSlider,
   value,
   defaultValue,
-  onChange,
+  onChangeText,
   ...props
 }: SliderWithTextInputProps) => {
   const formatterVND = new Intl.NumberFormat('vn-VN', {
@@ -49,21 +49,24 @@ export const SliderWithTextInput = ({
   return (
     <View style={tw`mt-6`}>
       <TextInputWithUnit
-        onChangeValue={onChange}
+        onChangeValue={onChangeText}
         label={label}
         value={formatValue(value)}
         unit={unit}
+        keyboardType={'number-pad'}
       />
 
-      <BaseSlider
-        maxValue={max_value}
-        minValue={min_value}
-        step={step}
-        sliderValue={value}
-        onChangeSlider={onChangeSlider}
-        color={color}
-        defaultValue={parseFloat(defaultValue)}
-      />
+      <View style={tw.style('h-10')}>
+        <BaseSlider
+          maxValue={max_value}
+          minValue={min_value}
+          step={step}
+          sliderValue={value}
+          onChangeSlider={onChangeSlider}
+          color={color}
+          defaultValue={parseFloat(defaultValue)}
+        />
+      </View>
       <View style={tw`flex flex-row justify-between`}>
         <Text style={tw`text-gray-500`}>
           {formatValue(min_value)} {unit}

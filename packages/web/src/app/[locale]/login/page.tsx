@@ -1,5 +1,5 @@
 "use client";
-import { AppbarBackAction, LoginScreen } from "@lfvn-customer/shared";
+import { Appbar, LoginScreen } from "@lfvn-customer/shared";
 import tw from "@lfvn-customer/shared/themes/tailwind";
 import { View } from "react-native";
 
@@ -11,7 +11,7 @@ export default function Login() {
         src="/images/login_bg.png"
         alt="My Image"
       />
-      <AppbarBackAction containerStyle="mx-2 mt-4" backIconColor="white" />
+      <Appbar backIconColor="white" />
       <LoginScreen />
     </View>
   );

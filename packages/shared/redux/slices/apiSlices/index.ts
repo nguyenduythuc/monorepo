@@ -29,19 +29,6 @@ export const apiSlice = createApi({
   }),
 });
 
-// export const pulicApiSlice = createApi({
-//   reducerPath: 'LFVN-API',
-//   baseQuery: axiosBaseQuery({
-//     baseUrl:
-//       (Platform.OS !== 'web'
-//         ? Config.BASE_API_URL_PUBLIC
-//         : process.env.BASE_API_URL_PUBLIC) ?? '',
-//   }),
-//   endpoints: builder => ({
-//     ...publicAPI(builder),
-//   }),
-// });
-
 export const {
   useGetExampleQuery,
   useSetExampleMutation,
@@ -60,6 +47,5 @@ export const {
   useGetAccountMutation,
   useRegisterMutation,
   useLazyActiveQuery,
+  useGetProductByIdQuery,
 } = apiSlice;
-
-// export const {useGetMetadataQuery} = pulicApiSlice;

@@ -13,11 +13,14 @@ export type CheckboxProps = {
   description?: string;
   size?: 'sm' | 'lg' | 'xl';
   children?: React.ReactNode;
+  required?: boolean;
+  errorMessage?: string;
 };
 
 export const Checkbox: FC<CheckboxProps> = ({
   disabled,
   label,
+  required,
   onChange,
   color = 'blue',
   isChecked = false,
@@ -25,6 +28,7 @@ export const Checkbox: FC<CheckboxProps> = ({
   size = 'sm',
   description = '12341234',
   children,
+  errorMessage,
 }) => {
   const handlePress = () => {
     if (onChange) {
@@ -46,13 +50,17 @@ export const Checkbox: FC<CheckboxProps> = ({
       onPress={handlePress}>
       {label && checkboxRight && (
         <View>
-          <Text style={tw`ml-3 mr-3 text-base pb-2`}>{label}</Text>
+          <Text style={tw`ml-3 mr-3 text-base pb-2`}>
+            {label}
+            {required && <Text style={tw`text-base text-red-500`}>{' *'}</Text>}
+          </Text>
           <Text style={tw`ml-3 mr-3 text-sm text-blue-600`}>{description}</Text>
         </View>
       )}
       <View
         style={[
           checkboxStyle,
+          !!errorMessage && tw`border-red-600`,
           isChecked && tw`bg-${color}-600 border-${color}-600`,
         ]}>
         {isChecked && (
@@ -69,7 +77,10 @@ export const Checkbox: FC<CheckboxProps> = ({
       {children}
       {label && !checkboxRight && (
         <View style={tw`items-start`}>
-          <Text style={tw`ml-3 mr-3 text-base pb-1`}>{label}</Text>
+          <Text style={tw`ml-3 mr-3 text-base pb-1`}>
+            {label}
+            {required && <Text style={tw`text-base text-red-500`}>{' *'}</Text>}
+          </Text>
           <Text style={tw`ml-3 mr-3 text-sm text-blue-600`}>{description}</Text>
         </View>
       )}

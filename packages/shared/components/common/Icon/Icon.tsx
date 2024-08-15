@@ -16,7 +16,6 @@ import EyeOpenIcon from '@lfvn-customer/shared/assets/images/svg/EyeOpenIcon';
 import EyeCloseIcon from '@lfvn-customer/shared/assets/images/svg/EyeCloseIcon';
 import ArrowDown from '@lfvn-customer/shared/assets/images/svg/ArrowDown';
 import CheckboxIcon from '@lfvn-customer/shared/assets/images/svg/CheckBoxIcon';
-import CheckCircle from '@lfvn-customer/shared/assets/images/svg/CheckCircle';
 import InfoIcon from '@lfvn-customer/shared/assets/images/svg/InfoIcon';
 import CalendarIcon from '@lfvn-customer/shared/assets/images/svg/CalendarIcon';
 import InterestMoneyIcon from '@lfvn-customer/shared/assets/images/svg/InterestMoneyIcon';
@@ -33,6 +32,11 @@ import CarLoanMenuIcon from '@lfvn-customer/shared/assets/images/svg/CarLoanMenu
 import FastLoanMenuIcon from '@lfvn-customer/shared/assets/images/svg/FastLoanMenuIcon';
 import CreditCardIcon from '@lfvn-customer/shared/assets/images/svg/CreditCardIcon';
 import FaceIdIcon from '@lfvn-customer/shared/assets/images/svg/FaceIdIcon';
+import MoneyBagIcon from '@lfvn-customer/shared/assets/images/svg/MoneyBagIcon';
+import QuickApproveIcon from '@lfvn-customer/shared/assets/images/svg/QuickApproveIcon';
+import TimeMoneyIcon from '@lfvn-customer/shared/assets/images/svg/TimeMoneyIcon';
+import DocLoanIcon from '@lfvn-customer/shared/assets/images/svg/DocLoanIcon';
+import CommentQuestionIcon from '@lfvn-customer/shared/assets/images/svg/CommentQuestionIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -66,6 +70,11 @@ const iconList = (props: IconProps) => ({
   'fast-loan-menu-icon': <FastLoanMenuIcon {...props} />,
   'car-loan-icon': <CarLoanMenuIcon {...props} />,
   'faceid-icon': <FaceIdIcon {...props} />,
+  'money-bag-icon': <MoneyBagIcon {...props} />,
+  'quick-approve-icon': <QuickApproveIcon {...props} />,
+  'time-money-icon': <TimeMoneyIcon {...props} />,
+  'doc-loan-icon': <DocLoanIcon {...props} />,
+  'comment-question-icon': <CommentQuestionIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

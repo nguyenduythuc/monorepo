@@ -85,7 +85,8 @@
     "repaymentSchedule": "Repayment schedule",
     "year": "năm",
     "save": "Lưu",
-    "submit": "Submit"
+    "submit": "Submit",
+    "exportTable": "Tải bảng tính khoản vay"
   },
   "ProductIntroduction": {
     "cashLoan": "Cash Loan",
@@ -100,5 +101,15 @@
     "lfvn": "Lotte Finance Việt Nam",
     "login": "Đăng nhập",
     "registerNow": "Đăng ký ngay"
+  },
+  "ProductDetail": {
+    "fastLoan": "Fast Loan",
+    "productInfo": "Product Information",
+    "borrowNow": "Borrow Now",
+    "continue": "Continue",
+    "createLoanApl": "Create loan application",
+    "createLoanInstruction": "Complete the following steps to create a loan",
+    "needAdvice": "You need loan advice?",
+    "contactDescription": "You can contact LOTTE Finance sales staff for advice:"
   }
 }

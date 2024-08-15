@@ -26,18 +26,19 @@ export const Pagination: FC<PaginationProps> = ({
 
   return (
     <View
-      style={tw`flex flex-row relative border-t border-gray-300 px-3 py-2 justify-between`}>
+      style={tw`flex flex-row relative border-t border-[#C0E1FF] px-3 py-2 justify-between`}>
       <View style={tw`flex flex-row items-center`}>
-        <Text style={tw`text-lg font-semibold`}>
+        <Text style={tw`text-base font-medium`}>
           {fromIdx + 1}-{toIdx}/{total} result
         </Text>
       </View>
       <View style={tw`flex flex-row items-center`}>
         <ArrowButton
-          icon="arrow-left"
+          icon="arrow-right"
           iconColor="gray"
           onPress={() => onPageChange(page - 1)}
           disabled={page <= 1}
+          rotate
         />
         <View style={tw`mx-2`}>
           <PageSelectButton

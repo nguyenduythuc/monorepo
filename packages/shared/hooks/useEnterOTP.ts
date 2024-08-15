@@ -22,7 +22,7 @@ const useEnterOTP = ({
   const t = useTranslations();
   const [resendOTP, {isError: isResendError}] = useResendOTPMutation();
   const {handleShowToast} = useShowToast();
-  const {appNavigate} = useConfigRouting();
+  const {goBack} = useConfigRouting();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [counter, setCounter] = useState(180); // Đếm ngược từ 180 giây (3 phút)
@@ -73,7 +73,7 @@ const useEnterOTP = ({
   };
 
   const onPressGoBack = () => {
-    appNavigate('goBack');
+    goBack();
   };
 
   return {

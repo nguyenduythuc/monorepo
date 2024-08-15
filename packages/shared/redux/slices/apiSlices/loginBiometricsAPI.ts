@@ -9,7 +9,7 @@ import {
   DeactiveBiometricRequestProps,
   DeactiveBiometricResponseProps,
 } from '@lfvn-customer/shared/types/services/loginBiometricsTypes';
-import { getPath } from './config';
+import {getPath} from './config';
 
 export const loginBiometricsAPI = (
   builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
@@ -19,7 +19,7 @@ export const loginBiometricsAPI = (
     CheckBiometricRequestProps
   >({
     query: (body: CheckBiometricRequestProps) => ({
-      url: getPath('/api/check-biometric'),
+      url: getPath('/check-biometric'),
       method: 'post',
       data: body,
     }),
@@ -29,7 +29,7 @@ export const loginBiometricsAPI = (
     ActiveBiometricRequestProps
   >({
     query: (body: ActiveBiometricRequestProps) => ({
-      url: getPath('/api/activate-biometric'),
+      url: getPath('/activate-biometric'),
       method: 'post',
       data: body,
     }),
@@ -39,7 +39,7 @@ export const loginBiometricsAPI = (
     DeactiveBiometricRequestProps
   >({
     query: (body: DeactiveBiometricRequestProps) => ({
-      url: getPath('/api/deactivate-biometric'),
+      url: getPath('/deactivate-biometric'),
       method: 'post',
       data: body,
     }),
@@ -49,7 +49,7 @@ export const loginBiometricsAPI = (
     BiometricTokenRequestProps
   >({
     query: (body: BiometricTokenRequestProps) => ({
-      url: getPath('/api/biometric-token'),
+      url: getPath('/biometric-token'),
       method: 'post',
       data: body,
     }),

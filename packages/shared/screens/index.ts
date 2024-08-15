@@ -5,3 +5,5 @@ export * from './SignUp';
 export * from './SimulateScreen';
 export * from './ProductIntroduction';
 export * from './Home';
+export * from './ProductDetail';
+export * from './CreateLoanAPL';
