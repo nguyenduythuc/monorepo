@@ -3,16 +3,15 @@ import {View, StatusBar} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {EnterOTPScreen} from '@lfvn-customer/shared/screens/EnterOTP';
+import {AppbarBackAction} from '@lfvn-customer/shared/components';
+import {ResetPasswordScreen} from '@lfvn-customer/shared/screens';
+import {ResetPasswordRouteProps} from '../../types/paramtypes';
 import {useRoute} from '@react-navigation/native';
-import {EnterOTPScreenRouteProps} from '../../types/paramtypes';
-import {Appbar} from '@lfvn-customer/shared/components';
 
-const EnterOTPContainer = () => {
-  const route = useRoute<EnterOTPScreenRouteProps>();
+const ResetPasswordContainer = () => {
+  const route = useRoute<ResetPasswordRouteProps>();
 
-  const {authSeq, phoneNumber, identityNumber, type, newPassword} =
-    route.params;
+  const {phoneNumber, identityNumber} = route.params;
 
   return (
     <View style={tw.style('flex-1 bg-white')}>
@@ -22,16 +21,13 @@ const EnterOTPContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <Appbar />
+        <AppbarBackAction containerStyle="mx-2" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <EnterOTPScreen
-            authSeq={authSeq}
+          <ResetPasswordScreen
             phoneNumber={phoneNumber}
             identityNumber={identityNumber}
-            type={type}
-            newPassword={newPassword}
           />
         </KeyboardAwareScrollView>
       </SafeAreaView>
@@ -39,4 +35,4 @@ const EnterOTPContainer = () => {
   );
 };
 
-export default EnterOTPContainer;
+export default ResetPasswordContainer;

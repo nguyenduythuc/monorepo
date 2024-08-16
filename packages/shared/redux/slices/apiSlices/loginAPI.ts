@@ -11,6 +11,10 @@ import {
   RegisterResponseProps,
   RegisterRequestProps,
   ActiveAccountRequestProps,
+  ResetPasswordInitRequestProps,
+  ResetPasswordInitResponseProps,
+  ResetPasswordFinishRequestProps,
+  ResetPasswordFinishResponseProps,
 } from '@lfvn-customer/shared/types/services';
 import {getPath} from './config';
 
@@ -57,6 +61,26 @@ export const loginAPI = (
   resendOTP: builder.mutation<ResendOTPResponseProps, ResendOTPRequestProps>({
     query: (body: ResendOTPRequestProps) => ({
       url: getPath('/otp-login/resend'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  resetPasswordInit: builder.mutation<
+    ResetPasswordInitResponseProps,
+    ResetPasswordInitRequestProps
+  >({
+    query: (body: ResetPasswordInitRequestProps) => ({
+      url: getPath('/api/account/reset-password/init'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  resetPasswordFinish: builder.mutation<
+    ResetPasswordFinishResponseProps,
+    ResetPasswordFinishRequestProps
+  >({
+    query: (body: ResetPasswordFinishRequestProps) => ({
+      url: getPath('/api/account/reset-password/finish'),
       method: 'post',
       data: body,
     }),

@@ -1,8 +1,8 @@
-"use client";
-import { HomeScreen, add } from "@lfvn-customer/shared";
-import React from "react";
-import { View } from "react-native";
-import tw from "twrnc";
+'use client';
+import { HomeScreen } from '@lfvn-customer/shared';
+import React from 'react';
+import { View } from 'react-native';
+import tw from 'twrnc';
 
 export default function Home() {
   return (

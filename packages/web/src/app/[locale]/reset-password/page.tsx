@@ -1,29 +1,22 @@
 "use client";
-import { Appbar, EnterOTPScreen } from "@lfvn-customer/shared";
+import { AppbarBackAction, ResetPasswordScreen } from "@lfvn-customer/shared";
 import tw from "@lfvn-customer/shared/themes/tailwind";
-import { View } from "react-native";
 import { useSearchParams } from "next/navigation";
-import { OTPTypesEnum } from "@lfvn-customer/shared/types";
+import { View } from "react-native";
 
-export default function EnterOTP() {
+export default function ResetPassword() {
   const searchParams = useSearchParams();
 
-  const authSeq = searchParams.get("authSeq") ?? "";
   const phoneNumber = searchParams.get("phoneNumber") ?? "";
   const identityNumber = searchParams.get("identityNumber") ?? "";
-  const type = (searchParams.get("type") ?? "") as OTPTypesEnum;
-  const newPassword = searchParams.get("newPassword") ?? "";
 
   return (
     <View style={tw.style("flex-1 bg-white h-full")}>
+      <AppbarBackAction containerStyle="mx-2 mt-4" />
       <View style={tw.style("pt-2")}>
-        <Appbar />
-        <EnterOTPScreen
-          authSeq={authSeq}
+        <ResetPasswordScreen
           phoneNumber={phoneNumber}
           identityNumber={identityNumber}
-          type={type}
-          newPassword={newPassword}
         />
       </View>
     </View>

@@ -5,6 +5,16 @@
     "notSuccess": "Không thành công",
     "agree": "Đồng ý"
   },
+  "ErrorCommon": {
+    "title": "Lỗi",
+    "message": "Đã xảy ra lỗi, vui lòng thử lại sau"
+  },
+  "Validation": {
+    "mustBeANumber": "Trường nhập phải là dạng số",
+    "phonenumber": "Không đúng định dạng số điện thoại",
+    "idCard": "Không đúng định dạng số CCCD",
+    "fieldIsRequirement": "Trường nhập không được để trống"
+  },
   "OTPStatusCode": {
     "00": "Success",
     "80": "Process send otp failed",
@@ -111,5 +121,18 @@
     "createLoanInstruction": "Complete the following steps to create a loan",
     "needAdvice": "You need loan advice?",
     "contactDescription": "You can contact LOTTE Finance sales staff for advice:"
+  },
+  "ResetPassword": {
+    "title": "Đổi mật khẩu",
+    "newPassword": "Nhập mật khẩu mới",
+    "newPasswordPlaceholder": "Nhập mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu",
+    "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+    "msgLengthPassFrom8To15Characters": "Mật khẩu gồm 8 đến 15 ký tự",
+    "msgPasswordNotMatch": "Mật khẩu mới không trùng nhau, vui lòng kiểm tra lại",
+    "msgPasswordNotIncludeUpperCaseAndLowerCase": "Bao gồm ký tự viết thường và viết hoa",
+    "msgPasswordNotIncludeNumberAndSpecialCharacter": "Bao gồm ký tự số và ký tự đặc biệt (@,#,$ ...)",
+    "confirm": "Xác nhận",
+    "confirmPasswordNotMatch": "Mật khẩu mới không trùng nhau, vui lòng kiểm tra lại"
   }
 }

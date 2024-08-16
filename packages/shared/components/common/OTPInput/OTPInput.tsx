@@ -4,8 +4,17 @@ import {View, Text, StyleSheet} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useInputOTP from '@lfvn-customer/shared/hooks/useInputOTP';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 
-export const OTPInput = ({authSeq, type}: {authSeq: string; type: string}) => {
+export const OTPInput = ({
+  authSeq,
+  type,
+  newPassword,
+}: {
+  authSeq: string;
+  type: OTPTypesEnum;
+  newPassword?: string;
+}) => {
   const {theme} = useGetTheme();
   const {textNegative500, borderDanger500} = theme;
 
@@ -13,6 +22,7 @@ export const OTPInput = ({authSeq, type}: {authSeq: string; type: string}) => {
     useInputOTP({
       authSeq,
       type,
+      newPassword,
     });
 
   return (

@@ -12,6 +12,7 @@ import useLoginBiometrics from './useLoginBiometrics';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {OTPTypesEnum} from '../types';
 
 const useLoginScreen = () => {
   const t = useTranslations();
@@ -49,7 +50,6 @@ const useLoginScreen = () => {
     dispatch(setToken(result.data?.id_token));
     if (result.data?.id_token) {
       setAppToken(result.data?.id_token || '');
-      // appNavigate('SimulateScreen');
       onHandleGetUserProfile();
       appNavigate(ScreenParamEnum.Home);
     }
@@ -57,7 +57,7 @@ const useLoginScreen = () => {
 
   const onPressOTPLogin = () => {
     appNavigate(ScreenParamEnum.VerifyAccount, {
-      type: 'LOGIN_OTP',
+      type: OTPTypesEnum.LOGIN_OTP,
     });
   };
 
@@ -67,7 +67,7 @@ const useLoginScreen = () => {
 
   const onPressForgotPassword = () => {
     appNavigate(ScreenParamEnum.VerifyAccount, {
-      type: 'FORGOT_PASSWORD',
+      type: OTPTypesEnum.RESET_PASSWORD,
     });
   };
 

@@ -12,25 +12,19 @@ import {
   SliderWithTextInput,
   TextInput,
   TextInputSearch,
+  TextInputDisplayValidation,
 } from '@lfvn-customer/shared/components/common';
 import {View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export const useCustomForm = ({fields, defaultValues}: FormProps) => {
-  const {
-    control,
-    watch,
-    formState,
-    getValues,
-    setValue,
-    register,
-    ...formReturn
-  } = useForm({
-    defaultValues,
-  });
+  const {control, watch, formState, getValues, setValue, ...formReturn} =
+    useForm({
+      defaultValues,
+    });
   const {errors} = formState;
 
-  const renderField = (field: FieldConfig, isRow: boolean) => {
+  const renderField = (field: FieldConfig) => {
     switch (field.type) {
       case FieldType.TextInput:
         return (
@@ -101,7 +95,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={field.defaultValue}
-            render={({field: {onChange, onBlur, value, ref}}) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <SliderWithTextInput
                   color="red"
@@ -127,7 +121,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={''}
-            render={({field: {onChange, onBlur, value, ref}}) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <DropDownSelect
                   value={value}
@@ -152,7 +146,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={false}
-            render={({field: {onChange, onBlur, value, ref}}) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <View
                   style={tw`flex flex-row justify-between items-start mt-6`}>
@@ -177,6 +171,40 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             }}
           />
         );
+      case FieldType.TextInputDisplayValidation:
+        return (
+          <Controller
+            key={field.controlProps.name}
+            {...field.controlProps}
+            control={control}
+            defaultValue=""
+            render={({field: {onChange, onBlur, value, ref}}) => {
+              return (
+                <TextInputDisplayValidation
+                  keyboardType={field.keyboardType}
+                  onChangeValue={onChange}
+                  value={value}
+                  watch={watch}
+                  onBlur={onBlur}
+                  disabled={field.disabled}
+                  label={field.label}
+                  ref={ref}
+                  errorMessage={
+                    errors[field.controlProps.name]?.message?.toString() || ''
+                  }
+                  required={!!field.controlProps.rules?.required}
+                  placeholder={field.placeholder}
+                  containerStyle={field.containerStyle}
+                  secureTextEntry={field.secureTextEntry}
+                  leftComponent={field.leftComponent}
+                  textInputStyle={field.textInputStyle}
+                  colorIcon={field.colorIcon}
+                  validations={field.validations}
+                />
+              );
+            }}
+          />
+        );
       default:
         return null;
     }
@@ -185,7 +213,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
   const renderFrom = () => (
     <View style={tw.style('my-4')}>
       {fields.map(field => {
-        return renderField(field, false);
+        return renderField(field);
       })}
     </View>
   );

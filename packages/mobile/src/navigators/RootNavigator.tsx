@@ -18,6 +18,7 @@ import {
   RepaymentScheduleScreenContainer,
   ProductDetailScreenContainer,
   CreateLoanAPLScreenContainer,
+  ResetPasswordContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -160,6 +161,13 @@ const RootStack = () => {
       <Stack.Screen
         name="home"
         component={HomeContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="reset-password"
+        component={ResetPasswordContainer}
         options={{
           headerShown: false,
         }}

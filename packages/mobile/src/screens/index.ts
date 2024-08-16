@@ -9,3 +9,4 @@ export * from './SimulateScreenContainer';
 export * from './ProductIntroductionScreen';
 export * from './ProductDetailContainer';
 export * from './CreateLoanAPLContainer';
+export * from './ResetPasswordContainer';

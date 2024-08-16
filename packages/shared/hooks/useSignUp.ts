@@ -4,11 +4,10 @@ import {useRegisterMutation} from '@lfvn-customer/shared/redux/slices/apiSlices'
 import {useEffect, useState} from 'react';
 import {Keyboard} from 'react-native';
 import useShowToast from './useShowToast';
-import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
-import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {OTPTypesEnum} from '../types';
 
 const useSignUp = () => {
   const t = useTranslations();
@@ -17,7 +16,7 @@ const useSignUp = () => {
     FieldTestConfig.SignUpPhoneNumber,
     FieldTestConfig.SignUpPersonalCard,
   ];
-  const {appNavigate, goBack} = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
   const [register, {isError, isLoading}] = useRegisterMutation();
   const {handleShowToast} = useShowToast();
 
@@ -32,7 +31,7 @@ const useSignUp = () => {
   useEffect(() => {
     if (isError) {
       handleShowToast({
-        msg: t('VerifyAccount.msgVerifyFail'),
+        msg: t('SignUp.msgSignupFail'),
         type: 'error',
       });
     }
@@ -48,30 +47,18 @@ const useSignUp = () => {
       identityNumber: idCard,
       password: 'lfvn@123', // TODO: password will be handled by BE in the feature
     });
-    const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
-    if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-      if (responseCode.type === 'toast') {
-        handleShowToast({
-          msg: t(responseCode.msg),
-          type: 'error',
-        });
-      }
-    } else {
+    if (result.data) {
       const authSeq = result.data?.authSeq;
       if (authSeq) {
         appNavigate(ScreenParamEnum.EnterOtp, {
           authSeq,
           phoneNumber,
           identityNumber: idCard,
-          type: 'SIGN_UP',
+          type: OTPTypesEnum.SIGN_UP,
         });
       }
     }
   });
-
-  const onPressGoBack = () => {
-    goBack();
-  };
 
   return {
     reset,
@@ -84,7 +71,6 @@ const useSignUp = () => {
     onPressSubmit,
     isError,
     isLoading,
-    onPressGoBack,
     isAcceptTC,
     setIsAcceptTC,
   };

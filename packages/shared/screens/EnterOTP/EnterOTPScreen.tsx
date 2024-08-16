@@ -14,22 +14,25 @@ import useEnterOTP from '@lfvn-customer/shared/hooks/useEnterOTP';
 import {ConfirmModal, Icon} from '@lfvn-customer/shared/components';
 import {maskPhoneNumber, formatTime} from '@lfvn-customer/shared/utils';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {OTPInput} from '../../components/common/OTPInput';
+import {OTPInput} from '@lfvn-customer/shared/components/common/OTPInput';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 
 const EnterOTPScreen = ({
   authSeq,
   phoneNumber,
   identityNumber,
   type,
+  newPassword,
 }: {
   authSeq: string;
   phoneNumber: string;
   identityNumber: string;
-  type: string;
+  type: OTPTypesEnum;
+  newPassword?: string;
 }) => {
   const t = useTranslations();
   const {theme} = useGetTheme();
-  const {textNegative500, textDanger500, textNegative300} = theme;
+  const {textNegative500, textDanger500, textNegative200} = theme;
 
   const {
     onPressResendOTP,
@@ -38,7 +41,7 @@ const EnterOTPScreen = ({
     isModalVisible,
     setIsModalVisible,
     msgRequestError,
-  } = useEnterOTP({authSeq, phoneNumber, identityNumber, type});
+  } = useEnterOTP({authSeq, phoneNumber, identityNumber, type, newPassword});
 
   return (
     <View style={tw.style('flex-1')}>
@@ -62,7 +65,7 @@ const EnterOTPScreen = ({
           </Text>
         </View>
       </View>
-      <OTPInput authSeq={authSeq} type={type} />
+      <OTPInput authSeq={authSeq} type={type} newPassword={newPassword} />
       <View style={tw.style('flex-row items-center justify-between mt-6 mx-4')}>
         <View style={tw.style('flex-row items-center')}>
           <Text style={tw.style(`text-sm`)}>
@@ -76,7 +79,7 @@ const EnterOTPScreen = ({
           <Text
             style={tw.style(
               `text-base font-semibold ${
-                isCounting ? textNegative300 : textNegative500
+                isCounting ? textNegative200 : textNegative500
               }`,
             )}>
             {t('EnterOTP.resendOTP')}

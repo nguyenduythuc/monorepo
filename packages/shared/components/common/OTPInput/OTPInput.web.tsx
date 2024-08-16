@@ -2,11 +2,21 @@ import React from 'react';
 import OtpInput from 'react-otp-input';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import useInputOTP from '@lfvn-customer/shared/hooks/useInputOTP';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 
-export const OTPInput = ({authSeq, type}: {authSeq: string; type: string}) => {
+export const OTPInput = ({
+  authSeq,
+  type,
+  newPassword,
+}: {
+  authSeq: string;
+  type: OTPTypesEnum;
+  newPassword?: string;
+}) => {
   const {value, setValue, CELL_COUNT} = useInputOTP({
     authSeq,
     type,
+    newPassword,
   });
 
   return (
