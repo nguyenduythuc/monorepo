@@ -59,8 +59,9 @@ export interface ILabelProps extends TextProps {
 }
 
 export interface ILabelValidationProps extends ILabelProps {
-  colorIcon?: string;
   validations?: InputValidationKeys[];
+  value?: string;
+  colors: {[key: string]: string};
 }
 
 export interface IErorMsgProps extends TextProps {
@@ -105,7 +106,6 @@ export type OTPTypes =
   | OTPTypesEnum.CHANGE_PASSWORD;
 
 export enum InputValidationKeys {
-  ONLY_NUMBER_FLOAT = 'ONLY_NUMBER_FLOAT',
   STRING_LENGTH_FROM_8_TO_15_CHARACTERS = 'STRING_LENGTH_FROM_8_TO_15_CHARACTERS',
   STRING_INCLUDE_UPPER_CASE_AND_LOWER_CASE = 'STRING_INCLUDE_UPPER_CASE_AND_LOWER_CASE',
   STRING_INCLUDE_NUMBER_AND_SPECIAL_CHARACTER = 'STRING_INCLUDE_NUMBER_AND_SPECIAL_CHARACTER',

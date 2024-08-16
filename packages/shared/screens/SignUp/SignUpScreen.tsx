@@ -39,7 +39,13 @@ const SignUpScreen = () => {
           <Checkbox
             isChecked={isAcceptTC}
             onChange={newValue => setIsAcceptTC(Boolean(newValue))}
-            label={t('SignUp.readAndAgree')}
+            label={
+              t('SignUp.readAndAgree') +
+              ' ' +
+              t('SignUp.conditional') +
+              ' ' +
+              t('SignUp.useService')
+            }
             color={'red'}
           />
           {/* <View style={tw.style('flex-row ml-2 flex-1 items-center')}>

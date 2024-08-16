@@ -1,8 +1,6 @@
-import {useDispatch} from 'react-redux';
 import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
 import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {useLoginMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {setToken} from '@lfvn-customer/shared/redux/slices/authSlice';
 import {useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {setAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
@@ -21,7 +19,6 @@ const useLoginScreen = () => {
   const {onHandleGetUserProfile} = useAuth();
   const {onPressBiometricLogin} = useLoginBiometrics();
 
-  const dispatch = useDispatch();
   const {appNavigate} = useConfigRouting();
   const {handleShowToast} = useShowToast();
 
@@ -47,7 +44,6 @@ const useLoginScreen = () => {
       username,
       password,
     });
-    dispatch(setToken(result.data?.id_token));
     if (result.data?.id_token) {
       setAppToken(result.data?.id_token || '');
       onHandleGetUserProfile();

@@ -6,21 +6,25 @@ import {
   useDeactiveBiometricMutation,
   useBiometricTokenMutation,
 } from '../redux/slices/apiSlices';
-import {useAppSelector} from '../redux/store';
 import {getDeviceName, getBrand} from 'react-native-device-info';
 import {mmkvStorage} from '../utils/storage';
 import {USER_LOGIN, UUID} from '../utils/constants';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import Toast from 'react-native-toast-message';
 import useTranslations from './useTranslations';
+import {setAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
+import useAuth from './useAuth';
+import {useConfigRouting} from './routing';
+import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 
 const useLoginBiometrics = () => {
-  const {user, token} = useAppSelector(state => state.auth);
   const [checkBiometric] = useCheckBiometricMutation();
   const [activeBiometric] = useActiveBiometricMutation();
   const [deactiveBiometric] = useDeactiveBiometricMutation();
   const [biometricToken, {isError: biometricLoginError}] =
     useBiometricTokenMutation();
+  const {appNavigate} = useConfigRouting();
+  const {onHandleGetUserProfile} = useAuth();
   const [biometricType, setBiometricType] = useState<
     'TOUCH_ID' | 'FACE_ID' | null
   >(null);
@@ -58,15 +62,18 @@ const useLoginBiometrics = () => {
       const userLogin = await mmkvStorage.getItem(USER_LOGIN);
       const credentials = await Keychain.getGenericPassword();
       const uuid = await mmkvStorage.getItem(UUID);
-      if (userLogin && credentials && userLogin === credentials?.username) {
-        if (!!biometricType) {
-          const result = await checkBiometric({
-            login: userLogin,
-            token: credentials.password,
-            uuid,
-          });
-          setEnableBiometric(result.data?.isActive || false);
-        }
+      if (
+        userLogin &&
+        credentials &&
+        userLogin === credentials?.username &&
+        !!biometricType
+      ) {
+        const result = await checkBiometric({
+          login: userLogin,
+          token: credentials.password,
+          uuid,
+        });
+        setEnableBiometric(!!result.data?.isActive);
       }
     })();
   }, [biometricType]);
@@ -110,7 +117,7 @@ const useLoginBiometrics = () => {
   const onPressBiometricLogin = async () => {
     try {
       const rnBiometrics = new ReactNativeBiometrics();
-      const {success, error} = await rnBiometrics.simplePrompt({
+      const {success} = await rnBiometrics.simplePrompt({
         promptMessage: 'Authenticate to continue',
       });
 
@@ -124,7 +131,11 @@ const useLoginBiometrics = () => {
             uuid,
             token: password,
           });
-          console.log('result', result);
+          if (result.data?.id_token) {
+            setAppToken(result.data?.id_token || '');
+            onHandleGetUserProfile();
+            appNavigate(ScreenParamEnum.Home);
+          }
         }
       } else {
         console.log('Authentication failed', 'Biometric authentication failed');

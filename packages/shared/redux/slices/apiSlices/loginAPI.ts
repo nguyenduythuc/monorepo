@@ -70,7 +70,7 @@ export const loginAPI = (
     ResetPasswordInitRequestProps
   >({
     query: (body: ResetPasswordInitRequestProps) => ({
-      url: getPath('/api/account/reset-password/init'),
+      url: getPath('/account/reset-password/init'),
       method: 'post',
       data: body,
     }),
@@ -80,7 +80,7 @@ export const loginAPI = (
     ResetPasswordFinishRequestProps
   >({
     query: (body: ResetPasswordFinishRequestProps) => ({
-      url: getPath('/api/account/reset-password/finish'),
+      url: getPath('/account/reset-password/finish'),
       method: 'post',
       data: body,
     }),
