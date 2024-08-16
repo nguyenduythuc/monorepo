@@ -1,69 +1,52 @@
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import {
   useLazyActiveQuery,
+  useResetPasswordFinishMutation,
   useVerifyOTPMutation,
 } from '../redux/slices/apiSlices';
 import useTranslations from './useTranslations';
 import useShowToast from './useShowToast';
 import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
 import {API_SUCCESS_MESSAGE} from '../utils/constants';
-import {VerifyOTPResponseProps} from '../types/services';
+import {ErrorResponseProps, VerifyOTPResponseProps} from '../types/services';
 import useAuth from './useAuth';
-import {useDispatch} from 'react-redux';
 import {useConfigRouting} from './routing';
 import {setAppToken} from '../redux/slices/apiSlices/config';
+import {OTPTypesEnum} from '../types';
 
 const useHandleVerifyOTP = ({
   value,
   maxLengthOTP,
   type,
   authSeq,
+  newPassword = '',
 }: {
   value: string;
   maxLengthOTP: number;
-  type: string;
+  type: OTPTypesEnum;
   authSeq: string;
+  newPassword?: string;
 }) => {
-  const [verifyOTP, {isError: isVerifyError, isLoading: isVerifyLoading}] =
-    useVerifyOTPMutation();
-  const [active] = useLazyActiveQuery();
+  const [verifyOTP, {error: verifyOTPError}] = useVerifyOTPMutation();
+  const [resetPasswordFinish, {error: resetPasswordFinishError}] =
+    useResetPasswordFinishMutation();
+  const [active, {error: activeError}] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
   const t = useTranslations();
   const {handleShowToast} = useShowToast();
-  const dispatch = useDispatch();
 
   const {appNavigate} = useConfigRouting();
 
-  useEffect(() => {
-    if (isVerifyError) {
-      handleShowToast({
-        msg: t('EnterOTP.msgVerifyFail'),
-        type: 'error',
-      });
-    }
-  }, [isVerifyError]);
+  const error = useMemo(() => {
+    return verifyOTPError || resetPasswordFinishError || activeError;
+  }, [verifyOTPError, resetPasswordFinishError, activeError]);
 
   useEffect(() => {
-    (async () => {
-      if (value.length === maxLengthOTP) {
-        const result =
-          type === 'LOGIN_OTP'
-            ? await verifyOTP({
-                authSeq,
-                code: value,
-                type: 'AUTH',
-              })
-            : type === 'SIGN_UP'
-            ? await active({
-                key: authSeq,
-                otp: value,
-              })
-            : await verifyOTP({
-                authSeq,
-                code: value,
-                type: 'AUTH',
-              }); // TODO : handle case forgot password
-        const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
+    if (error) {
+      try {
+        const data = (error as ErrorResponseProps)?.data;
+        const errorCode = JSON.parse(data.detail).code;
+        const responseCode = handleResponseOTPGenerateAPI(errorCode);
         if (responseCode.msg !== API_SUCCESS_MESSAGE) {
           if (responseCode.type === 'toast') {
             handleShowToast({
@@ -71,22 +54,62 @@ const useHandleVerifyOTP = ({
               type: 'error',
             });
           }
-        } else {
-          handleShowToast({
-            msg:
-              type === 'LOGIN_OTP'
-                ? 'Đăng nhập thành công'
-                : 'Đăng ký thành công', // TODO : handle case forgot password
-            type: 'success',
-          });
-          if (type === 'LOGIN_OTP') {
-            setAppToken((result.data as VerifyOTPResponseProps)?.token);
-            onHandleGetUserProfile();
-            appNavigate('home');
-          } else {
-            appNavigate('login');
+        }
+      } catch (error) {
+        // handle cannot parse error
+        handleShowToast({
+          msg: t('ErrorCommon.message'),
+          type: 'error',
+        });
+      }
+    }
+  }, [error]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (value.length === maxLengthOTP) {
+          const result =
+            type === OTPTypesEnum.LOGIN_OTP
+              ? await verifyOTP({
+                  authSeq,
+                  code: value,
+                  type: 'AUTH',
+                })
+              : type === OTPTypesEnum.SIGN_UP
+              ? await active({
+                  key: authSeq,
+                  otp: value,
+                })
+              : await resetPasswordFinish({
+                  key: authSeq,
+                  otp: value,
+                  newPassword,
+                });
+          if (result.data) {
+            handleShowToast({
+              msg:
+                type === OTPTypesEnum.LOGIN_OTP
+                  ? 'Đăng nhập thành công'
+                  : type === OTPTypesEnum.SIGN_UP
+                  ? 'Đăng ký thành công'
+                  : 'Đổi mật khẩu thành công',
+              type: 'success',
+            });
+            if (type === OTPTypesEnum.LOGIN_OTP) {
+              setAppToken((result.data as VerifyOTPResponseProps)?.token);
+              onHandleGetUserProfile();
+              appNavigate('home');
+            } else {
+              appNavigate('login');
+            }
           }
         }
+      } catch (error) {
+        handleShowToast({
+          msg: t('ErrorCommon.message'),
+          type: 'error',
+        });
       }
     })();
   }, [value]);

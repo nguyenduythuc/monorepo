@@ -1,3 +1,4 @@
+import {OTPTypes} from '@lfvn-customer/shared/types';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
@@ -7,13 +8,14 @@ export type RootParamList = {
   ComponentScreen: undefined;
   login: undefined;
   'verify-account': {
-    type: 'LOGIN_OTP' | 'FORGOT_PASSWORD' | 'SIGN_UP';
+    type: OTPTypes;
   };
   'enter-otp': {
     authSeq: string;
     phoneNumber: string;
     identityNumber: string;
-    type: 'LOGIN_OTP' | 'FORGOT_PASSWORD' | 'SIGN_UP';
+    type: OTPTypes;
+    newPassword?: string;
   };
   'sign-up': undefined;
   simulate: undefined;
@@ -21,6 +23,10 @@ export type RootParamList = {
   'product-introduction': undefined;
   'product-detail': {productId: number; productName: string};
   'create-loan-apl': undefined;
+  'reset-password': {
+    phoneNumber: string;
+    identityNumber: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -67,3 +73,13 @@ export type EnterOTPScreenNavigationProps = NativeStackNavigationProp<
 >;
 
 export type EnterOTPScreenRouteProps = RouteProp<RootParamList, 'enter-otp'>;
+
+export type ResetPasswordScreenNavigationProps = NativeStackNavigationProp<
+  RootParamList,
+  'reset-password'
+>;
+
+export type ResetPasswordRouteProps = RouteProp<
+  RootParamList,
+  'reset-password'
+>;

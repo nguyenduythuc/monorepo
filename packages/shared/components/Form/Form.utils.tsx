@@ -1,7 +1,16 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import React from 'react';
-import {validateOnlyNumberFloat} from '@lfvn-customer/shared/hooks/validations';
+import {
+  REGEX,
+  validateIdentityNumber,
+  validateOnlyNumberFloat,
+  validateStringIncludeUpperCaseAndLowerCase,
+  validateStringInlcudeNumberAndSpecialCharacter,
+  validateStringLengthFrom8To15Characters,
+} from '@lfvn-customer/shared/hooks/validations';
 import {FieldConfig, FieldType} from '@lfvn-customer/shared/types/formTypes';
-import {Icon} from '../common';
+import {Icon} from '@lfvn-customer/shared/components/common';
+import {InputValidationKeys} from '@lfvn-customer/shared/types';
 
 export const FieldTestConfig: Record<string, FieldConfig> = {
   TestInput: {
@@ -9,7 +18,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'testInput',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
         validate: (value: string) =>
           validateOnlyNumberFloat(value) || 'This field must be a number',
       },
@@ -24,7 +33,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'testInput',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
         validate: (value: string) =>
           validateOnlyNumberFloat(value) || 'This field must be a number',
       },
@@ -39,7 +48,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'searchTestInput',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
       },
     },
     type: FieldType.TextInputSearch,
@@ -51,7 +60,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'username',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
       },
     },
     type: FieldType.TextInput,
@@ -63,7 +72,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'password',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
       },
     },
     type: FieldType.TextInput,
@@ -72,16 +81,15 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     secureTextEntry: true,
   },
   ConfirmPassword: {
-    label: 'Login.password',
+    label: 'ResetPassword.confirmPassword',
     controlProps: {
-      name: 'password',
+      name: 'confirmPassword',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
       },
     },
     type: FieldType.TextInput,
-    placeholder: 'Login.passwordPlaceholder',
-    containerStyle: 'mt-4',
+    placeholder: 'ResetPassword.confirmPasswordPlaceholder',
     secureTextEntry: true,
   },
   PhoneNumber: {
@@ -89,9 +97,16 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'phoneNumber',
       rules: {
-        required: 'This field is required',
-        validate: (value: string) =>
-          validateOnlyNumberFloat(value) || 'This field must be a number',
+        required: 'Validation.fieldIsRequirement',
+        pattern: {
+          value: REGEX.phone,
+          message: 'Validation.phonenumber',
+        },
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+        },
       },
     },
     type: FieldType.TextInput,
@@ -106,9 +121,15 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'idCard',
       rules: {
-        required: 'This field is required',
-        validate: (value: string) =>
-          validateOnlyNumberFloat(value) || 'This field must be a number',
+        required: 'Validation.fieldIsRequirement',
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+          if (!validateIdentityNumber(value)) {
+            return 'Validation.idCard';
+          }
+        },
       },
     },
     type: FieldType.TextInput,
@@ -123,7 +144,7 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'fullname',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
       },
     },
     type: FieldType.TextInput,
@@ -135,9 +156,19 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'phoneNumber',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
+        pattern: {
+          value: REGEX.phone,
+          message: 'Validation.phonenumber',
+        },
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+        },
       },
     },
+    keyboardType: 'numeric',
     type: FieldType.TextInput,
     placeholder: 'SignUp.phonenumberPlaceholder',
     containerStyle: 'mt-4',
@@ -147,12 +178,51 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     controlProps: {
       name: 'idCard',
       rules: {
-        required: 'This field is required',
+        required: 'Validation.fieldIsRequirement',
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+          if (!validateIdentityNumber(value)) {
+            return 'Validation.idCard';
+          }
+        },
       },
     },
     type: FieldType.TextInput,
+    keyboardType: 'numeric',
     placeholder: 'SignUp.idCardPlaceholder',
     containerStyle: 'mt-4',
+  },
+  NewPassword: {
+    label: 'ResetPassword.newPassword',
+    controlProps: {
+      name: 'newPassword',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        validate: (value: string) => {
+          if (!validateStringLengthFrom8To15Characters(value)) {
+            return 'ResetPassword.msgLengthPassFrom8To15Characters';
+          }
+          if (!validateStringIncludeUpperCaseAndLowerCase(value)) {
+            return 'ResetPassword.msgPasswordNotIncludeUpperCaseAndLowerCase';
+          }
+          if (!validateStringInlcudeNumberAndSpecialCharacter(value)) {
+            return 'ResetPassword.msgPasswordNotIncludeNumberAndSpecialCharacter';
+          }
+        },
+      },
+    },
+    type: FieldType.TextInputDisplayValidation,
+    keyboardType: 'numeric',
+    placeholder: 'ResetPassword.newPasswordPlaceholder',
+    containerStyle: 'mt-4',
+    validations: [
+      InputValidationKeys.STRING_LENGTH_FROM_8_TO_15_CHARACTERS,
+      InputValidationKeys.STRING_INCLUDE_UPPER_CASE_AND_LOWER_CASE,
+      InputValidationKeys.STRING_INCLUDE_NUMBER_AND_SPECIAL_CHARACTER,
+    ],
+    secureTextEntry: true,
   },
 };
 

@@ -6,6 +6,8 @@ import {Keyboard} from 'react-native';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
 import {useConfigRouting} from './routing';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
 
 const CELL_COUNT = 6;
 const useEnterOTP = ({
@@ -16,10 +18,11 @@ const useEnterOTP = ({
   authSeq: string;
   phoneNumber: string;
   identityNumber: string;
-  type: string;
+  type: OTPTypesEnum;
+  newPassword?: string;
 }) => {
   const t = useTranslations();
-  const [resendOTP, {isError: isResendError}] = useResendOTPMutation();
+  const [resendOTP, {error}] = useResendOTPMutation();
   const {handleShowToast} = useShowToast();
   const {goBack} = useConfigRouting();
 
@@ -29,13 +32,28 @@ const useEnterOTP = ({
   const [msgRequestError, setMsgRequestError] = useState('');
 
   useEffect(() => {
-    if (isResendError) {
-      handleShowToast({
-        msg: t('EnterOTP.msgResendFail'),
-        type: 'error',
-      });
+    if (error) {
+      try {
+        const data = (error as ErrorResponseProps)?.data;
+        const errorCode = JSON.parse(data.detail).code;
+        const responseCode = handleResponseOTPGenerateAPI(errorCode);
+        if (responseCode.msg !== API_SUCCESS_MESSAGE) {
+          if (responseCode.type === 'toast') {
+            handleShowToast({
+              msg: t(responseCode.msg),
+              type: 'error',
+            });
+          }
+        }
+      } catch {
+        // handle cannot parse error
+        handleShowToast({
+          msg: t('EnterOTP.msgResendFail'),
+          type: 'error',
+        });
+      }
     }
-  }, [isResendError]);
+  }, [error]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -55,15 +73,7 @@ const useEnterOTP = ({
       authSeq,
       type: 'AUTH',
     });
-    const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
-    if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-      if (responseCode.type === 'toast') {
-        handleShowToast({
-          msg: t(responseCode.msg),
-          type: 'error',
-        });
-      }
-    } else {
+    if (result.data) {
       setIsModalVisible(true);
       setCounter(180);
       setIsCounting(true);

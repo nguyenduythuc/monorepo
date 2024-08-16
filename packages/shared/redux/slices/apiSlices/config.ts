@@ -37,7 +37,7 @@ const axiosBaseQuery =
     unknown,
     unknown
   > =>
-  async ({url, method, data, params}, {getState}) => {
+  async ({url, method, data, params}) => {
     const savedToken = getToken();
     try {
       const result = await axios({

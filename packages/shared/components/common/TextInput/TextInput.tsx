@@ -2,12 +2,22 @@ import React, {forwardRef, useMemo, useState} from 'react';
 import {ITextInputProps} from '@lfvn-customer/shared/types';
 import {View, TextInput as NativeTextInput} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-// import Icon from 'react-native-vector-icons/AntDesign';
 import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';
 
 export const TextInput = forwardRef<NativeTextInput, ITextInputProps>(
-  ({value, containerStyle, onChangeValue, secureTextEntry, ...props}, ref) => {
+  (
+    {
+      value,
+      containerStyle,
+      onChangeValue,
+      secureTextEntry,
+      watch,
+      touched,
+      ...props
+    },
+    ref,
+  ) => {
     const [isHideSecureText, setIsHideSecureText] = useState(secureTextEntry);
 
     const onPressShowHideSecureText = () => {
@@ -37,6 +47,7 @@ export const TextInput = forwardRef<NativeTextInput, ITextInputProps>(
       <View style={tw.style(containerStyle)}>
         <TextInputBase
           {...props}
+          watch={watch}
           ref={ref}
           value={value}
           onChangeText={onChangeValue}

@@ -6,8 +6,9 @@ import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
 import {CustomButton, Image} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 
-const VerifyAccountScreen = ({type}: {type: string}) => {
+const VerifyAccountScreen = ({type}: {type: OTPTypesEnum}) => {
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500, textUseful500} = theme;

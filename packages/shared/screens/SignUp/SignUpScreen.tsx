@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useSignUp from '@lfvn-customer/shared/hooks/useSignUp';
@@ -9,7 +9,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 const SignUpScreen = () => {
   const t = useTranslations();
   const {theme} = useGetTheme();
-  const {textNegative500, bgDanger500} = theme;
+  const {textNegative500} = theme;
 
   const {renderFrom, onPressSubmit, isAcceptTC, setIsAcceptTC, isLoading} =
     useSignUp();
@@ -60,11 +60,3 @@ const SignUpScreen = () => {
 };
 
 export default SignUpScreen;
-
-const styles = StyleSheet.create({
-  imgLogo: {
-    width: 120,
-    height: 120,
-    marginTop: 16,
-  },
-});

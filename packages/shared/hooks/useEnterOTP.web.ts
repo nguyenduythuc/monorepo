@@ -28,10 +28,8 @@ const useEnterOTP = ({
   type: string;
   t: any;
 }) => {
-  const [verifyOTP, {isError: isVerifyError, isLoading: isVerifyLoading}] =
-    useVerifyOTPMutation();
-  const [resendOTP, {isError: isResendError, isLoading: isResendLoading}] =
-    useResendOTPMutation();
+  const [verifyOTP, {isError: isVerifyError}] = useVerifyOTPMutation();
+  const [resendOTP, {isError: isResendError}] = useResendOTPMutation();
   const [active] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
 
@@ -131,17 +129,10 @@ const useEnterOTP = ({
       authSeq,
       type: 'AUTH',
     });
-    const responseCode = handleResponseOTPGenerateAPI(result.data?.data.code);
-    if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-      if (responseCode.type === 'toast') {
-        handleShowToast({
-          msg: t(responseCode.msg),
-          type: 'error',
-        });
-      }
-    } else {
-      setCounter(180); // Đặt lại bộ đếm về 180 giây (3 phút)
+    if (result.data) {
+      setCounter(180);
       setIsCounting(true);
+      setMsgRequestError('');
     }
   };
 

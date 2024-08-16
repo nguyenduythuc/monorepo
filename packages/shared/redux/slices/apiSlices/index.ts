@@ -45,4 +45,6 @@ export const {
   useRegisterMutation,
   useLazyActiveQuery,
   useGetProductByIdQuery,
+  useResetPasswordInitMutation,
+  useResetPasswordFinishMutation,
 } = apiSlice;

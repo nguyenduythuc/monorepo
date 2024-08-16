@@ -1,31 +1,21 @@
-import {
-  Appbar,
-  AppbarAction,
-  AppbarBackAction,
-  AppbarContent,
-  Checkbox,
-  CustomButton,
-  Icon,
-} from '@lfvn-customer/shared/components';
+import {Appbar, CustomButton, Icon} from '@lfvn-customer/shared/components';
 import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
 import React from 'react';
-import {View, Text, ScrollView, Platform} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
 import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
-export const SimulateScreen = ({t}: {t: any}) => {
+export const SimulateScreen = () => {
   const {
     renderFrom: simulateForm,
-    handleSubmit: handleSimulate,
-    getValues: getValueSimulate,
-    watch: watchValueSimulate,
     selectProduct,
     estimatePaymentMonthly,
     submitAction,
   } = useSimulateScreen();
-
+  const t = useTranslations();
   const {appNavigate} = useConfigRouting();
 
   return (

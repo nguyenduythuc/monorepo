@@ -2,6 +2,7 @@ import {UseControllerProps} from 'react-hook-form';
 import {KeyboardTypeOptions} from 'react-native';
 import {IconKeys} from '@lfvn-customer/shared/components';
 import {dropdownOptionProduct} from './components/dropdown';
+import {InputValidationKeys} from '.';
 
 export enum FieldType {
   TextInput = 'TextInput',
@@ -11,6 +12,7 @@ export enum FieldType {
   SimulateTenor = 'SimulateTenor',
   SelectDropdown = 'SelectDropdown',
   CheckboxWithIcon = 'CheckboxWithIcon',
+  TextInputDisplayValidation = 'TextInputDisplayValidation',
 }
 
 export type FieldConfig = {
@@ -35,6 +37,8 @@ export type FieldConfig = {
   iconColor?: string;
   isChecked?: boolean;
   checkboxColor?: string;
+  colorIcon?: string;
+  validations?: InputValidationKeys[];
 };
 
 export type FormProps = {

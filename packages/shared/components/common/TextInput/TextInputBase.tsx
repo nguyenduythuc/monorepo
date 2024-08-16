@@ -10,7 +10,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Label} from '@lfvn-customer/shared/components/common/Label';
 import {TextError} from '../TextError';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import {useTranslations} from 'use-intl';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
   (

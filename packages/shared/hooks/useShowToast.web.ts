@@ -1,6 +1,4 @@
 import {Bounce, toast} from 'react-toastify';
-import Toast from 'react-native-toast-message';
-import {Platform} from 'react-native';
 import 'react-toastify/dist/ReactToastify.css';
 
 const useShowToast = () => {

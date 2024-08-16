@@ -1,3 +1,12 @@
+export interface ErrorResponseProps {
+  status: number;
+  data: {
+    status: number;
+    title: string;
+    detail: string;
+  };
+}
+
 export interface LoginRequestProps {
   username: string;
   password: string;
@@ -82,4 +91,29 @@ export interface ResendOTPResponseProps {
     code: string;
     status: boolean;
   };
+}
+
+export interface ResetPasswordInitRequestProps {
+  phoneNumber: string;
+  identityNumber: string;
+}
+
+export interface ResetPasswordInitResponseProps {
+  authSeq: string;
+  message: string | null;
+  code: string;
+  status: boolean;
+}
+
+export interface ResetPasswordFinishRequestProps {
+  key: string;
+  otp: string;
+  newPassword: string;
+}
+
+export interface ResetPasswordFinishResponseProps {
+  authSeq: string;
+  message: string | null;
+  code: string;
+  status: boolean;
 }

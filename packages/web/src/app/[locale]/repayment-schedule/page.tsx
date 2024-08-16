@@ -1,22 +1,15 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import React, { useMemo } from 'react';
 
-import { Platform, ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
 import tw from 'twrnc';
-import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
-import { SimulateScreen } from '@lfvn-customer/shared/screens/SimulateScreen';
 import { useConfigRouting } from '@lfvn-customer/shared/hooks/routing';
 import {
   Appbar,
-  AppbarAction,
-  AppbarBackAction,
-  AppbarContent,
   CustomButton,
   CustomTable,
   CustomTableProps,
-  Icon,
 } from '@lfvn-customer/shared/components';
 
 export default function RepaymentSchedule() {
@@ -47,7 +40,7 @@ export default function RepaymentSchedule() {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: 'Ba Dinh1, Hanoi1, Vietnam1',
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -66,7 +59,7 @@ export default function RepaymentSchedule() {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: 'Ba Dinh2, Hanoi2, Vietnam2',
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -85,7 +78,7 @@ export default function RepaymentSchedule() {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: 'Ba Dinh3, Hanoi3, Vietnam3',
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -146,14 +139,6 @@ export default function RepaymentSchedule() {
   }, [tableData, headers]);
 
   const { appNavigate } = useConfigRouting();
-  const {
-    renderFrom: simulateForm,
-    handleSubmit: handleSimulate,
-    getValues: getValueSimulate,
-  } = useSimulateScreen();
-
-  const t = useTranslations();
-
   return (
     <main className="flex bg-white min-h-screen flex-col items-center justify-between">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">

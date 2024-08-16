@@ -9,12 +9,15 @@ import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
 
-const useVerifyAccount = ({type}: {type: string}) => {
+const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
   const t = useTranslations();
 
   const fields = [FieldTestConfig.IdCard, FieldTestConfig.PhoneNumber];
-  const [generateOTP, {isError, isLoading}] = useGenerateOTPMutation();
+  const [generateOTP, {isLoading: generateOTPLoading, error}] =
+    useGenerateOTPMutation();
 
   const {appNavigate, goBack} = useConfigRouting();
   const {handleShowToast} = useShowToast();
@@ -26,40 +29,56 @@ const useVerifyAccount = ({type}: {type: string}) => {
     });
 
   useEffect(() => {
-    if (isError) {
-      handleShowToast({
-        msg: t('VerifyAccount.msgVerifyFail'),
-        type: 'error',
-      });
+    if (error) {
+      try {
+        const data = (error as ErrorResponseProps)?.data;
+        const errorCode = JSON.parse(data.detail).code;
+        const responseCode = handleResponseOTPGenerateAPI(errorCode);
+        if (responseCode.msg !== API_SUCCESS_MESSAGE) {
+          if (responseCode.type === 'toast') {
+            handleShowToast({
+              msg: t(responseCode.msg),
+              type: 'error',
+            });
+          }
+        }
+      } catch {
+        // handle cannot parse error
+        handleShowToast({
+          msg: t('VerifyAccount.msgVerifyFail'),
+          type: 'error',
+        });
+      }
     }
-  }, [isError]);
+  }, [error]);
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
     const {idCard, phoneNumber} = getValues();
-    const result = await generateOTP({
-      phoneNumber,
-      identityNumber: idCard,
-      authSeq: null,
-      type: 'AUTH',
-    });
-    const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
-    if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-      if (responseCode.type === 'toast') {
-        handleShowToast({
-          msg: t(responseCode.msg),
-          type: 'error',
-        });
-      }
+    if (type === OTPTypesEnum.RESET_PASSWORD) {
+      // RESET PASSWORD
+      appNavigate('reset-password', {
+        phoneNumber,
+        identityNumber: idCard,
+      });
     } else {
-      const authSeq = result.data?.authSeq;
-      if (authSeq) {
-        appNavigate(ScreenParamEnum.EnterOtp, {
-          authSeq,
-          phoneNumber,
-          identityNumber: idCard,
-          type,
-        });
+      // LOGIN OTP
+      const result = await generateOTP({
+        phoneNumber,
+        identityNumber: idCard,
+        authSeq: null,
+        type: 'AUTH',
+      });
+      if (result.data) {
+        const authSeq = result.data?.authSeq;
+        if (authSeq) {
+          appNavigate(ScreenParamEnum.EnterOtp, {
+            authSeq,
+            phoneNumber,
+            identityNumber: idCard,
+            type,
+          });
+        }
       }
     }
   });
@@ -77,8 +96,8 @@ const useVerifyAccount = ({type}: {type: string}) => {
     setValue,
     getValues,
     onPressSubmit,
-    isError,
-    isLoading,
+    isError: !!error,
+    isLoading: generateOTPLoading,
     onPressGoBack,
   };
 };
