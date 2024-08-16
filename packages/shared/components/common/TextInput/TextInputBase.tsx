@@ -61,10 +61,10 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
             disabled
               ? 'border-neutral-400 bg-neutral-200 border-0'
               : !!errorMessage
-              ? 'border-red-600'
-              : focus
-              ? borderUseful500
-              : borderNegative100,
+                ? 'border-red-600'
+                : focus
+                  ? borderUseful500
+                  : borderNegative100,
             containerInputStyle,
           ])}>
           {leftComponent && (

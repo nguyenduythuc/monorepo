@@ -13,10 +13,7 @@ import {authAPI} from './authAPI';
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
   baseQuery: axiosBaseQuery({
-    baseUrl:
-      (Platform.OS !== 'web'
-        ? Config.BASE_API_URL
-        : '') ?? '',
+    baseUrl: (Platform.OS !== 'web' ? Config.BASE_API_URL : '') ?? '',
   }),
   endpoints: builder => ({
     ...testAPI(builder),

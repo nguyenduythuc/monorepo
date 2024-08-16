@@ -1,14 +1,14 @@
-"use client";
-import React, { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
-import { Platform, View } from "react-native";
+import { Platform, View } from 'react-native';
 
-import tw from "twrnc";
-import { ProductIntroductionScreen } from "@lfvn-customer/shared/screens/ProductIntroduction";
+import tw from 'twrnc';
+import { ProductIntroductionScreen } from '@lfvn-customer/shared/screens/ProductIntroduction';
 
 export default function ProductIntroduction() {
-  console.log("Platform.OS", Platform.OS);
+  console.log('Platform.OS', Platform.OS);
 
   const t = useTranslations();
 

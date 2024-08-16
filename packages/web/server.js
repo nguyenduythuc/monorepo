@@ -18,7 +18,7 @@ app.prepare().then(() => {
       changeOrigin: true,
       pathRewrite: { '^/api-app': '' },
       logger: console,
-    })
+    }),
   );
 
   server.all('*', (req, res) => {

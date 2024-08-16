@@ -1,15 +1,15 @@
-"use client";
-import React, { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
-import { Platform, View } from "react-native";
+import { Platform, View } from 'react-native';
 
-import tw from "twrnc";
-import useSimulateScreen from "@lfvn-customer/shared/hooks/useSimulateScreen";
-import { SimulateScreen } from "@lfvn-customer/shared/screens";
+import tw from 'twrnc';
+import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
+import { SimulateScreen } from '@lfvn-customer/shared/screens';
 
 export default function Simulate() {
-  console.log("Platform.OS", Platform.OS);
+  console.log('Platform.OS', Platform.OS);
 
   const {
     renderFrom: simulateForm,
