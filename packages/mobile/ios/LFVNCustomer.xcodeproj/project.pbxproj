@@ -15,13 +15,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4E7BF2612C1FE23100160378 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BF2602C1FE23100160378 /* NotificationService.swift */; };
 		4E7BF2652C1FE23100160378 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4E7BF25E2C1FE23100160378 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7699B88040F8A987B510C191 /* libPods-LFVNCustomer-LFVNCustomerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LFVNCustomer-LFVNCustomerTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F5397B39B250830AB38EE738 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 103603C4F3978017D9DB6796 /* PrivacyInfo.xcprivacy */; };
-		A46214DBFC944134A8D568FA /* appFontBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8F27EBEADF414CE59E5F4CD7 /* appFontBold.otf */; };
 		5F324F5E0C3749DD84F18877 /* appFontMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 34FA25BCF01F43E1B49CDF29 /* appFontMedium.otf */; };
+		7699B88040F8A987B510C191 /* libPods-LFVNCustomer-LFVNCustomerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LFVNCustomer-LFVNCustomerTests.a */; };
 		7D7C577C9C434476966DD901 /* appFontRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DB3BE9E69E624346909AD084 /* appFontRegular.otf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A46214DBFC944134A8D568FA /* appFontBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8F27EBEADF414CE59E5F4CD7 /* appFontBold.otf */; };
 		CBF3155994544096994D4285 /* appFontSemibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8C9327ABEC34399A80304AF /* appFontSemibold.otf */; };
+		F5397B39B250830AB38EE738 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 103603C4F3978017D9DB6796 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +69,7 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = LFVNCustomer/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-LFVNCustomer-LFVNCustomerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LFVNCustomer-LFVNCustomerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F1A763CCE5C78FEF70AF3F /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		34FA25BCF01F43E1B49CDF29 /* appFontMedium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = appFontMedium.otf; path = ../src/assets/fonts/appFontMedium.otf; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-LFVNCustomer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFVNCustomer.debug.xcconfig"; path = "Target Support Files/Pods-LFVNCustomer/Pods-LFVNCustomer.debug.xcconfig"; sourceTree = "<group>"; };
 		4E7BF2592C1FDF8D00160378 /* LFVNCustomerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LFVNCustomerDebug.entitlements; path = LFVNCustomer/LFVNCustomerDebug.entitlements; sourceTree = "<group>"; };
 		4E7BF25E2C1FE23100160378 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,14 +83,13 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-LFVNCustomer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LFVNCustomer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LFVNCustomer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig"; path = "Target Support Files/Pods-LFVNCustomer-LFVNCustomerTests/Pods-LFVNCustomer-LFVNCustomerTests.release.xcconfig"; sourceTree = "<group>"; };
+		8F27EBEADF414CE59E5F4CD7 /* appFontBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = appFontBold.otf; path = ../src/assets/fonts/appFontBold.otf; sourceTree = "<group>"; };
 		A72744192C2273F3001CA8FA /* LFVNCustomer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LFVNCustomer.entitlements; path = LFVNCustomer/LFVNCustomer.entitlements; sourceTree = "<group>"; };
 		A77E0D1168B6E9DE3C98982F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		A8C9327ABEC34399A80304AF /* appFontSemibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = appFontSemibold.otf; path = ../src/assets/fonts/appFontSemibold.otf; sourceTree = "<group>"; };
+		DB3BE9E69E624346909AD084 /* appFontRegular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = appFontRegular.otf; path = ../src/assets/fonts/appFontRegular.otf; sourceTree = "<group>"; };
 		E837EF71BB1102A6F9ED6BE0 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		8F27EBEADF414CE59E5F4CD7 /* appFontBold.otf */ = {isa = PBXFileReference; name = "appFontBold.otf"; path = "../src/assets/fonts/appFontBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		34FA25BCF01F43E1B49CDF29 /* appFontMedium.otf */ = {isa = PBXFileReference; name = "appFontMedium.otf"; path = "../src/assets/fonts/appFontMedium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DB3BE9E69E624346909AD084 /* appFontRegular.otf */ = {isa = PBXFileReference; name = "appFontRegular.otf"; path = "../src/assets/fonts/appFontRegular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A8C9327ABEC34399A80304AF /* appFontSemibold.otf */ = {isa = PBXFileReference; name = "appFontSemibold.otf"; path = "../src/assets/fonts/appFontSemibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +225,7 @@
 			sourceTree = "<group>";
 		};
 		E6784383B41147C3BC22C3F0 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				8F27EBEADF414CE59E5F4CD7 /* appFontBold.otf */,
 				34FA25BCF01F43E1B49CDF29 /* appFontMedium.otf */,
@@ -233,8 +233,8 @@
 				A8C9327ABEC34399A80304AF /* appFontSemibold.otf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 

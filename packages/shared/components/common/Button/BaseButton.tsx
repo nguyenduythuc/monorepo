@@ -43,8 +43,8 @@ export const CustomButton: FC<BaseButtonProps> = ({
     variant === 'outlined'
       ? buttonOutlined(color)
       : variant === 'text' || variant === 'link'
-      ? buttonText(color)
-      : buttonFilled(color);
+        ? buttonText(color)
+        : buttonFilled(color);
   const textStyle =
     variant === 'link' ? buttonSize[size] + ' underline' : buttonSize[size];
 

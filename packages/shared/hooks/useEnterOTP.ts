@@ -12,7 +12,6 @@ const useEnterOTP = ({
   authSeq,
   phoneNumber,
   identityNumber,
-  type,
 }: {
   authSeq: string;
   phoneNumber: string;

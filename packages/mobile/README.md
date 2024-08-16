@@ -2,28 +2,31 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+
 # Run instructions for Android:
 
-   ```bash
-   # Have an Android emulator running (quickest way to get started), or a device connected.
-   cd "./packages/mobile" && npx react-native run-android
-   ```
+```bash
+# Have an Android emulator running (quickest way to get started), or a device connected.
+cd "./packages/mobile" && npx react-native run-android
+```
 
 # Run instructions for iOS:
 
-   ```bash
-   # Install Cocoapods
-   cd "./packages/mobile/ios"
-   bundle install # you need to run this only once in your project.
-   bundle exec pod install
-   cd ..
-   # Run instructions for macOS:
-   # See https://aka.ms/ReactNativeGuideMacOS for the latest up-to-date instructions.
-   ```
+```bash
+# Install Cocoapods
+cd "./packages/mobile/ios"
+bundle install # you need to run this only once in your project.
+bundle exec pod install
+cd ..
+# Run instructions for macOS:
+# See https://aka.ms/ReactNativeGuideMacOS for the latest up-to-date instructions.
+```
 
 # Step 1: Start the Metro Server
+
 #### First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native. To start Metro, run the following command from the _root_ of your React Native project:
+
 ```bash
 yarn start
 ```

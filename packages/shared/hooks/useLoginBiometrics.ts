@@ -35,8 +35,8 @@ const useLoginBiometrics = () => {
         biometricType === Keychain.BIOMETRY_TYPE.TOUCH_ID
           ? 'TOUCH_ID'
           : biometricType === Keychain.BIOMETRY_TYPE.FACE_ID
-          ? 'FACE_ID'
-          : null;
+            ? 'FACE_ID'
+            : null;
       setBiometricType(typeBiometricForSubmit);
     })();
   }, []);

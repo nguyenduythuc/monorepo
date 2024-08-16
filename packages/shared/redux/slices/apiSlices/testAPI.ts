@@ -1,14 +1,16 @@
-import { BaseQueryFn, EndpointBuilder } from "@reduxjs/toolkit/query";
+import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 
-export const testAPI = (builder: EndpointBuilder<BaseQueryFn, never, "LFVN-API">) => ({
+export const testAPI = (
+  builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
+) => ({
   getExample: builder.query<object, void>({
     query: () => ({url: '/get', method: 'get'}),
   }),
   setExample: builder.mutation({
-    query: (body) => ({
+    query: body => ({
       url: '/save',
       method: 'post',
       data: body,
     }),
   }),
-})
+});

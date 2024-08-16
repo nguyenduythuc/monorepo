@@ -1,8 +1,8 @@
-"use client";
-import { LoginScreen } from "@lfvn-customer/shared";
-import { useTranslations } from "next-intl";
+'use client';
+import { LoginScreen } from '@lfvn-customer/shared';
+import { useTranslations } from 'next-intl';
 
-import tw from "@lfvn-customer/shared/themes/tailwind";
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export default function Home() {
   const t = useTranslations();

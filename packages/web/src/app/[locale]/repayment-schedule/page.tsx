@@ -1,13 +1,13 @@
-"use client";
-import React, { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
-import { Platform, ScrollView, View, Text } from "react-native";
+import { Platform, ScrollView, View, Text } from 'react-native';
 
-import tw from "twrnc";
-import useSimulateScreen from "@lfvn-customer/shared/hooks/useSimulateScreen";
-import { SimulateScreen } from "@lfvn-customer/shared/screens/SimulateScreen";
-import { useConfigRouting } from "@lfvn-customer/shared/hooks/routing";
+import tw from 'twrnc';
+import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
+import { SimulateScreen } from '@lfvn-customer/shared/screens/SimulateScreen';
+import { useConfigRouting } from '@lfvn-customer/shared/hooks/routing';
 import {
   Appbar,
   AppbarAction,
@@ -17,103 +17,103 @@ import {
   CustomTable,
   CustomTableProps,
   Icon,
-} from "@lfvn-customer/shared/components";
+} from '@lfvn-customer/shared/components';
 
 export default function RepaymentSchedule() {
-  const headers = ["Id", "Name", "Age", "Job", "Address", "Action"];
+  const headers = ['Id', 'Name', 'Age', 'Job', 'Address', 'Action'];
 
   const tableData = [
     {
-      id: "1",
-      name: "John",
-      age: "22",
-      job: "DEV",
-      address: "Ba Dinh, Hanoi, Vietnam",
+      id: '1',
+      name: 'John',
+      age: '22',
+      job: 'DEV',
+      address: 'Ba Dinh, Hanoi, Vietnam',
       showDetail: {
-        type: "action",
-        styleWrapper: "flex flex-row",
+        type: 'action',
+        styleWrapper: 'flex flex-row',
         props: [
           {
-            label: "abc",
-            size: "sm",
-            color: "green",
-            variant: "outlined",
+            label: 'abc',
+            size: 'sm',
+            color: 'green',
+            variant: 'outlined',
           },
         ],
       },
     },
     {
-      id: "1",
-      name: "John",
-      age: "22",
-      job: "DEV",
-      address: "Ba Dinh, Hanoi, Vietnam",
+      id: '1',
+      name: 'John',
+      age: '22',
+      job: 'DEV',
+      address: 'Ba Dinh, Hanoi, Vietnam',
       showDetail: {
-        type: "action",
-        styleWrapper: "flex-row",
+        type: 'action',
+        styleWrapper: 'flex-row',
         props: [
           {
-            label: "abc",
-            size: "sm",
-            color: "green",
-            variant: "outlined",
+            label: 'abc',
+            size: 'sm',
+            color: 'green',
+            variant: 'outlined',
           },
         ],
       },
     },
     {
-      id: "1",
-      name: "John",
-      age: "22",
-      job: "DEV",
-      address: "Ba Dinh, Hanoi, Vietnam",
+      id: '1',
+      name: 'John',
+      age: '22',
+      job: 'DEV',
+      address: 'Ba Dinh, Hanoi, Vietnam',
       showDetail: {
-        type: "action",
-        styleWrapper: "flex-row",
+        type: 'action',
+        styleWrapper: 'flex-row',
         props: [
           {
-            label: "abc",
-            size: "sm",
-            color: "green",
-            variant: "outlined",
+            label: 'abc',
+            size: 'sm',
+            color: 'green',
+            variant: 'outlined',
           },
         ],
       },
     },
     {
-      id: "1",
-      name: "John",
-      age: "22",
-      job: "DEV",
-      address: "Ba Dinh, Hanoi, Vietnam",
+      id: '1',
+      name: 'John',
+      age: '22',
+      job: 'DEV',
+      address: 'Ba Dinh, Hanoi, Vietnam',
       showDetail: {
-        type: "action",
-        styleWrapper: "flex-row",
+        type: 'action',
+        styleWrapper: 'flex-row',
         props: [
           {
-            label: "abc",
-            size: "sm",
-            color: "green",
-            variant: "outlined",
+            label: 'abc',
+            size: 'sm',
+            color: 'green',
+            variant: 'outlined',
           },
         ],
       },
     },
     {
-      id: "1",
-      name: "John",
-      age: "22",
-      job: "DEV",
-      address: "Ba Dinh, Hanoi, Vietnam",
+      id: '1',
+      name: 'John',
+      age: '22',
+      job: 'DEV',
+      address: 'Ba Dinh, Hanoi, Vietnam',
       showDetail: {
-        type: "action",
-        styleWrapper: "flex-row",
+        type: 'action',
+        styleWrapper: 'flex-row',
         props: [
           {
-            label: "abc",
-            size: "sm",
-            color: "green",
-            variant: "outlined",
+            label: 'abc',
+            size: 'sm',
+            color: 'green',
+            variant: 'outlined',
           },
         ],
       },
@@ -135,9 +135,9 @@ export default function RepaymentSchedule() {
         ],
       })),
       columnWidth: [60, 80, 160, 100, 220, 120],
-      columnStyles: ["underline font-bold", "font-bold"],
+      columnStyles: ['underline font-bold', 'font-bold'],
       onRowPress: (rowData) => {
-        console.log("RowData123", rowData.rawData);
+        console.log('RowData123', rowData.rawData);
       },
       //   fixedLeftColumn: true,
       // fixedRightColumn: true,
@@ -162,8 +162,8 @@ export default function RepaymentSchedule() {
             <Appbar
               backAction
               backIconColor="black"
-              labelContent={""}
-              contentTextStyle={tw.style("text-black")}
+              labelContent={''}
+              contentTextStyle={tw.style('text-black')}
             />
             <ScrollView>
               <View style={tw`px-4`}>
@@ -177,7 +177,7 @@ export default function RepaymentSchedule() {
             <View style={tw`px-4 pt-4 border-t border-gray-200`}>
               <CustomButton
                 onPress={() => {
-                  appNavigate("goBack");
+                  appNavigate('goBack');
                 }}
                 color="red"
               >
