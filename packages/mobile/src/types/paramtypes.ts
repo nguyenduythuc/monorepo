@@ -16,14 +16,32 @@ export type RootParamList = {
     type: 'LOGIN_OTP' | 'FORGOT_PASSWORD' | 'SIGN_UP';
   };
   'sign-up': undefined;
-  SimulateScreen: undefined;
-  RepaymentScheduleScreen: undefined;
-  ProductIntroductionScreen: undefined;
+  simulate: undefined;
+  'repayment-schedule': undefined;
+  'product-introduction': undefined;
+  'product-detail': {productId: number; productName: string};
+  'create-loan-apl': undefined;
 };
+
+export enum ScreenParamEnum {
+  Home = 'home',
+  Test = 'Test',
+  ComponentScreen = 'ComponentScreen',
+  Login = 'Login',
+  VerifyAccount = 'verify-account',
+  EnterOtp = 'enter-otp',
+  SignUp = 'sign-up',
+  Simulate = 'simulate',
+  RepaymentSchedule = 'repayment-schedule',
+  ProductIntroduction = 'product-introduction',
+  ProductDetail = 'product-detail',
+  CreateLoanApl = 'create-loan-apl',
+}
 
 export type RootParamListWeb = {
   'repayment-schedule': undefined;
   'product-introduction': undefined;
+  'product-detail': undefined;
   simulate: undefined;
   goBack: undefined;
 };

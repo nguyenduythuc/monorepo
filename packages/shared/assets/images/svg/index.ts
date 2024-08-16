@@ -29,3 +29,8 @@ export * from './FastLoanMenuIcon';
 export * from './CreditCardIcon';
 export * from './CarLoanMenuIcon';
 export * from './FaceIdIcon';
+export * from './CommentQuestionIcon';
+export * from './MoneyBagIcon';
+export * from './DocLoanIcon';
+export * from './QuickApproveIcon';
+export * from './TimeMoneyIcon';

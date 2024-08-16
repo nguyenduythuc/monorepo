@@ -1,5 +1,5 @@
 "use client";
-import { AppbarBackAction, EnterOTPScreen } from "@lfvn-customer/shared";
+import { Appbar, EnterOTPScreen } from "@lfvn-customer/shared";
 import tw from "@lfvn-customer/shared/themes/tailwind";
 import { View } from "react-native";
 import { useSearchParams } from "next/navigation";
@@ -15,7 +15,7 @@ export default function EnterOTP() {
   return (
     <View style={tw.style("flex-1 bg-white h-full")}>
       <View style={tw.style("pt-2")}>
-        <AppbarBackAction containerStyle="mx-2 mt-4" />
+        <Appbar />
         <EnterOTPScreen
           authSeq={authSeq}
           phoneNumber={phoneNumber}

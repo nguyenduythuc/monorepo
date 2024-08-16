@@ -15,7 +15,9 @@ import {
   SignUpContainer,
   SimulateScreenContainer,
   ProductIntroductionScreenContainer,
-  RepaymentScheduleScreen,
+  RepaymentScheduleScreenContainer,
+  ProductDetailScreenContainer,
+  CreateLoanAPLScreenContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -27,7 +29,7 @@ const Stack = createNativeStackNavigator<RootParamList>();
 
 export type PrimaryNavigatorNavigationProp =
   NativeStackNavigationProp<RootParamList>;
-
+// lfvncustomer://product-introduction
 // Prefixes for deep link
 const prefixes = ['lfvncustomer://', 'https://duythuc.vercel.app'];
 // Config path for deep link
@@ -48,6 +50,21 @@ const config: LinkingOptions<RootParamList>['config'] = {
       stringify: {
         id: (id: string) => id.replace(/^user-/, ''),
       },
+    },
+    'product-introduction': {
+      path: 'product-introduction',
+    },
+    'product-detail': {
+      path: 'product-detail/:id',
+      parse: {
+        id: (id: string) => `product-${id}`,
+      },
+    },
+    simulate: {
+      path: 'simulate',
+    },
+    'create-loan-apl': {
+      path: 'create-loan-apl',
     },
   },
 };
@@ -78,8 +95,22 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="ProductIntroductionScreen"
+        name="product-introduction"
         component={ProductIntroductionScreenContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="product-detail"
+        component={ProductDetailScreenContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="create-loan-apl"
+        component={CreateLoanAPLScreenContainer}
         options={{
           headerShown: false,
         }}
@@ -106,15 +137,15 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="SimulateScreen"
+        name="simulate"
         component={SimulateScreenContainer}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="RepaymentScheduleScreen"
-        component={RepaymentScheduleScreen}
+        name="repayment-schedule"
+        component={RepaymentScheduleScreenContainer}
         options={{
           headerShown: false,
         }}

@@ -6,7 +6,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {EnterOTPScreen} from '@lfvn-customer/shared/screens/EnterOTP';
 import {useRoute} from '@react-navigation/native';
 import {EnterOTPScreenRouteProps} from '../../types/paramtypes';
-import {AppbarBackAction} from '@lfvn-customer/shared/components';
+import {Appbar} from '@lfvn-customer/shared/components';
 
 const EnterOTPContainer = () => {
   const route = useRoute<EnterOTPScreenRouteProps>();
@@ -21,7 +21,7 @@ const EnterOTPContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <AppbarBackAction containerStyle="mx-2" />
+        <Appbar />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">

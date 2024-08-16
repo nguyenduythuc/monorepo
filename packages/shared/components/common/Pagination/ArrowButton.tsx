@@ -10,6 +10,7 @@ type ArrowIconProps = {
   disabled?: boolean;
   pageNumber?: number;
   selected?: boolean;
+  rotate?: boolean;
   onPress: () => void;
 };
 
@@ -21,6 +22,7 @@ export const ArrowButton: FC<ArrowIconProps> = ({
   disabled,
   selected,
   onPress,
+  rotate,
 }) => {
   const buttonStyle = selected ? tw`border-blue-600` : tw` border-gray-300`;
 
@@ -32,7 +34,15 @@ export const ArrowButton: FC<ArrowIconProps> = ({
           disabled && tw`opacity-25`,
           tw`flex h-8 w-10 mx-1 justify-center bg-white items-center rounded-lg border`,
         ]}>
-        {icon && <Icon height={12} name={icon} color={iconColor} disabled />}
+        {icon && (
+          <Icon
+            height={12}
+            name={icon}
+            color={iconColor}
+            disabled
+            transform={rotate}
+          />
+        )}
       </View>
     </Pressable>
   );

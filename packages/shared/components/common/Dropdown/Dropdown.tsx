@@ -5,6 +5,7 @@ import {BaseModal} from '../AppModal';
 import {Icon, Radio} from '@lfvn-customer/shared/components';
 import {Label} from '@lfvn-customer/shared/components/common/Label';
 import {dropdownOptionProduct} from '@lfvn-customer/shared/types/components/dropdown';
+import {TextError} from '../TextError';
 
 type DropdownProps = {
   label?: string;
@@ -14,6 +15,7 @@ type DropdownProps = {
   value: string;
   disabled?: boolean;
   required?: boolean;
+  errorMessage?: string;
 };
 
 export const DropDownSelect = ({
@@ -22,6 +24,7 @@ export const DropDownSelect = ({
   onChange,
   placeholder,
   value,
+  errorMessage,
   disabled = false,
   required = false,
 }: DropdownProps) => {
@@ -47,7 +50,10 @@ export const DropDownSelect = ({
       <Label title={label} required={false} />
       <TouchableOpacity
         onPress={onOpen}
-        style={tw`bg-white border-gray-300 h-14 rounded-lg border px-4 flex-row items-center justify-between`}>
+        style={[
+          tw`bg-white border-gray-300 h-14 rounded-lg border px-4 flex-row items-center justify-between`,
+          !!errorMessage && tw`border-red-300`,
+        ]}>
         <Text style={[tw`text-lg`, value === '' && tw`text-gray-400`]}>
           {value !== '' ? valueName() : placeholder}
         </Text>
@@ -55,6 +61,8 @@ export const DropDownSelect = ({
           <Icon name="arrow-down" />
         </View>
       </TouchableOpacity>
+      <TextError title={errorMessage} />
+
       <BaseModal ref={dropDownRef}>
         <>
           <View style={tw`py-2 justify-center items-center h-14`}>

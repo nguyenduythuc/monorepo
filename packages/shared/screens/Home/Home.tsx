@@ -14,6 +14,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useHome from '@lfvn-customer/shared/hooks/useHome';
+import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
 
 export type ListFeatureType = {
   iconName: IconKeys;
@@ -45,9 +46,11 @@ export const HomeScreen = ({}) => {
   } = useGetMetadataQuery();
 
   useEffect(() => {
-    console.log('productListData', productListData);
-    dispatch(setListProduct(productListData));
-  }, [productListData]);
+    if (user || productListData) {
+      console.log('productListData', productListData);
+      dispatch(setListProduct(productListData));
+    }
+  }, [productListData, user]);
 
   console.log('metadataLoading', metadataLoading);
   console.log('metaData', metaData);
@@ -56,11 +59,6 @@ export const HomeScreen = ({}) => {
   useEffect(() => {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
   }, [metaData, metadataLoading]);
-
-  const productIntroductionScreen =
-    Platform.OS !== 'web'
-      ? 'ProductIntroductionScreen'
-      : 'product-introduction';
 
   const listFeature: ListFeatureType[] = [
     {iconName: 'fast-loan-menu-icon', title: 'Fast loan'},
@@ -117,7 +115,7 @@ export const HomeScreen = ({}) => {
           <View key={index} style={tw`flex-1 items-center`}>
             <TouchableOpacity
               onPress={() => {
-                appNavigate(productIntroductionScreen);
+                appNavigate(ScreenParamEnum.ProductIntroduction);
               }}
               style={tw`flex-col items-center justify-center z-10`}>
               <View

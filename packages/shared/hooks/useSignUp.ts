@@ -8,6 +8,7 @@ import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
 import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
+import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 
 const useSignUp = () => {
   const t = useTranslations();
@@ -16,7 +17,7 @@ const useSignUp = () => {
     FieldTestConfig.SignUpPhoneNumber,
     FieldTestConfig.SignUpPersonalCard,
   ];
-  const {appNavigate} = useConfigRouting();
+  const {appNavigate, goBack} = useConfigRouting();
   const [register, {isError, isLoading}] = useRegisterMutation();
   const {handleShowToast} = useShowToast();
 
@@ -58,7 +59,7 @@ const useSignUp = () => {
     } else {
       const authSeq = result.data?.authSeq;
       if (authSeq) {
-        appNavigate('enter-otp', {
+        appNavigate(ScreenParamEnum.EnterOtp, {
           authSeq,
           phoneNumber,
           identityNumber: idCard,
@@ -69,7 +70,7 @@ const useSignUp = () => {
   });
 
   const onPressGoBack = () => {
-    appNavigate('goBack');
+    goBack();
   };
 
   return {

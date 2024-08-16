@@ -19,21 +19,21 @@ export const loginAPI = (
 ) => ({
   login: builder.mutation<LoginResponseProps, LoginRequestProps>({
     query: (body: LoginRequestProps) => ({
-      url: getPath('/api/authenticate'),
+      url: getPath('/authenticate'),
       method: 'post',
       data: body,
     }),
   }),
   register: builder.mutation<RegisterResponseProps, RegisterRequestProps>({
     query: (body: RegisterRequestProps) => ({
-      url: getPath('/api/register'),
+      url: getPath('/register'),
       method: 'post',
       data: body,
     }),
   }),
   active: builder.query<RegisterResponseProps, ActiveAccountRequestProps>({
     query: ({key, otp}: ActiveAccountRequestProps) => ({
-      url: getPath(`/api/activate?key=${key}&otp=${otp}`),
+      url: getPath(`/activate?key=${key}&otp=${otp}`),
       method: 'get',
     }),
   }),
@@ -42,21 +42,21 @@ export const loginAPI = (
     GenerateOTPRequestProps
   >({
     query: (body: GenerateOTPRequestProps) => ({
-      url: getPath('/api/otp-login/generate'),
+      url: getPath('/otp-login/generate'),
       method: 'post',
       data: body,
     }),
   }),
   verifyOTP: builder.mutation<VerifyOTPResponseProps, VerifyOTPRequestProps>({
     query: (body: VerifyOTPRequestProps) => ({
-      url: getPath('/api/otp-login/verify'),
+      url: getPath('/otp-login/verify'),
       method: 'post',
       data: body,
     }),
   }),
   resendOTP: builder.mutation<ResendOTPResponseProps, ResendOTPRequestProps>({
     query: (body: ResendOTPRequestProps) => ({
-      url: getPath('/api/otp-login/resend'),
+      url: getPath('/otp-login/resend'),
       method: 'post',
       data: body,
     }),

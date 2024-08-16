@@ -3,6 +3,10 @@ export interface LoginRequestProps {
   password: string;
 }
 
+export interface ProductDetailProps {
+  productId: string;
+}
+
 export interface LoginResponseProps {
   id_token: string;
 }

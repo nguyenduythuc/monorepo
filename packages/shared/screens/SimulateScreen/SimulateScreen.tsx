@@ -13,6 +13,7 @@ import {View, Text, ScrollView, Platform} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
+import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
 
 export const SimulateScreen = ({t}: {t: any}) => {
   const {
@@ -27,17 +28,9 @@ export const SimulateScreen = ({t}: {t: any}) => {
 
   const {appNavigate} = useConfigRouting();
 
-  const repaymentScheduleScreen =
-    Platform.OS !== 'web' ? 'RepaymentScheduleScreen' : 'repayment-schedule';
-
   return (
     <>
-      <Appbar
-        backAction
-        backIconColor="black"
-        labelContent={t('Simulate.simulate')}
-        contentTextStyle={tw.style('text-black')}
-      />
+      <Appbar labelContent={t('Simulate.simulate')} />
       <ScrollView style={tw`flex-1`}>
         <View style={tw`px-4 mt-4`}>
           <Text style={tw`text-3xl font-bold`}>{t('Simulate.loanInfo')}</Text>
@@ -59,10 +52,7 @@ export const SimulateScreen = ({t}: {t: any}) => {
                   <Icon size={15} color="#E7252B" name="info-icon" />
                 </View>
                 <Text style={tw`text-xl font-semibold text-red-500`}>
-                  {
-                    formatNewAmount(estimatePaymentMonthly)
-                      .loanEstimatePayFormat
-                  }{' '}
+                  {formatNewAmount(estimatePaymentMonthly).numberMoneyFormat}{' '}
                   <Text style={tw`font-normal text-black`}>
                     {formatNewAmount(estimatePaymentMonthly).currencySymbolVND}
                   </Text>
@@ -87,7 +77,7 @@ export const SimulateScreen = ({t}: {t: any}) => {
             </View>
             <View style={tw`mt-2`}>
               <CustomButton
-                onPress={() => appNavigate(repaymentScheduleScreen)}
+                onPress={() => appNavigate(ScreenParamEnum.RepaymentSchedule)}
                 styleTextLeft
                 variant="text"
                 prefixIcon="calendar-icon">

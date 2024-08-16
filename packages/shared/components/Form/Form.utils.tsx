@@ -180,7 +180,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     unit: 'tháng',
     controlProps: {
       name: 'simulateTenor',
-      rules: {},
+      rules: {required: 'This field is required'},
     },
     type: FieldType.SliderWithTextInput,
     containerStyle: '',
@@ -190,7 +190,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     type: FieldType.SelectDropdown,
     controlProps: {
       name: 'simulateLoanProduct',
-      rules: {},
+      rules: {required: 'This field is required'},
     },
   },
   SimulateLoanPurpose: {
@@ -198,7 +198,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     type: FieldType.SelectDropdown,
     controlProps: {
       name: 'simulatePurpose',
-      rules: {},
+      rules: {required: 'This field is required'},
     },
   },
   SimulateLoanInsurance: {
@@ -208,8 +208,8 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     iconName: 'info-icon',
     type: FieldType.CheckboxWithIcon,
     controlProps: {
-      name: 'insurance',
-      rules: {},
+      name: 'insuranceConfirm',
+      rules: {required: 'This field is required'},
     },
   },
 };

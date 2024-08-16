@@ -1,8 +1,17 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import axios, {AxiosRequestConfig, AxiosError} from 'axios';
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
-export const getPath = (path: string) => Platform.OS === 'web' ? `/api-app${path}` : path;
+export enum ApiType {
+  Public = 'public',
+  Private = 'private',
+}
+
+export const getPath = (path: string, type?: ApiType) => {
+  let newPath = type === 'public' ? `/public${path}` : `/api${path}`;
+  newPath = Platform.OS === 'web' ? `/api-app${newPath}` : newPath;
+  return newPath;
+};
 
 let token = '';
 export const setAppToken = (newToken: string) => {

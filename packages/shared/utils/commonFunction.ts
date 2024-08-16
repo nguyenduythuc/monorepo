@@ -1,14 +1,18 @@
-export const formatNewAmount = (value: number) => {
-  const formatterVND = new Intl.NumberFormat('vn-VN', {
+export const formatterVND = (value: number) => {
+  const intl = new Intl.NumberFormat('vn-VN', {
     style: 'currency',
     currency: 'VND',
   });
 
-  let loanEstimatePayFormat = formatterVND.format(value);
+  return intl.format(value);
+};
 
-  const currencySymbolVND = loanEstimatePayFormat.slice(0, 1);
+export const formatNewAmount = (value: number) => {
+  let numberMoneyFormat = formatterVND(value);
 
-  loanEstimatePayFormat = loanEstimatePayFormat.replace(currencySymbolVND, '');
+  const currencySymbolVND = numberMoneyFormat.slice(0, 1);
 
-  return {loanEstimatePayFormat, currencySymbolVND};
+  numberMoneyFormat = numberMoneyFormat.replace(currencySymbolVND, '');
+
+  return {numberMoneyFormat, currencySymbolVND};
 };

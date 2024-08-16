@@ -10,17 +10,16 @@ export const useConfigRouting = () => {
     useNavigation<NativeStackNavigationProp<RootParamList>>();
 
   const appNavigate = <T extends keyof RootParamList | keyof RootParamListWeb>(
-    nextScreen: T | 'goBack',
+    nextScreen: T,
     params?: object | undefined,
   ) => {
-    if (nextScreen === 'goBack') {
-      goBack();
-    } else if (typeof nextScreen === 'string') {
+    if (typeof nextScreen === 'string') {
       console.log('nextScreenWeb', nextScreen);
       dispatch(CommonActions.navigate({name: nextScreen, params} as any));
     } else {
       throw new Error('Invalid screen type');
     }
   };
-  return {appNavigate};
+
+  return {appNavigate, goBack};
 };

@@ -5,7 +5,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {bgLogin} from '@lfvn-customer/shared/assets';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {LoginScreen} from '@lfvn-customer/shared/screens/Login';
-import {AppbarBackAction} from '@lfvn-customer/shared/components';
+import {Appbar} from '@lfvn-customer/shared/components';
 
 const LoginContainer = () => {
   return (
@@ -15,7 +15,7 @@ const LoginContainer = () => {
         source={Platform.OS === 'android' ? {uri: 'login_bg'} : bgLogin}
         style={tw.style('flex-1')}>
         <SafeAreaView style={tw.style('flex-1')} edges={['top']}>
-          <AppbarBackAction containerStyle="mx-4" backIconColor="white" />
+          <Appbar backIconColor="white" />
           <KeyboardAwareScrollView
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled">

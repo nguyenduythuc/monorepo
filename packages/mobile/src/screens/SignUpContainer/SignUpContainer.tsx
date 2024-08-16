@@ -4,7 +4,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {SignUpScreen} from '@lfvn-customer/shared/screens/SignUp';
-import {AppbarBackAction} from '@lfvn-customer/shared/components';
+import {Appbar} from '@lfvn-customer/shared/components';
 
 const SignUpContainer = () => {
   return (
@@ -15,7 +15,7 @@ const SignUpContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <AppbarBackAction containerStyle="mx-2" />
+        <Appbar />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">

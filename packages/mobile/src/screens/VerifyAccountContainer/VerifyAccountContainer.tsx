@@ -6,7 +6,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {VerifyAccountScreen} from '@lfvn-customer/shared/screens/VerifyAccount';
 import {useRoute} from '@react-navigation/native';
 import {VerifyAccountScreenRouteProps} from '../../types/paramtypes';
-import {AppbarBackAction} from '@lfvn-customer/shared/components';
+import {Appbar} from '@lfvn-customer/shared/components';
 
 const VerifyAccountContainer = () => {
   const route = useRoute<VerifyAccountScreenRouteProps>();
@@ -21,7 +21,7 @@ const VerifyAccountContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <AppbarBackAction containerStyle="mx-2" />
+        <Appbar />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">

@@ -13,7 +13,9 @@ export default function ProductIntroduction() {
   const t = useTranslations();
 
   return (
-    <main className="flex bg-white min-h-screen flex-col items-center justify-between">
+    <View
+      style={tw`flex bg-white min-h-screen flex-col items-center justify-between`}
+    >
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
         <View style={tw``}>
           <img
@@ -24,6 +26,6 @@ export default function ProductIntroduction() {
           <ProductIntroductionScreen t={t} />
         </View>
       </div>
-    </main>
+    </View>
   );
 }

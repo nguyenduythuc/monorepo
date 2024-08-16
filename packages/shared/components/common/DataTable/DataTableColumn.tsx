@@ -179,23 +179,23 @@ export const DetailDataTableColumn: FC<DataTableColumnProp> = ({
   };
 
   const rowColor = (index: number) => {
-    return (index + 1) % 2 === 0 ? 'bg-gray-100' : '';
+    return (index + 1) % 2 === 0 ? 'bg-[#FFF5E9]' : '';
   };
 
   const fixedColumnStyle = () => {
     if (!mainColumn) {
       if (fixedLeftColumn) {
-        return 'border-r border-gray-300';
+        return 'border-r border-[#C0E1FF]';
       }
       if (fixedRightColumn) {
-        return 'border-l border-gray-300';
+        return 'border-l border-[#C0E1FF]';
       }
     }
   };
 
   return (
     <View style={tw`${fixedColumnStyle() || ''}`}>
-      <View style={tw`flex flex-row py-2 bg-gray-200`}>
+      <View style={tw`flex flex-row py-2 bg-[#F4F8FF]`}>
         {colHeader().map((header, index) => (
           <DataTableTitle
             style={
@@ -229,7 +229,7 @@ export const DetailDataTableColumn: FC<DataTableColumnProp> = ({
         {data.map((col, colIndex) => (
           <View
             key={colIndex}
-            style={tw`flex-1 flex-row border-t border-gray-300 ${rowColor(
+            style={tw`flex-1 flex-row border-t border-[#F9B479] ${rowColor(
               colIndex,
             )}`}>
             {colData(colIndex).map((cell: any, cellIndex) => (

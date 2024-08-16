@@ -49,7 +49,7 @@ export const CustomTable: FC<CustomTableProps> = ({
 
   return (
     <View
-      style={tw`max-w-full w-[${totalWidth}px] border border-gray-300 rounded-xl overflow-hidden`}>
+      style={tw`max-w-full w-[${totalWidth}px] border border-blue-300 rounded-xl overflow-hidden`}>
       <View style={tw`flex flex-row`}>
         <View style={tw`flex-1`}>
           <View>

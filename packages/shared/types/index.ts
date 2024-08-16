@@ -14,6 +14,7 @@ export interface SVGProps {
   size?: number;
   width?: number;
   height?: number;
+  transform?: boolean;
 }
 
 export interface IconProps extends SVGProps {
@@ -34,6 +35,7 @@ export interface ITextInputBaseProps extends TextInputProps {
   containerInputStyle?: string;
   containerLabelStyle?: string;
   textInputStyle?: string;
+  onChangeInput?: (e: string) => void;
   watch?: UseFormWatch<any>;
   errorMessage?: string;
   unit?: string;
