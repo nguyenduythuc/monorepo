@@ -1,18 +1,23 @@
 import {useRouter} from 'next/navigation';
-import {RootParamListWeb} from '../../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
 
 export const useConfigRouting = () => {
   const navigation = useRouter();
 
   const appNavigate = (
-    nextScreen: keyof RootParamListWeb,
+    nextScreen: ScreenParamEnum,
     params?: {[key: string]: string | number | boolean} | undefined,
   ) => {
-    const queryString = params
-      ? '?' + new URLSearchParams(params as Record<string, string>).toString()
-      : '';
-    console.log('nextScreenMobile', nextScreen);
-    navigation.push(`${nextScreen}${queryString}`);
+    if (!params) {
+      navigation.push(`${nextScreen}`);
+      return;
+    } else {
+      const queryString = params
+        ? '?' + new URLSearchParams(params as Record<string, string>).toString()
+        : '';
+
+      navigation.push(`${nextScreen}${queryString}`);
+    }
   };
 
   const goBack = () => {

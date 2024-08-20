@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo} from 'react';
-import {View, Text, Pressable, Platform, ScrollView} from 'react-native';
+import {View, Text, Pressable, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
@@ -7,13 +7,14 @@ import {
   Icon,
   IconKeys,
   ProductCardProp,
+  ProductCard,
 } from '@lfvn-customer/shared/components';
-import {ProductCard} from '@lfvn-customer/shared/components';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
-import {formatNewAmount, formatterVND} from '../../utils/commonFunction';
+import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
+import {useGetProductListQuery} from '../../redux/slices/apiSlices';
 
 export type DescriptionInfo = {
   icon: IconKeys;
@@ -22,8 +23,8 @@ export type DescriptionInfo = {
 };
 
 const ProductIntroductionScreen = ({t}: {t: any}) => {
-  const {theme, colors} = useGetTheme();
-  const {textNegative500, textUseful500, textNegative300} = theme;
+  const {theme} = useGetTheme();
+  const {textNegative500} = theme;
   const {appNavigate} = useConfigRouting();
 
   const listProductData: ProductIntroDataType[] = useAppSelector(
@@ -50,19 +51,17 @@ const ProductIntroductionScreen = ({t}: {t: any}) => {
     },
   ];
 
-  const toSimulateScreen = 'product-detail';
-
   const dataFormat: ProductCardProp[] = useMemo(() => {
     const productList: ProductCardProp[] = [];
     if (listProductData.length > 0) {
       listProductData.forEach((item, index) => {
         const newData: ProductCardProp = {
-          iconName: 'fast-loan-icon',
+          iconName: item.icon ?? 'fast-loan-icon',
           title: item.name,
           description: 'Quick process in just 15 minute',
           description2: 'Amount up to 5 million',
           onPress: () =>
-            appNavigate(toSimulateScreen, {
+            appNavigate(ScreenParamEnum.ProductDetail, {
               productId: item.id,
               productName: item.name,
             }),
@@ -75,48 +74,6 @@ const ProductIntroductionScreen = ({t}: {t: any}) => {
       return [];
     }
   }, [listProductData]);
-
-  const ProductList: ProductCardProp[] = [
-    {
-      iconName: 'fast-loan-icon',
-      title: 'Fast loan',
-      description: 'Quick process in just 15 minute',
-      description2: 'Amount up to 5 million',
-      onPress: () =>
-        appNavigate(ScreenParamEnum.ProductDetail, {productId: 123}),
-    },
-    {
-      iconName: 'salary-base-loan-icon',
-      title: 'Salary base loan',
-      description: 'Quick process in just 15 minute',
-      description2: 'Amount up to 5 million',
-      onPress: () => console.log('Salary base loan'),
-    },
-    {
-      iconName: 'gov-staff-loan-icon',
-      title: 'Government staff loan',
-      description: 'Amount up to VND100 million',
-      description2: 'Approve within 24 hour',
-    },
-    {
-      iconName: 'lady-loan-icon',
-      title: 'Lady loan',
-      description: 'Amount up to VND100 million',
-      description2: 'Approve within 24 hour',
-    },
-    {
-      iconName: 'life-insurance-loan-icon',
-      title: 'Life insurance loan',
-      description: 'Amount up to VND100 million',
-      description2: 'Approve within 24 hour',
-    },
-    {
-      iconName: 'top-up-loan-icon',
-      title: 'Top-up loan',
-      description: 'Amount up to VND100 million',
-      description2: 'Approve within 24 hour',
-    },
-  ];
 
   const maxAmount = '100000000';
 

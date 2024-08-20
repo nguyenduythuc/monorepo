@@ -1,26 +1,14 @@
-import React, {FC, useEffect, useMemo, useState} from 'react';
-import {
-  TouchableHighlight,
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Image,
-  ActivityIndicator,
-  Button,
-  Pressable,
-} from 'react-native';
+import React, {FC, useMemo, useState} from 'react';
+import {Text, View, ActivityIndicator, Pressable} from 'react-native';
 import {BaseButtonProps} from '@lfvn-customer/shared/types/components/button';
 import {
   buttonFilled,
-  buttonHover,
   buttonOutlined,
   buttonSize,
   buttonText,
 } from '@lfvn-customer/shared/themes/components/button';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon} from '../Icon';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 
 export const CustomButton: FC<BaseButtonProps> = ({
   variant = 'filled',
@@ -34,17 +22,19 @@ export const CustomButton: FC<BaseButtonProps> = ({
   loading = false,
   styleTextLeft,
   buttonStyle = '',
-  ...props
 }) => {
-  const {theme} = useGetTheme();
-  const {borderNegative100, borderUseful500, textUseful500} = theme;
+  const getDefaultStyle = () => {
+    if (variant === 'outlined') {
+      return buttonOutlined(color);
+    } else if (variant === 'text' || variant === 'link') {
+      return buttonText(color);
+    } else {
+      return buttonFilled(color);
+    }
+  };
 
-  const defaultStyle =
-    variant === 'outlined'
-      ? buttonOutlined(color)
-      : variant === 'text' || variant === 'link'
-        ? buttonText(color)
-        : buttonFilled(color);
+  const defaultStyle = getDefaultStyle();
+
   const textStyle =
     variant === 'link' ? buttonSize[size] + ' underline' : buttonSize[size];
 

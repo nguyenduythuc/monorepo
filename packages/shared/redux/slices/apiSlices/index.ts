@@ -15,8 +15,8 @@ export const apiSlice = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: (Platform.OS !== 'web' ? Config.BASE_API_URL : '') ?? '',
   }),
+  tagTypes: ['Product'],
   endpoints: builder => ({
-    ...testAPI(builder),
     ...loginAPI(builder),
     ...loginBiometricsAPI(builder),
     ...authAPI(builder),
@@ -27,8 +27,6 @@ export const apiSlice = createApi({
 });
 
 export const {
-  useGetExampleQuery,
-  useSetExampleMutation,
   useLoginMutation,
   useGenerateOTPMutation,
   useVerifyOTPMutation,

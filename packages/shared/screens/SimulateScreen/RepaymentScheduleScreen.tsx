@@ -3,12 +3,10 @@ import {
   CustomButton,
   CustomTable,
   CustomTableProps,
-  Icon,
 } from '@lfvn-customer/shared/components';
-import {useMemo} from 'react';
-import {View, Text, ScrollView, Pressable, Platform} from 'react-native';
+import React, {useMemo} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import React from 'react';
 
 export const RepaymentScheduleScreen = ({t}: {t: any}) => {
   const headers = ['Id', 'Name', 'Age', 'Job', 'Address', 'Action'];

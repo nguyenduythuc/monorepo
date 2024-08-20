@@ -1,4 +1,4 @@
-import {UseFormWatch} from 'react-hook-form';
+import {FieldValues, UseFormWatch} from 'react-hook-form';
 import {
   ImageSourcePropType,
   ImageStyle,
@@ -16,6 +16,8 @@ export interface SVGProps {
   height?: number;
   transform?: boolean;
 }
+
+export type apiTagType = 'Product' | never;
 
 export interface IconProps extends SVGProps {
   name: IconKeys;
@@ -36,7 +38,7 @@ export interface ITextInputBaseProps extends TextInputProps {
   containerLabelStyle?: string;
   textInputStyle?: string;
   onChangeInput?: (e: string) => void;
-  watch: UseFormWatch<any>;
+  watch?: UseFormWatch<FieldValues>;
   errorMessage?: string;
   unit?: string;
   watchConfirmPassword?: string;

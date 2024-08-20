@@ -4,15 +4,17 @@ import {
   ProductDetailResponseProps,
 } from '@lfvn-customer/shared/types/services/productTypes';
 import {getPath} from './config';
+import {apiTagType} from '@lfvn-customer/shared/types';
 
 export const productAPI = (
-  builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
+  builder: EndpointBuilder<BaseQueryFn, apiTagType, 'LFVN-API'>,
 ) => ({
   getProductList: builder.query<ProductGroupProps, void>({
     query: () => ({
       url: getPath('/product-group'),
       method: 'get',
     }),
+    providesTags: ['Product'],
   }),
   getProductById: builder.query<
     ProductDetailResponseProps,

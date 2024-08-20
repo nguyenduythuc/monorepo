@@ -1,7 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, Text, View, ViewStyle} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 
 export type BaseCardProp = {
   cardStyle?: string;
@@ -10,8 +9,6 @@ export type BaseCardProp = {
 };
 
 export const BaseCard = ({cardStyle = '', onPress, children}: BaseCardProp) => {
-  const {theme, colors} = useGetTheme();
-
   return (
     <View>
       <TouchableOpacity

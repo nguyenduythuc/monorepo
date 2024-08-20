@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, View} from 'react-native';
+import {Pressable} from 'react-native';
 import SearchIcon from '@lfvn-customer/shared/assets/images/svg/SearchIcon';
 import CloseCircleIcon from '@lfvn-customer/shared/assets/images/svg/CloseCircleIcon';
 import AddIcon from '@lfvn-customer/shared/assets/images/svg/AddIcon';

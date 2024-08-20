@@ -21,11 +21,7 @@ import {Platform} from 'react-native';
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
 
-  const {
-    data: metaData,
-    error: metadataError,
-    isLoading: metadataLoading,
-  } = useGetMetadataQuery();
+  const {data: metaData, error: metadataError} = useGetMetadataQuery();
 
   if (!metadataError) {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -37,17 +33,9 @@ const useSimulateScreen = () => {
     dispatch(setSimulate(defaultSimulate));
   }
 
-  const {
-    data: productData,
-    error: productError,
-    isLoading: productLoading,
-  } = useGetProductQuery();
+  const {data: productData} = useGetProductQuery();
 
-  const {
-    data: purposeData,
-    error: purposeError,
-    isLoading: purposeLoading,
-  } = useGetPurposeQuery();
+  const {data: purposeData} = useGetPurposeQuery();
 
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
@@ -145,7 +133,7 @@ const useSimulateScreen = () => {
     );
     setValue(
       'simulateLoanAmount',
-      (parseInt(optionData?.maxAmount || '1') / 2).toString(),
+      (parseInt(optionData?.maxAmount ?? '1') / 2).toString(),
     );
   }, [simulateLoanProduct]);
 

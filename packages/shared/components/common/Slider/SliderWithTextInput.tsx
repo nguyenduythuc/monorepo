@@ -1,11 +1,7 @@
-import React, {FC, useState} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {
-  TextInput,
-  BaseSlider,
-  TextInputWithUnit,
-} from '@lfvn-customer/shared/components';
+import {BaseSlider, TextInputWithUnit} from '@lfvn-customer/shared/components';
 
 export interface SliderWithTextInputProps {
   label?: string;

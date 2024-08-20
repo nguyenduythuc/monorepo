@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useState} from 'react';
+import React, {FC} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import Svg, {Path} from 'react-native-svg';

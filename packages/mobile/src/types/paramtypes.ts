@@ -44,14 +44,6 @@ export enum ScreenParamEnum {
   CreateLoanApl = 'create-loan-apl',
 }
 
-export type RootParamListWeb = {
-  'repayment-schedule': undefined;
-  'product-introduction': undefined;
-  'product-detail': undefined;
-  simulate: undefined;
-  goBack: undefined;
-};
-
 export type LoginScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
   'login'
@@ -82,4 +74,8 @@ export type ResetPasswordScreenNavigationProps = NativeStackNavigationProp<
 export type ResetPasswordRouteProps = RouteProp<
   RootParamList,
   'reset-password'
+>;
+export type ProductDetailScreenRouteProps = RouteProp<
+  RootParamList,
+  'product-detail'
 >;

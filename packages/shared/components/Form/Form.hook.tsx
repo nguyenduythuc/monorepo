@@ -45,7 +45,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   label={field.label}
                   ref={ref}
                   errorMessage={
-                    errors[field.controlProps.name]?.message?.toString() || ''
+                    errors[field.controlProps.name]?.message?.toString() ?? ''
                   }
                   required={!!field.controlProps.rules?.required}
                   placeholder={field.placeholder}
@@ -77,7 +77,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   label={field.label}
                   ref={ref}
                   errorMessage={
-                    errors[field.controlProps.name]?.message?.toString() || ''
+                    errors[field.controlProps.name]?.message?.toString() ?? ''
                   }
                   required={!!field.controlProps.rules?.required}
                   placeholder={field.placeholder}
@@ -102,12 +102,12 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   onChangeText={onChange}
                   onChangeSlider={onChange}
                   value={value}
-                  max_value={field.maxValue || 10}
-                  min_value={field.minValue || 1}
-                  step={field.step || 1}
-                  unit={field.unit || 'unit'}
+                  max_value={field.maxValue ?? 10}
+                  min_value={field.minValue ?? 1}
+                  step={field.step ?? 1}
+                  unit={field.unit ?? 'unit'}
                   label={field.label}
-                  defaultValue={field.defaultValue || ''}
+                  defaultValue={field.defaultValue ?? ''}
                 />
               );
             }}
@@ -127,10 +127,10 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   value={value}
                   required={!!field.controlProps.rules?.required}
                   label={field.label}
-                  options={field.options || []}
+                  options={field.options ?? []}
                   onChange={onChange}
                   errorMessage={
-                    errors[field.controlProps.name]?.message?.toString() || ''
+                    errors[field.controlProps.name]?.message?.toString() ?? ''
                   }
                   placeholder="Choose Loan Purpose"
                 />
@@ -151,20 +151,20 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                 <View
                   style={tw`flex flex-row justify-between items-start mt-6`}>
                   <Checkbox
-                    label={field.label || ''}
+                    label={field.label ?? ''}
                     description={field.description}
                     isChecked={value}
                     onChange={onChange}
                     color={field.checkboxColor}
                     required={!!field.controlProps.rules?.required}
                     errorMessage={
-                      errors[field.controlProps.name]?.message?.toString() || ''
+                      errors[field.controlProps.name]?.message?.toString() ?? ''
                     }
                   />
                   <Icon
                     size={20}
-                    color={field.iconColor || '#999999'}
-                    name={field.iconName || 'info-icon'}
+                    color={field.iconColor ?? '#999999'}
+                    name={field.iconName ?? 'info-icon'}
                   />
                 </View>
               );

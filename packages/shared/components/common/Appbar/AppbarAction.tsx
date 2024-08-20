@@ -1,12 +1,5 @@
-import React, {useMemo} from 'react';
-
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextStyle,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity, TextStyle} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
 
@@ -24,7 +17,6 @@ export const AppbarAction = ({
   title,
   titleStyle,
   iconColor = '#333333',
-  ...rest
 }: AppbarActionProp) => {
   return (
     <View style={tw`flex-1 justify-end items-end`}>

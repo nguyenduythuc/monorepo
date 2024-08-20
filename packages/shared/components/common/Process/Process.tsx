@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {LayoutRectangle, Pressable, Text, View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon} from '@lfvn-customer/shared/components/common/Icon';
 
@@ -61,7 +61,7 @@ export const VerticalProgress = ({
 
   const [leftStep, setLeftStep] = useState(0);
 
-  const find_dimesions = (layout: any) => {
+  const find_dimesions = (layout: LayoutRectangle) => {
     const {width} = layout;
     setLeftStep(width / 2);
   };
@@ -109,7 +109,7 @@ export const VerticalProgress = ({
                 )}
               </Pressable>
 
-              <View style={tw`ml-3 items-start w-4/5 mt-1.5 pr-10`}>
+              <View style={tw`ml-3 items-start mt-1.5 w-screen pr-10 flex-1`}>
                 <Text
                   style={[
                     tw`text-left text-base font-medium`,
@@ -161,7 +161,7 @@ export const HorizontalProgress = ({
 
   const [leftStep, setLeftStep] = useState(0);
 
-  const find_dimesions = (layout: any) => {
+  const find_dimesions = (layout: LayoutRectangle) => {
     const {width} = layout;
     setLeftStep(width / 2);
   };

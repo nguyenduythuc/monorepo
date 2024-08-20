@@ -1,4 +1,4 @@
-import {Platform, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {CustomButton, Icon, IconKeys} from '@lfvn-customer/shared/components';
@@ -6,6 +6,7 @@ import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {
   useGetMetadataQuery,
   useGetProductListQuery,
+  apiSlice,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';
 import {setListProduct} from '@lfvn-customer/shared/redux/slices/productSlices';
@@ -33,28 +34,18 @@ export const HomeScreen = ({}) => {
 
   const {onPressLogin, onPressSignUp} = useHome();
 
-  const {
-    data: productListData,
-    isError: productListError,
-    isLoading: productListLoading,
-  } = useGetProductListQuery();
+  const {data: productListData, isLoading: productListLoading} =
+    useGetProductListQuery();
 
-  const {
-    data: metaData,
-    error: metadataError,
-    isLoading: metadataLoading,
-  } = useGetMetadataQuery();
+  const {data: metaData, isLoading: metadataLoading} = useGetMetadataQuery();
 
   useEffect(() => {
-    if (user || productListData) {
+    dispatch(apiSlice.util.invalidateTags(['Product']));
+    if (user !== null && productListData !== undefined) {
       console.log('productListData', productListData);
       dispatch(setListProduct(productListData));
     }
-  }, [productListData, user]);
-
-  console.log('metadataLoading', metadataLoading);
-  console.log('metaData', metaData);
-  console.log('metadataError', metadataError);
+  }, [productListData, user, productListLoading]);
 
   useEffect(() => {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -112,7 +103,7 @@ export const HomeScreen = ({}) => {
           'flex-row  bg-white rounded-2xl px-4 py-3 shadow-md mt-8 justify-between',
         )}>
         {listFeature.map((item, index) => (
-          <View key={index} style={tw`flex-1 items-center`}>
+          <View key={item.title} style={tw`flex-1 items-center`}>
             <TouchableOpacity
               onPress={() => {
                 appNavigate(ScreenParamEnum.ProductIntroduction);

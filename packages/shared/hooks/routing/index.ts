@@ -2,14 +2,14 @@ import {useNavigation, CommonActions} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   RootParamList,
-  RootParamListWeb,
+  ScreenParamEnum,
 } from '../../../mobile/src/types/paramtypes';
 
 export const useConfigRouting = () => {
   const {dispatch, goBack} =
     useNavigation<NativeStackNavigationProp<RootParamList>>();
 
-  const appNavigate = <T extends keyof RootParamList | keyof RootParamListWeb>(
+  const appNavigate = <T extends ScreenParamEnum>(
     nextScreen: T,
     params?: object | undefined,
   ) => {

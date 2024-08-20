@@ -5,9 +5,14 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {homeBg} from '@lfvn-customer/shared/assets';
 import {useTranslations} from 'use-intl';
 import {ProductDetailScreen} from '@lfvn-customer/shared/screens';
+import {detailParamsProp} from '@lfvn-customer/shared/screens/ProductDetail/ProductDetail';
+import {useRoute} from '@react-navigation/native';
+import {ProductDetailScreenRouteProps} from '../../types/paramtypes';
 
-const ProductDetailScreenContainer = ({route}: {route: any}) => {
+const ProductDetailScreenContainer = () => {
   const t = useTranslations();
+
+  const route = useRoute<ProductDetailScreenRouteProps>();
 
   return (
     <View style={tw.style('flex-1')}>
