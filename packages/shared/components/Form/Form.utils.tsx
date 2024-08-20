@@ -214,7 +214,6 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
       },
     },
     type: FieldType.TextInputDisplayValidation,
-    keyboardType: 'numeric',
     placeholder: 'ResetPassword.newPasswordPlaceholder',
     containerStyle: 'mt-4',
     validations: [
