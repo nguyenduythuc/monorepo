@@ -15,7 +15,7 @@ import useTranslations from './useTranslations';
 import {setAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 import useAuth from './useAuth';
 import {useConfigRouting} from './routing';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 const useLoginBiometrics = () => {
   const [checkBiometric] = useCheckBiometricMutation();

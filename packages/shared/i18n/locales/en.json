@@ -117,7 +117,12 @@
     "welcome": "Chào mừng bạn đến với,",
     "lfvn": "Lotte Finance Việt Nam",
     "login": "Đăng nhập",
-    "registerNow": "Đăng ký ngay"
+    "registerNow": "Đăng ký ngay",
+    "haveAnProgressApplication": "You have an in-progress application",
+    "product": "Product",
+    "tenor": "Tenor",
+    "createdOn": "Created on",
+    "continue": "Continue"
   },
   "ProductDetail": {
     "fastLoan": "Fast Loan",

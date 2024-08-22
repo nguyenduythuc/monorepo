@@ -13,7 +13,7 @@ import useAuth from './useAuth';
 import {useConfigRouting} from './routing';
 import {setAppToken} from '../redux/slices/apiSlices/config';
 import {OTPTypesEnum} from '../types';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 const useHandleVerifyOTP = ({
   value,

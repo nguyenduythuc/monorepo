@@ -1,13 +1,8 @@
-import {FieldValues, UseFormWatch} from 'react-hook-form';
-import {
-  ImageSourcePropType,
-  ImageStyle,
-  StyleProp,
-  TextInputProps,
-  TextProps,
-} from 'react-native';
-import {IconKeys} from '@lfvn-customer/shared/components';
-import {CSSProperties} from 'react';
+import { FieldValues, UseFormWatch } from 'react-hook-form';
+import { ImageStyle, StyleProp, TextInputProps, TextProps } from 'react-native';
+import { IconKeys } from '@lfvn-customer/shared/components';
+import { CSSProperties } from 'react';
+import ImageName from '../assets/images';
 
 export interface SVGProps {
   color?: string;
@@ -15,6 +10,7 @@ export interface SVGProps {
   width?: number;
   height?: number;
   transform?: boolean;
+  viewBox?: string;
 }
 
 export type ApiTagType = 'Product' | never;
@@ -63,7 +59,7 @@ export interface ILabelProps extends TextProps {
 export interface ILabelValidationProps extends ILabelProps {
   validations?: InputValidationKeys[];
   value?: string;
-  colors: {[key: string]: string};
+  colors: { [key: string]: string };
 }
 
 export interface IErorMsgProps extends TextProps {
@@ -93,11 +89,7 @@ export interface IConfirmModalProps {
 }
 
 export interface IImageProps {
-  source: {
-    android: string;
-    ios: ImageSourcePropType;
-    web: string;
-  };
+  iconName: keyof typeof ImageName;
   style?: CSSProperties | StyleProp<ImageStyle> | string;
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
 }

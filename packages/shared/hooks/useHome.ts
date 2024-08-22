@@ -1,4 +1,4 @@
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '../types/paramtypes';
 import {useConfigRouting} from './routing';
 
 const useHome = () => {

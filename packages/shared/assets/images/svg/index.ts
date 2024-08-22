@@ -36,3 +36,4 @@ export * from './QuickApproveIcon';
 export * from './TimeMoneyIcon';
 export * from './PhoneOCRIcon';
 export * from './HintIcon';
+export * from './BgInProgressApplication';

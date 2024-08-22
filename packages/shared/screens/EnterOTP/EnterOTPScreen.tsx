@@ -1,17 +1,9 @@
-import {otpIcon} from '@lfvn-customer/shared/assets';
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useEnterOTP from '@lfvn-customer/shared/hooks/useEnterOTP';
-import {ConfirmModal, Icon} from '@lfvn-customer/shared/components';
+import {ConfirmModal, Icon, Image} from '@lfvn-customer/shared/components';
 import {maskPhoneNumber, formatTime} from '@lfvn-customer/shared/utils';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {OTPInput} from '@lfvn-customer/shared/components/common/OTPInput';
@@ -45,10 +37,7 @@ const EnterOTPScreen = ({
   return (
     <View style={tw.style('flex-1')}>
       <View style={tw.style('items-center')}>
-        <Image
-          source={Platform.OS === 'android' ? {uri: 'otp_icon'} : otpIcon}
-          style={styles.imgLogo}
-        />
+        <Image iconName="otp_icon" style={styles.imgLogo} />
         <Text
           style={tw.style(`text-32px ${textNegative500} font-semibold mt-4`)}>
           {t('EnterOTP.title')}

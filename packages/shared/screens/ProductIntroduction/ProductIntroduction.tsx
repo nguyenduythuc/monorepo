@@ -12,7 +12,7 @@ import {
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useGetProductListQuery} from '../../redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';

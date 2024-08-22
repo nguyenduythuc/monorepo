@@ -18,7 +18,7 @@ import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import Config from 'react-native-config';
 import {Platform} from 'react-native';
 import {useConfigRouting} from '.';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {OTPTypesEnum} from '../types';
 
 const useSimulateScreen = () => {

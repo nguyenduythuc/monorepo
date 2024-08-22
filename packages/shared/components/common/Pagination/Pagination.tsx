@@ -1,8 +1,8 @@
-import React, {FC, useEffect, useMemo} from 'react';
-import {View, Text} from 'react-native';
+import React, { FC } from 'react';
+import { View, Text } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {ArrowButton} from './ArrowButton';
-import {PageSelectButton} from './PageSelectButton';
+import { ArrowButton } from './ArrowButton';
+import { PageSelectButton } from './PageSelectButton';
 
 type PaginationProps = {
   page: number;
@@ -34,7 +34,7 @@ export const Pagination: FC<PaginationProps> = ({
       </View>
       <View style={tw`flex flex-row items-center`}>
         <ArrowButton
-          icon="arrow-right"
+          icon="chevron-right"
           iconColor="gray"
           onPress={() => onPageChange(page - 1)}
           disabled={page <= 1}
@@ -49,7 +49,7 @@ export const Pagination: FC<PaginationProps> = ({
         </View>
 
         <ArrowButton
-          icon="arrow-right"
+          icon="chevron-right"
           iconColor="gray"
           onPress={() => onPageChange(page + 1)}
           disabled={numberOfPages === 0 || page === numberOfPages}

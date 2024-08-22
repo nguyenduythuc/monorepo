@@ -4,7 +4,7 @@ import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import {RootParamList} from '../types/paramtypes';
+import {RootParamList} from '@lfvn-customer/shared/types/paramtypes';
 import {
   HomeContainer,
   TestScreen,
@@ -29,6 +29,7 @@ import {
   getToken,
 } from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 import {useDispatch} from 'react-redux';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 const Stack = createNativeStackNavigator<RootParamList>();
 import {apiSlice} from '@lfvn-customer/shared/redux/slices/apiSlices';
@@ -41,9 +42,9 @@ const prefixes = ['lfvncustomer://', 'https://duythuc.vercel.app'];
 // Config path for deep link
 const config: LinkingOptions<RootParamList>['config'] = {
   screens: {
-    // login: {
-    //   path: 'login',
-    // },
+    login: {
+      path: 'login',
+    },
     // home: {
     //   path: 'home',
     // },
@@ -212,7 +213,6 @@ const linking = {
     // Custom function to subscribe to incoming links
     // Listen to incoming links from deep linking
     const linkingSubscription = Linking.addEventListener('url', ({url}) => {
-      console.log(url);
       listener(url);
     });
 
@@ -223,9 +223,26 @@ const linking = {
   config,
 };
 
+const linkingWithoutAuthen = {
+  prefixes,
+  config,
+  getStateFromPath: (path: string) => {
+    // we can check path and return special router for handle not authen case here
+    return {
+      routes: [
+        {
+          name: 'home',
+          path: path,
+        },
+      ],
+    };
+  },
+};
+
 export const RootNavigator = () => {
+  const {user} = useAppSelector(state => state.auth);
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer linking={!user ? linkingWithoutAuthen : linking}>
       <RootStack />
     </NavigationContainer>
   );

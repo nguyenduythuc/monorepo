@@ -1,5 +1,4 @@
-import {otpIcon} from '@lfvn-customer/shared/assets';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
@@ -51,14 +50,7 @@ const VerifyAccountScreen = ({type}: {type: OTPTypesEnum}) => {
   return (
     <View style={tw.style('flex-1')}>
       <View style={tw.style('items-center')}>
-        <Image
-          source={{
-            android: 'otp_icon',
-            ios: otpIcon,
-            web: '/images/otp_icon.png',
-          }}
-          style={styles.imgLogo}
-        />
+        <Image iconName="otp_icon" style={styles.imgLogo} />
         <Text
           style={tw.style(`text-32px ${textNegative500} font-semibold mt-4`)}>
           {t('VerifyAccount.title')}

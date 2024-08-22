@@ -39,6 +39,7 @@ import DocLoanIcon from '@lfvn-customer/shared/assets/images/svg/DocLoanIcon';
 import CommentQuestionIcon from '@lfvn-customer/shared/assets/images/svg/CommentQuestionIcon';
 import PhoneOCRIcon from '@lfvn-customer/shared/assets/images/svg/PhoneOCRIcon';
 import HintIcon from '@lfvn-customer/shared/assets/images/svg/HintIcon';
+import ChevronRight from '@lfvn-customer/shared/assets/images/svg/ChevronRight';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -47,6 +48,7 @@ const iconList = (props: IconProps) => ({
   'add-file-icon': <AddFileIcon {...props} />,
   'transfer-money-icon': <TransferMoneyIcon {...props} />,
   'arrow-left': <ArrowLeft {...props} />,
+  'chevron-right': <ChevronRight {...props} />,
   'arrow-right': <ArrowRight {...props} />,
   'smart-phone': <SmartPhoneIcon {...props} />,
   'id-card': <IdCardIcon {...props} />,
