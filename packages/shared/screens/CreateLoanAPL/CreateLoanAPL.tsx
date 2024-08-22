@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo} from 'react';
-import {View, Text, Platform, ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
@@ -23,8 +23,8 @@ export type DescriptionInfo = {
 };
 
 const CreateLoanAPLScreen = ({t}: {t: any}) => {
-  const {theme, colors} = useGetTheme();
-  const {textNegative500, textUseful500, textNegative300} = theme;
+  const {theme} = useGetTheme();
+  const {textNegative500} = theme;
   const {appNavigate} = useConfigRouting();
 
   const listProductData: ProductIntroDataType[] = useAppSelector(
@@ -96,7 +96,7 @@ const CreateLoanAPLScreen = ({t}: {t: any}) => {
           <View style={tw.style('pt-1')}>
             <Icon name="comment-question-icon" />
           </View>
-          <View style={tw.style('flex flex-col items-start ml-3')}>
+          <View style={tw.style('flex flex-col items-start ml-3 flex-1')}>
             <Text style={tw.style('text-lg font-semibold pb-1')}>
               {t('ProductDetail.needAdvice')}
             </Text>

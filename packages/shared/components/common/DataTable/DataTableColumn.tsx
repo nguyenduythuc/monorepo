@@ -161,7 +161,6 @@ export const DetailDataTableColumn: FC<DataTableColumnProp> = ({
       let newStyle = columnStyles;
       if (fixedLeftColumn) {
         newStyle = newStyle.slice(offsetLeft);
-        console.log;
       }
       if (fixedRightColumn && columnStyles.length === headerTitle.length) {
         newStyle = newStyle.slice(0, offsetRight);
@@ -194,7 +193,7 @@ export const DetailDataTableColumn: FC<DataTableColumnProp> = ({
   };
 
   return (
-    <View style={tw`${fixedColumnStyle() || ''}`}>
+    <View style={tw`${fixedColumnStyle() ?? ''}`}>
       <View style={tw`flex flex-row py-2 bg-[#F4F8FF]`}>
         {colHeader().map((header, index) => (
           <DataTableTitle
@@ -243,7 +242,6 @@ export const DetailDataTableColumn: FC<DataTableColumnProp> = ({
                     {cell.props.map((btt: any, bttIdx: number) => (
                       <CustomButton
                         key={bttIdx}
-                        onPress={() => {}}
                         size={btt.size}
                         color={btt.color}
                         disabled={undefined}

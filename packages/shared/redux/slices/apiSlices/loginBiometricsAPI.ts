@@ -10,9 +10,10 @@ import {
   DeactiveBiometricResponseProps,
 } from '@lfvn-customer/shared/types/services/loginBiometricsTypes';
 import {getPath} from './config';
+import {apiTagType} from '@lfvn-customer/shared/types';
 
 export const loginBiometricsAPI = (
-  builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
+  builder: EndpointBuilder<BaseQueryFn, apiTagType, 'LFVN-API'>,
 ) => ({
   checkBiometric: builder.mutation<
     CheckBiometricResponseProps,

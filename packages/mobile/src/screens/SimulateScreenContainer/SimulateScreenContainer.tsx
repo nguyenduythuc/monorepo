@@ -6,8 +6,8 @@ import {SimulateScreen} from '@lfvn-customer/shared/screens';
 
 export const SimulateScreenContainer = () => {
   return (
-    <View style={tw`h-screen bg-white`}>
-      <SafeAreaView style={tw`h-screen`}>
+    <View style={tw.style('flex-1 bg-white')}>
+      <SafeAreaView style={tw.style('flex-1')} edges={['top']}>
         <SimulateScreen />
       </SafeAreaView>
     </View>

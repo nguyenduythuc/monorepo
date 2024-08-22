@@ -1,3 +1,5 @@
+import {IconKeys} from '@lfvn-customer/shared/components';
+
 export interface ProductResponseProps {
   data: ProductDataType[];
   code: string;
@@ -47,7 +49,7 @@ export interface ProductIntroDataType {
   checkedDate: null;
   syncBy: null;
   syncDate: null;
-  icon: null;
+  icon?: IconKeys;
   productGroupInfos: [];
 }
 

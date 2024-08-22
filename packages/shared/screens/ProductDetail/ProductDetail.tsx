@@ -1,14 +1,14 @@
-import React, {useEffect, useMemo} from 'react';
-import {View, Text, Pressable, Platform, Image, ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text, Platform, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
   Appbar,
   CustomButton,
-  Icon,
   IconKeys,
   ProductCardProp,
   ProductDetailInfoCard,
+  Image,
 } from '@lfvn-customer/shared/components';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
@@ -26,7 +26,7 @@ export type DescriptionInfo = {
 
 export type detailParamsProp = {
   productId: number;
-  productName: string;
+  productName?: string;
 };
 
 const ProductDetailScreen = ({
@@ -37,8 +37,8 @@ const ProductDetailScreen = ({
   params?: detailParamsProp;
 }) => {
   console.log('params', params);
-  const {theme, colors} = useGetTheme();
-  const {textNegative500, textUseful500, textNegative300} = theme;
+  const {theme} = useGetTheme();
+  const {textNegative500} = theme;
   const {appNavigate} = useConfigRouting();
 
   const listProductData: ProductIntroDataType[] = useAppSelector(
@@ -47,11 +47,9 @@ const ProductDetailScreen = ({
 
   console.log('listProduct', listProductData);
 
-  const {
-    data: productDetailData,
-    isError: productDetailError,
-    isLoading: productDetailLoading,
-  } = useGetProductByIdQuery({productId: params?.productId || 1});
+  const {data: productDetailData} = useGetProductByIdQuery({
+    productId: params?.productId ?? 1,
+  });
 
   console.log('data', productDetailData);
 
@@ -95,12 +93,12 @@ const ProductDetailScreen = ({
       <ScrollView style={tw`flex-1`}>
         <View style={tw.style('justify-center items-center')}>
           <Image
-            source={
-              Platform.OS === 'android'
-                ? {uri: 'product_detail'}
-                : productDetail
-            }
-            style={tw.style('h-[150px] w-[147px]')}
+            source={{
+              android: 'product_detail',
+              ios: productDetail,
+              web: '/images/product_detail.png',
+            }}
+            style={tw.style('h-[200px]')}
           />
         </View>
         <View style={tw.style('mx-4 my-2 items-center justify-center py-2')}>

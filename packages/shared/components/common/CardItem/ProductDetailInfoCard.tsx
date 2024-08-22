@@ -20,9 +20,9 @@ export const ProductDetailInfoCard = ({
   description2,
   onPress,
 }: ProductDetailInfoCardProp) => {
-  const {theme, colors} = useGetTheme();
+  const {theme} = useGetTheme();
 
-  const {textNegative500, textUseful500, textNegative300} = theme;
+  const {textNegative500} = theme;
 
   return (
     <BaseCard>

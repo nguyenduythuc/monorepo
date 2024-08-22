@@ -1,5 +1,5 @@
 import React, {FC, useMemo} from 'react';
-import {ButtonProps, TouchableOpacity, View, Image} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {BaseButtonProps} from '@lfvn-customer/shared/types/components/button';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {roundButtonSize} from '@lfvn-customer/shared/themes/components/button';
@@ -16,7 +16,6 @@ export const RoundButton: FC<BaseButtonProps> = ({
   const buttonSize =
     roundButtonSize[size] +
     (disabled ? ` bg-gray-500 opacity-50` : ` bg-${color}-600`);
-  const iconSize = {width: '25', height: '29'};
 
   const PrefixIconComponent = useMemo(
     () => (prefixIcon ? <Icon name={prefixIcon} color={iconColor} /> : null),

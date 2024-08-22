@@ -1,12 +1,5 @@
-import React, {useMemo} from 'react';
-
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextStyle,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TextStyle} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export type AppbarContentProp = {
@@ -19,7 +12,6 @@ export const AppbarContent = ({
   title,
   children,
   titleStyle,
-  ...rest
 }: AppbarContentProp) => {
   return (
     <View

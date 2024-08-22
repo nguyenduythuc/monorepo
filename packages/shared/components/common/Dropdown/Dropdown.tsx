@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {BaseModal} from '../AppModal';
-import {Icon, Radio} from '@lfvn-customer/shared/components';
+import {Icon} from '@lfvn-customer/shared/components';
 import {Label} from '@lfvn-customer/shared/components/common/Label';
 import {dropdownOptionProduct} from '@lfvn-customer/shared/types/components/dropdown';
 import {TextError} from '../TextError';
@@ -38,9 +38,9 @@ export const DropDownSelect = ({
 
   const valueName = () => {
     const optionData = listPage.find(
-      item => (item.code || item.productCode) === value,
+      item => (item.code ?? item.productCode) === value,
     );
-    return optionData?.name || optionData?.productName;
+    return optionData?.name ?? optionData?.productName;
   };
 
   const onOpen = () => dropDownRef.current?.open();
@@ -71,24 +71,24 @@ export const DropDownSelect = ({
           <ScrollView style={tw``} nestedScrollEnabled={true} bounces={false}>
             {listPage.map((item, index) => (
               <TouchableOpacity
-                key={item.productCode || item.code}
+                key={item.productCode ?? item.code}
                 style={[
-                  value === (item.productCode || item.code) && tw`bg-gray-100`,
+                  value === (item.productCode ?? item.code) && tw`bg-gray-100`,
                   index !== listPage.length &&
                     tw`border border-gray-200 rounded-lg`,
                   tw`flex-row justify-between items-center min-w-20 py-1 mx-4 my-1 px-4 h-12`,
                 ]}
                 onPress={() =>
-                  handleSelect(item.productCode || item.code || '')
+                  handleSelect(item.productCode ?? item.code ?? '')
                 }>
                 <Text
                   style={[
-                    (item.productName || item.name) === value &&
+                    (item.productName ?? item.name) === value &&
                       tw`text-blue-500`,
                   ]}>
-                  {item.productName || item.name}
+                  {item.productName ?? item.name}
                 </Text>
-                {value === (item.productCode || item.code) && (
+                {value === (item.productCode ?? item.code) && (
                   <Icon name="check-circle" color="green"></Icon>
                 )}
               </TouchableOpacity>

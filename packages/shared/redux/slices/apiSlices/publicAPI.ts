@@ -1,9 +1,10 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {MetadataResponseProps} from '@lfvn-customer/shared/types/services/productTypes';
 import {ApiType, getPath} from './config';
+import {apiTagType} from '@lfvn-customer/shared/types';
 
 export const publicAPI = (
-  builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
+  builder: EndpointBuilder<BaseQueryFn, apiTagType, 'LFVN-API'>,
 ) => ({
   getMetadata: builder.query<MetadataResponseProps, void>({
     query: () => ({

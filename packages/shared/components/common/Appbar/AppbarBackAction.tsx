@@ -1,12 +1,5 @@
-import React, {useMemo} from 'react';
-
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextStyle,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity, TextStyle} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
@@ -27,7 +20,6 @@ export const AppbarBackAction = ({
   titleStyle,
   backIconColor = '#333333',
   containerStyle = '',
-  ...rest
 }: AppbarBackActionProp) => {
   const {goBack} = useConfigRouting();
   const onPressBack = () => {
@@ -38,7 +30,6 @@ export const AppbarBackAction = ({
       <TouchableOpacity onPress={onPressBack} style={tw`flex-row items-center`}>
         {icon && <Icon name={icon} color={backIconColor} disabled></Icon>}
         <Text style={[tw`text-base`, titleStyle]}>{title}</Text>
-        {/* <Text style={tw`text-black text-lg`}>Menu</Text> */}
       </TouchableOpacity>
     </View>
   );

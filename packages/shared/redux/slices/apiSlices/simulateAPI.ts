@@ -4,9 +4,10 @@ import {
   PurposeResponseProps,
 } from '@lfvn-customer/shared/types/services/productTypes';
 import {getPath} from './config';
+import {apiTagType} from '@lfvn-customer/shared/types';
 
 export const simulateAPI = (
-  builder: EndpointBuilder<BaseQueryFn, never, 'LFVN-API'>,
+  builder: EndpointBuilder<BaseQueryFn, apiTagType, 'LFVN-API'>,
 ) => ({
   getProduct: builder.query<ProductResponseProps, void>({
     query: () => ({
