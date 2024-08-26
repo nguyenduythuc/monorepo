@@ -42,10 +42,11 @@ const useSignUp = () => {
     const {fullname, phoneNumber, idCard} = getValues();
     const result = await register({
       login: idCard,
-      fullName: fullname,
+      // fullName: fullname,
       phoneNumber,
       identityNumber: idCard,
-      password: 'lfvn@123', // TODO: password will be handled by BE in the feature
+      // password: 'lfvn@123', // TODO: password will be handled by BE in the feature,
+      changeRequired: true,
     });
     if (result.data) {
       const authSeq = result.data?.authSeq;

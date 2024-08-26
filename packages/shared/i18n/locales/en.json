@@ -3,7 +3,8 @@
   "hello": "Hello",
   "Modal": {
     "notSuccess": "Không thành công",
-    "agree": "Đồng ý"
+    "agree": "Đồng ý",
+    "cancel": "Huỷ"
   },
   "ErrorCommon": {
     "title": "Lỗi",
@@ -55,7 +56,11 @@
     "loginID": "Login ID",
     "phonenumberPlaceholder": "Nhập số điện thoại",
     "idCardPlacegholder": "Nhập số CCCD",
-    "msgVerifyFail": "Thông tin đăng nhập không hợp lệ"
+    "msgVerifyFail": "Thông tin đăng nhập không hợp lệ",
+    "phoneNumber": "Phone Number",
+    "idCard": "ID Number",
+    "chooseIdType": "Choose Id Type",
+    "invalidAccountInfo": "Thông tin không hợp lệ. Vui lòng nhập lại thông tin"
   },
   "EnterOTP": {
     "title": "Please enter OTP code",
@@ -96,7 +101,9 @@
     "year": "năm",
     "save": "Lưu",
     "submit": "Submit",
-    "exportTable": "Tải bảng tính khoản vay"
+    "exportTable": "Tải bảng tính khoản vay",
+    "chooseLoanPurpose": "Choose Loan Purpose",
+    "chooseLoanProduct": "Choose Loan Product"
   },
   "ProductIntroduction": {
     "cashLoan": "Cash Loan",

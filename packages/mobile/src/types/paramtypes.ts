@@ -33,7 +33,7 @@ export enum ScreenParamEnum {
   Home = 'home',
   Test = 'Test',
   ComponentScreen = 'ComponentScreen',
-  Login = 'Login',
+  Login = 'login',
   VerifyAccount = 'verify-account',
   EnterOtp = 'enter-otp',
   SignUp = 'sign-up',
@@ -42,6 +42,7 @@ export enum ScreenParamEnum {
   ProductIntroduction = 'product-introduction',
   ProductDetail = 'product-detail',
   CreateLoanApl = 'create-loan-apl',
+  ResetPassword = 'reset-password',
 }
 
 export type LoginScreenNavigationProps = NativeStackNavigationProp<

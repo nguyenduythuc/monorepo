@@ -1,20 +1,51 @@
 import {otpIcon} from '@lfvn-customer/shared/assets';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
-import {CustomButton, Image} from '@lfvn-customer/shared/components';
+import {
+  ConfirmModal,
+  CustomButton,
+  Image,
+} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import {useDispatch} from 'react-redux';
+import {
+  setLoadingScreen,
+  clearLoadingScreen,
+} from '@lfvn-customer/shared/redux/slices/loadingSlices';
 
 const VerifyAccountScreen = ({type}: {type: OTPTypesEnum}) => {
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500, textUseful500} = theme;
 
-  const {renderFrom, onPressSubmit, onPressGoBack, isLoading} =
-    useVerifyAccount({type});
+  const dispatch = useDispatch();
+
+  const {
+    renderFrom,
+    onPressSubmit,
+    onPressGoBack,
+    isLoading,
+    isModalVisible,
+    setIsModalVisible,
+    msgRequestError,
+    onCustomerCancel,
+  } = useVerifyAccount({type});
+
+  const test = () => {
+    console.log('123412');
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setLoadingScreen());
+    } else {
+      dispatch(clearLoadingScreen());
+    }
+  }, [isLoading]);
 
   return (
     <View style={tw.style('flex-1')}>
@@ -55,6 +86,12 @@ const VerifyAccountScreen = ({type}: {type: OTPTypesEnum}) => {
           </TouchableOpacity>
         </View>
       </View>
+      <ConfirmModal
+        visible={isModalVisible}
+        setVisible={setIsModalVisible}
+        content={msgRequestError}
+        onButtonLeftPress={onCustomerCancel}
+      />
     </View>
   );
 };

@@ -17,6 +17,7 @@ import {RootNavigator} from './navigators/RootNavigator';
 import {PortalProvider} from '@gorhom/portal';
 import Toast from 'react-native-toast-message';
 import toastConfig from './toastConfig';
+import {LoadingOverlay} from '@lfvn-customer/shared/components';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -44,6 +45,7 @@ const App = () => {
               <PersistGate loading={null} persistor={persistor}>
                 <RootNavigator />
                 <Toast config={toastConfig} />
+                <LoadingOverlay />
               </PersistGate>
             </Provider>
           </ThemeProvider>

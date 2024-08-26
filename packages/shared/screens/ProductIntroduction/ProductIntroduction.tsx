@@ -15,6 +15,11 @@ import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useGetProductListQuery} from '../../redux/slices/apiSlices';
+import {useDispatch} from 'react-redux';
+import {
+  clearLoadingScreen,
+  setLoadingScreen,
+} from '../../redux/slices/loadingSlices';
 
 export type DescriptionInfo = {
   icon: IconKeys;
@@ -26,12 +31,21 @@ const ProductIntroductionScreen = ({t}: {t: any}) => {
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
   const {appNavigate} = useConfigRouting();
+  const dispatch = useDispatch();
 
-  const listProductData: ProductIntroDataType[] = useAppSelector(
-    state => state.product.listProduct,
-  );
+  const {data: productListData, isLoading: productListLoading} =
+    useGetProductListQuery();
 
-  console.log('listProduct', listProductData);
+  useEffect(() => {
+    if (productListLoading) {
+      dispatch(setLoadingScreen());
+    } else {
+      dispatch(clearLoadingScreen());
+    }
+  }, [productListLoading]);
+
+  const listProductData: ProductIntroDataType[] | undefined =
+    productListData?.data;
 
   const info: DescriptionInfo[] = [
     {
@@ -53,7 +67,7 @@ const ProductIntroductionScreen = ({t}: {t: any}) => {
 
   const dataFormat: ProductCardProp[] = useMemo(() => {
     const productList: ProductCardProp[] = [];
-    if (listProductData.length > 0) {
+    if (listProductData && listProductData.length > 0) {
       listProductData.forEach((item, index) => {
         const newData: ProductCardProp = {
           iconName: item.icon ?? 'fast-loan-icon',

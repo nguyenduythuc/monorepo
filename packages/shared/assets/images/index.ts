@@ -6,6 +6,8 @@ const homeBg = require('./home_bg.png');
 const productDetail = require('./product_detail.png');
 const createLoanAplBg = require('./create_loan_apl_bg.png');
 const createLoanAplCenter = require('./create_loan_apl_center.png');
+const loadingSpinner = require('./loading_spinner.gif');
+
 export {
   bgLogin,
   logoAppTransparent,
@@ -14,4 +16,5 @@ export {
   productDetail,
   createLoanAplBg,
   createLoanAplCenter,
+  loadingSpinner,
 };

@@ -11,6 +11,11 @@ import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 import {OTPTypesEnum} from '../types';
+import {useDispatch} from 'react-redux';
+import {
+  clearLoadingScreen,
+  setLoadingScreen,
+} from '../redux/slices/loadingSlices';
 
 const useLoginScreen = () => {
   const t = useTranslations();
@@ -21,6 +26,8 @@ const useLoginScreen = () => {
 
   const {appNavigate} = useConfigRouting();
   const {handleShowToast} = useShowToast();
+
+  const dispatch = useDispatch();
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({
@@ -36,6 +43,14 @@ const useLoginScreen = () => {
       });
     }
   }, [isError]);
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setLoadingScreen());
+    } else {
+      dispatch(clearLoadingScreen());
+    }
+  }, [isLoading]);
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();

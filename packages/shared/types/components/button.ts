@@ -40,9 +40,10 @@ export interface BaseButtonProps extends React.ComponentProps<'button'> {
   onPress?: (data: any | undefined) => void;
   variant?: variant;
   size?: size;
-  color?: color;
+  color?: color | string;
   loading?: boolean;
   children?: children;
   styleTextLeft?: boolean;
   buttonStyle?: string;
+  textCustomStyle?: string;
 }

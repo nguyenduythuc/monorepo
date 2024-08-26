@@ -1,65 +1,85 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {IConfirmModalProps} from '@lfvn-customer/shared/types';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import {BaseModal, CustomButton} from '..';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const ConfirmModal: React.FC<IConfirmModalProps> = ({
-  visiable,
-  setVisiable,
+  visible,
+  setVisible,
   title,
   content,
-  labelButton1,
-  labelButton2,
-  onButton1Press,
-  onButton2Press,
-  onPressClose,
+  renderAction,
+  textLeftStyle,
+  textRightStyle,
+  buttonRightStyle,
+  buttonLeftStyle,
+  labelButtonLeft,
+  labelButtonRight,
+  onButtonLeftPress,
+  onButtonRightPress,
+  renderContent,
+  singleButton,
   ...props
 }) => {
-  const {theme} = useGetTheme();
-  const {textNegative500, textNegative400, textUseful500, bgUseful500} = theme;
+  const dropDownRef = useRef<any>(null);
+  const onOpen = () => dropDownRef.current?.open();
+  const onClose = () => dropDownRef.current?.close();
+  const t = useTranslations();
+
+  labelButtonLeft = !labelButtonLeft ? t('Modal.cancel') : labelButtonLeft;
+  labelButtonRight = !labelButtonRight ? t('Modal.agree') : labelButtonRight;
+
+  if (renderAction) {
+    labelButtonLeft = null;
+    labelButtonRight = null;
+  }
+
+  if (visible) {
+    onOpen();
+  } else {
+    onClose();
+  }
+
   return (
-    <View>
-      {/* <Modal
-        {...props}
-        ref={ref}
-        isVisible={visiable}
-        backdropOpacity={backdropOpacity}
-        onBackdropPress={onPressClose}>
-        <View style={tw.style('bg-white p-4', {borderRadius: 28})}>
-          <Text
-            style={tw.style(
-              `font-semibold text-xl text-center ${textNegative500}`,
-            )}>
-            {title}
-          </Text>
-          <Text style={tw.style(`text-lg text-center mt-2 ${textNegative400}`)}>
-            {content}
-          </Text>
-          {labelButton1 && (
-            <TouchableOpacity
-              style={tw.style(`${bgUseful500} p-2 my-4 rounded-10px`)}
-              onPress={onButton1Press}>
-              <Text
-                style={tw.style(
-                  'text-lg font-semibold text-center text-white',
-                )}>
-                {labelButton1}
-              </Text>
-            </TouchableOpacity>
+    <BaseModal ref={dropDownRef}>
+      <View
+        style={tw.style('flex items-center justify-center w-full h-full px-4')}>
+        <View
+          style={tw.style(
+            'bg-white items-center rounded-2xl w-full py-5 px-6',
+          )}>
+          {content && (
+            <Text style={tw.style('text-lg text-center')}>{content}</Text>
           )}
-          {labelButton2 && (
-            <TouchableOpacity style={tw.style('my-1')} onPress={onButton2Press}>
-              <Text
-                style={tw.style(
-                  `text-lg font-semibold text-center ${textUseful500}`,
-                )}>
-                {labelButton2}
-              </Text>
-            </TouchableOpacity>
-          )}
+          {renderContent}
+          <View style={tw.style('flex-row mt-4 w-full justify-between')}>
+            {!!labelButtonLeft && !singleButton && (
+              <View style={tw.style('flex-1 mr-3')}>
+                <CustomButton
+                  onPress={onButtonLeftPress || onClose}
+                  buttonStyle={`bg-[#F4F8FF] shadow-none ${buttonLeftStyle}`}
+                  textCustomStyle={`text-blue-500 ${textLeftStyle}`}>
+                  {labelButtonLeft}
+                </CustomButton>
+              </View>
+            )}
+            {(!!labelButtonRight || singleButton) && (
+              <View style={tw.style('flex-1')}>
+                <CustomButton
+                  buttonStyle={buttonRightStyle}
+                  textCustomStyle={textRightStyle}
+                  onPress={onButtonRightPress || onClose}
+                  color="blue">
+                  {labelButtonRight}
+                </CustomButton>
+              </View>
+            )}
+            {renderAction}
+          </View>
         </View>
-      </Modal> */}
-    </View>
+      </View>
+    </BaseModal>
   );
 };

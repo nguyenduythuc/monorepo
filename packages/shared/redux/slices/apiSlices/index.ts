@@ -1,5 +1,4 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
-import {testAPI} from './testAPI';
 import axiosBaseQuery from './config';
 import {loginAPI} from './loginAPI';
 import Config from 'react-native-config';
@@ -9,6 +8,7 @@ import {publicAPI} from './publicAPI';
 import {productAPI} from './productAPI';
 import {loginBiometricsAPI} from './loginBiometricsAPI';
 import {authAPI} from './authAPI';
+import {verifyAccountAPI} from './verifyAccountAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -23,6 +23,7 @@ export const apiSlice = createApi({
     ...simulateAPI(builder),
     ...productAPI(builder),
     ...publicAPI(builder),
+    ...verifyAccountAPI(builder),
   }),
 });
 
@@ -45,4 +46,5 @@ export const {
   useGetProductByIdQuery,
   useResetPasswordInitMutation,
   useResetPasswordFinishMutation,
+  useVerifyAccountMutation,
 } = apiSlice;

@@ -17,10 +17,10 @@ import {
   ResetPasswordFinishResponseProps,
 } from '@lfvn-customer/shared/types/services';
 import {getPath} from './config';
-import {apiTagType} from '@lfvn-customer/shared/types';
+import {ApiTagType} from '@lfvn-customer/shared/types';
 
 export const loginAPI = (
-  builder: EndpointBuilder<BaseQueryFn, apiTagType, 'LFVN-API'>,
+  builder: EndpointBuilder<BaseQueryFn, ApiTagType, 'LFVN-API'>,
 ) => ({
   login: builder.mutation<LoginResponseProps, LoginRequestProps>({
     query: (body: LoginRequestProps) => ({

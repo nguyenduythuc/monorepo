@@ -17,7 +17,7 @@ export interface SVGProps {
   transform?: boolean;
 }
 
-export type apiTagType = 'Product' | never;
+export type ApiTagType = 'Product' | never;
 
 export interface IconProps extends SVGProps {
   name: IconKeys;
@@ -73,15 +73,22 @@ export interface IErorMsgProps extends TextProps {
 }
 
 export interface IConfirmModalProps {
-  visiable: boolean;
-  setVisiable?: (value: boolean) => void;
+  visible: boolean;
+  setVisible?: (value: boolean) => void;
   title?: string;
   content?: string;
-  labelButton1?: string;
-  onButton1Press?: () => void;
-  labelButton2?: string;
-  onButton2Press?: () => void;
+  renderContent?: React.ReactNode;
+  labelButtonLeft?: string | undefined | null;
+  onButtonLeftPress?: () => void;
+  labelButtonRight?: string | undefined | null;
+  renderAction?: React.ReactNode;
+  onButtonRightPress?: () => void;
   onPressClose?: () => void;
+  singleButton?: boolean;
+  textLeftStyle?: string;
+  textRightStyle?: string;
+  buttonRightStyle?: string;
+  buttonLeftStyle?: string;
 }
 
 export interface IImageProps {
@@ -99,13 +106,15 @@ export enum OTPTypesEnum {
   RESET_PASSWORD = 'RESET_PASSWORD',
   SIGN_UP = 'SIGN_UP',
   CHANGE_PASSWORD = 'CHANGE_PASSWORD',
+  VERIFY_CUSTOMER_BEFORE_LOAN = 'VERIFY_CUSTOMER_BEFORE_LOAN',
 }
 
 export type OTPTypes =
   | OTPTypesEnum.LOGIN_OTP
   | OTPTypesEnum.RESET_PASSWORD
   | OTPTypesEnum.SIGN_UP
-  | OTPTypesEnum.CHANGE_PASSWORD;
+  | OTPTypesEnum.CHANGE_PASSWORD
+  | OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN;
 
 export enum InputValidationKeys {
   STRING_LENGTH_FROM_8_TO_15_CHARACTERS = 'STRING_LENGTH_FROM_8_TO_15_CHARACTERS',
