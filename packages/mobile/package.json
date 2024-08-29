@@ -30,6 +30,7 @@
     "react-native-screens": "^3.32.0",
     "react-native-svg": "^15.3.0",
     "react-native-toast-message": "^2.2.0",
+    "react-native-true-id": "file:./react-native-true-id",
     "react-native-uuid": "^2.0.2",
     "twrnc": "^4.3.0",
     "use-intl": "^3.15.2"
