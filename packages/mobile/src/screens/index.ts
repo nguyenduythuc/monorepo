@@ -10,3 +10,4 @@ export * from './ProductIntroductionScreen';
 export * from './ProductDetailContainer';
 export * from './CreateLoanAPLContainer';
 export * from './ResetPasswordContainer';
+export * from './VerifyCustomerInfoContainer';

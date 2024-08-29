@@ -3,7 +3,7 @@ import {UserProfileProps} from '@lfvn-customer/shared/types/models/authModel';
 
 const initialState: {
   token?: string | null;
-  user?: UserProfileProps | null;
+  user: UserProfileProps | null;
 } = {token: null, user: null};
 
 const authSlice = createSlice({
@@ -19,8 +19,11 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    clearUser: state => {
+      state.user = null;
+    },
   },
 });
 
-export const {setToken, clearToken, setUser} = authSlice.actions;
+export const {setToken, clearToken, setUser, clearUser} = authSlice.actions;
 export default authSlice.reducer;

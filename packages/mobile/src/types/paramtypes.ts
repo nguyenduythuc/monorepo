@@ -27,6 +27,9 @@ export type RootParamList = {
     phoneNumber: string;
     identityNumber: string;
   };
+  'verify-customer-info': undefined;
+  'review-customer-ekyc-info': undefined;
+  'success-account-register': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -43,6 +46,9 @@ export enum ScreenParamEnum {
   ProductDetail = 'product-detail',
   CreateLoanApl = 'create-loan-apl',
   ResetPassword = 'reset-password',
+  VerifyCustomerInfo = 'verify-customer-info',
+  ReviewCustomerEKYCInfo = 'review-customer-ekyc-info',
+  SuccessAccountRegister = 'success-account-register',
 }
 
 export type LoginScreenNavigationProps = NativeStackNavigationProp<

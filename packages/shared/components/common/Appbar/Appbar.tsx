@@ -17,6 +17,7 @@ export type AppbarProp = {
   iconActionColor?: string;
   actionTitle?: string;
   actionTitleStyle?: TextStyle;
+  rightActionPress?: () => void;
 };
 
 export const Appbar = ({
@@ -29,6 +30,7 @@ export const Appbar = ({
   iconActionColor,
   actionTitle,
   actionTitleStyle,
+  rightActionPress,
 }: AppbarProp) => {
   const {goBack} = useConfigRouting();
 
@@ -44,6 +46,7 @@ export const Appbar = ({
       <AppbarContent title={labelContent} titleStyle={contentTextStyle} />
       {rightComponent && (
         <AppbarAction
+          onPress={rightActionPress}
           icon={iconAction}
           iconColor={iconActionColor}
           title={actionTitle}

@@ -40,11 +40,11 @@ const useEnterOTP = ({
   const [msgRequestError, setMsgRequestError] = useState('');
 
   const dispatch = useDispatch();
-  const {appNavigate} = useConfigRouting();
+  const {goBack} = useConfigRouting();
   const {handleShowToast} = useShowToast();
 
   const onPressGoBack = () => {
-    appNavigate('goBack');
+    goBack();
   };
 
   useEffect(() => {

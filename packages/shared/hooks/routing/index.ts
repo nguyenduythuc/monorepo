@@ -8,6 +8,7 @@ import {
 export const useConfigRouting = () => {
   const {dispatch, goBack} =
     useNavigation<NativeStackNavigationProp<RootParamList>>();
+  const navigation = useNavigation();
 
   const appNavigate = <T extends ScreenParamEnum>(
     nextScreen: T,
@@ -21,5 +22,23 @@ export const useConfigRouting = () => {
     }
   };
 
-  return {appNavigate, goBack};
+  const getEnumNameByValue = (value: string): keyof typeof ScreenParamEnum => {
+    return Object.keys(ScreenParamEnum).find(
+      key => ScreenParamEnum[key as keyof typeof ScreenParamEnum] === value,
+    ) as keyof typeof ScreenParamEnum;
+  };
+
+  const getPreviousRoute = () => {
+    const state = navigation.getState();
+    const routes = state?.routes;
+    const previousRoute = routes ? routes[routes.length - 2] : null;
+
+    if (previousRoute) {
+      return getEnumNameByValue(previousRoute.name);
+    } else {
+      return 'Home';
+    }
+  };
+
+  return {appNavigate, goBack, getPreviousRoute};
 };

@@ -29,15 +29,16 @@ const VerifyAccountScreen = ({type}: {type: OTPTypesEnum}) => {
     onPressSubmit,
     onPressGoBack,
     isLoading,
-    isModalVisible,
-    setIsModalVisible,
+    isModalVerifyVisible,
+    setIsModalVerifyVisible,
     msgRequestError,
     onCustomerCancel,
+    savePreviousRoute,
   } = useVerifyAccount({type});
 
-  const test = () => {
-    console.log('123412');
-  };
+  useEffect(() => {
+    savePreviousRoute();
+  }, []);
 
   useEffect(() => {
     if (isLoading) {
@@ -87,8 +88,8 @@ const VerifyAccountScreen = ({type}: {type: OTPTypesEnum}) => {
         </View>
       </View>
       <ConfirmModal
-        visible={isModalVisible}
-        setVisible={setIsModalVisible}
+        visible={isModalVerifyVisible}
+        setVisible={setIsModalVerifyVisible}
         content={msgRequestError}
         onButtonLeftPress={onCustomerCancel}
       />

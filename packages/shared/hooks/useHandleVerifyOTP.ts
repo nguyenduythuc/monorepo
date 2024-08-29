@@ -102,7 +102,7 @@ const useHandleVerifyOTP = ({
               onHandleGetUserProfile();
               appNavigate(ScreenParamEnum.Home);
             } else {
-              appNavigate(ScreenParamEnum.Login);
+              appNavigate(ScreenParamEnum.VerifyCustomerInfo);
             }
           }
         }

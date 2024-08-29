@@ -21,11 +21,15 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
   onButtonRightPress,
   renderContent,
   singleButton,
+  disabled,
   ...props
 }) => {
   const dropDownRef = useRef<any>(null);
   const onOpen = () => dropDownRef.current?.open();
-  const onClose = () => dropDownRef.current?.close();
+  const onClose = () => {
+    setVisible && setVisible(false);
+    dropDownRef.current?.close();
+  };
   const t = useTranslations();
 
   labelButtonLeft = !labelButtonLeft ? t('Modal.cancel') : labelButtonLeft;
@@ -43,13 +47,16 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
   }
 
   return (
-    <BaseModal ref={dropDownRef}>
+    <BaseModal ref={dropDownRef} disabled>
       <View
         style={tw.style('flex items-center justify-center w-full h-full px-4')}>
         <View
           style={tw.style(
-            'bg-white items-center rounded-2xl w-full py-5 px-6',
+            'bg-white items-center rounded-2xl w-full py-5 px-5',
           )}>
+          {title && (
+            <Text style={tw.style('text-lg font-semibold')}>{title}</Text>
+          )}
           {content && (
             <Text style={tw.style('text-lg text-center')}>{content}</Text>
           )}

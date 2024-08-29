@@ -18,6 +18,10 @@ export const setAppToken = (newToken: string) => {
   token = newToken;
 };
 
+export const clearAppToken = () => {
+  token = '';
+};
+
 export const getToken = () => {
   return token;
 };

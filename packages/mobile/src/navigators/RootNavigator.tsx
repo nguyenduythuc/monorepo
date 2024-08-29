@@ -19,6 +19,9 @@ import {
   ProductDetailScreenContainer,
   CreateLoanAPLScreenContainer,
   ResetPasswordContainer,
+  ReviewCustomerEKYCInfoContainer,
+  SuccessAccountRegisterContainer,
+  VerifyCustomerInfoContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -174,6 +177,27 @@ const RootStack = () => {
       <Stack.Screen
         name="reset-password"
         component={ResetPasswordContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-customer-info"
+        component={VerifyCustomerInfoContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="review-customer-ekyc-info"
+        component={ReviewCustomerEKYCInfoContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="success-account-register"
+        component={SuccessAccountRegisterContainer}
         options={{
           headerShown: false,
         }}

@@ -8,7 +8,7 @@ export interface VerifyAccountRequest {
 }
 
 export enum AccountType {
-  Register = 'register',
-  Login = 'login',
-  Error = 'error',
+  Register = 'REGISTER',
+  Login = 'LOGIN',
+  Error = 'ERROR',
 }

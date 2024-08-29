@@ -37,6 +37,8 @@ import QuickApproveIcon from '@lfvn-customer/shared/assets/images/svg/QuickAppro
 import TimeMoneyIcon from '@lfvn-customer/shared/assets/images/svg/TimeMoneyIcon';
 import DocLoanIcon from '@lfvn-customer/shared/assets/images/svg/DocLoanIcon';
 import CommentQuestionIcon from '@lfvn-customer/shared/assets/images/svg/CommentQuestionIcon';
+import PhoneOCRIcon from '@lfvn-customer/shared/assets/images/svg/PhoneOCRIcon';
+import HintIcon from '@lfvn-customer/shared/assets/images/svg/HintIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -75,6 +77,8 @@ const iconList = (props: IconProps) => ({
   'time-money-icon': <TimeMoneyIcon {...props} />,
   'doc-loan-icon': <DocLoanIcon {...props} />,
   'comment-question-icon': <CommentQuestionIcon {...props} />,
+  'phone-ocr-icon': <PhoneOCRIcon {...props} />,
+  'hint-icon': <HintIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

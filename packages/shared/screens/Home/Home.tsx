@@ -55,12 +55,12 @@ export const HomeScreen = ({}) => {
     {
       iconName: 'credit-card-icon',
       title: 'Credit card',
-      goPage: ScreenParamEnum.ProductIntroduction,
+      goPage: ScreenParamEnum.VerifyCustomerInfo,
     },
     {
       iconName: 'car-loan-icon',
       title: 'Car loan',
-      goPage: ScreenParamEnum.ProductIntroduction,
+      goPage: ScreenParamEnum.SuccessAccountRegister,
     },
   ];
 

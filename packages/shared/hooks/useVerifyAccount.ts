@@ -7,7 +7,11 @@ import {
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
 import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
-import {API_SUCCESS_MESSAGE} from '../utils/constants';
+import {
+  API_SUCCESS_MESSAGE,
+  PREVIOUS_ROUTE,
+  VERIFY_ACCOUNT_ID,
+} from '../utils/constants';
 import {Keyboard} from 'react-native';
 import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
@@ -16,12 +20,13 @@ import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
 import {AccountType} from '@lfvn-customer/shared/types/services/verifyAccount';
+import {storage} from '../utils/storage';
 
 const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
   const t = useTranslations();
   // const idTypeList: object[] = [{productName: 'CCCD', productCode: 'cccd'}];
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVerifyVisible, setIsModalVerifyVisible] = useState(false);
   const [msgRequestError, setMsgRequestError] = useState('');
 
   const fields = [
@@ -38,10 +43,12 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
   const [register, {isError: errorRegister, isLoading: loadingRegister}] =
     useRegisterMutation();
 
-  const [generateOTP, {isLoading: generateOTPLoading, error}] =
-    useGenerateOTPMutation();
+  const [
+    generateOTP,
+    {isLoading: generateOTPLoading, error: generateOTPError},
+  ] = useGenerateOTPMutation();
 
-  const {appNavigate, goBack} = useConfigRouting();
+  const {appNavigate, goBack, getPreviousRoute} = useConfigRouting();
   const {handleShowToast} = useShowToast();
 
   const onCustomerCancel = () => {
@@ -55,9 +62,9 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
     });
 
   useEffect(() => {
-    if (error) {
+    if (generateOTPError) {
       try {
-        const data = (error as ErrorResponseProps)?.data;
+        const data = (generateOTPError as ErrorResponseProps)?.data;
         const errorCode = JSON.parse(data.detail).code;
         const responseCode = handleResponseOTPGenerateAPI(errorCode);
         if (responseCode.msg !== API_SUCCESS_MESSAGE) {
@@ -76,7 +83,7 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
         });
       }
     }
-  }, [error]);
+  }, [generateOTPError]);
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
@@ -106,6 +113,13 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
               });
               if (resultRegister.data) {
                 const authSeq = resultRegister.data?.authSeq;
+                storage.set(
+                  VERIFY_ACCOUNT_ID,
+                  JSON.stringify({
+                    phoneNum: phoneNumber,
+                    idNum: idCard,
+                  }),
+                );
                 if (authSeq) {
                   appNavigate(ScreenParamEnum.EnterOtp, {
                     authSeq,
@@ -138,7 +152,7 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
               break;
             case AccountType.Error:
               setMsgRequestError(t('VerifyAccount.invalidAccountInfo'));
-              setIsModalVisible(true);
+              setIsModalVerifyVisible(true);
               break;
           }
         }
@@ -167,6 +181,17 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
     }
   });
 
+  const savePreviousRoute = () => {
+    storage.set(PREVIOUS_ROUTE, getPreviousRoute());
+  };
+
+  const onSuccessSubmit = () => {
+    const previousRoute = storage.getString(
+      PREVIOUS_ROUTE,
+    ) as keyof typeof ScreenParamEnum;
+    appNavigate(ScreenParamEnum[previousRoute]);
+  };
+
   const onPressGoBack = () => {
     goBack();
   };
@@ -180,13 +205,15 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
     setValue,
     getValues,
     onPressSubmit,
-    isError: !!error,
+    isError: !!generateOTPError,
     isLoading: verifyAccountLoading || generateOTPLoading || loadingRegister,
     onPressGoBack,
-    setIsModalVisible,
-    isModalVisible,
+    setIsModalVerifyVisible,
+    isModalVerifyVisible,
     msgRequestError,
     onCustomerCancel,
+    savePreviousRoute,
+    onSuccessSubmit,
   };
 };
 

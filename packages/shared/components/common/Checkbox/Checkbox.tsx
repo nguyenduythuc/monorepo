@@ -15,6 +15,7 @@ export type CheckboxProps = {
   children?: React.ReactNode;
   required?: boolean;
   errorMessage?: string;
+  renderContent?: React.ReactNode;
 };
 
 export const Checkbox: FC<CheckboxProps> = ({
@@ -26,9 +27,10 @@ export const Checkbox: FC<CheckboxProps> = ({
   isChecked = false,
   checkboxRight,
   size = 'sm',
-  description = '12341234',
+  description,
   children,
   errorMessage,
+  renderContent,
 }) => {
   const handlePress = () => {
     if (onChange) {
@@ -48,12 +50,17 @@ export const Checkbox: FC<CheckboxProps> = ({
       style={[tw`flex flex-row pr-8 items-start`, disabled && tw`opacity-50`]}
       disabled={disabled}
       onPress={handlePress}>
-      {label && checkboxRight && (
+      {checkboxRight && (
         <View>
-          <Text style={tw`ml-3 mr-3 text-base pb-2`}>
-            {label}
-            {required && <Text style={tw`text-base text-red-500`}>{' *'}</Text>}
-          </Text>
+          {renderContent}
+          {!renderContent && (
+            <Text style={tw`ml-3 mr-3 text-base pb-2`}>
+              {label}
+              {required && (
+                <Text style={tw`text-base text-red-500`}>{' *'}</Text>
+              )}
+            </Text>
+          )}
           <Text style={tw`ml-3 mr-3 text-sm text-blue-600`}>{description}</Text>
         </View>
       )}
@@ -75,12 +82,17 @@ export const Checkbox: FC<CheckboxProps> = ({
         )}
       </View>
       {children}
-      {label && !checkboxRight && (
+      {!checkboxRight && (
         <View style={tw`items-start`}>
-          <Text style={tw`ml-3 mr-3 text-base pb-1`}>
-            {label}
-            {required && <Text style={tw`text-base text-red-500`}>{' *'}</Text>}
-          </Text>
+          {renderContent}
+          {!renderContent && (
+            <Text style={tw`ml-3 mr-3 text-base pb-1`}>
+              {label}
+              {required && (
+                <Text style={tw`text-base text-red-500`}>{' *'}</Text>
+              )}
+            </Text>
+          )}
           <Text style={tw`ml-3 mr-3 text-sm text-blue-600`}>{description}</Text>
         </View>
       )}

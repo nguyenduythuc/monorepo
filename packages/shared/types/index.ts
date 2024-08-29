@@ -89,6 +89,7 @@ export interface IConfirmModalProps {
   textRightStyle?: string;
   buttonRightStyle?: string;
   buttonLeftStyle?: string;
+  disabled?: boolean;
 }
 
 export interface IImageProps {

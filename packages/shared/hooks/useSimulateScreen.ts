@@ -26,6 +26,7 @@ const useSimulateScreen = () => {
   const {appNavigate} = useConfigRouting();
 
   const {data: metaData, error: metadataError} = useGetMetadataQuery();
+  const {user} = useAppSelector(state => state.auth);
 
   if (!metadataError) {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -131,9 +132,13 @@ const useSimulateScreen = () => {
     const simulateForm = getValues();
     console.log('simulateForm', simulateForm);
 
-    appNavigate(ScreenParamEnum.VerifyAccount, {
-      type: OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN,
-    });
+    if (user) {
+      console.log('go to Precheck');
+    } else {
+      appNavigate(ScreenParamEnum.VerifyAccount, {
+        type: OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN,
+      });
+    }
   });
 
   useEffect(() => {
