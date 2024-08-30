@@ -5,6 +5,7 @@ import {
   useGetMetadataQuery,
   useGetProductQuery,
   useGetPurposeQuery,
+  usePreCheckMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {
   ProductDataType,
@@ -19,7 +20,11 @@ import Config from 'react-native-config';
 import {Platform} from 'react-native';
 import {useConfigRouting} from '.';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {OTPTypesEnum} from '../types';
+import {OTPTypesEnum, CardTypesEnum} from '../types';
+import {
+  clearLoadingScreen,
+  setLoadingScreen,
+} from '../redux/slices/loadingSlices';
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
@@ -27,6 +32,7 @@ const useSimulateScreen = () => {
 
   const {data: metaData, error: metadataError} = useGetMetadataQuery();
   const {user} = useAppSelector(state => state.auth);
+  const [precheck] = usePreCheckMutation();
 
   if (!metadataError) {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -74,6 +80,7 @@ const useSimulateScreen = () => {
   ];
 
   const [selectProduct, setSelectProduct] = useState(loanProductData[0]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fields = useMemo(() => {
     return [
@@ -111,10 +118,16 @@ const useSimulateScreen = () => {
       defaultValues: {},
     });
 
-  const [simulateLoanProduct, simulateTenor, simulateLoanAmount] = watch([
+  const [
+    simulateLoanProduct,
+    simulateTenor,
+    simulateLoanAmount,
+    insuranceConfirm,
+  ] = watch([
     'simulateLoanProduct',
     'simulateTenor',
     'simulateLoanAmount',
+    'insuranceConfirm',
   ]);
 
   const estimatePaymentMonthly = useMemo(() => {
@@ -127,19 +140,6 @@ const useSimulateScreen = () => {
       );
     } else return '0';
   }, [stringFunc, simulateTenor, simulateLoanAmount, selectProduct.interest]);
-
-  const onPressSubmit = handleSubmit(async () => {
-    const simulateForm = getValues();
-    console.log('simulateForm', simulateForm);
-
-    if (user) {
-      console.log('go to Precheck');
-    } else {
-      appNavigate(ScreenParamEnum.VerifyAccount, {
-        type: OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN,
-      });
-    }
-  });
 
   useEffect(() => {
     const optionData = loanProductData.find(
@@ -161,6 +161,42 @@ const useSimulateScreen = () => {
     setValue('simulateLoanAmount', simulateLoanAmount);
   }, [simulateLoanProduct]);
 
+  const onPressSubmit = async () => {
+    if (insuranceConfirm) {
+      if (user) {
+        dispatch(setLoadingScreen());
+        await precheck({
+          customerName: user.fullName,
+          customerNric: user.identityNumber,
+          customerNricType: CardTypesEnum.CCCD,
+          customerOldNric: user.identityNumberOld || '',
+          customerAdditionalNric: [],
+          customerProvince: '01',
+          customerDistrict: '01009',
+          customerWard: '0100900355',
+          customerAddress: '267 Khương Trunggg',
+          customerNricDate: user.identityIssue || '',
+          customerNricExpiry: '2028-05-31T13:00:00.000Z',
+          customerNricIssuer: '068',
+          customerDOB: user.birthDate || '',
+          customerGender: user.gender || '',
+          customerNationality: user.nationality || '',
+          identityReport: ['idd_4036F68C-0000-C614-890D-29E3A6F28D4F'],
+          schemeCode: '',
+          userId: user.login,
+        });
+        dispatch(clearLoadingScreen());
+        appNavigate(ScreenParamEnum.Precheck);
+      } else {
+        appNavigate(ScreenParamEnum.VerifyAccount, {
+          type: OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN,
+        });
+      }
+    } else {
+      setIsModalVisible(true);
+    }
+  };
+
   return {
     reset,
     renderFrom,
@@ -172,6 +208,8 @@ const useSimulateScreen = () => {
     selectProduct,
     estimatePaymentMonthly,
     onPressSubmit,
+    isModalVisible,
+    setIsModalVisible,
   };
 };
 

@@ -1,7 +1,7 @@
-import { FieldValues, UseFormWatch } from 'react-hook-form';
-import { ImageStyle, StyleProp, TextInputProps, TextProps } from 'react-native';
-import { IconKeys } from '@lfvn-customer/shared/components';
-import { CSSProperties } from 'react';
+import {FieldValues, UseFormWatch} from 'react-hook-form';
+import {ImageStyle, StyleProp, TextInputProps, TextProps} from 'react-native';
+import {IconKeys} from '@lfvn-customer/shared/components';
+import {CSSProperties} from 'react';
 import ImageName from '../assets/images';
 
 export interface SVGProps {
@@ -59,7 +59,7 @@ export interface ILabelProps extends TextProps {
 export interface ILabelValidationProps extends ILabelProps {
   validations?: InputValidationKeys[];
   value?: string;
-  colors: { [key: string]: string };
+  colors: {[key: string]: string};
 }
 
 export interface IErorMsgProps extends TextProps {
@@ -92,6 +92,11 @@ export interface IImageProps {
   iconName: keyof typeof ImageName;
   style?: CSSProperties | StyleProp<ImageStyle> | string;
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
+  type?: 'svg' | 'png' | 'gif';
+}
+
+export interface IImageBackgroundProps extends IImageProps {
+  children: React.ReactNode;
 }
 
 export enum OTPTypesEnum {
@@ -113,4 +118,24 @@ export enum InputValidationKeys {
   STRING_LENGTH_FROM_8_TO_15_CHARACTERS = 'STRING_LENGTH_FROM_8_TO_15_CHARACTERS',
   STRING_INCLUDE_UPPER_CASE_AND_LOWER_CASE = 'STRING_INCLUDE_UPPER_CASE_AND_LOWER_CASE',
   STRING_INCLUDE_NUMBER_AND_SPECIAL_CHARACTER = 'STRING_INCLUDE_NUMBER_AND_SPECIAL_CHARACTER',
+}
+
+export enum CardTypesEnum {
+  CCCD = 'cccd',
+  CMND = 'cmnd',
+  CMQD = 'cmqd',
+  PASS_PORT = 'passport',
+}
+
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
+}
+
+export enum PreCheckStepEnum {
+  PRE_CHECK = 'PRE_CHECK',
+}
+
+export enum PreCheckStatusEnum {
+  PROCESSING = 'PROCESSING',
 }

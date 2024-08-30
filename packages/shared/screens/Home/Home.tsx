@@ -1,5 +1,6 @@
 import {
   Linking,
+  Platform,
   Text,
   TouchableOpacity,
   useWindowDimensions,
@@ -77,29 +78,34 @@ export const HomeScreen = () => {
   ];
 
   useEffect(() => {
-    Linking.getInitialURL().then(url => {
-      if (url) {
-        dispatch(setDeeplinkPath(transformUniversalToNative(url)));
-        deeplinkProcessedRef.current = true;
-      }
-    });
+    if (Platform.OS !== 'web') {
+      Linking.getInitialURL().then(url => {
+        if (url) {
+          dispatch(setDeeplinkPath(transformUniversalToNative(url)));
+          deeplinkProcessedRef.current = true;
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
-    const unsubscribe = Linking.addEventListener('url', ({url}) => {
-      if (url) {
-        dispatch(setDeeplinkPath(transformUniversalToNative(url)));
-        deeplinkProcessedRef.current = true;
-      }
-    });
-    return () => {
-      unsubscribe.remove();
-    };
+    if (Platform.OS !== 'web') {
+      const unsubscribe = Linking.addEventListener('url', ({url}) => {
+        if (url) {
+          dispatch(setDeeplinkPath(transformUniversalToNative(url)));
+          deeplinkProcessedRef.current = true;
+        }
+      });
+      return () => {
+        unsubscribe.remove();
+      };
+    }
   }, []);
 
   useEffect(() => {
-    if (deeplinkPath && deeplinkProcessedRef.current) {
+    if (deeplinkPath && deeplinkProcessedRef.current && Platform.OS !== 'web') {
       if (!user) {
+        console.log('vaooooooooo');
         onPressLogin();
       } else {
         // we have to wait link recheck from not authen to authen

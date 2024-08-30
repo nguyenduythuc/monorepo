@@ -36,6 +36,8 @@ export type RootParamList = {
   'verify-customer-info': undefined;
   'review-customer-ekyc-info': undefined;
   'success-account-register': undefined;
+  precheck: undefined;
+  'precheck-fail': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -45,7 +47,6 @@ export enum ScreenParamEnum {
   Login = 'login',
   VerifyAccount = 'verify-account',
   EnterOtp = 'enter-otp',
-  ResetPassword = 'reset-password',
   SignUp = 'sign-up',
   Simulate = 'simulate',
   RepaymentSchedule = 'repayment-schedule',
@@ -56,6 +57,8 @@ export enum ScreenParamEnum {
   VerifyCustomerInfo = 'verify-customer-info',
   ReviewCustomerEKYCInfo = 'review-customer-ekyc-info',
   SuccessAccountRegister = 'success-account-register',
+  Precheck = 'precheck',
+  PrecheckFail = 'precheck-fail',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;

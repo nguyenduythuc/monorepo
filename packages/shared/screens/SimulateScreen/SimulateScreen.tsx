@@ -1,4 +1,9 @@
-import {Appbar, CustomButton, Icon} from '@lfvn-customer/shared/components';
+import {
+  Appbar,
+  ConfirmModal,
+  CustomButton,
+  Icon,
+} from '@lfvn-customer/shared/components';
 import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
 import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
@@ -14,6 +19,8 @@ export const SimulateScreen = () => {
     selectProduct,
     estimatePaymentMonthly,
     onPressSubmit,
+    isModalVisible,
+    setIsModalVisible,
   } = useSimulateScreen();
 
   const t = useTranslations();
@@ -83,6 +90,13 @@ export const SimulateScreen = () => {
           {t('Simulate.submit')}
         </CustomButton>
       </View>
+      <ConfirmModal
+        visible={isModalVisible}
+        setVisible={setIsModalVisible}
+        content={t('Simulate.alertTitleUntickInsurance')}
+        labelButtonRight={t('Simulate.confirm')}
+        singleButton
+      />
     </>
   );
 };

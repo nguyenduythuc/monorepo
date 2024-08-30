@@ -22,6 +22,8 @@ import {
   ReviewCustomerEKYCInfoContainer,
   SuccessAccountRegisterContainer,
   VerifyCustomerInfoContainer,
+  PrecheckContainer,
+  PrecheckFailContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -183,6 +185,13 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
+        name="precheck"
+        component={PrecheckContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="verify-customer-info"
         component={VerifyCustomerInfoContainer}
         options={{
@@ -199,6 +208,13 @@ const RootStack = () => {
       <Stack.Screen
         name="success-account-register"
         component={SuccessAccountRegisterContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="precheck-fail"
+        component={PrecheckFailContainer}
         options={{
           headerShown: false,
         }}
