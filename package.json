@@ -44,6 +44,7 @@
     "tinycolor2": "^1.6.0"
   },
   "devDependencies": {
+    "@types/text-encoding": "^0.0.39",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
     "babel-plugin-react-native-web": "^0.19.12",

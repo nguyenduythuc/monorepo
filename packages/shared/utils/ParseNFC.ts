@@ -1,7 +1,9 @@
-global.Buffer = require('buffer').Buffer;
-global.TextEncoder = require('text-encoding').TextEncoder;
+// Import necessary modules
+import { Buffer } from 'buffer';
+import { TextDecoder } from 'text-encoding';
 
-function parseDG2(dg2Data) {
+// Function to parse DG2 and extract JPEG image
+function parseDG2(dg2Data: string): string {
     // Convert base64 to binary
     const binaryData = Buffer.from(dg2Data, 'base64');
 
@@ -23,7 +25,7 @@ function parseDG2(dg2Data) {
     return jpegData.toString('base64');
 }
 
-function cleanString(input) {
+function cleanString(input: string): string {
     return input
         .replace(/(^\d+|\d+$)/g, '')  // Remove leading/trailing numbers
         .replace(/[=&!@#$%^*()_\-+|]/g, '')  // Remove special characters
@@ -31,13 +33,14 @@ function cleanString(input) {
         .trim();  // Trim leading/trailing whitespace
 }
 
-export function parsePassportData(passportData) {
+// Function to parse passport data
+export function parsePassportData(passportData: string): any {
     const data = JSON.parse(passportData);
 
     // Decode and parse DG1
     const dg1Decoded = Buffer.from(data.dg1, 'base64').toString('ascii');
     const dg2Decoded = parseDG2(data.dg2);
-    const [_, documentNumber, surname, givenNames] = dg1Decoded.match(/(.{9})<{2}(.+)<{2}(.+)/);
+    const [documentNumber] = dg1Decoded.match(/(.{9})<{2}(.+)<{2}(.+)/) || [];
 
     // Decode DG13
     const dg13DecodedBuffer = Buffer.from(data.dg13, 'base64');
@@ -45,7 +48,7 @@ export function parsePassportData(passportData) {
     const dg13Decoded = decoder.decode(dg13DecodedBuffer);
 
     // Parse DG13
-    const dg13Fields = {};
+    const dg13Fields: { [key: string]: string } = {};
     let currentField = '';
     let currentValue = '';
 
@@ -59,7 +62,7 @@ export function parsePassportData(passportData) {
             currentField = dg13Decoded.charCodeAt(i + 2).toString();
             i += 3;
             currentValue = '';
-        } else if (charCode >= 32 && charCode <= 126 || charCode > 127) {
+        } else if ((charCode >= 32 && charCode <= 126) || charCode > 127) {
             currentValue += dg13Decoded[i];
         }
     }
@@ -69,9 +72,10 @@ export function parsePassportData(passportData) {
     }
 
     // Clean up fields
-    const cleanField = (field) => {
+    const cleanField = (field: string): string => {
         if (!field) return '';
-        return field.replace(/0+$/, '')  // Remove trailing zeros
+        return field
+            .replace(/0+$/, '')  // Remove trailing zeros
             .replace(/^[#1]/, '')  // Remove leading # or 1
             .replace(/:\d*$/, '')  // Remove trailing : and any digits
             .trim();
