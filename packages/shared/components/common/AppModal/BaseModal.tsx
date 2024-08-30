@@ -6,13 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import {
-  View,
-  TouchableOpacity,
-  Platform,
-  ViewStyle,
-  SafeAreaView,
-} from 'react-native';
+import {TouchableOpacity, Platform, ViewStyle} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Portal} from '@gorhom/portal';
 import {createPortal} from 'react-dom';
@@ -23,10 +17,19 @@ type AppModalType = {
   contentStyle?: string | ViewStyle;
   backdropStyle?: string | ViewStyle;
   children?: React.ReactNode;
+  disabled?: boolean;
 };
 
 export const BaseModal = forwardRef(
-  ({contentStyle = '', backdropStyle = '', children}: AppModalType, ref) => {
+  (
+    {
+      contentStyle = '',
+      backdropStyle = '',
+      children,
+      disabled = false,
+    }: AppModalType,
+    ref,
+  ) => {
     const [isOpen, setIsOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -55,21 +58,15 @@ export const BaseModal = forwardRef(
         <TouchableOpacity
           activeOpacity={1}
           style={tw.style(
-            `inset-0 bg-gray-300 bg-opacity-50 z-10`,
+            `inset-0 bg-gray-300 bg-opacity-50 z-50`,
             {
               position: isWeb ? 'fixed' : 'absolute',
             },
             backdropStyle,
           )}
+          disabled={disabled}
           onPress={onClose}>
-          <View
-            style={tw.style(
-              `bg-white border border-gray-300 bottom-0 rounded-t-2xl max-h-96 w-full pb-6`,
-              {position: isWeb ? 'fixed' : 'absolute'},
-              contentStyle,
-            )}>
-            {children}
-          </View>
+          {children}
         </TouchableOpacity>
       );
     }, [children]);

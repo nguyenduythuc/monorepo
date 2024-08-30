@@ -19,14 +19,19 @@ import {
   ProductDetailScreenContainer,
   CreateLoanAPLScreenContainer,
   ResetPasswordContainer,
+  ReviewCustomerEKYCInfoContainer,
+  SuccessAccountRegisterContainer,
+  VerifyCustomerInfoContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
   setAppToken,
   getToken,
 } from '@lfvn-customer/shared/redux/slices/apiSlices/config';
+import {useDispatch} from 'react-redux';
 
 const Stack = createNativeStackNavigator<RootParamList>();
+import {apiSlice} from '@lfvn-customer/shared/redux/slices/apiSlices';
 
 export type PrimaryNavigatorNavigationProp =
   NativeStackNavigationProp<RootParamList>;
@@ -71,8 +76,12 @@ const config: LinkingOptions<RootParamList>['config'] = {
 };
 
 const RootStack = () => {
+  const dispatch = useDispatch();
+
   const savedToken = getToken();
   setAppToken(savedToken);
+
+  dispatch(apiSlice.util.invalidateTags(['Product']));
 
   return (
     <Stack.Navigator
@@ -168,6 +177,27 @@ const RootStack = () => {
       <Stack.Screen
         name="reset-password"
         component={ResetPasswordContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-customer-info"
+        component={VerifyCustomerInfoContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="review-customer-ekyc-info"
+        component={ReviewCustomerEKYCInfoContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="success-account-register"
+        component={SuccessAccountRegisterContainer}
         options={{
           headerShown: false,
         }}

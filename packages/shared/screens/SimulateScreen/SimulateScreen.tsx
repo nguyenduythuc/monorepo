@@ -13,8 +13,9 @@ export const SimulateScreen = () => {
     renderFrom: simulateForm,
     selectProduct,
     estimatePaymentMonthly,
-    submitAction,
+    onPressSubmit,
   } = useSimulateScreen();
+
   const t = useTranslations();
   const {appNavigate} = useConfigRouting();
 
@@ -78,7 +79,7 @@ export const SimulateScreen = () => {
         </View>
       </ScrollView>
       <View style={tw`px-4 pt-3 pb-1 border-t border-gray-200`}>
-        <CustomButton onPress={submitAction} color="red">
+        <CustomButton onPress={onPressSubmit} color="red">
           {t('Simulate.submit')}
         </CustomButton>
       </View>

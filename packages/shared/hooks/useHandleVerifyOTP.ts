@@ -13,6 +13,7 @@ import useAuth from './useAuth';
 import {useConfigRouting} from './routing';
 import {setAppToken} from '../redux/slices/apiSlices/config';
 import {OTPTypesEnum} from '../types';
+import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 
 const useHandleVerifyOTP = ({
   value,
@@ -77,31 +78,31 @@ const useHandleVerifyOTP = ({
                   type: 'AUTH',
                 })
               : type === OTPTypesEnum.SIGN_UP
-              ? await active({
-                  key: authSeq,
-                  otp: value,
-                })
-              : await resetPasswordFinish({
-                  key: authSeq,
-                  otp: value,
-                  newPassword,
-                });
+                ? await active({
+                    key: authSeq,
+                    otp: value,
+                  })
+                : await resetPasswordFinish({
+                    key: authSeq,
+                    otp: value,
+                    newPassword,
+                  });
           if (result.data) {
             handleShowToast({
               msg:
                 type === OTPTypesEnum.LOGIN_OTP
                   ? 'Đăng nhập thành công'
                   : type === OTPTypesEnum.SIGN_UP
-                  ? 'Đăng ký thành công'
-                  : 'Đổi mật khẩu thành công',
+                    ? 'Đăng ký thành công'
+                    : 'Đổi mật khẩu thành công',
               type: 'success',
             });
             if (type === OTPTypesEnum.LOGIN_OTP) {
               setAppToken((result.data as VerifyOTPResponseProps)?.token);
               onHandleGetUserProfile();
-              appNavigate('home');
+              appNavigate(ScreenParamEnum.Home);
             } else {
-              appNavigate('login');
+              appNavigate(ScreenParamEnum.VerifyCustomerInfo);
             }
           }
         }

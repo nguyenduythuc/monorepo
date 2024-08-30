@@ -3,7 +3,8 @@
   "hello": "Xin chào",
   "Modal": {
     "notSuccess": "Không thành công",
-    "agree": "Đồng ý"
+    "agree": "Đồng ý",
+    "cancel": "Huỷ"
   },
   "ErrorCommon": {
     "title": "Lỗi",
@@ -44,7 +45,9 @@
     "year": "năm",
     "save": "Lưu",
     "submit": "Submit",
-    "exportTable": "Tải bảng tính khoản vay"
+    "exportTable": "Tải bảng tính khoản vay",
+    "chooseLoanPurpose": "Choose Loan Purpose",
+    "chooseLoanProduct": "Choose Loan Product"
   },
   "ProductIntroduction": {
     "cashLoan": "Cash Loan",
@@ -82,7 +85,11 @@
     "loginID": "Login ID",
     "phonenumberPlaceholder": "Nhập số điện thoại",
     "idCardPlacegholder": "Nhập số CCCD",
-    "msgVerifyFail": "Thông tin đăng nhập không hợp lệ"
+    "msgVerifyFail": "Thông tin đăng nhập không hợp lệ",
+    "phoneNumber": "Phone Number",
+    "idCard": "ID Number",
+    "chooseIdType": "Choose Id Type",
+    "invalidAccountInfo": "Thông tin không hợp lệ. Vui lòng nhập lại thông tin"
   },
   "EnterOTP": {
     "title": "Please enter OTP code",
@@ -135,5 +142,31 @@
     "msgPasswordNotIncludeNumberAndSpecialCharacter": "Bao gồm ký tự số và ký tự đặc biệt (@,#,$ ...)",
     "confirm": "Xác nhận",
     "confirmPasswordNotMatch": "Mật khẩu mới không trùng nhau, vui lòng kiểm tra lại"
+  },
+  "VerifyCustomer": {
+    "confirm": "Xác nhận",
+    "confirmCorrectID": "Xác nhận số CCCD",
+    "login": "Đăng nhập",
+    "startVerify": "Bắt đầu xác thực",
+    "verifyInfo": "Xác thực thông tin",
+    "verifyInfoDes": "Please choose the method to create your application",
+    "screenNFC": "Quét NFC",
+    "screenOCR": "Quét OCR",
+    "recommend": "(Recommend)",
+    "screenNFCDes": "Authenticate chip CCCD using NFC",
+    "screenOCRDes": "Authenticate CCCD using OCR",
+    "reviewCustomerEkycInfo": "Kiểm tra thông tin xác thực",
+    "reviewCustomerEkycInfoDes": "Kiểm tra lại thông tin để xác thực tạo tài khoản",
+    "hintDes": "Vui lòng kiểm tra những thông tin dưới đây khớp với giấy tờ của bạn. Nếu có sai sót, vui lòng thử lại xác thực giấy tờ",
+    "termAgreement1": "Tôi đã đọc và đồng ý với ",
+    "termAgreement2": " về bảo vệ và xử lý dữ liệu cá nhân của LOTTE Finance",
+    "commonTerm": "Điều kiện chung",
+    "successRegister": "Đăng ký thành công",
+    "congratsSuccessAccountRegister": "Chúc mừng quý khách đã là thành viên của LOTTE Finance. Vui lòng sử dụng tên đăng nhập là:",
+    "yourIdNum": "Số CCCD của bạn",
+    "yourPhoneNum": "Số điện thoại của bạn",
+    "yourFirstPassword": "Và mật khẩu cho lần đăng nhập đầu tiên là:",
+    "verifyChangeIdNumber": "Số CCCD của bạn không trùng với số CCCD bạn đã nhập. Vui lòng xác nhận lại số CCCD của bạn là:",
+    "needSupport": "Thông tin không hợp lệ. LFVN sẽ liên hệ lại Quý khách để hỗ trợ trong thời gian sớm"
   }
 }

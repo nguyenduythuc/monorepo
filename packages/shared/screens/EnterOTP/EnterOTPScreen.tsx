@@ -33,7 +33,6 @@ const EnterOTPScreen = ({
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500, textDanger500, textNegative200} = theme;
-
   const {
     onPressResendOTP,
     counter,
@@ -87,11 +86,11 @@ const EnterOTPScreen = ({
         </TouchableOpacity>
       </View>
       <ConfirmModal
-        visiable={isModalVisible}
-        setVisiable={setIsModalVisible}
+        visible={isModalVisible}
+        setVisible={setIsModalVisible}
         title={t('Modal.notSuccess')}
         content={msgRequestError}
-        labelButton1={t('Modal.agree')}
+        labelButtonRight={t('Modal.agree')}
       />
     </View>
   );

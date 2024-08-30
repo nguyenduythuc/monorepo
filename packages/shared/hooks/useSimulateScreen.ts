@@ -17,11 +17,16 @@ import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import Config from 'react-native-config';
 import {Platform} from 'react-native';
+import {useConfigRouting} from '.';
+import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {OTPTypesEnum} from '../types';
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
+  const {appNavigate} = useConfigRouting();
 
   const {data: metaData, error: metadataError} = useGetMetadataQuery();
+  const {user} = useAppSelector(state => state.auth);
 
   if (!metadataError) {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -46,17 +51,27 @@ const useSimulateScreen = () => {
     return decryptAES(loanSimulate, decodeKey);
   }, [loanSimulate]);
 
-  const defaultData = {
+  const defaultProductData = {
     productCode: '999995',
     productName: 'Car Loan Stepup',
     maxAmount: '1000000000',
     minAmount: '10000000',
     interest: 10,
   };
+  const defaultPurposeData = {
+    name: 'Vay tiêu dùng',
+    code: '02',
+    product: '999994',
+    template: null,
+  };
 
-  const loanProductData: ProductDataType[] = productData?.data || [defaultData];
+  const loanProductData: ProductDataType[] = productData?.data || [
+    defaultProductData,
+  ];
 
-  const loanPurposeData: PurposeDataType[] = purposeData?.data || [];
+  const loanPurposeData: PurposeDataType[] = purposeData?.data || [
+    defaultPurposeData,
+  ];
 
   const [selectProduct, setSelectProduct] = useState(loanProductData[0]);
 
@@ -113,15 +128,27 @@ const useSimulateScreen = () => {
     } else return '0';
   }, [stringFunc, simulateTenor, simulateLoanAmount, selectProduct.interest]);
 
-  const submitAction = handleSubmit(() => {
+  const onPressSubmit = handleSubmit(async () => {
     const simulateForm = getValues();
     console.log('simulateForm', simulateForm);
+
+    if (user) {
+      console.log('go to Precheck');
+    } else {
+      appNavigate(ScreenParamEnum.VerifyAccount, {
+        type: OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN,
+      });
+    }
   });
 
   useEffect(() => {
     const optionData = loanProductData.find(
       item => item.productCode === simulateLoanProduct,
     );
+
+    const simulateLoanAmount = (
+      parseInt(optionData?.maxAmount ?? '1') / 2
+    ).toString();
 
     setSelectProduct(
       optionData || {
@@ -131,10 +158,7 @@ const useSimulateScreen = () => {
         interest: 10,
       },
     );
-    setValue(
-      'simulateLoanAmount',
-      (parseInt(optionData?.maxAmount ?? '1') / 2).toString(),
-    );
+    setValue('simulateLoanAmount', simulateLoanAmount);
   }, [simulateLoanProduct]);
 
   return {
@@ -147,7 +171,7 @@ const useSimulateScreen = () => {
     getValues,
     selectProduct,
     estimatePaymentMonthly,
-    submitAction,
+    onPressSubmit,
   };
 };
 

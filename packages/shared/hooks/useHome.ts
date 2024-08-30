@@ -1,14 +1,15 @@
+import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
 import {useConfigRouting} from './routing';
 
 const useHome = () => {
   const {appNavigate} = useConfigRouting();
 
   const onPressLogin = () => {
-    appNavigate('login');
+    appNavigate(ScreenParamEnum.Login);
   };
 
   const onPressSignUp = () => {
-    appNavigate('sign-up');
+    appNavigate(ScreenParamEnum.SignUp);
   };
 
   return {

@@ -120,10 +120,15 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             key={field.label}
             {...field.controlProps}
             control={control}
-            defaultValue={''}
             render={({field: {onChange, value}}) => {
               return (
                 <DropDownSelect
+                  disabled={field.disabled}
+                  defaultValue={
+                    field.options && field.options.length > 0
+                      ? field.options[0].productCode || field.options[0].code
+                      : []
+                  }
                   value={value}
                   required={!!field.controlProps.rules?.required}
                   label={field.label}
@@ -132,7 +137,8 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   errorMessage={
                     errors[field.controlProps.name]?.message?.toString() ?? ''
                   }
-                  placeholder="Choose Loan Purpose"
+                  placeholder={field.placeholder}
+                  leftComponent={field.leftComponent}
                 />
               );
             }}

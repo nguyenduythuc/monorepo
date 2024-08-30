@@ -1,5 +1,5 @@
 import {Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {CustomButton, Icon, IconKeys} from '@lfvn-customer/shared/components';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
@@ -20,6 +20,7 @@ import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
 export type ListFeatureType = {
   iconName: IconKeys;
   title: string;
+  goPage: ScreenParamEnum;
 };
 
 export const HomeScreen = ({}) => {
@@ -34,29 +35,36 @@ export const HomeScreen = ({}) => {
 
   const {onPressLogin, onPressSignUp} = useHome();
 
-  const {data: productListData, isLoading: productListLoading} =
-    useGetProductListQuery();
-
   const {data: metaData, isLoading: metadataLoading} = useGetMetadataQuery();
-
-  useEffect(() => {
-    dispatch(apiSlice.util.invalidateTags(['Product']));
-    if (user !== null && productListData !== undefined) {
-      console.log('productListData', productListData);
-      dispatch(setListProduct(productListData));
-    }
-  }, [productListData, user, productListLoading]);
 
   useEffect(() => {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
   }, [metaData, metadataLoading]);
 
   const listFeature: ListFeatureType[] = [
-    {iconName: 'fast-loan-menu-icon', title: 'Fast loan'},
-    {iconName: 'cash-loan-icon', title: 'Cash loan'},
-    {iconName: 'credit-card-icon', title: 'Credit card'},
-    {iconName: 'car-loan-icon', title: 'Car loan'},
+    {
+      iconName: 'fast-loan-menu-icon',
+      title: 'Fast loan',
+      goPage: ScreenParamEnum.Simulate,
+    },
+    {
+      iconName: 'cash-loan-icon',
+      title: 'Cash loan',
+      goPage: ScreenParamEnum.ProductIntroduction,
+    },
+    {
+      iconName: 'credit-card-icon',
+      title: 'Credit card',
+      goPage: ScreenParamEnum.VerifyCustomerInfo,
+    },
+    {
+      iconName: 'car-loan-icon',
+      title: 'Car loan',
+      goPage: ScreenParamEnum.SuccessAccountRegister,
+    },
   ];
+
+  const appLoading = useAppSelector(state => state.loading.isLoading);
 
   const renderHeaderComponent = () => {
     return (
@@ -106,7 +114,7 @@ export const HomeScreen = ({}) => {
           <View key={item.title} style={tw`flex-1 items-center`}>
             <TouchableOpacity
               onPress={() => {
-                appNavigate(ScreenParamEnum.ProductIntroduction);
+                appNavigate(item.goPage);
               }}
               style={tw`flex-col items-center justify-center z-10`}>
               <View

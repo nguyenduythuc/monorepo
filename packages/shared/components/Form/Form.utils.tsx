@@ -225,6 +225,67 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
   },
 };
 
+export const FieldVerifyAccount: Record<string, FieldConfig> = {
+  IdCard: {
+    label: '',
+    controlProps: {
+      name: 'idCard',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+          if (!validateIdentityNumber(value)) {
+            return 'Validation.idCard';
+          }
+        },
+      },
+    },
+    type: FieldType.TextInput,
+    keyboardType: 'numeric',
+    placeholder: 'VerifyAccount.idCardPlacegholder',
+    containerStyle: 'mt-4',
+    textInputStyle: 'text-xl font-medium',
+    leftComponent: <Icon name="id-card" size={24} />,
+  },
+  IdType: {
+    label: 'VerifyAccount.idCard',
+    type: FieldType.SelectDropdown,
+    controlProps: {
+      name: 'IdType',
+      rules: {},
+    },
+    placeholder: 'VerifyAccount.chooseIdType',
+    disabled: true,
+    leftComponent: <Icon name="id-card" size={24} />,
+  },
+  PhoneNumber: {
+    label: '',
+    controlProps: {
+      name: 'phoneNumber',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        pattern: {
+          value: REGEX.phone,
+          message: 'Validation.phonenumber',
+        },
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+        },
+      },
+    },
+    type: FieldType.TextInput,
+    keyboardType: 'numeric',
+    placeholder: 'VerifyAccount.phonenumberPlaceholder',
+    containerStyle: 'mt-4',
+    textInputStyle: 'text-xl font-medium',
+    leftComponent: <Icon name="smart-phone" size={24} />,
+  },
+};
+
 export const FieldSimulateConfig: Record<string, FieldConfig> = {
   SimulateLoanAmount: {
     label: 'Simulate.loanAmount',
@@ -249,7 +310,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     unit: 'tháng',
     controlProps: {
       name: 'simulateTenor',
-      rules: {required: 'This field is required'},
+      rules: {required: 'Validation.fieldIsRequirement'},
     },
     type: FieldType.SliderWithTextInput,
     containerStyle: '',
@@ -259,16 +320,18 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     type: FieldType.SelectDropdown,
     controlProps: {
       name: 'simulateLoanProduct',
-      rules: {required: 'This field is required'},
+      rules: {required: 'Validation.fieldIsRequirement'},
     },
+    placeholder: 'Simulate.chooseLoanProduct',
   },
   SimulateLoanPurpose: {
     label: 'Simulate.loanPurpose',
     type: FieldType.SelectDropdown,
     controlProps: {
       name: 'simulatePurpose',
-      rules: {required: 'This field is required'},
+      rules: {required: 'Validation.fieldIsRequirement'},
     },
+    placeholder: 'Simulate.chooseLoanPurpose',
   },
   SimulateLoanInsurance: {
     label: 'Tham gia bảo hiểm khoản vay',
@@ -278,7 +341,7 @@ export const FieldSimulateConfig: Record<string, FieldConfig> = {
     type: FieldType.CheckboxWithIcon,
     controlProps: {
       name: 'insuranceConfirm',
-      rules: {required: 'This field is required'},
+      rules: {required: 'Validation.fieldIsRequirement'},
     },
   },
 };

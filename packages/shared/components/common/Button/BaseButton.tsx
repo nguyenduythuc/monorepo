@@ -21,6 +21,7 @@ export const CustomButton: FC<BaseButtonProps> = ({
   children,
   loading = false,
   styleTextLeft,
+  textCustomStyle,
   buttonStyle = '',
 }) => {
   const getDefaultStyle = () => {
@@ -42,8 +43,8 @@ export const CustomButton: FC<BaseButtonProps> = ({
 
   const defaultStyleText =
     variant === 'filled'
-      ? 'text-white text-lg font-semibold'
-      : `font-semibold text-base text-${color}-600`;
+      ? `text-white text-lg font-semibold ${textCustomStyle}`
+      : `font-semibold text-base text-${color}-600 `;
 
   const buttonType = useMemo(() => {
     if (buttonState) {
@@ -76,7 +77,7 @@ export const CustomButton: FC<BaseButtonProps> = ({
   return (
     <View>
       <Pressable
-        style={tw`${buttonType} items-center flex flex-row rounded-lg ${
+        style={tw`${buttonType} items-center flex flex-row rounded-xl ${
           disabled ? 'opacity-50' : ''
         } ${styleTextLeft ? 'justify-start' : 'justify-center'} ${buttonStyle}`}
         disabled={disabled}

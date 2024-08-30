@@ -6,6 +6,7 @@ import StoreProvider from './StoreProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
+import { LoadingOverlay } from '@lfvn-customer/shared';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,6 +32,7 @@ export default async function RootLayout({
             {children}
           </NextIntlClientProvider>
           <ToastContainer />
+          <LoadingOverlay />
         </StoreProvider>
       </body>
     </html>
