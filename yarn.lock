@@ -3756,6 +3756,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/text-encoding@npm:^0.0.39":
+  version: 0.0.39
+  resolution: "@types/text-encoding@npm:0.0.39"
+  checksum: a310f06c27f7848661114534e6e48927f47f5b32d2aa30a6ee668aba3a0c747c3b24069a1e0286415767956760cacf5173902728396223a2128be4b9ec415790
+  languageName: node
+  linkType: hard
+
 "@types/use-sync-external-store@npm:^0.0.3":
   version: 0.0.3
   resolution: "@types/use-sync-external-store@npm:0.0.3"
@@ -4171,6 +4178,7 @@ __metadata:
     "@reduxjs/toolkit": ^2.2.5
     "@types/react": ^18.3.3
     "@types/react-native": ^0.73.0
+    "@types/text-encoding": ^0.0.39
     "@typescript-eslint/eslint-plugin": ^8.1.0
     "@typescript-eslint/parser": ^8.1.0
     add: ^2.0.6
