@@ -18,4 +18,10 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        flatDir { dirs "../../../../node_modules/react-native-true-id/android/libs" }
+    }
+}
+
 apply plugin: "com.facebook.react.rootproject"

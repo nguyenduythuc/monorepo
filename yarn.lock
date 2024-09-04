@@ -3756,6 +3756,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/text-encoding@npm:^0.0.39":
+  version: 0.0.39
+  resolution: "@types/text-encoding@npm:0.0.39"
+  checksum: a310f06c27f7848661114534e6e48927f47f5b32d2aa30a6ee668aba3a0c747c3b24069a1e0286415767956760cacf5173902728396223a2128be4b9ec415790
+  languageName: node
+  linkType: hard
+
 "@types/use-sync-external-store@npm:^0.0.3":
   version: 0.0.3
   resolution: "@types/use-sync-external-store@npm:0.0.3"
@@ -4171,6 +4178,7 @@ __metadata:
     "@reduxjs/toolkit": ^2.2.5
     "@types/react": ^18.3.3
     "@types/react-native": ^0.73.0
+    "@types/text-encoding": ^0.0.39
     "@typescript-eslint/eslint-plugin": ^8.1.0
     "@typescript-eslint/parser": ^8.1.0
     add: ^2.0.6
@@ -4191,8 +4199,8 @@ __metadata:
     react-redux: ^9.1.2
     react-toastify: ^10.0.5
     redux-persist: ^6.0.0
+    text-encoding: ^0.7.0
     tinycolor2: ^1.6.0
-    yarn: ^1.22.22
   languageName: unknown
   linkType: soft
 
@@ -9864,6 +9872,7 @@ __metadata:
     react-native-svg: ^15.3.0
     react-native-svg-transformer: ^1.4.0
     react-native-toast-message: ^2.2.0
+    react-native-true-id: "file:./react-native-true-id"
     react-native-uuid: ^2.0.2
     react-test-renderer: 18.2.0
     reactotron-react-native: ^5.1.7
@@ -11239,6 +11248,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: b286b8d5ca0f21737c2e0a8e9c2d6dab2c06a3895335aa541c69eeb42d526cc6f3951069e59d8d346d3e6cafb8feaa450c35b0efe7c3d51ff81351d1477e71eb
+  languageName: node
+  linkType: hard
+
+"react-native-true-id@file:./react-native-true-id::locator=mobile%40workspace%3Apackages%2Fmobile":
+  version: 1.0.0
+  resolution: "react-native-true-id@file:./react-native-true-id#./react-native-true-id::hash=a6cd9d&locator=mobile%40workspace%3Apackages%2Fmobile"
+  peerDependencies:
+    react: 17.0.2
+    react-native: 0.68.2
+  checksum: fd3365efe49ecb151afcbd27b6c078c3935ba4cc1e9830820a5671f2cbe996949329b300d958d13182358722823c78a384f8e3bb5238a2e4e039d9dd8973ae49
   languageName: node
   linkType: hard
 
@@ -12774,6 +12793,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"text-encoding@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "text-encoding@npm:0.7.0"
+  checksum: b6109a843fb1b8748b32e1ecd6df74d370f46c13ac136bcb6ca15db70209bb0b8ec1f296ebb4b0dd9961150e205dcc044b89f8cf7657f6faef78c7569a2a81bc
+  languageName: node
+  linkType: hard
+
 "text-table@npm:^0.2.0":
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
@@ -13622,16 +13648,6 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
-  languageName: node
-  linkType: hard
-
-"yarn@npm:^1.22.22":
-  version: 1.22.22
-  resolution: "yarn@npm:1.22.22"
-  bin:
-    yarn: bin/yarn.js
-    yarnpkg: bin/yarn.js
-  checksum: 59aeef5ccfd3347287f939448e6d3594f0a42f74025b9bdc2a277641c1d4070c07a38b6e7c35e695f77410b0269a5a43c78535786564f86f39c9f781e6efa311
   languageName: node
   linkType: hard
 
