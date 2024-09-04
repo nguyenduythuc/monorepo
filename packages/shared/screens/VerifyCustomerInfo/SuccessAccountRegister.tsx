@@ -2,7 +2,6 @@ import {CustomButton, Image} from '@lfvn-customer/shared/components';
 import React from 'react';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {celebrate} from '@lfvn-customer/shared/assets';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import useVerifyAccount from '../../hooks/useVerifyAccount';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
@@ -17,14 +16,7 @@ export const SuccessAccountRegister = () => {
     <>
       <ScrollView style={tw.style('flex-1')}>
         <View style={tw.style('items-center justify-center mx-4')}>
-          <Image
-            source={{
-              android: 'celebrate',
-              ios: celebrate,
-              web: '/images/celebrate.png',
-            }}
-            style={styles.imgLogo}
-          />
+          <Image iconName="celebrate" style={styles.imgLogo} />
           <Text style={tw.style('text-3xl font-bold mb-4')}>
             {t('VerifyCustomer.successRegister')}
           </Text>

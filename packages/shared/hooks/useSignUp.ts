@@ -6,13 +6,12 @@ import {Keyboard} from 'react-native';
 import useShowToast from './useShowToast';
 import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {OTPTypesEnum} from '../types';
 
 const useSignUp = () => {
   const t = useTranslations();
   const fields = [
-    FieldTestConfig.SignUpFullName,
     FieldTestConfig.SignUpPhoneNumber,
     FieldTestConfig.SignUpPersonalCard,
   ];
@@ -39,13 +38,11 @@ const useSignUp = () => {
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
-    const {fullname, phoneNumber, idCard} = getValues();
+    const {phoneNumber, idCard} = getValues();
     const result = await register({
       login: idCard,
-      // fullName: fullname,
       phoneNumber,
       identityNumber: idCard,
-      // password: 'lfvn@123', // TODO: password will be handled by BE in the feature,
       changeRequired: true,
     });
     if (result.data) {

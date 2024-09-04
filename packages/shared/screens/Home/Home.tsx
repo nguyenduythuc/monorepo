@@ -1,21 +1,30 @@
-import {Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import tw from '@lfvn-customer/shared/themes/tailwind';
-import {CustomButton, Icon, IconKeys} from '@lfvn-customer/shared/components';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {
-  useGetMetadataQuery,
-  useGetProductListQuery,
-  apiSlice,
-} from '@lfvn-customer/shared/redux/slices/apiSlices';
+  Linking,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import tw from '@lfvn-customer/shared/themes/tailwind';
+import {
+  CustomButton,
+  Icon,
+  IconKeys,
+  Image,
+} from '@lfvn-customer/shared/components';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {useGetMetadataQuery} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';
-import {setListProduct} from '@lfvn-customer/shared/redux/slices/productSlices';
 import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useHome from '@lfvn-customer/shared/hooks/useHome';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import BgInProgressApplication from '@lfvn-customer/shared/assets/images/svg/BgInProgressApplication';
+import {setDeeplinkPath} from '@lfvn-customer/shared/redux/slices/authSlice';
+import {transformUniversalToNative} from '../../utils/deeplink';
 
 export type ListFeatureType = {
   iconName: IconKeys;
@@ -23,19 +32,22 @@ export type ListFeatureType = {
   goPage: ScreenParamEnum;
 };
 
-export const HomeScreen = ({}) => {
+export const HomeScreen = () => {
   const t = useTranslations();
   const {appNavigate} = useConfigRouting();
   const dispatch = useDispatch();
+  const {width} = useWindowDimensions();
 
-  const {user} = useAppSelector(state => state.auth);
+  const {user, deeplinkPath} = useAppSelector(state => state.auth);
 
-  const {theme} = useGetTheme();
-  const {textDanger500} = theme;
+  const {theme, colors} = useGetTheme();
+  const {textDanger500, textNegative300, borderNegative100} = theme;
 
   const {onPressLogin, onPressSignUp} = useHome();
 
   const {data: metaData, isLoading: metadataLoading} = useGetMetadataQuery();
+
+  const deeplinkProcessedRef = useRef(false); // Use ref to avoid re-renders
 
   useEffect(() => {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -64,7 +76,40 @@ export const HomeScreen = ({}) => {
     },
   ];
 
-  const appLoading = useAppSelector(state => state.loading.isLoading);
+  useEffect(() => {
+    Linking.getInitialURL().then(url => {
+      if (url) {
+        dispatch(setDeeplinkPath(transformUniversalToNative(url)));
+        deeplinkProcessedRef.current = true;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = Linking.addEventListener('url', ({url}) => {
+      if (url) {
+        dispatch(setDeeplinkPath(transformUniversalToNative(url)));
+        deeplinkProcessedRef.current = true;
+      }
+    });
+    return () => {
+      unsubscribe.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (deeplinkPath && deeplinkProcessedRef.current) {
+      if (!user) {
+        onPressLogin();
+      } else {
+        // we have to wait link recheck from not authen to authen
+        setTimeout(() => {
+          Linking.openURL(deeplinkPath);
+          deeplinkProcessedRef.current = false;
+        }, 600);
+      }
+    }
+  }, [deeplinkPath, user]);
 
   const renderHeaderComponent = () => {
     return (
@@ -103,14 +148,99 @@ export const HomeScreen = ({}) => {
     );
   };
 
+  // TODO: Pending request component
+  const renderInProgressApplication = () => {
+    return (
+      <View
+        style={tw.style('bg-white shadow-md rounded-2xl py-1', {
+          width: width - 32,
+        })}>
+        <View
+          style={{
+            height: 116,
+            marginLeft: 4,
+          }}>
+          <BgInProgressApplication
+            width={width - 40}
+            height={116}
+            viewBox={`0 0 ${width - 40} 116`}
+          />
+          <View
+            style={tw.style(
+              'absolute flex-row justify-center items-center rounded-2xl',
+              {
+                height: 116,
+                width: width - 40,
+              },
+            )}>
+            <View style={tw.style('flex-1 justify-center items-center')}>
+              <Text
+                style={tw.style(
+                  'text-white text-sm font-semibold text-center',
+                )}>
+                {t('Home.haveAnProgressApplication')}
+              </Text>
+              <View style={tw.style('bg-white py-2 px-5 rounded-[100px] mt-3')}>
+                <Text
+                  style={tw.style(
+                    `text-[28px] font-semibold ${textDanger500}`,
+                  )}>
+                  50.000.000 đ
+                </Text>
+              </View>
+            </View>
+            <Image
+              iconName="pending_icon"
+              style={{
+                width: 88,
+                height: 85,
+              }}
+            />
+          </View>
+        </View>
+        <View
+          style={tw.style(`py-3 flex-row border-b ${borderNegative100} mx-4`)}>
+          <View style={tw.style('flex-1')}>
+            <Text style={tw.style(`text-sm font-semibold ${textNegative300}`)}>
+              {t('Home.product')}
+            </Text>
+            <Text style={tw.style(`text-lg font-medium`)}>Salary base</Text>
+          </View>
+          <View style={tw.style('flex-1 items-center')}>
+            <Text style={tw.style(`text-sm font-semibold ${textNegative300}`)}>
+              {t('Home.tenor')}
+            </Text>
+            <Text style={tw.style(`text-lg font-medium`)}>24 months</Text>
+          </View>
+          <View style={tw.style('flex-1 items-end')}>
+            <Text style={tw.style(`text-sm font-semibold ${textNegative300}`)}>
+              {t('Home.createdOn')}
+            </Text>
+            <Text style={tw.style(`text-lg font-medium`)}>Jul 20th</Text>
+          </View>
+        </View>
+        <View style={tw.style(``)} />
+        <TouchableOpacity
+          style={tw.style('flex-row justify-center my-3 items-center')}
+          onPress={() => {}}>
+          <Text style={tw.style(`text-lg font-semibold mr-1 ${textDanger500}`)}>
+            {t('Home.continue')}
+          </Text>
+          <Icon name="arrow-right" color={colors['danger-500']} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={tw.style('mt-10 mx-4')}>
+      {/* {renderInProgressApplication()} */}
       {renderHeaderComponent()}
       <View
         style={tw.style(
           'flex-row  bg-white rounded-2xl px-4 py-3 shadow-md mt-8 justify-between',
         )}>
-        {listFeature.map((item, index) => (
+        {listFeature.map(item => (
           <View key={item.title} style={tw`flex-1 items-center`}>
             <TouchableOpacity
               onPress={() => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
@@ -10,8 +10,7 @@ import {
   Image,
   RadioButton,
 } from '@lfvn-customer/shared/components';
-import {phoneNFCIcon} from '@lfvn-customer/shared/assets';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 
 export const VerifyCustomerInfo = () => {
@@ -37,14 +36,7 @@ export const VerifyCustomerInfo = () => {
         <View style={tw.style('flex-row items-center justify-center py-2')}>
           <View style={tw.style('px-3')}>
             {/* <Icon name="phone-ocr-icon"></Icon> */}
-            <Image
-              source={{
-                android: 'phone_nfc_icon',
-                ios: phoneNFCIcon,
-                web: '/images/phone_nfc_icon.png',
-              }}
-              style={tw.style('h-18 w-11')}
-            />
+            <Image iconName="phone_nfc_icon" style={tw.style('h-18 w-11')} />
           </View>
           <View style={tw.style('flex-col flex-1')}>
             <View style={tw.style('flex-row items-center mb-1.5')}>

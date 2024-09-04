@@ -5,7 +5,7 @@ import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const SimulateScreen = () => {

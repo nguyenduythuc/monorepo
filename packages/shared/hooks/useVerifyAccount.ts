@@ -16,7 +16,7 @@ import {Keyboard} from 'react-native';
 import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
 import {AccountType} from '@lfvn-customer/shared/types/services/verifyAccount';

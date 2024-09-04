@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import useTranslations from './useTranslations';
 import {useConfigRouting} from './routing';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {getVerifyAccountInfo} from '../utils/commonFunction';
 import {VERIFY_ACCOUNT_ID} from '../utils/constants';
 import {

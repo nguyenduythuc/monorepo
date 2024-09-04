@@ -22,10 +22,8 @@ export interface LoginResponseProps {
 
 export interface RegisterRequestProps {
   login: string;
-  // fullName: string;
   phoneNumber: string;
   identityNumber: string;
-  // password: string;
   changeRequired: boolean;
 }
 

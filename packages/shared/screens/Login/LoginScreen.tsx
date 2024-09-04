@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import {logoAppTransparent} from '@lfvn-customer/shared/assets';
 import useLoginScreen from '@lfvn-customer/shared/hooks/useLogin';
 import {CustomButton, Icon, Image} from '@lfvn-customer/shared/components';
 import useLoginBiometrics from '@lfvn-customer/shared/hooks/useLoginBiometrics';
@@ -28,14 +27,7 @@ const LoginScreen = () => {
 
   return (
     <View style={tw.style('flex-1')}>
-      <Image
-        source={{
-          android: 'logo_app_transparent',
-          ios: logoAppTransparent,
-          web: '/images/logo_app_transparent.png',
-        }}
-        style={styles.imgLogo}
-      />
+      <Image iconName="logo_app_transparent" style={styles.imgLogo} />
       <Text style={tw.style('text-white mt-8 text-2xl font-semibold px-4')}>
         {t('Login.title')}
       </Text>
@@ -89,7 +81,7 @@ const LoginScreen = () => {
               style={tw.style(`text-base font-semibold mr-2 ${textUseful500}`)}>
               {t('Login.otpLogin')}
             </Text>
-            <Icon name="arrow-right" size={16} color={colors['useful-500']} />
+            <Icon name="chevron-right" size={16} color={colors['useful-500']} />
           </TouchableOpacity>
         </View>
         <View style={tw.style('flex-row justify-center mt-8')}>

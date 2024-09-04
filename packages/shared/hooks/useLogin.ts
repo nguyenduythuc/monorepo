@@ -9,7 +9,7 @@ import useAuth from './useAuth';
 import useLoginBiometrics from './useLoginBiometrics';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
-import {ScreenParamEnum} from '../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {OTPTypesEnum} from '../types';
 import {useDispatch} from 'react-redux';
 import {

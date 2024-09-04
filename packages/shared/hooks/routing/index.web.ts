@@ -1,5 +1,5 @@
 import {useRouter} from 'next/navigation';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 export const useConfigRouting = () => {
   const navigation = useRouter();

@@ -12,9 +12,8 @@ import {
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {createLoanAplCenter} from '@lfvn-customer/shared/assets';
-import {BaseProcess} from '../../components/common/Process/Process';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
+import {BaseProcess} from '@lfvn-customer/shared/components/common/Process/Process';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 export type DescriptionInfo = {
   icon: IconKeys;
@@ -52,11 +51,7 @@ const CreateLoanAPLScreen = ({t}: {t: any}) => {
       <ScrollView style={tw`flex-1`}>
         <View style={tw.style('justify-center items-center')}>
           <Image
-            source={{
-              android: 'create_loan_apl_center',
-              ios: createLoanAplCenter,
-              web: '/images/create_loan_apl_center.png',
-            }}
+            iconName="create_loan_apl_center"
             style={tw.style('h-[200px]')}
           />
         </View>

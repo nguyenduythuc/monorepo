@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import {OTPTypes} from '@lfvn-customer/shared/types';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -6,7 +7,11 @@ export type RootParamList = {
   home: undefined;
   Test: undefined;
   ComponentScreen: undefined;
-  login: undefined;
+  login:
+    | {
+        deeplinkPath?: string;
+      }
+    | undefined;
   'verify-account': {
     type: OTPTypes;
   };
@@ -16,6 +21,7 @@ export type RootParamList = {
     identityNumber: string;
     type: OTPTypes;
     newPassword?: string;
+    path?: string;
   };
   'sign-up': undefined;
   simulate: undefined;
@@ -39,6 +45,7 @@ export enum ScreenParamEnum {
   Login = 'login',
   VerifyAccount = 'verify-account',
   EnterOtp = 'enter-otp',
+  ResetPassword = 'reset-password',
   SignUp = 'sign-up',
   Simulate = 'simulate',
   RepaymentSchedule = 'repayment-schedule',
@@ -51,10 +58,14 @@ export enum ScreenParamEnum {
   SuccessAccountRegister = 'success-account-register',
 }
 
+export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
+
 export type LoginScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,
   'login'
 >;
+
+export type LoginPasswordRouteProps = RouteProp<RootParamList, 'login'>;
 
 export type VerifyAccountScreenNavigationProps = NativeStackNavigationProp<
   RootParamList,

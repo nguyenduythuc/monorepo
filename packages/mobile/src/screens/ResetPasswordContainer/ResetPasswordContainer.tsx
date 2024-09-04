@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {AppbarBackAction} from '@lfvn-customer/shared/components';
 import {ResetPasswordScreen} from '@lfvn-customer/shared/screens';
-import {ResetPasswordRouteProps} from '../../types/paramtypes';
+import {ResetPasswordRouteProps} from '@lfvn-customer/shared/types/paramtypes';
 import {useRoute} from '@react-navigation/native';
 
 const ResetPasswordContainer = () => {

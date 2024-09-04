@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {VerifyAccountScreen} from '@lfvn-customer/shared/screens/VerifyAccount';
 import {useRoute} from '@react-navigation/native';
-import {VerifyAccountScreenRouteProps} from '../../types/paramtypes';
+import {VerifyAccountScreenRouteProps} from '@lfvn-customer/shared/types/paramtypes';
 import {Appbar} from '@lfvn-customer/shared/components';
 
 const VerifyAccountContainer = () => {

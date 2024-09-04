@@ -2,9 +2,9 @@ import React from 'react';
 import {View, ImageBackground, Platform, StatusBar} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {createLoanAplBg} from '@lfvn-customer/shared/assets';
 import {useTranslations} from 'use-intl';
 import {CreateLoanAPLScreen} from '@lfvn-customer/shared/screens';
+import ImageName from '@lfvn-customer/shared/assets/images';
 const CreateLoanAPLScreenContainer = () => {
   const t = useTranslations();
 
@@ -13,7 +13,9 @@ const CreateLoanAPLScreenContainer = () => {
       <StatusBar translucent backgroundColor="transparent" />
       <ImageBackground
         source={
-          Platform.OS === 'android' ? {uri: 'create_loan_bg'} : createLoanAplBg
+          Platform.OS === 'android'
+            ? {uri: 'create_loan_apl_bg'}
+            : ImageName['create_loan_apl_bg']
         }
         style={tw.style('flex-1')}>
         <SafeAreaView style={tw.style('flex-1')} edges={['top']}>

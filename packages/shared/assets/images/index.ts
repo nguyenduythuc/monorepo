@@ -1,24 +1,29 @@
+/* eslint-disable camelcase */
 export * from './svg';
-const bgLogin = require('./login_bg.png');
-const logoAppTransparent = require('./logo_app_transparent.png');
-const otpIcon = require('./otp_icon.png');
-const homeBg = require('./home_bg.png');
-const productDetail = require('./product_detail.png');
-const createLoanAplBg = require('./create_loan_apl_bg.png');
-const createLoanAplCenter = require('./create_loan_apl_center.png');
-const loadingSpinner = require('./loading_spinner.gif');
-const phoneNFCIcon = require('./phone_nfc_icon.png');
+const login_bg = require('./login_bg.png');
+const logo_app_transparent = require('./logo_app_transparent.png');
+const otp_icon = require('./otp_icon.png');
+const home_bg = require('./home_bg.png');
+const product_detail = require('./product_detail.png');
+const create_loan_apl_bg = require('./create_loan_apl_bg.png');
+const create_loan_apl_center = require('./create_loan_apl_center.png');
+const pending_icon = require('./pending_icon.png');
+const loading_spinner = require('./loading_spinner.gif');
+const phone_nfc_icon = require('./phone_nfc_icon.png');
 const celebrate = require('./celebrate.png');
 
-export {
-  bgLogin,
-  logoAppTransparent,
-  otpIcon,
-  homeBg,
-  productDetail,
-  createLoanAplBg,
-  createLoanAplCenter,
-  loadingSpinner,
-  phoneNFCIcon,
+const ImageName = {
+  login_bg,
+  logo_app_transparent,
+  otp_icon,
+  home_bg,
+  product_detail,
+  create_loan_apl_bg,
+  create_loan_apl_center,
+  pending_icon,
+  loading_spinner,
+  phone_nfc_icon,
   celebrate,
 };
+
+export default ImageName;

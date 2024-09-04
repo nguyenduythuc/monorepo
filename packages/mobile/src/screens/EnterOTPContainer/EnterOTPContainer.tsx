@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {EnterOTPScreen} from '@lfvn-customer/shared/screens/EnterOTP';
 import {useRoute} from '@react-navigation/native';
-import {EnterOTPScreenRouteProps} from '../../types/paramtypes';
+import {EnterOTPScreenRouteProps} from '@lfvn-customer/shared/types/paramtypes';
 import {Appbar} from '@lfvn-customer/shared/components';
 
 const EnterOTPContainer = () => {

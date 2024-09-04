@@ -10,6 +10,7 @@ import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
 import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
 import useShowToast from './useShowToast';
 import {API_SUCCESS_MESSAGE} from '../utils/constants';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 const useResetPassword = ({
   phoneNumber,
@@ -91,7 +92,7 @@ const useResetPassword = ({
       phoneNumber,
     });
     if (result.data) {
-      appNavigate('enter-otp', {
+      appNavigate(ScreenParamEnum.EnterOtp, {
         authSeq: result.data?.authSeq,
         phoneNumber,
         identityNumber,

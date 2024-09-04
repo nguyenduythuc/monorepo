@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Platform, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
@@ -13,10 +13,9 @@ import {
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {productDetail} from '@lfvn-customer/shared/assets';
 import {useGetProductByIdQuery} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {ScreenParamEnum} from '../../../mobile/src/types/paramtypes';
-import {formatNewAmount} from '../../utils/commonFunction';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 
 export type DescriptionInfo = {
   icon: IconKeys;
@@ -92,14 +91,7 @@ const ProductDetailScreen = ({
       <Appbar labelContent={params?.productName} />
       <ScrollView style={tw`flex-1`}>
         <View style={tw.style('justify-center items-center')}>
-          <Image
-            source={{
-              android: 'product_detail',
-              ios: productDetail,
-              web: '/images/product_detail.png',
-            }}
-            style={tw.style('h-[200px]')}
-          />
+          <Image iconName="product_detail" style={tw.style('h-[200px]')} />
         </View>
         <View style={tw.style('mx-4 my-2 items-center justify-center py-2')}>
           <Text style={tw.style('text-black px-4 text-xl font-semibold')}>

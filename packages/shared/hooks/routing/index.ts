@@ -3,7 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   RootParamList,
   ScreenParamEnum,
-} from '../../../mobile/src/types/paramtypes';
+} from '@lfvn-customer/shared/types/paramtypes';
 
 export const useConfigRouting = () => {
   const {dispatch, goBack} =
