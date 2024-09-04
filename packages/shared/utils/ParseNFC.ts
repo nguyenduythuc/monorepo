@@ -78,7 +78,6 @@ export function parsePassportData(passportData: string): any {
         if (!field) return '';
         return field
             .replace(/0+$/, '')  // Remove trailing zeros
-            .replace(/^[#1]/, '')  // Remove leading # or 1
             .replace(/:\d*$/, '')  // Remove trailing : and any digits
             .trim();
     };
@@ -89,15 +88,16 @@ export function parsePassportData(passportData: string): any {
         name: cleanField(dg13Fields['2']),
         documentNumber: documentNumber,
         cardNumber: cleanField(dg13Fields['1']),
-        dateOfBirth: cleanField(dg13Fields['3'].slice(0, 10)),
+        oldCardNumber: cleanField(dg13Fields['15']),
+        dateOfBirth: dg13Fields['3'].slice(0, 10),
         gender: cleanField(dg13Fields['4']),
         nationality: cleanField(dg13Fields['5']),
         ethnicity: cleanField(dg13Fields['6']),
-        placeOfBirth: cleanString(cleanField(dg13Fields['8'])),
-        placeOfResidence: cleanString(cleanField(dg13Fields['9'])),
+        placeOfBirth: cleanString(cleanField(dg13Fields['8'])).replace(/^[#1]/, ''),  // Remove leading # or 1
+        placeOfResidence: cleanString(cleanField(dg13Fields['9'])).replace(/^[#1]/, ''),  // Remove leading # or 1
         identifyingCharacteristics: cleanField(dg13Fields['10']).replace(/(^\d+|\d+$)/g, '').trim(),
-        dateOfIssue: cleanField(dg13Fields['11'].slice(0, 10)),
-        dateOfExpiry: cleanField(dg13Fields['12'].slice(0, 10)),
+        dateOfIssue: dg13Fields['11'].slice(0, 10),
+        dateOfExpiry: dg13Fields['12'].slice(0, 10),
         fatherName: parentNames[0],
         motherName: parentNames[1],
         spouseName: cleanField(dg13Fields['14']) || '',
