@@ -11,7 +11,7 @@ import {TypedUseSelectorHook, useSelector} from 'react-redux';
 const persistConfig = {
   key: 'root',
   storage: mmkvStorage,
-  blacklist: ['auth'],
+  blacklist: ['auth', 'loading'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

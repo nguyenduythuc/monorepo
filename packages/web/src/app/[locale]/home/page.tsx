@@ -1,22 +1,15 @@
 'use client';
 import { HomeScreen } from '@lfvn-customer/shared';
+import { Image } from '@lfvn-customer/shared/components';
 import React from 'react';
 import { View } from 'react-native';
-import tw from 'twrnc';
+import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export default function Home() {
   return (
-    <View
-      style={tw`flex bg-white min-h-screen flex-col items-center justify-between`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
-        <img
-          style={tw.style(`absolute`)}
-          src="/images/home_bg.png"
-          alt="My Image"
-        />
-        <HomeScreen />
-      </div>
+    <View style={tw.style('flex-1 bg-white h-full')}>
+      <Image iconName="home_bg" style={tw.style(`absolute`)} />
+      <HomeScreen />
     </View>
   );
 }

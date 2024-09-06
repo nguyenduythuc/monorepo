@@ -11,6 +11,8 @@ const pending_icon = require('./pending_icon.png');
 const loading_spinner = require('./loading_spinner.gif');
 const phone_nfc_icon = require('./phone_nfc_icon.png');
 const celebrate = require('./celebrate.png');
+const coin = require('./coin.gif');
+const precheck_fail_icon = require('./precheck_fail_icon.png');
 
 const ImageName = {
   login_bg,
@@ -24,6 +26,8 @@ const ImageName = {
   loading_spinner,
   phone_nfc_icon,
   celebrate,
+  coin,
+  precheck_fail_icon,
 };
 
 export default ImageName;

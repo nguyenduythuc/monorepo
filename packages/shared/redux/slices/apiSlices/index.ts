@@ -10,6 +10,7 @@ import {loginBiometricsAPI} from './loginBiometricsAPI';
 import {authAPI} from './authAPI';
 import {verifyAccountAPI} from './verifyAccountAPI';
 import {userAPI} from './userAPI';
+import {loanAPI} from './loanAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -26,6 +27,7 @@ export const apiSlice = createApi({
     ...publicAPI(builder),
     ...verifyAccountAPI(builder),
     ...userAPI(builder),
+    ...loanAPI(builder),
   }),
 });
 
@@ -51,4 +53,6 @@ export const {
   useVerifyAccountMutation,
   useUpdateAccountMutation,
   useUpdateOCRIdentityNumberMutation,
+  usePreCheckMutation,
+  useRequestPendingByUserMutation,
 } = apiSlice;

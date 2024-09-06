@@ -11,3 +11,4 @@ export * from './ProductDetailContainer';
 export * from './CreateLoanAPLContainer';
 export * from './ResetPasswordContainer';
 export * from './VerifyCustomerInfoContainer';
+export * from './PrecheckContainer';
