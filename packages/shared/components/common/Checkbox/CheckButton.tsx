@@ -1,7 +1,7 @@
-import React, {FC, useMemo, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { FC, useMemo, useState } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon, IconKeys} from '../Icon';
+import { Icon, IconKeys } from '../Icon';
 
 export type CheckButtonProps = {
   disabled?: boolean;
@@ -19,13 +19,11 @@ export type CheckButtonProps = {
 export const CheckButton: FC<CheckButtonProps> = ({
   disabled,
   label,
-  value = '',
   onChange,
   color = 'blue',
   isChecked = false,
   prefixIcon,
   iconColor = '#999999',
-  checkboxRight,
   size = 'sm',
 }) => {
   const [checked, setChecked] = useState(isChecked);
@@ -39,11 +37,11 @@ export const CheckButton: FC<CheckButtonProps> = ({
     console.log(newChecked);
   };
 
-  const checkboxSz = {
-    sm: 'w-6 h-6',
-    lg: 'w-7 h-7',
-    xl: 'w-8 h-8',
-  };
+  // const checkboxSz = {
+  //   sm: 'w-6 h-6',
+  //   lg: 'w-7 h-7',
+  //   xl: 'w-8 h-8',
+  // };
 
   let defaultStyle =
     'border-2 border-gray-200 bg-white items-center justify-center rounded px-2 py-1';

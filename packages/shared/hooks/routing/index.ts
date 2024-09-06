@@ -1,12 +1,12 @@
-import {useNavigation, CommonActions} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { useNavigation, CommonActions } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   RootParamList,
   ScreenParamEnum,
 } from '@lfvn-customer/shared/types/paramtypes';
 
 export const useConfigRouting = () => {
-  const {dispatch, goBack} =
+  const { dispatch, goBack } =
     useNavigation<NativeStackNavigationProp<RootParamList>>();
   const navigation = useNavigation();
 
@@ -15,8 +15,7 @@ export const useConfigRouting = () => {
     params?: object | undefined,
   ) => {
     if (typeof nextScreen === 'string') {
-      console.log('nextScreenWeb', nextScreen);
-      dispatch(CommonActions.navigate({name: nextScreen, params} as any));
+      dispatch(CommonActions.navigate({ name: nextScreen, params } as any));
     } else {
       throw new Error('Invalid screen type');
     }
@@ -40,5 +39,5 @@ export const useConfigRouting = () => {
     }
   };
 
-  return {appNavigate, goBack, getPreviousRoute};
+  return { appNavigate, goBack, getPreviousRoute };
 };

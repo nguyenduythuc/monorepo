@@ -6,7 +6,7 @@ import { Platform, View } from 'react-native';
 
 import tw from 'twrnc';
 import { ProductDetailScreen } from '@lfvn-customer/shared/screens/ProductDetail';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { detailParamsProp } from '@lfvn-customer/shared/screens/ProductDetail/ProductDetail';
 
 export default function ProductDetail() {

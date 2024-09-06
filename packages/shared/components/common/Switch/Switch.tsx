@@ -1,5 +1,5 @@
-import React, {FC, useEffect, useState} from 'react';
-import {View, TouchableOpacity, Text, Pressable, Animated} from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { View, Pressable, Animated } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export type SwitchProps = {
@@ -21,9 +21,9 @@ export const SwitchCustom: FC<SwitchProps> = ({
   const [translateX] = useState(new Animated.Value(0));
 
   const switchSz = {
-    outerSz: {sm: 'w-16 h-8', lg: 'w-20 h-10'},
-    innerSz: {sm: 'w-6 h-6', lg: 'w-8 h-8'},
-    changeSz: {sm: 32, lg: 40},
+    outerSz: { sm: 'w-16 h-8', lg: 'w-20 h-10' },
+    innerSz: { sm: 'w-6 h-6', lg: 'w-8 h-8' },
+    changeSz: { sm: 32, lg: 40 },
   };
 
   const handlePress = () => {
@@ -57,7 +57,7 @@ export const SwitchCustom: FC<SwitchProps> = ({
             style={[
               tw`bg-white rounded-full ${switchSz.innerSz[size]} top-0 absolute`,
               {
-                transform: [{translateX}],
+                transform: [{ translateX }],
               },
             ]}
           />

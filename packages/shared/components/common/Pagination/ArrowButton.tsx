@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import {View, Pressable} from 'react-native';
+import React, { FC } from 'react';
+import { View, Pressable } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon, IconKeys} from '../Icon';
+import { Icon, IconKeys } from '../Icon';
 
 type ArrowIconProps = {
   size?: number;
@@ -15,8 +15,6 @@ type ArrowIconProps = {
 };
 
 export const ArrowButton: FC<ArrowIconProps> = ({
-  pageNumber,
-  size,
   icon,
   iconColor,
   disabled,

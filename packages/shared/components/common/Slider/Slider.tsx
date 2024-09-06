@@ -1,6 +1,6 @@
-import React, {FC, useState} from 'react';
-import {Text, View} from 'react-native';
-import {Slider} from '@miblanchard/react-native-slider';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { Slider } from '@miblanchard/react-native-slider';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export interface BaseSliderProps {
@@ -26,7 +26,6 @@ export const BaseSlider = ({
   onChangeSlider,
   ...props
 }: BaseSliderProps) => {
-  const [sliderState, setSliderState] = useState(defaultValue);
   return (
     <View
       style={[

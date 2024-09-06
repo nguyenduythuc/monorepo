@@ -1,7 +1,7 @@
-import React, {FC, useState} from 'react';
-import {LayoutRectangle, Pressable, Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { LayoutRectangle, Pressable, Text, View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon} from '@lfvn-customer/shared/components/common/Icon';
+import { Icon } from '@lfvn-customer/shared/components/common/Icon';
 
 export type ProcessStepStatus = 'checking' | 'passed' | 'error' | 'completed';
 
@@ -61,8 +61,8 @@ export const VerticalProgress = ({
 
   const [leftStep, setLeftStep] = useState(0);
 
-  const find_dimesions = (layout: LayoutRectangle) => {
-    const {width} = layout;
+  const findDimensions = (layout: LayoutRectangle) => {
+    const { width } = layout;
     setLeftStep(width / 2);
   };
 
@@ -74,7 +74,7 @@ export const VerticalProgress = ({
     <View style={tw`items-start justify-between`}>
       <View
         onLayout={event => {
-          find_dimesions(event.nativeEvent.layout);
+          findDimensions(event.nativeEvent.layout);
         }}
         style={tw`flex-1 items-center`}>
         {steps?.map((step, index) => (
@@ -121,9 +121,8 @@ export const VerticalProgress = ({
                 </Text>
                 <Text
                   style={[
-                    tw`absolute top-${
-                      stepIconSize / 2
-                    } h-[${defaultHeight}px] mt-2 text-xs`,
+                    tw`absolute top-${stepIconSize / 2
+                      } h-[${defaultHeight}px] mt-2 text-xs`,
                     index + 1 <= currentStep
                       ? tw`text-${color}-600`
                       : tw`text-gray-400`,
@@ -136,9 +135,8 @@ export const VerticalProgress = ({
               {index < steps.length - 1 && (
                 <View
                   style={[
-                    tw`mt-2 top-[${defaultHeight / 2}px] left-${
-                      stepIconSize / 2
-                    } h-[${defaultHeight}px] w-0.3`,
+                    tw`mt-2 top-[${defaultHeight / 2}px] left-${stepIconSize / 2
+                      } h-[${defaultHeight}px] w-0.3`,
                     index + 1 < currentStep
                       ? tw`bg-${color}-600`
                       : tw`bg-gray-300`,
@@ -161,8 +159,8 @@ export const HorizontalProgress = ({
 
   const [leftStep, setLeftStep] = useState(0);
 
-  const find_dimesions = (layout: LayoutRectangle) => {
-    const {width} = layout;
+  const findDimensions = (layout: LayoutRectangle) => {
+    const { width } = layout;
     setLeftStep(width / 2);
   };
   const clickStep = (index: number) => {
@@ -173,7 +171,7 @@ export const HorizontalProgress = ({
       {steps?.map((step, index) => (
         <View
           onLayout={event => {
-            find_dimesions(event.nativeEvent.layout);
+            findDimensions(event.nativeEvent.layout);
           }}
           key={index}
           style={tw`flex-1 flex-col items-center`}>
@@ -210,9 +208,8 @@ export const HorizontalProgress = ({
             {index < steps.length - 1 && (
               <View
                 style={[
-                  tw`top-${
-                    stepIconSize / 2
-                  } left-[${leftStep}px] mx-5 h-0.5 z-0`,
+                  tw`top-${stepIconSize / 2
+                    } left-[${leftStep}px] mx-5 h-0.5 z-0`,
                   index < currentStep ? tw`bg-red-600` : tw`bg-gray-300`,
                 ]}
               />

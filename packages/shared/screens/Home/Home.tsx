@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {
   CustomButton,
@@ -14,18 +14,19 @@ import {
   IconKeys,
   Image,
 } from '@lfvn-customer/shared/components';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {useGetMetadataQuery} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {useDispatch} from 'react-redux';
-import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
+import { useConfigRouting } from '@lfvn-customer/shared/hooks';
+import { useGetMetadataQuery } from '@lfvn-customer/shared/redux/slices/apiSlices';
+import { useDispatch } from 'react-redux';
+import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import { useAppSelector } from '@lfvn-customer/shared/redux/store';
+import { useGetTheme } from '@lfvn-customer/shared/hooks/useGetTheme';
 import useHome from '@lfvn-customer/shared/hooks/useHome';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
 import BgInProgressApplication from '@lfvn-customer/shared/assets/images/svg/BgInProgressApplication';
-import {setDeeplinkPath} from '@lfvn-customer/shared/redux/slices/authSlice';
-import {transformUniversalToNative} from '../../utils/deeplink';
+import { setDeeplinkPath } from '@lfvn-customer/shared/redux/slices/authSlice';
+import { transformUniversalToNative } from '../../utils/deeplink';
+import useAuth from '../../hooks/useAuth';
 
 export type ListFeatureType = {
   iconName: IconKeys;
@@ -35,20 +36,22 @@ export type ListFeatureType = {
 
 export const HomeScreen = () => {
   const t = useTranslations();
-  const {appNavigate} = useConfigRouting();
+  const { appNavigate } = useConfigRouting();
   const dispatch = useDispatch();
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
-  const {user, deeplinkPath} = useAppSelector(state => state.auth);
+  const { user, deeplinkPath } = useAppSelector(state => state.auth);
 
-  const {theme, colors} = useGetTheme();
-  const {textDanger500, textNegative300, borderNegative100} = theme;
+  const { theme, colors } = useGetTheme();
+  const { textDanger500, textNegative300, borderNegative100 } = theme;
 
-  const {onPressLogin, onPressSignUp} = useHome();
+  const { onPressLogin, onPressSignUp } = useHome();
 
-  const {data: metaData, isLoading: metadataLoading} = useGetMetadataQuery();
+  const { data: metaData, isLoading: metadataLoading } = useGetMetadataQuery();
 
   const deeplinkProcessedRef = useRef(false); // Use ref to avoid re-renders
+
+  const { onHandleGetUserProfile } = useAuth();
 
   useEffect(() => {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -78,6 +81,7 @@ export const HomeScreen = () => {
   ];
 
   useEffect(() => {
+    onHandleGetUserProfile();
     if (Platform.OS !== 'web') {
       Linking.getInitialURL().then(url => {
         if (url) {
@@ -90,7 +94,7 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     if (Platform.OS !== 'web') {
-      const unsubscribe = Linking.addEventListener('url', ({url}) => {
+      const unsubscribe = Linking.addEventListener('url', ({ url }) => {
         if (url) {
           dispatch(setDeeplinkPath(transformUniversalToNative(url)));
           deeplinkProcessedRef.current = true;
@@ -143,7 +147,7 @@ export const HomeScreen = () => {
                 <CustomButton
                   variant="outlined"
                   onPress={onPressSignUp}
-                  color={'red'}>
+                  color="red">
                   {t('Home.registerNow')}
                 </CustomButton>
               </View>
@@ -228,7 +232,7 @@ export const HomeScreen = () => {
         <View style={tw.style(``)} />
         <TouchableOpacity
           style={tw.style('flex-row justify-center my-3 items-center')}
-          onPress={() => {}}>
+          onPress={() => { }}>
           <Text style={tw.style(`text-lg font-semibold mr-1 ${textDanger500}`)}>
             {t('Home.continue')}
           </Text>

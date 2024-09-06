@@ -1,6 +1,6 @@
-import {useEffect, useMemo, useState} from 'react';
-import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
-import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
+import { useEffect, useMemo, useState } from 'react';
+import { useCustomForm } from '@lfvn-customer/shared/components/Form/Form.hook';
+import { FieldSimulateConfig } from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
@@ -11,16 +11,16 @@ import {
   ProductDataType,
   PurposeDataType,
 } from '@lfvn-customer/shared/types/services/productTypes';
-import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
-import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
-import {useDispatch} from 'react-redux';
-import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import { handleExecute } from '@lfvn-customer/shared/utils/simulateCalculate';
+import { decryptAES } from '@lfvn-customer/shared/utils/decryptText';
+import { useDispatch } from 'react-redux';
+import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
+import { useAppSelector } from '@lfvn-customer/shared/redux/store';
 import Config from 'react-native-config';
-import {Platform} from 'react-native';
-import {useConfigRouting} from '.';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {OTPTypesEnum, CardTypesEnum} from '../types';
+import { Platform } from 'react-native';
+import { useConfigRouting } from '.';
+import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
+import { OTPTypesEnum, CardTypesEnum } from '../types';
 import {
   clearLoadingScreen,
   setLoadingScreen,
@@ -28,25 +28,30 @@ import {
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
-  const {appNavigate} = useConfigRouting();
+  const { appNavigate } = useConfigRouting();
 
-  const {data: metaData, error: metadataError} = useGetMetadataQuery();
-  const {user} = useAppSelector(state => state.auth);
+  const { data: metaData, error: metadataError } = useGetMetadataQuery();
+  const { user } = useAppSelector(state => state.auth);
   const [precheck] = usePreCheckMutation();
 
   if (!metadataError) {
-    dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
+    useEffect(() => {
+      dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
+    }, []);
   } else {
     const defaultSimulate =
       Platform.OS !== 'web'
-        ? Config.DEAULT_SIMULATE_FORMULATE
-        : process.env.DEAULT_SIMULATE_FORMULATE;
-    dispatch(setSimulate(defaultSimulate));
+        ? Config.DEFAULT_SIMULATE_FORMULATE
+        : process.env.DEFAULT_SIMULATE_FORMULATE;
+
+    useEffect(() => {
+      dispatch(setSimulate(defaultSimulate));
+    }, []);
   }
 
-  const {data: productData} = useGetProductQuery();
+  const { data: productData } = useGetProductQuery();
 
-  const {data: purposeData} = useGetPurposeQuery();
+  const { data: purposeData } = useGetPurposeQuery();
 
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
@@ -112,7 +117,7 @@ const useSimulateScreen = () => {
     ];
   }, [selectProduct, productData, purposeData]);
 
-  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
+  const { reset, renderFrom, handleSubmit, watch, control, setValue, getValues } =
     useCustomForm({
       fields,
       defaultValues: {},
@@ -162,6 +167,8 @@ const useSimulateScreen = () => {
   }, [simulateLoanProduct]);
 
   const onPressSubmit = async () => {
+    const simulateForm = getValues();
+    console.log('simulateForm', simulateForm);
     if (insuranceConfirm) {
       if (user) {
         dispatch(setLoadingScreen());

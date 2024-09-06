@@ -1,13 +1,13 @@
-import React, {FC, useEffect, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Radio} from './Radio';
+import { Radio } from './Radio';
 
 export type RadioGroupProps = {
   onSelect: (selectOption: string) => void;
   color?: string;
   listStyle?: 'row' | 'col';
-  options: {label: string; value: string}[];
+  options: { label: string; value: string }[];
 };
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({

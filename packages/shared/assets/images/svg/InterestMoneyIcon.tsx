@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Svg, {Path, Rect} from 'react-native-svg';
-import {SVGProps} from '@lfvn-customer/shared/types';
+import Svg, { Path } from 'react-native-svg';
+import { SVGProps } from '@lfvn-customer/shared/types';
 
 const InterestMoneyIcon = ({
   width = 25,
   height = 26,
-  size,
   color = '#E7252B',
 }: SVGProps) => (
   <Svg width={width} height={height} viewBox="0 0 30 31" fill="none">

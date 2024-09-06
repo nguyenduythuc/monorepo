@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon, IconKeys} from '@lfvn-customer/shared/components/common/Icon';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import {BaseCard} from './BaseCard';
+import { Icon, IconKeys } from '@lfvn-customer/shared/components/common/Icon';
+import { useGetTheme } from '@lfvn-customer/shared/hooks/useGetTheme';
+import { BaseCard } from './BaseCard';
 
 export type ProductDetailInfoCardProp = {
   iconName: IconKeys;
@@ -18,11 +18,10 @@ export const ProductDetailInfoCard = ({
   title,
   description,
   description2,
-  onPress,
 }: ProductDetailInfoCardProp) => {
-  const {theme} = useGetTheme();
+  const { theme } = useGetTheme();
 
-  const {textNegative500} = theme;
+  const { textNegative500 } = theme;
 
   return (
     <BaseCard>

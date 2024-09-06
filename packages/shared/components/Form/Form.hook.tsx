@@ -4,7 +4,7 @@ import {
   FieldType,
   FormProps,
 } from '@lfvn-customer/shared/types/formTypes';
-import {Controller, useForm} from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Checkbox,
   DropDownSelect,
@@ -14,15 +14,15 @@ import {
   TextInputSearch,
   TextInputDisplayValidation,
 } from '@lfvn-customer/shared/components/common';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
-export const useCustomForm = ({fields, defaultValues}: FormProps) => {
-  const {control, watch, formState, getValues, setValue, ...formReturn} =
+export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
+  const { control, watch, formState, getValues, setValue, ...formReturn } =
     useForm({
       defaultValues,
     });
-  const {errors} = formState;
+  const { errors } = formState;
 
   const renderField = (field: FieldConfig) => {
     switch (field.type) {
@@ -33,7 +33,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue=""
-            render={({field: {onChange, onBlur, value, ref}}) => {
+            render={({ field: { onChange, onBlur, value, ref } }) => {
               return (
                 <TextInput
                   keyboardType={field.keyboardType}
@@ -65,7 +65,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue=""
-            render={({field: {onChange, onBlur, value, ref}}) => {
+            render={({ field: { onChange, onBlur, value, ref } }) => {
               return (
                 <TextInputSearch
                   keyboardType={field.keyboardType}
@@ -95,15 +95,15 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={field.defaultValue}
-            render={({field: {onChange, value}}) => {
+            render={({ field: { onChange, value } }) => {
               return (
                 <SliderWithTextInput
                   color="red"
                   onChangeText={onChange}
                   onChangeSlider={onChange}
                   value={value}
-                  max_value={field.maxValue ?? 10}
-                  min_value={field.minValue ?? 1}
+                  maxValue={field.maxValue ?? 10}
+                  minValue={field.minValue ?? 1}
                   step={field.step ?? 1}
                   unit={field.unit ?? 'unit'}
                   label={field.label}
@@ -120,7 +120,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             key={field.label}
             {...field.controlProps}
             control={control}
-            render={({field: {onChange, value}}) => {
+            render={({ field: { onChange, value } }) => {
               return (
                 <DropDownSelect
                   disabled={field.disabled}
@@ -152,7 +152,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={false}
-            render={({field: {onChange, value}}) => {
+            render={({ field: { onChange, value } }) => {
               return (
                 <View
                   style={tw`flex flex-row justify-between items-start mt-6`}>
@@ -184,7 +184,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue=""
-            render={({field: {onChange, onBlur, value, ref}}) => {
+            render={({ field: { onChange, onBlur, value, ref } }) => {
               return (
                 <TextInputDisplayValidation
                   keyboardType={field.keyboardType}

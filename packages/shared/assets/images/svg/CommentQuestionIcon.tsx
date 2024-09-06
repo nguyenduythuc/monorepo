@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
-import {SVGProps} from '@lfvn-customer/shared/types';
+import Svg, { Path } from 'react-native-svg';
+import { SVGProps } from '@lfvn-customer/shared/types';
 
 const CommentQuestionIcon = ({
   width = 21,
   height = 21,
-  size = 24,
   color = '#E7252B',
 }: SVGProps) => (
   <Svg width={width} height={height} viewBox="0 0 21 21" fill="none">

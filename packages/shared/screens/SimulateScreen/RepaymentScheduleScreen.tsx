@@ -4,11 +4,11 @@ import {
   CustomTable,
   CustomTableProps,
 } from '@lfvn-customer/shared/components';
-import React, {useMemo} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, ScrollView } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
-export const RepaymentScheduleScreen = ({t}: {t: any}) => {
+export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
   const headers = ['Id', 'Name', 'Age', 'Job', 'Address', 'Action'];
 
   const tableData = [
@@ -32,7 +32,7 @@ export const RepaymentScheduleScreen = ({t}: {t: any}) => {
       },
     },
     {
-      id: '1',
+      id: '2',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -51,7 +51,7 @@ export const RepaymentScheduleScreen = ({t}: {t: any}) => {
       },
     },
     {
-      id: '1',
+      id: '3',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -70,7 +70,7 @@ export const RepaymentScheduleScreen = ({t}: {t: any}) => {
       },
     },
     {
-      id: '1',
+      id: '4',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -89,7 +89,7 @@ export const RepaymentScheduleScreen = ({t}: {t: any}) => {
       },
     },
     {
-      id: '1',
+      id: '5',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -146,7 +146,7 @@ export const RepaymentScheduleScreen = ({t}: {t: any}) => {
         </View>
       </ScrollView>
       <View style={tw`bg-white px-4 pt-3 pb-1 border-t border-gray-200`}>
-        <CustomButton onPress={() => {}}>
+        <CustomButton onPress={() => { }}>
           {t('Simulate.exportTable')}
         </CustomButton>
       </View>

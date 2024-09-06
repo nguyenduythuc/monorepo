@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import {
   Appbar,
   ConfirmModal,
@@ -18,8 +18,13 @@ import {
   ekycDataType,
   mapEkycKeyValue,
 } from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
+import { formatGenderInfo } from '../../utils/commonFunction';
 
-export const ReviewCustomerEKYCInfo = () => {
+export const ReviewCustomerEKYCInfo = ({
+  ekycData,
+}: {
+  ekycData: ekycDataType;
+}) => {
   const t = useTranslations();
   // const submitAction = () => {
   //   // appNavigate(ScreenParamEnum.CreateLoanApl);
@@ -27,33 +32,26 @@ export const ReviewCustomerEKYCInfo = () => {
 
   const dispatch = useDispatch();
 
-  const ekycData: ekycDataType = {
-    cardNumber: '001222003005',
-    dateOfBirth: '7/10/1995',
-    dateOfExpiry: '7/10/20350',
-    dateOfIssue: '01/09/2021',
-    documentNumber: '095020131',
-    ethnicity: 'Kinh',
-    fatherName: 'Trần Văn Tiến',
-    gender: 'Nam',
-    identifyingCharacteristics: 'Sẹo chấm C:0,5 cm trên sau đầu lông mày phải',
-    motherName: 'Trịnh Thị Thiện',
-    name: 'Trần Văn Thắng',
-    nationality: 'Việt Nam',
-    passportNumber: '02944EAF1E1B',
-    placeOfBirth: 'Thiệu Phú, Thiệu Hóa, Thanh Hóa',
-    placeOfResidence: 'Yên Quả 2, Trung Thành, Nông Cống, Thanh Hóa',
-    spouseName: '',
+  const displayEkycData: ekycDataType = {
+    fullname: ekycData?.fullname,
+    idNumber: ekycData?.idNumber,
+    doi: ekycData?.doi,
+    dob: ekycData?.dob,
+    gender: formatGenderInfo(ekycData?.gender || '', 'display'),
+    nationality: ekycData?.nationality,
+    origin: ekycData?.origin,
+    oldIdNumber: ekycData?.oldIdNumber,
   };
 
-  const renamedEkycData = Object.keys(ekycData).reduce(
+  const renamedEkycData = Object.keys(displayEkycData).reduce(
     (acc, key) => {
       const ekycKey = key as keyof ekycDataType;
       const newKey = mapEkycKeyValue[ekycKey];
-      acc[newKey] = ekycData[ekycKey];
+      acc[newKey] = displayEkycData[ekycKey];
+      console.log('acc', acc)
       return acc;
     },
-    {} as {[key: string]: string},
+    {} as { [key: string]: string },
   );
 
   const {
@@ -68,7 +66,7 @@ export const ReviewCustomerEKYCInfo = () => {
     msgRequestInvalidInfoError,
     onInvalidInfoConfirm,
     isLoading,
-  } = useVerifyCustomerEkycInfo({ekycData: ekycData});
+  } = useVerifyCustomerEkycInfo({ ekycData: ekycData });
 
   useEffect(() => {
     if (isLoading) {
@@ -144,7 +142,7 @@ export const ReviewCustomerEKYCInfo = () => {
               {t('VerifyCustomer.verifyChangeIdNumber')}
             </Text>
             <Text style={tw.style('text-2xl text-red-500 font-bold')}>
-              {ekycData.cardNumber}
+              {displayEkycData.idNumber}
             </Text>
           </View>
         }
