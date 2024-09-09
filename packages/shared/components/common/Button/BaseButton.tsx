@@ -1,6 +1,6 @@
-import React, {FC, useMemo, useState} from 'react';
-import {Text, View, ActivityIndicator, Pressable} from 'react-native';
-import {BaseButtonProps} from '@lfvn-customer/shared/types/components/button';
+import React, { FC, useMemo, useState } from 'react';
+import { Text, View, ActivityIndicator, Pressable } from 'react-native';
+import { BaseButtonProps } from '@lfvn-customer/shared/types/components/button';
 import {
   buttonFilled,
   buttonOutlined,
@@ -8,7 +8,7 @@ import {
   buttonText,
 } from '@lfvn-customer/shared/themes/components/button';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon} from '../Icon';
+import { Icon } from '../Icon';
 
 export const CustomButton: FC<BaseButtonProps> = ({
   variant = 'filled',
@@ -21,7 +21,7 @@ export const CustomButton: FC<BaseButtonProps> = ({
   children,
   loading = false,
   styleTextLeft,
-  textCustomStyle,
+  textCustomStyle = '',
   buttonStyle = '',
 }) => {
   const getDefaultStyle = () => {
@@ -77,9 +77,8 @@ export const CustomButton: FC<BaseButtonProps> = ({
   return (
     <View>
       <Pressable
-        style={tw`${buttonType} items-center flex flex-row rounded-xl ${
-          disabled ? 'opacity-50' : ''
-        } ${styleTextLeft ? 'justify-start' : 'justify-center'} ${buttonStyle}`}
+        style={tw`${buttonType} items-center flex flex-row rounded-xl ${disabled ? 'opacity-50' : ''
+          } ${styleTextLeft ? 'justify-start' : 'justify-center'} ${buttonStyle}`}
         disabled={disabled}
         onPress={onPress}
         onHoverIn={onHoverInFunc}

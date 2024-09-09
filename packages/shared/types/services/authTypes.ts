@@ -8,6 +8,14 @@ export interface GetAccountResponseProps {
   imageUrl: string;
   activated: boolean;
   langKey: 'en' | 'vi';
+  changeRequired: boolean;
+  identityIssue: string;
+  birthDate: string;
+  birthPlace: string;
+  gender: string;
+  nationality: string;
+  identityNumberOld?: null;
+  authorities: string[];
 }
 
 export interface UpdateAccountResponseProps {}
@@ -46,7 +54,8 @@ export interface UpdateAccountRequestProps {
     OTHER,
   */
   nationality?: string;
-  identityNumberOld?: null;
+  identityNumberOld?: string | null;
+  authorities?: string[];
 }
 
 export interface UpdateOCRIdentityNumberRequestProps {

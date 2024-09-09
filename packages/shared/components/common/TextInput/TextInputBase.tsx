@@ -1,5 +1,5 @@
-import React, {forwardRef, useState} from 'react';
-import {ITextInputBaseProps} from '@lfvn-customer/shared/types';
+import React, { forwardRef, useState } from 'react';
+import { ITextInputBaseProps } from '@lfvn-customer/shared/types';
 import {
   View,
   TextInput,
@@ -7,9 +7,9 @@ import {
   TextInputFocusEventData,
 } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Label} from '@lfvn-customer/shared/components/common/Label';
-import {TextError} from '../TextError';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import { Label } from '@lfvn-customer/shared/components/common/Label';
+import { TextError } from '../TextError';
+import { useGetTheme } from '@lfvn-customer/shared/hooks/useGetTheme';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
@@ -34,8 +34,8 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
     ref,
   ) => {
     const [focus, setFocus] = useState(isFocus);
-    const {theme} = useGetTheme();
-    const {borderNegative100, borderUseful500, textNegative500} = theme;
+    const { theme } = useGetTheme();
+    const { borderNegative100, borderUseful500, textNegative500 } = theme;
     const t = useTranslations();
 
     const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -83,7 +83,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
             secureTextEntry={secureTextEntry}
             placeholder={props.placeholder ? t(props.placeholder) : ''}
           />
-          {rightComponent && rightComponent}
+          {rightComponent ?? rightComponent}
         </View>
         <TextError title={errorMessage} />
       </View>

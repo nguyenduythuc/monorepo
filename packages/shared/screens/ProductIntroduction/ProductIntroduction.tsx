@@ -1,7 +1,7 @@
-import React, {useEffect, useMemo} from 'react';
-import {View, Text, Pressable, ScrollView} from 'react-native';
+import React, { useEffect, useMemo } from 'react';
+import { View, Text, Pressable, ScrollView } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import { useGetTheme } from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
   Appbar,
   Icon,
@@ -9,13 +9,12 @@ import {
   ProductCardProp,
   ProductCard,
 } from '@lfvn-customer/shared/components';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
-import {useGetProductListQuery} from '../../redux/slices/apiSlices';
-import {useDispatch} from 'react-redux';
+import { ProductIntroDataType } from '@lfvn-customer/shared/types/services/productTypes';
+import { useConfigRouting } from '@lfvn-customer/shared/hooks';
+import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
+import { formatNewAmount } from '@lfvn-customer/shared/utils/commonFunction';
+import { useGetProductListQuery } from '@lfvn-customer/shared/redux/slices/apiSlices';
+import { useDispatch } from 'react-redux';
 import {
   clearLoadingScreen,
   setLoadingScreen,
@@ -27,13 +26,13 @@ export type DescriptionInfo = {
   hightlight: string;
 };
 
-const ProductIntroductionScreen = ({t}: {t: any}) => {
-  const {theme} = useGetTheme();
-  const {textNegative500} = theme;
-  const {appNavigate} = useConfigRouting();
+const ProductIntroductionScreen = ({ t }: { t: any }) => {
+  const { theme } = useGetTheme();
+  const { textNegative500 } = theme;
+  const { appNavigate } = useConfigRouting();
   const dispatch = useDispatch();
 
-  const {data: productListData, isLoading: productListLoading} =
+  const { data: productListData, isLoading: productListLoading } =
     useGetProductListQuery();
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const ProductIntroductionScreen = ({t}: {t: any}) => {
   const dataFormat: ProductCardProp[] = useMemo(() => {
     const productList: ProductCardProp[] = [];
     if (listProductData && listProductData.length > 0) {
-      listProductData.forEach((item, index) => {
+      listProductData.forEach(item => {
         const newData: ProductCardProp = {
           iconName: item.icon ?? 'fast-loan-icon',
           title: item.name,

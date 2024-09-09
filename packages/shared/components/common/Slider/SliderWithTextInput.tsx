@@ -1,12 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {BaseSlider, TextInputWithUnit} from '@lfvn-customer/shared/components';
+import { BaseSlider, TextInputWithUnit } from '@lfvn-customer/shared/components';
 
 export interface SliderWithTextInputProps {
   label?: string;
-  max_value: number;
-  min_value: number;
+  maxValue: number;
+  minValue: number;
   unit: string;
   step: number;
   color?: string;
@@ -18,8 +18,8 @@ export interface SliderWithTextInputProps {
 
 export const SliderWithTextInput = ({
   label,
-  max_value,
-  min_value,
+  maxValue,
+  minValue,
   unit,
   step,
   color = 'blue',
@@ -54,8 +54,8 @@ export const SliderWithTextInput = ({
 
       <View style={tw.style('h-10')}>
         <BaseSlider
-          maxValue={max_value}
-          minValue={min_value}
+          maxValue={maxValue}
+          minValue={minValue}
           step={step}
           sliderValue={value}
           onChangeSlider={onChangeSlider}
@@ -65,10 +65,10 @@ export const SliderWithTextInput = ({
       </View>
       <View style={tw`flex flex-row justify-between`}>
         <Text style={tw`text-gray-500`}>
-          {formatValue(min_value)} {unit}
+          {formatValue(minValue)} {unit}
         </Text>
         <Text style={tw`text-gray-500`}>
-          {formatValue(max_value)} {unit}
+          {formatValue(maxValue)} {unit}
         </Text>
       </View>
     </View>

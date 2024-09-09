@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import {
   Appbar,
   Checkbox,
@@ -10,17 +10,12 @@ import {
   Image,
   RadioButton,
 } from '@lfvn-customer/shared/components';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import useRNTrueId from '../../hooks/useRNTrueId';
 
 export const VerifyCustomerInfo = () => {
   const t = useTranslations();
-  const {appNavigate} = useConfigRouting();
 
-  const submitAction = () => {
-    appNavigate(ScreenParamEnum.ReviewCustomerEKYCInfo);
-  };
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('verifyNFC');
 
   const [confirmTerm, setConfirm] = useState(true);
 
@@ -28,6 +23,7 @@ export const VerifyCustomerInfo = () => {
     setSelectedValue(selectedOption);
   };
 
+  const { submitAction } = useRNTrueId();
   const options = [
     {
       label: 'Verify NFC',
@@ -108,21 +104,24 @@ export const VerifyCustomerInfo = () => {
           onChange={() => setConfirm(!confirmTerm)}
           label={''}
           renderContent={
-            <Text style={tw.style('ml-2 text-sm font-normal text-black')}>
-              {t('VerifyCustomer.termAgreement1')}
-              <TouchableOpacity onPress={() => console.log('commonTerm')}>
-                <Text style={tw.style('text-blue-500 font-semibold')}>
-                  {t('VerifyCustomer.commonTerm')}
-                </Text>
-              </TouchableOpacity>
+            <View >
+              <Text style={tw.style('ml-2 text-sm bg-blue-100 font-normal text-black')}>
+                {t('VerifyCustomer.termAgreement1')}
+                <TouchableOpacity onPress={() => console.log('commonTerm')}>
+                  <Text style={tw.style('text-blue-500 text-end bg-blue-200 font-semibold')}>
+                    {t('VerifyCustomer.commonTerm')}
+                  </Text>
+                </TouchableOpacity>
 
-              {t('VerifyCustomer.termAgreement2')}
-            </Text>
+                {t('VerifyCustomer.termAgreement2')}
+              </Text>
+            </View>
+
           }
           color={'red'}
         />
         <CustomButton
-          onPress={submitAction}
+          onPress={() => submitAction(selectedValue)}
           disabled={selectedValue === ''}
           color="red">
           {t('VerifyCustomer.startVerify')}

@@ -1,5 +1,5 @@
-import React, {FC, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { FC } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export type RadioProps = {
@@ -20,7 +20,7 @@ export const Radio: FC<RadioProps> = ({
   size = 'sm',
 }) => {
   const radioSz = {
-    size: {sm: 'h-5 w-5', lg: 'h-6 w-6', xl: 'h-7 w-7'},
+    size: { sm: 'h-5 w-5', lg: 'h-6 w-6', xl: 'h-7 w-7' },
     border: {
       sm: 'border-[6px]',
       lg: 'border-[7px]',

@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, TextStyle} from 'react-native';
+import { View, Text, TouchableOpacity, TextStyle } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon, IconKeys} from '../Icon';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import { Icon, IconKeys } from '../Icon';
+import { useConfigRouting } from '@lfvn-customer/shared/hooks';
 
 export type AppbarBackActionProp = {
   onPress?: () => void;
@@ -14,14 +14,13 @@ export type AppbarBackActionProp = {
 };
 
 export const AppbarBackAction = ({
-  onPress,
   icon = 'arrow-left',
   title,
   titleStyle,
   backIconColor = '#333333',
   containerStyle = '',
 }: AppbarBackActionProp) => {
-  const {goBack} = useConfigRouting();
+  const { goBack } = useConfigRouting();
   const onPressBack = () => {
     goBack();
   };

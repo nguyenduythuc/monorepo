@@ -1,8 +1,8 @@
-import React, {useRef} from 'react';
-import {IConfirmModalProps} from '@lfvn-customer/shared/types';
-import {View, Text} from 'react-native';
+import React, { useRef } from 'react';
+import { IConfirmModalProps } from '@lfvn-customer/shared/types';
+import { View, Text } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {BaseModal, CustomButton} from '..';
+import { BaseModal, CustomButton } from '..';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const ConfirmModal: React.FC<IConfirmModalProps> = ({

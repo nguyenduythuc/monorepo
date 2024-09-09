@@ -14,5 +14,6 @@ export interface UserProfileProps {
   birthPlace?: string;
   gender?: string;
   nationality?: string;
-  identityNumberOld?: string;
+  identityNumberOld?: null;
+  authorities?: string[];
 }

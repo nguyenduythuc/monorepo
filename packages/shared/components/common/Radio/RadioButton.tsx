@@ -1,5 +1,5 @@
-import React, {FC, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { FC } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export type RadioButtonProps = {
@@ -10,7 +10,7 @@ export type RadioButtonProps = {
   selected?: boolean;
   size?: 'sm' | 'lg' | 'xl';
   renderContent?: React.ReactNode;
-  group?: {label: string; value: string}[];
+  group?: { label: string; value: string }[];
 };
 
 export const RadioButton: FC<RadioButtonProps> = ({

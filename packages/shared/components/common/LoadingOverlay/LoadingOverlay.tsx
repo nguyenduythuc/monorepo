@@ -1,14 +1,11 @@
-import React, {useEffect, useRef} from 'react';
-import {View} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Image, BaseModal} from '@lfvn-customer/shared/components';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import { Image, BaseModal } from '@lfvn-customer/shared/components';
+import { useAppSelector } from '@lfvn-customer/shared/redux/store';
 
-type LoadingOverlayProps = {
-  isLoading?: boolean;
-};
 
-export const LoadingOverlay = ({isLoading}: LoadingOverlayProps) => {
+export const LoadingOverlay = () => {
   const dropDownRef = useRef<any>(null);
   const onOpen = () => dropDownRef.current?.open();
   const onClose = () => dropDownRef.current?.close();
@@ -31,7 +28,11 @@ export const LoadingOverlay = ({isLoading}: LoadingOverlayProps) => {
           style={tw.style(
             'bg-black opacity-50 items-center justify-center rounded-2xl w-22 h-22 ',
           )}>
-          <Image iconName="loading_spinner" style={tw.style('h-20 w-20')} />
+          <Image
+            iconName="loading_spinner"
+            style={tw.style('h-20 w-20')}
+            type="gif"
+          />
         </View>
       </View>
     </BaseModal>

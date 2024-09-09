@@ -10,9 +10,9 @@ import {
   RoundButton,
   SwitchCustom,
 } from '@lfvn-customer/shared/components';
-import React, {useMemo} from 'react';
-import {View, Text, ScrollView} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, { useMemo } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 const ComponentScreen = () => {
@@ -41,7 +41,7 @@ const ComponentScreen = () => {
       },
     },
     {
-      id: '1',
+      id: '2',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -60,7 +60,7 @@ const ComponentScreen = () => {
       },
     },
     {
-      id: '1',
+      id: '3',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -79,7 +79,7 @@ const ComponentScreen = () => {
       },
     },
     {
-      id: '1',
+      id: '4',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -98,7 +98,7 @@ const ComponentScreen = () => {
       },
     },
     {
-      id: '1',
+      id: '5',
       name: 'John',
       age: '22',
       job: 'DEV',
@@ -150,9 +150,9 @@ const ComponentScreen = () => {
   };
 
   const listCheck = [
-    {label: 'Select 1', value: 'select1', isChecked: false},
-    {label: 'Select 2', value: 'select2', isChecked: false},
-    {label: 'Select 3', value: 'select3', isChecked: false},
+    { label: 'Select 1', value: 'select1', isChecked: false },
+    { label: 'Select 2', value: 'select2', isChecked: false },
+    { label: 'Select 3', value: 'select3', isChecked: false },
   ];
 
   const handleSelectCheckBox = (selectedOption: string) => {
@@ -160,9 +160,9 @@ const ComponentScreen = () => {
     // setSelectedValue(selectedOption);
   };
   const options = [
-    {label: 'Option 1', value: 'option1'},
-    {label: 'Option 2', value: 'option2'},
-    {label: 'Option 3', value: 'option3'},
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
   ];
 
   return (

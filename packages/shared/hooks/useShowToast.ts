@@ -6,7 +6,7 @@ const useShowToast = () => {
     type,
   }: {
     msg: string;
-    type: 'success' | 'warning' | 'error';
+    type: 'success' | 'info' | 'error';
   }) => {
     Toast.show({
       type,
