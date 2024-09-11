@@ -1,6 +1,9 @@
 const express = require('express');
 const next = require('next');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -8,9 +11,16 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+// Read SSL certificate and key
+const httpsOptions = {
+  key: fs.readFileSync(path.join(__dirname, '', 'localhost-key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, '', 'localhost.pem')),
+};
+
 app.prepare().then(() => {
   const server = express();
 
+  // Proxy setup for /api-app
   server.use(
     '/api-app',
     createProxyMiddleware({
@@ -18,15 +28,27 @@ app.prepare().then(() => {
       changeOrigin: true,
       pathRewrite: { '^/api-app': '' },
       logger: console,
-    }),
+    })
   );
 
+  // Proxy setup for /trueidapi
+  server.use(
+    '/trueidapi',
+    createProxyMiddleware({
+      target: 'https://api.trueid.ai',
+      changeOrigin: true,
+      pathRewrite: { '^/trueidapi': '' },
+    })
+  );
+
+  // Handle all other requests
   server.all('*', (req, res) => {
     return handle(req, res);
   });
 
-  server.listen(port, (err) => {
+  // Use HTTPS instead of HTTP
+  https.createServer(httpsOptions, server).listen(port, (err) => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+    console.log(`> Ready on https://localhost:${port}`);
   });
 });
