@@ -20,6 +20,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+Note: This project use https for localhost to support TrueID. 
+
+```bash
+# Install mkcert globally
+brew install mkcert
+# To support Firefox
+brew install nss
+# Run this to generate certificate files
+mkcert localhost
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
