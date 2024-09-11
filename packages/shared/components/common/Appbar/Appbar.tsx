@@ -18,6 +18,7 @@ export type AppbarProp = {
   actionTitle?: string;
   actionTitleStyle?: TextStyle;
   rightActionPress?: () => void;
+  handleGoBack?: () => void;
 };
 
 export const Appbar = ({
@@ -31,8 +32,17 @@ export const Appbar = ({
   actionTitle,
   actionTitleStyle,
   rightActionPress,
+  handleGoBack,
 }: AppbarProp) => {
   const {goBack} = useConfigRouting();
+
+  const onGoBack = () => {
+    if (handleGoBack) {
+      handleGoBack();
+    } else {
+      goBack();
+    }
+  };
 
   return (
     <View
@@ -40,7 +50,7 @@ export const Appbar = ({
       {backAction && (
         <AppbarBackAction
           backIconColor={backIconColor}
-          onPress={() => goBack()}
+          handleGoBack={onGoBack}
         />
       )}
       <AppbarContent title={labelContent} titleStyle={contentTextStyle} />

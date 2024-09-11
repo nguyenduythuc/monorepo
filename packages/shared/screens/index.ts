@@ -10,3 +10,4 @@ export * from './CreateLoanAPL';
 export * from './ResetPassword';
 export * from './VerifyCustomerInfo';
 export * from './Precheck';
+export * from './LoanInformation';

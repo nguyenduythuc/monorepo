@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {LinkingOptions, NavigationContainer} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import { RootParamList } from '@lfvn-customer/shared/types/paramtypes';
+import {RootParamList} from '@lfvn-customer/shared/types/paramtypes';
 import {
   HomeContainer,
   TestScreen,
@@ -24,17 +24,18 @@ import {
   VerifyCustomerInfoContainer,
   PrecheckContainer,
   PrecheckFailContainer,
+  LoanInformationContainer,
 } from '../screens';
-import { Linking } from 'react-native';
+import {Linking} from 'react-native';
 import {
   setAppToken,
   getToken,
 } from '@lfvn-customer/shared/redux/slices/apiSlices/config';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '@lfvn-customer/shared/redux/store';
+import {useDispatch} from 'react-redux';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 const Stack = createNativeStackNavigator<RootParamList>();
-import { apiSlice } from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {apiSlice} from '@lfvn-customer/shared/redux/slices/apiSlices';
 
 export type PrimaryNavigatorNavigationProp =
   NativeStackNavigationProp<RootParamList>;
@@ -221,6 +222,13 @@ const RootStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="loan-information"
+        component={LoanInformationContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -230,7 +238,7 @@ const linking = {
   subscribe(listener: (url: string) => void) {
     // Custom function to subscribe to incoming links
     // Listen to incoming links from deep linking
-    const linkingSubscription = Linking.addEventListener('url', ({ url }) => {
+    const linkingSubscription = Linking.addEventListener('url', ({url}) => {
       listener(url);
     });
 
@@ -258,7 +266,7 @@ const linkingWithoutAuthen = {
 };
 
 export const RootNavigator = () => {
-  const { user } = useAppSelector(state => state.auth);
+  const {user} = useAppSelector(state => state.auth);
   return (
     <NavigationContainer linking={!user ? linkingWithoutAuthen : linking}>
       <RootStack />
