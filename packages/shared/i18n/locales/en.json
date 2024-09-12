@@ -183,5 +183,19 @@
     "title": "Hiện tại Quý khách chưa đủ điều kiện vay vốn",
     "desc": "Vui lòng chọn dịch vụ khác của LOTTE Finance hoặc liên hệ hotline {phoneContact} để nhận tư vấn",
     "goHome": "Về trang chủ"
+  },
+  "Step": {
+    "title": "Bước {currentStep}/{totalStep}",
+    "save": "Lưu trữ",
+    "addMoreInformation": "Bổ sung thông tin khoản vay",
+    "continue": "Tiếp theo"
+  },
+  "IncomePerMonth": {
+    "title": "Thu nhập hàng tháng của bạn",
+    "incomePerMonth": "Thu nhập hàng tháng"
+  },
+  "LoanPerpose": {
+    "title": "Bạn muốn vay vốn để...",
+    "loanPerpose": "Mục đích sử dụng vốn"
   }
 }
