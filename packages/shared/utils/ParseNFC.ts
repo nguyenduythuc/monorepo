@@ -77,6 +77,7 @@ export function parsePassportData(passportData: string): any {
       .replace(/:\d*$/, '') // Remove trailing : and any digits
       .trim();
   };
+
   if (currentField && currentValue) {
     dg13Fields[currentField] = currentValue.trim();
   }
@@ -86,7 +87,7 @@ export function parsePassportData(passportData: string): any {
   return {
     fullname: cleanField(dg13Fields['2']),
     documentNumber: documentNumber,
-    idNumber: cleanField(dg13Fields['1']),
+    idNumber: dg13Fields['1'].slice(0, 12),
     oldIdNumber: cleanField(dg13Fields['15']),
     dob: dg13Fields['3'].slice(0, 10),
     gender: cleanField(dg13Fields['4']),

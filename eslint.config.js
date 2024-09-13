@@ -17,7 +17,7 @@ module.exports = [
       'node_modules/*',
       '**/*.json',
       '**/*.config.ts',
-      '**/*.config.js',
+      '**/*.js',
       '**/.next/*',
       '**/*.config.mjs',
     ],
