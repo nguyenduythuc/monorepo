@@ -18,7 +18,7 @@ const StepTabView: React.FC<IStepTabViewProps> = ({
   // Create routes for TabView based on questionComponents
   const routes = questionComponents.map((_, idx) => ({
     key: `question${idx}`,
-    title: `Câu hỏi ${idx + 1}`,
+    title: `question${idx}`,
   }));
 
   const goToNext = () => {

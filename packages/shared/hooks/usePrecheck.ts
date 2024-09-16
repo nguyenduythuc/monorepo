@@ -4,6 +4,9 @@ import {useAppSelector} from '../redux/store';
 import {PreCheckResponseSocketProps} from '../types/services/loanTypes';
 import {useConfigRouting} from './routing';
 import {ScreenParamEnum} from '../types/paramtypes';
+import {checkErrorPrecheckResult} from '../utils';
+import {getToken} from '../redux/slices/apiSlices/config';
+import {handleEnvByPlatform} from '../utils/handleEnvByPlatform';
 
 const TIME_WAITING_SOCKET_RESPONSE = 40000;
 
@@ -16,13 +19,20 @@ const usePrecheck = () => {
     'init',
   );
 
-  const socket = io(`ws://ekyc.apieyesapp.dev:8085?room=${user?.login}`, {
-    transports: ['websocket'],
-  });
+  const socket = io(
+    `${handleEnvByPlatform('SOCKET_URL')}?room=${user?.login}`,
+    {
+      transports: ['websocket'],
+      extraHeaders: {
+        token: getToken(),
+      },
+    },
+  );
 
   useEffect(() => {
     // Handle connection success
     socket.on('connect', () => {
+      console.log('Connected');
       setIsConnected('success');
     });
 
@@ -38,31 +48,25 @@ const usePrecheck = () => {
   }, []);
 
   useEffect(() => {
-    if (isConnected === 'success') {
-      socket.on('get_precheck', (data: {message: string}) => {
-        setReceivedData(true);
-        socket.disconnect();
-        const {precheckData} = (
-          JSON.parse(data.message) as PreCheckResponseSocketProps
-        ).metadata;
-        console.log('precheckData', precheckData);
-        const {metadata} = precheckData.data;
-        const preCheckError =
-          precheckData.data.errorMsg !== 'Success' ||
-          !metadata?.duplicateMessage ||
-          metadata.duplicateResult === 'fail' ||
-          !metadata?.blacklistResult ||
-          metadata?.blacklistResult === 'fail' ||
-          !metadata?.s37Result ||
-          metadata?.s37Result === 'fail';
-
-        if (preCheckError) {
-          appNavigate(ScreenParamEnum.PrecheckFail);
-        }
-      });
-    } else if (isConnected === 'fail') {
-      appNavigate(ScreenParamEnum.PrecheckFail);
-    }
+    (async () => {
+      if (isConnected === 'success') {
+        socket.on('get_precheck', (data: {message: string}) => {
+          setReceivedData(true);
+          socket.disconnect();
+          const precheckResponse = (
+            JSON.parse(data.message) as PreCheckResponseSocketProps
+          ).metadata.precheckData;
+          const preCheckError = checkErrorPrecheckResult(precheckResponse);
+          if (preCheckError) {
+            appNavigate(ScreenParamEnum.PrecheckFail);
+          } else {
+            appNavigate(ScreenParamEnum.LoanInformation);
+          }
+        });
+      } else if (isConnected === 'fail') {
+        appNavigate(ScreenParamEnum.PrecheckFail);
+      }
+    })();
   }, [isConnected]);
 
   useEffect(() => {

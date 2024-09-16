@@ -124,6 +124,7 @@
     "haveAnProgressApplication": "You have an in-progress application",
     "product": "Product",
     "tenor": "Tenor",
+    "detailTenor": "{month} tháng",
     "createdOn": "Created on",
     "continue": "Continue"
   },

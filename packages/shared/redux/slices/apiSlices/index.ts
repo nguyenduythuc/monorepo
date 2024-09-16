@@ -55,4 +55,5 @@ export const {
   useUpdateOCRIdentityNumberMutation,
   usePreCheckMutation,
   useRequestPendingByUserMutation,
+  useSaveDaftAPLMutation,
 } = apiSlice;
