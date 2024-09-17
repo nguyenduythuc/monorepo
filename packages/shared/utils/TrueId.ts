@@ -2,16 +2,13 @@ import RNTrueID from 'react-native-true-id';
 import Config from 'react-native-config';
 
 export const stepVerification = (type: string) => {
-  const step =
-    type === 'verifyNFC'
-      ? '["SCANMRZ","INTRONFC","SCANNFC"]'
-      : '["FRONT","BACK","SELFIE"]';
-
-  return step;
+  return type === 'verifyNFC'
+    ? '["SCANMRZ","INTRONFC","SCANNFC"]'
+    : '["FRONT","BACK","SELFIE"]';
 };
 
 export const CONFIG_UI = (type: string) => {
-  return `{\"primaryColor\":\"#C60C0C\",\"secondaryColor\":\"#C60C0C\",\"titleColor\":\"#253858\",\"errorColor\":\"#FF6234\",\"textColor\":\"#091E42\",\"borderInputColor\":\"#D3D9E0\",\"backgroundColor\":\"#FFFFFF\",\"closeColor\":\"#253858\",\"stepBarColor\":\"#C60C0C\",\"stepBarBackgroundColor\":\"#E4F4FF\",\"fontName\":\"Inter\",\"borderRadius\":4,\"maxRetry\":5,\"defaultSpacing\":20,\"livenessType\":\"${'trueid'}\",\"imageConfirmation\": false,\"trueidWatermark\": false,\"allowEditOcr\": false,\"isShowStepBar\": false,\"hasInstroctions\": false,\"isShowSkipNFC\": true,\"isManualSelfie\": false,\"stepVerification\": ${stepVerification(type)} }`;
+  return `{"primaryColor":"#C60C0C","secondaryColor":"#C60C0C","titleColor":"#253858","errorColor":"#FF6234","textColor":"#091E42","borderInputColor":"#D3D9E0","backgroundColor":"#FFFFFF","closeColor":"#253858","stepBarColor":"#C60C0C","stepBarBackgroundColor":"#E4F4FF","fontName":"Inter","borderRadius":4,"maxRetry":5,"defaultSpacing":20,"livenessType":"${'trueid'}","imageConfirmation": false,"trueidWatermark": false,"allowEditOcr": false,"isShowStepBar": false,"hasInstroctions": false,"isShowSkipNFC": true,"isManualSelfie": false,"stepVerification": ${stepVerification(type)} }`;
 };
 
 export const configInfo = (type: string) => {

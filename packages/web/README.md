@@ -27,7 +27,7 @@ Note: This project use https for localhost to support TrueID.
 brew install mkcert
 # To support Firefox
 brew install nss
-# Run this to generate certificate files
+# Run this in ./packages/web directory to generate certificate files
 mkcert localhost
 ```
 
