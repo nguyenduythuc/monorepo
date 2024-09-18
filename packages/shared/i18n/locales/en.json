@@ -123,6 +123,7 @@
     "haveAnProgressApplication": "You have an in-progress application",
     "product": "Product",
     "tenor": "Tenor",
+    "detailTenor": "{{month}} months",
     "createdOn": "Created on",
     "continue": "Continue"
   },

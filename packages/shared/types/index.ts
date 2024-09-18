@@ -132,12 +132,19 @@ export enum GenderEnum {
   FEMALE = 'female',
 }
 
-export enum PreCheckStepEnum {
+export enum RequestPendingStepEnum {
   PRE_CHECK = 'PRE_CHECK',
+  LOAN_INFORMATION = 'LOAN_INFORMATION',
+  VERIFY_INFORMATION = 'VERIFY_INFORMATION',
+  UPLOAD_DOCUMENT = 'UPLOAD_DOCUMENT',
+  INPUT_PROFILE_INFORMATION = 'INPUT_PROFILE_INFORMATION',
+  DISBURSEMENT = 'DISBURSEMENT',
 }
 
 export enum PreCheckStatusEnum {
   PROCESSING = 'PROCESSING',
+  DONE = 'DONE',
+  ERROR = 'ERROR',
 }
 
 export interface IStepTabViewProps {

@@ -1,0 +1,15 @@
+diff --git a/node_modules/@types/socket.io-client/index.d.ts b/node_modules/@types/socket.io-client/index.d.ts
+index f546d75..4e35356 100644
+--- a/node_modules/@types/socket.io-client/index.d.ts
++++ b/node_modules/@types/socket.io-client/index.d.ts
+@@ -682,5 +682,10 @@ declare namespace SocketIOClient {
+          * Credentials that are sent when accessing a namespace
+          */
+         auth?: Object;
++
++        /**
++         * @see <https://socket.io/docs/client-api/#With-Custom-Path>
++         */
++        extraHeaders?: Object;
+     }
+ }

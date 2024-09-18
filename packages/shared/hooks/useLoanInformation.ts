@@ -4,22 +4,14 @@ import {ScreenParamEnum} from '../types/paramtypes';
 import {useConfigRouting} from './routing';
 import useHandleRequestPending from './useHandleRequestPending';
 
-const useHome = () => {
+const useLoanInformation = () => {
   const {user} = useAppSelector(state => state.auth);
   const {appNavigate} = useConfigRouting();
 
   const {onCheckRequestPending} = useHandleRequestPending();
 
-  const onPressLogin = () => {
-    appNavigate(ScreenParamEnum.Login);
-  };
-
-  const onPressSignUp = () => {
-    appNavigate(ScreenParamEnum.SignUp);
-  };
-
-  const onPressContinueRequestPending = () => {
-    appNavigate(ScreenParamEnum.LoanInformation);
+  const onPressGoBack = () => {
+    appNavigate(ScreenParamEnum.Home);
   };
 
   useEffect(() => {
@@ -31,9 +23,7 @@ const useHome = () => {
   }, [user]);
 
   return {
-    onPressLogin,
-    onPressSignUp,
-    onPressContinueRequestPending,
+    onPressGoBack,
   };
 };
-export default useHome;
+export default useLoanInformation;

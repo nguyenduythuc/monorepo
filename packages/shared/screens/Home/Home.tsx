@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {
   CustomButton,
@@ -14,19 +14,21 @@ import {
   IconKeys,
   Image,
 } from '@lfvn-customer/shared/components';
-import { useConfigRouting } from '@lfvn-customer/shared/hooks';
-import { useGetMetadataQuery } from '@lfvn-customer/shared/redux/slices/apiSlices';
-import { useDispatch } from 'react-redux';
-import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {useGetMetadataQuery} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {useDispatch} from 'react-redux';
+import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import { useAppSelector } from '@lfvn-customer/shared/redux/store';
-import { useGetTheme } from '@lfvn-customer/shared/hooks/useGetTheme';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import useHome from '@lfvn-customer/shared/hooks/useHome';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import BgInProgressApplication from '@lfvn-customer/shared/assets/images/svg/BgInProgressApplication';
-import { setDeeplinkPath } from '@lfvn-customer/shared/redux/slices/authSlice';
-import { transformUniversalToNative } from '../../utils/deeplink';
+import {setDeeplinkPath} from '@lfvn-customer/shared/redux/slices/authSlice';
+import {transformUniversalToNative} from '../../utils/deeplink';
 import useAuth from '../../hooks/useAuth';
+import {convertNumberToCurrency} from '../../utils';
+import moment from 'moment';
 
 export type ListFeatureType = {
   iconName: IconKeys;
@@ -36,22 +38,24 @@ export type ListFeatureType = {
 
 export const HomeScreen = () => {
   const t = useTranslations();
-  const { appNavigate } = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
   const dispatch = useDispatch();
-  const { width } = useWindowDimensions();
+  const {width} = useWindowDimensions();
 
-  const { user, deeplinkPath } = useAppSelector(state => state.auth);
+  const {user, deeplinkPath} = useAppSelector(state => state.auth);
+  const {requestPendingMetadata} = useAppSelector(state => state.product);
 
-  const { theme, colors } = useGetTheme();
-  const { textDanger500, textNegative300, borderNegative100 } = theme;
+  const {theme, colors} = useGetTheme();
+  const {textDanger500, textNegative300, borderNegative100} = theme;
 
-  const { onPressLogin, onPressSignUp } = useHome();
+  const {onPressLogin, onPressSignUp, onPressContinueRequestPending} =
+    useHome();
 
-  const { data: metaData, isLoading: metadataLoading } = useGetMetadataQuery();
+  const {data: metaData, isLoading: metadataLoading} = useGetMetadataQuery();
 
   const deeplinkProcessedRef = useRef(false); // Use ref to avoid re-renders
 
-  const { onHandleGetUserProfile } = useAuth();
+  const {onHandleGetUserProfile} = useAuth();
 
   useEffect(() => {
     dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
@@ -94,7 +98,7 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     if (Platform.OS !== 'web') {
-      const unsubscribe = Linking.addEventListener('url', ({ url }) => {
+      const unsubscribe = Linking.addEventListener('url', ({url}) => {
         if (url) {
           dispatch(setDeeplinkPath(transformUniversalToNative(url)));
           deeplinkProcessedRef.current = true;
@@ -109,7 +113,6 @@ export const HomeScreen = () => {
   useEffect(() => {
     if (deeplinkPath && deeplinkProcessedRef.current && Platform.OS !== 'web') {
       if (!user) {
-        console.log('vaooooooooo');
         onPressLogin();
       } else {
         // we have to wait link recheck from not authen to authen
@@ -158,11 +161,13 @@ export const HomeScreen = () => {
     );
   };
 
-  // TODO: Pending request component
-  const renderInProgressApplication = () => {
+  const renderInProgressApplication = useMemo(() => {
+    if (!requestPendingMetadata) {
+      return null;
+    }
     return (
       <View
-        style={tw.style('bg-white shadow-md rounded-2xl py-1', {
+        style={tw.style('bg-white shadow-md rounded-2xl py-1 mt-4', {
           width: width - 32,
         })}>
         <View
@@ -195,7 +200,7 @@ export const HomeScreen = () => {
                   style={tw.style(
                     `text-[28px] font-semibold ${textDanger500}`,
                   )}>
-                  50.000.000 đ
+                  {convertNumberToCurrency(requestPendingMetadata.amount)}
                 </Text>
               </View>
             </View>
@@ -214,25 +219,33 @@ export const HomeScreen = () => {
             <Text style={tw.style(`text-sm font-semibold ${textNegative300}`)}>
               {t('Home.product')}
             </Text>
-            <Text style={tw.style(`text-lg font-medium`)}>Salary base</Text>
+            <Text style={tw.style(`text-lg font-medium`)}>
+              {requestPendingMetadata?.schemeName}
+            </Text>
           </View>
           <View style={tw.style('flex-1 items-center')}>
             <Text style={tw.style(`text-sm font-semibold ${textNegative300}`)}>
               {t('Home.tenor')}
             </Text>
-            <Text style={tw.style(`text-lg font-medium`)}>24 months</Text>
+            <Text style={tw.style(`text-lg font-medium`)}>
+              {t('Home.detailTenor', {
+                month: requestPendingMetadata?.loanTerm,
+              })}
+            </Text>
           </View>
           <View style={tw.style('flex-1 items-end')}>
             <Text style={tw.style(`text-sm font-semibold ${textNegative300}`)}>
               {t('Home.createdOn')}
             </Text>
-            <Text style={tw.style(`text-lg font-medium`)}>Jul 20th</Text>
+            <Text style={tw.style(`text-lg font-medium`)}>
+              {moment(requestPendingMetadata.createdOn).format('MMM Do')}
+            </Text>
           </View>
         </View>
         <View style={tw.style(``)} />
         <TouchableOpacity
           style={tw.style('flex-row justify-center my-3 items-center')}
-          onPress={() => { }}>
+          onPress={onPressContinueRequestPending}>
           <Text style={tw.style(`text-lg font-semibold mr-1 ${textDanger500}`)}>
             {t('Home.continue')}
           </Text>
@@ -240,12 +253,12 @@ export const HomeScreen = () => {
         </TouchableOpacity>
       </View>
     );
-  };
+  }, [requestPendingMetadata]);
 
   return (
     <View style={tw.style('mt-10 mx-4')}>
-      {/* {renderInProgressApplication()} */}
       {renderHeaderComponent()}
+      {renderInProgressApplication}
       <View
         style={tw.style(
           'flex-row  bg-white rounded-2xl px-4 py-3 shadow-md mt-8 justify-between',

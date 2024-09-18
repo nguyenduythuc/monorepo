@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useCustomForm } from '@lfvn-customer/shared/components/Form/Form.hook';
-import { FieldSimulateConfig } from '@lfvn-customer/shared/components/Form/Form.utils';
+import {useEffect, useMemo, useState} from 'react';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
@@ -8,30 +8,31 @@ import {
   usePreCheckMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {
-  ProductDataType,
-  PurposeDataType,
-} from '@lfvn-customer/shared/types/services/productTypes';
-import { handleExecute } from '@lfvn-customer/shared/utils/simulateCalculate';
-import { decryptAES } from '@lfvn-customer/shared/utils/decryptText';
-import { useDispatch } from 'react-redux';
-import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
-import { useAppSelector } from '@lfvn-customer/shared/redux/store';
+  ProductProps,
+  PurposeProps,
+} from '@lfvn-customer/shared/types/models/loanModel';
+import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
+import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
+import {useDispatch} from 'react-redux';
+import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import Config from 'react-native-config';
-import { Platform } from 'react-native';
-import { useConfigRouting } from '.';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
-import { OTPTypesEnum, CardTypesEnum } from '../types';
+import {Platform} from 'react-native';
+import {useConfigRouting} from '.';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {OTPTypesEnum, CardTypesEnum} from '../types';
 import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '../redux/slices/loadingSlices';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
-  const { appNavigate } = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
 
-  const { data: metaData, error: metadataError } = useGetMetadataQuery();
-  const { user } = useAppSelector(state => state.auth);
+  const {data: metaData, error: metadataError} = useGetMetadataQuery();
+  const {user} = useAppSelector(state => state.auth);
   const [precheck] = usePreCheckMutation();
 
   if (!metadataError) {
@@ -49,16 +50,15 @@ const useSimulateScreen = () => {
     }, []);
   }
 
-  const { data: productData } = useGetProductQuery();
+  const {data: productData} = useGetProductQuery();
 
-  const { data: purposeData } = useGetPurposeQuery();
+  const {data: purposeData} = useGetPurposeQuery();
 
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
   const stringFunc: string | null = useMemo(() => {
     // console.log((getState() as any).public.simulate)
-    const decodeKey =
-      Platform.OS !== 'web' ? Config.DECODE_KEY : process.env.DECODE_KEY;
+    const decodeKey = handleEnvByPlatform('DECODE_KEY');
     return decryptAES(loanSimulate, decodeKey);
   }, [loanSimulate]);
 
@@ -76,11 +76,11 @@ const useSimulateScreen = () => {
     template: null,
   };
 
-  const loanProductData: ProductDataType[] = productData?.data || [
+  const loanProductData: ProductProps[] = productData?.data || [
     defaultProductData,
   ];
 
-  const loanPurposeData: PurposeDataType[] = purposeData?.data || [
+  const loanPurposeData: PurposeProps[] = purposeData?.data.data || [
     defaultPurposeData,
   ];
 
@@ -117,22 +117,16 @@ const useSimulateScreen = () => {
     ];
   }, [selectProduct, productData, purposeData]);
 
-  const { reset, renderFrom, handleSubmit, watch, control, setValue, getValues } =
+  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({
       fields,
       defaultValues: {},
     });
 
-  const [
-    simulateLoanProduct,
-    simulateTenor,
-    simulateLoanAmount,
-    insuranceConfirm,
-  ] = watch([
+  const [simulateLoanProduct, simulateTenor, simulateLoanAmount] = watch([
     'simulateLoanProduct',
     'simulateTenor',
     'simulateLoanAmount',
-    'insuranceConfirm',
   ]);
 
   const estimatePaymentMonthly = useMemo(() => {
@@ -168,15 +162,21 @@ const useSimulateScreen = () => {
 
   const onPressSubmit = async () => {
     const simulateForm = getValues();
-    console.log('simulateForm', simulateForm);
+    const {
+      simulateLoanAmount,
+      simulateLoanProduct,
+      simulatePurpose,
+      simulateTenor,
+      insuranceConfirm,
+    } = simulateForm;
     if (insuranceConfirm) {
       if (user) {
         dispatch(setLoadingScreen());
         await precheck({
-          customerName: user.fullName,
-          customerNric: user.identityNumber,
+          customerName: 'Đặng Hữu Thanh', // user.fullName,
+          customerNric: '020200006487', // user.identityNumber,
           customerNricType: CardTypesEnum.CCCD,
-          customerOldNric: user.identityNumberOld || '',
+          customerOldNric: user.identityNumberOld ?? '',
           customerAdditionalNric: [],
           customerProvince: '01',
           customerDistrict: '01009',
@@ -185,12 +185,31 @@ const useSimulateScreen = () => {
           customerNricDate: user.identityIssue || '',
           customerNricExpiry: '2028-05-31T13:00:00.000Z',
           customerNricIssuer: '068',
-          customerDOB: user.birthDate || '',
-          customerGender: user.gender || '',
-          customerNationality: user.nationality || '',
+          customerDOB: user.birthDate ?? '',
+          customerGender: user.gender ?? '',
+          customerNationality: user.nationality ?? '',
           identityReport: ['idd_4036F68C-0000-C614-890D-29E3A6F28D4F'],
-          schemeCode: '',
+          schemeCode: simulateLoanProduct,
           userId: user.login,
+          loanSimulateProps: {
+            amount: simulateLoanAmount,
+            loanTerm: simulateTenor,
+            schemeId: '0208522397770119', // TODO: get from product
+            schemeCode: simulateLoanProduct,
+            schemeName: selectProduct?.productName,
+            loanPurpose: simulatePurpose,
+            participateInLoanInsurance: insuranceConfirm,
+            expectedRepaymentSchedule: [
+              {
+                interestRate: 13.4,
+                interestMonthly: '198949',
+                principalMonthly: '8873051',
+                totalMonthlyRepayment: '9072000',
+                remaining: '8943268',
+                date: '09/03/2028',
+              },
+            ],
+          },
         });
         dispatch(clearLoadingScreen());
         appNavigate(ScreenParamEnum.Precheck);
