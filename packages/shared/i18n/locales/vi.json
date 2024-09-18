@@ -174,7 +174,44 @@
     "yourPhoneNum": "Số điện thoại của bạn",
     "yourFirstPassword": "Và mật khẩu cho lần đăng nhập đầu tiên là:",
     "verifyChangeIdNumber": "Số CCCD của bạn không trùng với số CCCD bạn đã nhập. Vui lòng xác nhận lại số CCCD của bạn là:",
-    "needSupport": "Thông tin không hợp lệ. LFVN sẽ liên hệ lại Quý khách để hỗ trợ trong thời gian sớm"
+    "needSupport": "Thông tin không hợp lệ. LFVN sẽ liên hệ lại Quý khách để hỗ trợ trong thời gian sớm",
+    "male": "Nam",
+    "female": "Nữ",
+    "idNumber": "Số CCCD",
+    "fullname": "Họ và tên",
+    "doi": "Ngày cấp",
+    "dob": "Ngày sinh",
+    "ethnicity": "Dân tộc",
+    "fatherName": "Tên bố",
+    "gender": "Giới tính",
+    "identifyingCharacteristics": "Đặc điểm nhận dạng",
+    "motherName": "Tên mẹ",
+    "nationality": "Quốc tịch",
+    "passportNumber": "Số hộ chiếu",
+    "placeOfBirth": "Nơi sinh",
+    "spouseName": "Tên vợ chồng",
+    "dueDate": "Ngày hết hạn",
+    "documentNumber": "Số hồ sơ",
+    "origin": "Quê quán",
+    "address": "Địa chỉ",
+    "oldIdNumber": "Số CMND cũ"
+  },
+  "AddAddress": {
+    "address": "Địa chỉ",
+    "inputAddress": "Nhập địa chỉ",
+    "noSuitableAddress": "Không ti",
+    "addAddressManual": "Thêm địa chỉ",
+    "selectAddress": "Lựa chọn địa chỉ",
+    "undo": "Thử lại",
+    "chooseCity": "Chọn thành phố",
+    "chooseDistrict": "Chọn quận",
+    "chooseWard": "Chọn phường",
+    "city": "Thành phố",
+    "district": "Quận",
+    "ward": "Phường",
+    "noteStreet": "Phố, Số nhà, Toà nhà, Tầng",
+    "addressSubmit": "Submit",
+    "notFoundAddress": "Không tìm được kết quả phù hợp?"
   },
   "Precheck": {
     "title": "Đang kiểm tra thông tin, vui lòng đợi trong giây lát",
@@ -195,7 +232,7 @@
     "title": "Thu nhập hàng tháng của bạn",
     "incomePerMonth": "Thu nhập hàng tháng"
   },
-  "LoanPerpose": {
+  "LoanPurpose": {
     "title": "Bạn muốn vay vốn để...",
     "loanPerpose": "Mục đích sử dụng vốn"
   }

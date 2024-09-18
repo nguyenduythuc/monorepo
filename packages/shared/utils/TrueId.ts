@@ -1,17 +1,25 @@
 import RNTrueID from 'react-native-true-id';
 import Config from 'react-native-config';
 
-export const stepVerification = (type: string) => {
-  return type === 'verifyNFC'
-    ? '["SCANMRZ","INTRONFC","SCANNFC"]'
-    : '["FRONT","BACK","SELFIE"]';
+export enum EkycType {
+  NFC = 'verifyNFC',
+  OCR = 'verifyOCR'
+}
+
+export const stepVerification = (type: EkycType) => {
+  const step =
+    type === EkycType.NFC
+      ? '["SCANMRZ","INTRONFC","SCANNFC"]'
+      : '["FRONT","BACK","SELFIE"]';
+
+  return step;
 };
 
-export const CONFIG_UI = (type: string) => {
+export const CONFIG_UI = (type: EkycType) => {
   return `{"primaryColor":"#C60C0C","secondaryColor":"#C60C0C","titleColor":"#253858","errorColor":"#FF6234","textColor":"#091E42","borderInputColor":"#D3D9E0","backgroundColor":"#FFFFFF","closeColor":"#253858","stepBarColor":"#C60C0C","stepBarBackgroundColor":"#E4F4FF","fontName":"Inter","borderRadius":4,"maxRetry":5,"defaultSpacing":20,"livenessType":"${'trueid'}","imageConfirmation": false,"trueidWatermark": false,"allowEditOcr": false,"isShowStepBar": false,"hasInstroctions": false,"isShowSkipNFC": true,"isManualSelfie": false,"stepVerification": ${stepVerification(type)} }`;
 };
 
-export const configInfo = (type: string) => {
+export const configInfo = (type: EkycType) => {
   return {
     domain: Config.TRUE_ID_DOMAIN,
     authDomain: Config.TRUE_ID_DOMAIN,
@@ -38,5 +46,35 @@ export const configInfo = (type: string) => {
     configHeader: '',
   };
 };
+
+export const webConfigInfo = {
+  domain: process.env.NEXT_PUBLIC_TRUE_ID_DOMAIN,
+  configEndpoint: {
+    front: "/ekyc/v1.2/id/verify/front",
+    back: "/ekyc/v1.2/id/verify/back",
+    selfie: "/ekyc/v1.2/selfie/verify",
+    complete: "/ekyc/v1.2/complete",
+    nfcqrverify: "/ekyc/v2.0/nfcqr/verify",
+    nfcrar: "/ekyc/v1.2/nfcqr/upload",
+    ocr: "/ekyc/v1.2/id/ocr",
+    nfcbshield: "/ekyc/v1.2/nfcqr/upload",
+    createrequest: "/ekyc/v1.2/request/create",
+    accesstoken: "/auth/v1/oauth/accessToken"
+  },
+  clientId: process.env.NEXT_PUBLIC_TRUE_ID_APP_ID,
+  clientSecret: process.env.NEXT_PUBLIC_TRUE_ID_APP_SECRET,
+
+  configHeader: "{\"header1\":\"header1_value\", \"header2\":\"header2_value\"}",
+  stepVerification: ["FRONT", "BACK", "SELFIE", "EDITOCR"],
+  titleColor: "#091E42CC",//80%
+  subTitleColor: "#091E4299",//60%
+  closeColor: "#091E42CC",//80%
+  buttonCaptureColor: "#1182E7",
+  titleButtonCaptureColor: "#ffffff",
+  backgroundColor: "#ffffff",
+  requestId: "",
+  accessToken: ""
+}
+
 
 export default RNTrueID;

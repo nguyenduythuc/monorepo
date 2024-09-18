@@ -1,3 +1,6 @@
+// import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+// const t = useTranslations()
+
 export type ekycDataType = {
   idNumber?: string;
   dob?: string;
@@ -21,24 +24,24 @@ export type ekycDataType = {
 } | null;
 
 export const mapEkycKeyValue = {
-  idNumber: 'Số CCCD',
-  fullname: 'Họ và tên',
-  doi: 'Ngày cấp',
-  dob: 'Ngày sinh',
-  ethnicity: 'Dân tộc',
-  fatherName: 'Tên bố',
-  gender: 'Giới tính',
-  identifyingCharacteristics: 'Đặc điểm nhận dạng',
-  motherName: 'Tên mẹ',
-  nationality: 'Quốc tịch',
-  passportNumber: 'Số hộ chiếu',
-  placeOfBirth: 'Nơi sinh',
-  spouseName: 'Tên vợ chồng',
-  dueDate: 'Ngày hết hạn',
-  documentNumber: 'Số hồ sơ',
-  origin: 'Quê quán',
-  address: 'Địa chỉ',
-  oldIdNumber: 'Số CMND cũ',
+  idNumber: 'VerifyCustomer.idNumber',
+  fullname: 'VerifyCustomer.fullname',
+  doi: 'VerifyCustomer.doi',
+  dob: 'VerifyCustomer.dob',
+  ethnicity: 'VerifyCustomer.ethnicity',
+  fatherName: 'VerifyCustomer.fatherName',
+  gender: 'VerifyCustomer.gender',
+  identifyingCharacteristics: 'VerifyCustomer.identifyingCharacteristics',
+  motherName: 'VerifyCustomer.motherName',
+  nationality: 'VerifyCustomer.nationality',
+  passportNumber: 'VerifyCustomer.passportNumber',
+  placeOfBirth: 'VerifyCustomer.placeOfBirth',
+  spouseName: 'VerifyCustomer.spouseName',
+  dueDate: 'VerifyCustomer.dueDate',
+  documentNumber: 'VerifyCustomer.documentNumber',
+  origin: 'VerifyCustomer.origin',
+  address: 'VerifyCustomer.address',
+  oldIdNumber: 'VerifyCustomer.oldIdNumber',
 };
 
 export type NFCResultType = {

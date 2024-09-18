@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { FC } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 export type CheckboxProps = {
   disabled?: boolean;
@@ -51,7 +51,7 @@ export const Checkbox: FC<CheckboxProps> = ({
       disabled={disabled}
       onPress={handlePress}>
       {checkboxRight && (
-        <View>
+        <View style={tw`flex-1`}>
           {renderContent}
           {!renderContent && (
             <Text style={tw`ml-3 mr-3 text-base pb-2`}>
@@ -83,7 +83,7 @@ export const Checkbox: FC<CheckboxProps> = ({
       </View>
       {children}
       {!checkboxRight && (
-        <View style={tw`items-start`}>
+        <View style={tw`flex-1 items-start`}>
           {renderContent}
           {!renderContent && (
             <Text style={tw`ml-3 mr-3 text-base pb-1`}>

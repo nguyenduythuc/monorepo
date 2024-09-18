@@ -6,7 +6,6 @@ import { View } from 'react-native';
 export default function VerifyAccount() {
   return (
     <View style={tw.style('flex-1 bg-white h-full')}>
-      <Appbar />
       <View style={tw.style('pt-2')}>
         <VerifyCustomerInfo />
       </View>
