@@ -6,18 +6,18 @@
  */
 
 import React from 'react';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import {store, persistor} from '@lfvn-customer/shared/redux/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '@lfvn-customer/shared/redux/store';
 import LocaleProvider from './providers/I18nContext';
-import {ThemeProvider} from '@lfvn-customer/shared/themes';
-import {LogLevel, OneSignal} from 'react-native-onesignal';
+import { ThemeProvider } from '@lfvn-customer/shared/themes';
+import { LogLevel, OneSignal } from 'react-native-onesignal';
 import SecuritiesChecking from './providers/SecuritiesChecking';
-import {RootNavigator} from './navigators/RootNavigator';
-import {PortalProvider} from '@gorhom/portal';
+import { RootNavigator } from './navigators/RootNavigator';
+import { PortalProvider } from '@gorhom/portal';
 import Toast from 'react-native-toast-message';
 import toastConfig from './toastConfig';
-import {LoadingOverlay} from '@lfvn-customer/shared/components';
+import { LoadingOverlay } from '@lfvn-customer/shared/components';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
@@ -39,17 +39,17 @@ const App = () => {
   return (
     <SecuritiesChecking>
       <LocaleProvider>
-        <PortalProvider>
-          <ThemeProvider>
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <PortalProvider>
                 <RootNavigator />
                 <Toast config={toastConfig} />
                 <LoadingOverlay />
-              </PersistGate>
-            </Provider>
-          </ThemeProvider>
-        </PortalProvider>
+              </PortalProvider>
+            </PersistGate>
+          </Provider>
+        </ThemeProvider>
       </LocaleProvider>
     </SecuritiesChecking>
   );

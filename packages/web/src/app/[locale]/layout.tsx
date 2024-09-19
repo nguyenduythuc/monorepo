@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
 import { LoadingOverlay } from '@lfvn-customer/shared';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +27,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <Script src="/trueidsdk/TrueIDSDK.js" strategy="lazyOnload" />
+      </head>
       <body className={inter.className}>
         <StoreProvider>
           <NextIntlClientProvider messages={messages}>

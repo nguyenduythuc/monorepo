@@ -1,4 +1,4 @@
-import RNTrueID, { configInfo } from '@lfvn-customer/shared/utils/TrueId';
+import RNTrueID, { EkycType, configInfo, webConfigInfo } from '@lfvn-customer/shared/utils/TrueId';
 import { parsePassportData } from '../utils/ParseNFC';
 import {
   NFCResultType,
@@ -10,13 +10,20 @@ import { ScreenParamEnum } from '../types/paramtypes';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
 import { Platform } from 'react-native';
+declare global {
+  interface Window {
+    TrueIDSDK: {
+      start: (configEkyc: object, callBack: (result: object) => void) => void;
+    };
+  }
+}
 
 const useRNTrueId = () => {
   const { appNavigate } = useConfigRouting();
   const { handleShowToast } = useShowToast();
   const t = useTranslations();
 
-  const startEkyc = (type: string) => {
+  const startEkyc = (type: EkycType) => {
     if (Platform.OS !== 'web') {
       RNTrueID.configure(configInfo(type));
 
@@ -62,12 +69,20 @@ const useRNTrueId = () => {
       }
     } else {
       // Todo set up true id web
-      console.log('pending')
+      if (window?.TrueIDSDK && window?.TrueIDSDK.start) {
+
+        let callBack = (result: object) => {
+          console.log("SDK result", result)
+        }
+        window?.TrueIDSDK.start(webConfigInfo, callBack)
+      } else {
+        console.log("NULL")
+      }
     }
 
   };
 
-  const submitAction = (type: string) => {
+  const submitAction = (type: EkycType) => {
     startEkyc(type);
   };
 

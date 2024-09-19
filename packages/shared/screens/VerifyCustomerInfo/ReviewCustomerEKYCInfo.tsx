@@ -48,7 +48,6 @@ export const ReviewCustomerEKYCInfo = ({
       const ekycKey = key as keyof ekycDataType;
       const newKey = mapEkycKeyValue[ekycKey];
       acc[newKey] = displayEkycData[ekycKey];
-      console.log('acc', acc)
       return acc;
     },
     {} as { [key: string]: string },
@@ -111,7 +110,7 @@ export const ReviewCustomerEKYCInfo = ({
                 {/* <Text style={tw.style('text-base')}>{index}</Text> */}
                 <View style={tw.style('w-1/2')}>
                   <Text style={tw.style('text-[#999999] text-base')}>
-                    {key}:
+                    {t(`${key}`)}:
                   </Text>
                 </View>
 
