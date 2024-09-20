@@ -88,7 +88,7 @@ export function parsePassportData(passportData: string): any {
     fullname: cleanField(dg13Fields['2']),
     documentNumber: documentNumber,
     idNumber: dg13Fields['1'].slice(0, 12),
-    oldIdNumber: cleanField(dg13Fields['15']),
+    oldIdNumber: dg13Fields['15']?.slice(0, 9),
     dob: dg13Fields['3'].slice(0, 10),
     gender: cleanField(dg13Fields['4']),
     nationality: cleanField(dg13Fields['5']),
