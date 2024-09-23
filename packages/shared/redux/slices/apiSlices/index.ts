@@ -1,16 +1,18 @@
-import {createApi} from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import axiosBaseQuery from './config';
-import {loginAPI} from './loginAPI';
+import { loginAPI } from './loginAPI';
 import Config from 'react-native-config';
-import {Platform} from 'react-native';
-import {simulateAPI} from './simulateAPI';
-import {publicAPI} from './publicAPI';
-import {productAPI} from './productAPI';
-import {loginBiometricsAPI} from './loginBiometricsAPI';
-import {authAPI} from './authAPI';
-import {verifyAccountAPI} from './verifyAccountAPI';
-import {userAPI} from './userAPI';
-import {loanAPI} from './loanAPI';
+import { Platform } from 'react-native';
+import { simulateAPI } from './simulateAPI';
+import { publicAPI } from './publicAPI';
+import { productAPI } from './productAPI';
+import { loginBiometricsAPI } from './loginBiometricsAPI';
+import { authAPI } from './authAPI';
+import { verifyAccountAPI } from './verifyAccountAPI';
+import { userAPI } from './userAPI';
+import { loanAPI } from './loanAPI';
+import { ggMapAPI } from './ggMapApi';
+import { localAddressAPI } from './localAddress';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -28,8 +30,19 @@ export const apiSlice = createApi({
     ...verifyAccountAPI(builder),
     ...userAPI(builder),
     ...loanAPI(builder),
+    ...localAddressAPI(builder)
   }),
 });
+
+export const ggMapApiSlice = createApi({
+  reducerPath: 'LFVN-API',
+  baseQuery: axiosBaseQuery({
+    baseUrl: Config.G_MAP_API_URL || '',
+  }),
+  endpoints: builder => ({
+    ...ggMapAPI(builder)
+  })
+})
 
 export const {
   useLoginMutation,
@@ -56,4 +69,12 @@ export const {
   usePreCheckMutation,
   useRequestPendingByUserMutation,
   useSaveDaftAPLMutation,
+  useGetCountryListMutation,
+  useGetDistrictListMutation,
+  useGetProvinceListMutation,
+  useGetWardListMutation,
 } = apiSlice;
+
+export const {
+  useLazyGetPlaceAutoCompleteQuery
+} = ggMapApiSlice

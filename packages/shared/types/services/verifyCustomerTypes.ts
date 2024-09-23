@@ -23,6 +23,22 @@ export type ekycDataType = {
   oldIdNumber?: string;
 } | null;
 
+export type webEkycDetailObject = { value: string }
+
+export type webEkycDataType = {
+  id_number?: webEkycDetailObject;
+  id_old_number?: webEkycDetailObject;
+  dob?: webEkycDetailObject;
+  doi?: webEkycDetailObject;
+  due_date?: webEkycDetailObject;
+  name?: webEkycDetailObject;
+  ethnicity?: webEkycDetailObject;
+  gender?: { name: string };
+  nationality?: webEkycDetailObject;
+  id_origin?: webEkycDetailObject;
+  id_address?: webEkycDetailObject;
+} | null;
+
 export const mapEkycKeyValue = {
   idNumber: 'VerifyCustomer.idNumber',
   fullname: 'VerifyCustomer.fullname',
@@ -56,4 +72,13 @@ export type OCRResultType = {
   code: number;
   decision: object;
   idInfo: ekycDataType;
+};
+
+export type WebOCRResultType = {
+  clientId: string;
+  errorMessage: string;
+  code: number;
+  decision: object;
+  idInfo: webEkycDataType;
+  ekycResult: { kyc_result: { back: { given_date: { value: string } } } };
 };

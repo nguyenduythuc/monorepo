@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import { useDispatch } from 'react-redux';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Platform } from 'react-native';
 import {
   Appbar,
   ConfirmModal,
@@ -19,17 +19,15 @@ import {
   mapEkycKeyValue,
 } from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
 import { formatGenderInfo } from '../../utils/commonFunction';
+import { useAppSelector } from '../../redux/store';
 
-export const ReviewCustomerEKYCInfo = ({
-  ekycData,
-}: {
-  ekycData: ekycDataType;
-}) => {
+export const ReviewCustomerEKYCInfo = () => {
   const t = useTranslations();
+
+  const ekycData: ekycDataType = useAppSelector(state => state.verifyAccount.ekycData)
   // const submitAction = () => {
   //   // appNavigate(ScreenParamEnum.CreateLoanApl);
   // };
-
   const dispatch = useDispatch();
 
   const displayEkycData: ekycDataType = {
@@ -38,7 +36,7 @@ export const ReviewCustomerEKYCInfo = ({
     doi: ekycData?.doi,
     dob: ekycData?.dob,
     gender: formatGenderInfo(ekycData?.gender || '', 'display'),
-    nationality: ekycData?.nationality,
+    nationality: ekycData?.nationality || ekycData?.ethnicity,
     origin: ekycData?.origin,
     oldIdNumber: ekycData?.oldIdNumber,
   };

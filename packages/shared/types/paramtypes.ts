@@ -1,18 +1,16 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import {OTPTypes} from '@lfvn-customer/shared/types';
-import {RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ekycDataType} from './services/verifyCustomerTypes';
+import { OTPTypes } from '@lfvn-customer/shared/types';
+import { RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type RootParamList = {
   home: undefined;
   Test: undefined;
-  ComponentScreen: undefined;
   login:
-    | {
-        deeplinkPath?: string;
-      }
-    | undefined;
+  | {
+    deeplinkPath?: string;
+  }
+  | undefined;
   'verify-account': {
     type: OTPTypes;
   };
@@ -28,14 +26,14 @@ export type RootParamList = {
   simulate: undefined;
   'repayment-schedule': undefined;
   'product-introduction': undefined;
-  'product-detail': {productId: number; productName: string};
+  'product-detail': { productId: number; productName: string };
   'create-loan-apl': undefined;
   'reset-password': {
     phoneNumber: string;
     identityNumber: string;
   };
   'verify-customer-info': undefined;
-  'review-customer-ekyc-info': {ekycData: ekycDataType; test: string};
+  'review-customer-ekyc-info': undefined;
   'success-account-register': undefined;
   precheck: undefined;
   'precheck-fail': undefined;
@@ -45,7 +43,6 @@ export type RootParamList = {
 export enum ScreenParamEnum {
   Home = 'home',
   Test = 'Test',
-  ComponentScreen = 'ComponentScreen',
   Login = 'login',
   VerifyAccount = 'verify-account',
   EnterOtp = 'enter-otp',

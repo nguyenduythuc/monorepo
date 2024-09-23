@@ -24,7 +24,7 @@ export const saveVerifyAccountInfo = (key: string, value: string | object) => {
 };
 
 export const getVerifyAccountInfo = (key: string) => {
-  return storage.getString(key);
+  return storage.getString(key) || '';
 };
 
 export const convertDateToISO = (dateString: string) => {

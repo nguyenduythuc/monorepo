@@ -69,14 +69,13 @@ export const VerticalProgress = ({
   const clickStep = (index: number) => {
     console.log('index', index);
   };
-
   return (
-    <View style={tw`items-start justify-between`}>
+    <View style={tw`items-start justify-center`}>
       <View
         onLayout={event => {
           findDimensions(event.nativeEvent.layout);
         }}
-        style={tw`flex-1 items-center`}>
+        style={tw`flex-1 items-start`}>
         {steps?.map((step, index) => (
           <View
             key={index}
@@ -85,12 +84,11 @@ export const VerticalProgress = ({
               <Pressable
                 style={tw`bg-white rounded-full w-${stepIconSize} h-${stepIconSize} `}
                 onPress={() => clickStep(index + 1)}>
-                {index + 1 <= currentStep && progressDot ? (
+                {index + 1 <= currentStep && !progressDot ? (
                   <Icon
                     name="check-circle"
-                    width={24}
-                    height={24}
-                    color={colorIcon}
+                    size={30}
+                    color={'red'}
                   />
                 ) : (
                   <View style={tw`py-1 bg-white`}>
@@ -113,9 +111,11 @@ export const VerticalProgress = ({
                 <Text
                   style={[
                     tw`text-left text-base font-medium`,
-                    index + 1 <= currentStep
+                    index + 1 < currentStep
                       ? tw`text-${color}-600`
-                      : tw`text-gray-400`,
+                      : currentStep === index + 1
+                        ? tw`text-${color}-600 font-bold`
+                        : tw`text-gray-400`,
                   ]}>
                   {step.title}
                 </Text>
