@@ -27,10 +27,12 @@ function parseDG2(dg2Data: string): string {
 
 function cleanString(input: string): string {
   return input
+    .replace(/^,+|,+$/g, '') // Remove leading/trailing commas
+    .replace(/^[\"\\\']+|[\"\\\']+$/g, '') // Remove leading/trailing back slash and quote
     .replace(/(^\d+|\d+$)/g, '') // Remove leading/trailing numbers
     .replace(/[=&!@#$%^*()_\-+|]/g, '') // Remove special characters
     .replace(/(^\d+|\d+$)/g, '') // Remove leading/trailing numbers
-    .replace(/[=&!@#$%^*()_\-+|]/g, '') // Remove special characters
+    .replace(/[=&!@#$%^*()_\-+|\\]/g, '') // Remove special characters
     .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
     .trim(); // Trim leading/trailing whitespace
 }
@@ -95,9 +97,7 @@ export function parsePassportData(passportData: string): any {
     ethnicity: cleanField(dg13Fields['6']),
     origin: cleanString(cleanField(dg13Fields['8'])).replace(/^[#1]/, ''), // Remove leading # or 1
     address: cleanString(cleanField(dg13Fields['9'])).replace(/^[#1]/, ''), // Remove leading # or 1
-    identifyingCharacteristics: cleanField(dg13Fields['10'])
-      .replace(/(^\d+|\d+$)/g, '')
-      .trim(),
+    identifyingCharacteristics: cleanString(cleanField(dg13Fields['10'])),
     doi: dg13Fields['11'].slice(0, 10),
     dueDate: dg13Fields['12'].slice(0, 10),
     fatherName: parentNames[0],
