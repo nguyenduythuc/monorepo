@@ -28,11 +28,12 @@ function parseDG2(dg2Data: string): string {
 function cleanString(input: string): string {
   return input
     .replace(/^,+|,+$/g, '') // Remove leading/trailing commas
-    .replace(/^[\"\\\']+|[\"\\\']+$/g, '') // Remove leading/trailing back slash and quote
+    .replace(/^R+|0W+$/g, '') // Remove leading R and trailing 0W
+    .replace(/^[\"\\\/']+|[\"\\\/']+$/g, '') // Remove leading/trailing back slash and quote
     .replace(/(^\d+|\d+$)/g, '') // Remove leading/trailing numbers
-    .replace(/[=&!@#$%^*()_\-+|]/g, '') // Remove special characters
+    .replace(/[=&!@#$%^*()_\+|]/g, '') // Remove special characters
     .replace(/(^\d+|\d+$)/g, '') // Remove leading/trailing numbers
-    .replace(/[=&!@#$%^*()_\-+|\\]/g, '') // Remove special characters
+    .replace(/[=&!@#$%^*()_+|\\]/g, '') // Remove special characters
     .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
     .trim(); // Trim leading/trailing whitespace
 }
