@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import {Text, View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import { BaseSlider, TextInputWithUnit } from '@lfvn-customer/shared/components';
+import {BaseSlider, TextInputWithUnit} from '@lfvn-customer/shared/components';
 
 export interface SliderWithTextInputProps {
   label?: string;
@@ -35,11 +35,13 @@ export const SliderWithTextInput = ({
   });
 
   const formatValue = (value: number) => {
+    if (!value) {
+      return '';
+    }
     if (unit === 'VND') {
       return formatterVND.format(value).replace(/^\D+/g, '');
-    } else {
-      return value.toString();
     }
+    return value.toString();
   };
 
   return (

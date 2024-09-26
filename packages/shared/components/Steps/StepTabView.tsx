@@ -2,17 +2,16 @@ import React from 'react';
 import {IStepTabViewProps} from '@lfvn-customer/shared/types';
 import {View} from 'react-native';
 import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
-import {CustomButton} from '@lfvn-customer/shared/components';
-import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import {UseFormReturn} from 'react-hook-form';
 
-const StepTabView: React.FC<IStepTabViewProps> = ({
+const StepTabView: React.FC<IStepTabViewProps & UseFormReturn> = ({
   questionComponents,
-  onComplete,
-  currentStep,
-  setCurrentStep,
+  currentQuestion,
+  setCurrentQuestion,
+  control,
+  watch,
 }) => {
-  const t = useTranslations();
   const {colors} = useGetTheme();
 
   // Create routes for TabView based on questionComponents
@@ -21,28 +20,12 @@ const StepTabView: React.FC<IStepTabViewProps> = ({
     title: `question${idx}`,
   }));
 
-  const goToNext = () => {
-    if (currentStep === questionComponents.length - 1) {
-      onComplete(); // last question -> complete
-    } else {
-      setCurrentStep(currentStep + 1); // next question
-    }
-  };
-
   const renderScene = SceneMap(
     questionComponents.reduce<Record<string, React.ComponentType<any>>>(
       (acc, Question, idx) => {
         acc[`question${idx}`] = () => (
           <View style={{flex: 1}}>
-            <Question
-              goToNext={() => {
-                if (currentStep === questionComponents.length - 1) {
-                  onComplete(); // last question -> complete
-                } else {
-                  setCurrentStep(currentStep + 1); // next question
-                }
-              }}
-            />
+            <Question control={control} watch={watch} stepNumber={idx + 1} />
           </View>
         );
         return acc;
@@ -68,18 +51,13 @@ const StepTabView: React.FC<IStepTabViewProps> = ({
   );
 
   return (
-    <>
-      <TabView
-        navigationState={{index: currentStep, routes}}
-        renderScene={renderScene}
-        onIndexChange={setCurrentStep}
-        renderTabBar={renderTabBar}
-        swipeEnabled={false}
-      />
-      <CustomButton onPress={goToNext} color={'red'} buttonStyle={'m-4'}>
-        {t('Step.continue')}
-      </CustomButton>
-    </>
+    <TabView
+      navigationState={{index: currentQuestion, routes}}
+      renderScene={renderScene}
+      onIndexChange={setCurrentQuestion}
+      renderTabBar={renderTabBar}
+      swipeEnabled={false}
+    />
   );
 };
 

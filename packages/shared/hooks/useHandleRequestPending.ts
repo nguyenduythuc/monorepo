@@ -3,11 +3,17 @@ import {
   useSaveDaftAPLMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';
-import {PreCheckStatusEnum, RequestPendingStepEnum} from '../types';
+import {
+  PreCheckStatusEnum,
+  RequestPendingStepEnum,
+} from '@lfvn-customer/shared/types';
 import {useConfigRouting} from './routing';
-import {ScreenParamEnum} from '../types/paramtypes';
-import {PreCheckRequestProps} from '../types/services/loanTypes';
-import {setRequestPendingMetadata} from '../redux/slices/productSlices';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {
+  PreCheckRequestProps,
+  RequestPendingRequestProps,
+} from '@lfvn-customer/shared/types/services/loanTypes';
+import {setRequestPendingMetadata} from '@lfvn-customer/shared/redux/slices/productSlices';
 
 const useHandleRequestPending = () => {
   const {appNavigate} = useConfigRouting();
@@ -15,6 +21,13 @@ const useHandleRequestPending = () => {
   const [requestPendingByUser] = useRequestPendingByUserMutation();
 
   const dispatch = useDispatch();
+
+  const onHandleSaveDaftAPL = async (body: RequestPendingRequestProps) => {
+    const saveDaftAPLResult = await saveDaftAPL(body);
+    if (saveDaftAPLResult.data?.metadata) {
+      dispatch(setRequestPendingMetadata(saveDaftAPLResult.data.metadata));
+    }
+  };
 
   const onCheckRequestPending = async (userId: string) => {
     const result = await requestPendingByUser({
@@ -29,7 +42,7 @@ const useHandleRequestPending = () => {
             result.data.metadata.requestData,
           ) as PreCheckRequestProps;
           const {loanSimulateProps, ...rest} = requestData;
-          const saveDaftAPLResult = await saveDaftAPL({
+          const bodyRequestPending = {
             userId,
             currentStep: RequestPendingStepEnum.LOAN_INFORMATION,
             productCode: loanSimulateProps.schemeCode,
@@ -38,8 +51,8 @@ const useHandleRequestPending = () => {
               ...loanSimulateProps,
               createdOn: new Date().toISOString(),
             },
-          });
-          dispatch(setRequestPendingMetadata(saveDaftAPLResult.data?.metadata));
+          };
+          await onHandleSaveDaftAPL(bodyRequestPending);
         } else if (
           result.data.metadata.status === PreCheckStatusEnum.PROCESSING
         ) {
@@ -53,6 +66,7 @@ const useHandleRequestPending = () => {
 
   return {
     onCheckRequestPending,
+    onHandleSaveDaftAPL,
   };
 };
 

@@ -149,7 +149,7 @@ export enum PreCheckStatusEnum {
 
 export interface IStepTabViewProps {
   questionComponents: React.ComponentType<any>[];
-  onComplete: () => void;
-  currentStep: number;
-  setCurrentStep: (value: number) => void;
+  currentQuestion: number;
+  setCurrentQuestion: (value: number) => void;
+  selectedLoanProduct?: string; // check the condition to show the question
 }

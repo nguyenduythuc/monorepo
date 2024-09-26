@@ -4,6 +4,7 @@ import {setUser, clearUser} from '../redux/slices/authSlice';
 import {mmkvStorage} from '../utils/storage';
 import {USER_LOGIN} from '../utils/constants';
 import {clearAppToken} from '../redux/slices/apiSlices/config';
+import {Platform} from 'react-native';
 
 const useAuth = () => {
   const [getAccount] = useGetAccountMutation();
@@ -13,13 +14,14 @@ const useAuth = () => {
   const onHandleGetUserProfile = async () => {
     const getUser = await getAccount();
     dispatch(setUser(getUser.data));
-    mmkvStorage.setItem(USER_LOGIN, getUser.data?.login);
+    Platform.OS !== 'web' &&
+      mmkvStorage.setItem(USER_LOGIN, getUser.data?.login);
   };
 
   const onHandleLogout = async () => {
     clearAppToken();
     dispatch(clearUser());
-    mmkvStorage.removeItem(USER_LOGIN);
+    Platform.OS !== 'web' && mmkvStorage.removeItem(USER_LOGIN);
   };
 
   return {
