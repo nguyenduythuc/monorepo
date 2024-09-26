@@ -1,6 +1,6 @@
-import {useEffect, useMemo, useState} from 'react';
-import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
-import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
+import { useEffect, useMemo, useState } from 'react';
+import { useCustomForm } from '@lfvn-customer/shared/components/Form/Form.hook';
+import { FieldSimulateConfig } from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
@@ -11,28 +11,28 @@ import {
   ProductProps,
   PurposeProps,
 } from '@lfvn-customer/shared/types/models/loanModel';
-import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
-import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
-import {useDispatch} from 'react-redux';
-import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import { handleExecute } from '@lfvn-customer/shared/utils/simulateCalculate';
+import { decryptAES } from '@lfvn-customer/shared/utils/decryptText';
+import { useDispatch } from 'react-redux';
+import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
+import { useAppSelector } from '@lfvn-customer/shared/redux/store';
 import Config from 'react-native-config';
-import {Platform} from 'react-native';
-import {useConfigRouting} from '.';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {OTPTypesEnum, CardTypesEnum} from '../types';
+import { Platform } from 'react-native';
+import { useConfigRouting } from '.';
+import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
+import { OTPTypesEnum, CardTypesEnum } from '../types';
 import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '../redux/slices/loadingSlices';
-import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
+import { handleEnvByPlatform } from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
-  const {appNavigate} = useConfigRouting();
+  const { appNavigate } = useConfigRouting();
 
-  const {data: metaData, error: metadataError} = useGetMetadataQuery();
-  const {user} = useAppSelector(state => state.auth);
+  const { data: metaData, error: metadataError } = useGetMetadataQuery();
+  const { user } = useAppSelector(state => state.auth);
   const [precheck] = usePreCheckMutation();
 
   if (!metadataError) {
@@ -40,25 +40,22 @@ const useSimulateScreen = () => {
       dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
     }, []);
   } else {
-    const defaultSimulate =
-      Platform.OS !== 'web'
-        ? Config.DEFAULT_SIMULATE_FORMULATE
-        : process.env.DEFAULT_SIMULATE_FORMULATE;
+    const defaultSimulate = handleEnvByPlatform('NEXT_PUBLIC_DEFAULT_SIMULATE_FORMULATE');
 
     useEffect(() => {
       dispatch(setSimulate(defaultSimulate));
     }, []);
   }
 
-  const {data: productData} = useGetProductQuery();
+  const { data: productData } = useGetProductQuery();
 
-  const {data: purposeData} = useGetPurposeQuery();
+  const { data: purposeData } = useGetPurposeQuery();
 
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
   const stringFunc: string | null = useMemo(() => {
     // console.log((getState() as any).public.simulate)
-    const decodeKey = handleEnvByPlatform('DECODE_KEY');
+    const decodeKey = handleEnvByPlatform('NEXT_PUBLIC_DECODE_KEY');
     return decryptAES(loanSimulate, decodeKey);
   }, [loanSimulate]);
 
@@ -76,7 +73,7 @@ const useSimulateScreen = () => {
     template: null,
   };
 
-  const loanProductData: ProductProps[] = productData?.data || [
+  const loanProductData: ProductProps[] = productData?.data.data || [
     defaultProductData,
   ];
 
@@ -117,7 +114,7 @@ const useSimulateScreen = () => {
     ];
   }, [selectProduct, productData, purposeData]);
 
-  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
+  const { reset, renderFrom, handleSubmit, watch, control, setValue, getValues } =
     useCustomForm({
       fields,
       defaultValues: {},

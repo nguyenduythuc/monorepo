@@ -1,10 +1,10 @@
 import React from 'react';
-import {Pressable} from 'react-native';
+import { Pressable } from 'react-native';
 import SearchIcon from '@lfvn-customer/shared/assets/images/svg/SearchIcon';
 import CloseCircleIcon from '@lfvn-customer/shared/assets/images/svg/CloseCircleIcon';
 import AddIcon from '@lfvn-customer/shared/assets/images/svg/AddIcon';
 import AddFileIcon from '@lfvn-customer/shared/assets/images/svg/AddFileIcon';
-import {IconProps} from '@lfvn-customer/shared/types';
+import { IconProps } from '@lfvn-customer/shared/types';
 import TransferMoneyIcon from '@lfvn-customer/shared/assets/images/svg/TransferMoneyIcon';
 import ArrowLeft from '@lfvn-customer/shared/assets/images/svg/ArrowLeft';
 import ArrowRight from '@lfvn-customer/shared/assets/images/svg/ArrowRight';
@@ -40,6 +40,8 @@ import CommentQuestionIcon from '@lfvn-customer/shared/assets/images/svg/Comment
 import PhoneOCRIcon from '@lfvn-customer/shared/assets/images/svg/PhoneOCRIcon';
 import HintIcon from '@lfvn-customer/shared/assets/images/svg/HintIcon';
 import ChevronRight from '@lfvn-customer/shared/assets/images/svg/ChevronRight';
+import AddressCardIcon from '@lfvn-customer/shared/assets/images/svg/AddressCardIcon';
+import UndoIcon from '../../../assets/images/svg/UndoIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -81,6 +83,8 @@ const iconList = (props: IconProps) => ({
   'comment-question-icon': <CommentQuestionIcon {...props} />,
   'phone-ocr-icon': <PhoneOCRIcon {...props} />,
   'hint-icon': <HintIcon {...props} />,
+  'address-card-icon': <AddressCardIcon {...props} />,
+  'undo-icon': <UndoIcon {...props} />
 });
 
 type IconList = ReturnType<typeof iconList>;

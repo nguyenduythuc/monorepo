@@ -13,6 +13,7 @@ import {
   TextInput,
   TextInputSearch,
   TextInputDisplayValidation,
+  TextInputDatePicker,
 } from '@lfvn-customer/shared/components/common';
 import { View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
@@ -206,6 +207,27 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
                   textInputStyle={field.textInputStyle}
                   colorIcon={field.colorIcon}
                   validations={field.validations}
+                />
+              );
+            }}
+          />
+        );
+
+      case FieldType.TextInputDatePicker:
+        return (
+          <Controller
+            key={field.label}
+            {...field.controlProps}
+            control={control}
+            defaultValue={field.defaultValue}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <TextInputDatePicker
+                  keyboardType={field.keyboardType}
+                  value={value}
+                  onChangeValue={onChange}
+                  label={field.label}
+                  defaultValue={field.defaultValue ?? ''}
                 />
               );
             }}

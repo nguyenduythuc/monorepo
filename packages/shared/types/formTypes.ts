@@ -1,8 +1,8 @@
-import {UseControllerProps} from 'react-hook-form';
-import {KeyboardTypeOptions} from 'react-native';
-import {IconKeys} from '@lfvn-customer/shared/components';
-import {dropdownOptionProduct} from './components/dropdown';
-import {InputValidationKeys} from '.';
+import { UseControllerProps } from 'react-hook-form';
+import { KeyboardTypeOptions } from 'react-native';
+import { IconKeys } from '@lfvn-customer/shared/components';
+import { dropdownOptionProduct } from './components/dropdown';
+import { InputValidationKeys } from '.';
 
 export enum FieldType {
   TextInput = 'TextInput',
@@ -13,6 +13,7 @@ export enum FieldType {
   SelectDropdown = 'SelectDropdown',
   CheckboxWithIcon = 'CheckboxWithIcon',
   TextInputDisplayValidation = 'TextInputDisplayValidation',
+  TextInputDatePicker = 'TextInputDatePicker'
 }
 
 export type FieldConfig = {

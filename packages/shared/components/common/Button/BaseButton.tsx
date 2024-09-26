@@ -70,7 +70,7 @@ export const CustomButton: FC<BaseButtonProps> = ({
   };
 
   const PrefixIconComponent = useMemo(
-    () => (prefixIcon ? <Icon name={prefixIcon} color={iconColor} /> : null),
+    () => (prefixIcon ? <Icon disabled name={prefixIcon} color={iconColor} /> : null),
     [prefixIcon, iconColor],
   );
 

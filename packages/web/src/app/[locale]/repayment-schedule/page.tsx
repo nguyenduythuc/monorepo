@@ -138,7 +138,7 @@ export default function RepaymentSchedule() {
     };
   }, [tableData, headers]);
 
-  const { appNavigate } = useConfigRouting();
+  const { goBack } = useConfigRouting();
   return (
     <main className="flex bg-white min-h-screen flex-col items-center justify-between">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
@@ -162,7 +162,7 @@ export default function RepaymentSchedule() {
             <View style={tw`px-4 pt-4 border-t border-gray-200`}>
               <CustomButton
                 onPress={() => {
-                  appNavigate('goBack');
+                  goBack();
                 }}
                 color="red"
               >

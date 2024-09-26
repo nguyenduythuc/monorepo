@@ -198,7 +198,9 @@
     "documentNumber": "Số hồ sơ",
     "origin": "Quê quán",
     "address": "Địa chỉ",
-    "oldIdNumber": "Số CMND cũ"
+    "oldIdNumber": "Số CMND cũ",
+    "manual": "Thêm địa chỉ",
+    "auto": "Tìm địa chỉ"
   },
   "AddAddress": {
     "address": "Địa chỉ",
