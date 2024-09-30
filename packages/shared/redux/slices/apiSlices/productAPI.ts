@@ -2,6 +2,8 @@ import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
   ProductGroupProps,
   ProductDetailResponseProps,
+  ProductSchemeProps,
+  ProductScheme,
 } from '@lfvn-customer/shared/types/services/productTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -11,7 +13,7 @@ export const productAPI = (
 ) => ({
   getProductList: builder.query<ProductGroupProps, void>({
     query: () => ({
-      url: getPath('/product-group'),
+      url: getPath('/product-groups'),
       method: 'get',
     }),
     providesTags: ['Product'],
@@ -21,7 +23,20 @@ export const productAPI = (
     {productId: number}
   >({
     query: ({productId}) => ({
-      url: getPath(`/product-group/${productId}`),
+      url: getPath(`/product-groups/${productId}`),
+      method: 'get',
+    }),
+  }),
+  getProductSchemeList: builder.query<ProductSchemeProps, void>({
+    query: () => ({
+      url: getPath('/product-schemes'),
+      method: 'get',
+    }),
+    providesTags: ['Product'],
+  }),
+  getProductSchemeById: builder.query<ProductScheme, {productId: number}>({
+    query: ({productId}) => ({
+      url: getPath(`/product-schemes/${productId}`),
       method: 'get',
     }),
   }),

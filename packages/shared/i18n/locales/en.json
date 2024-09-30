@@ -230,12 +230,21 @@
     "addMoreInformation": "Bổ sung thông tin khoản vay",
     "continue": "Tiếp theo"
   },
+  "ProductInformation": {
+    "title": "Thông tin khoản vay",
+    "desc": "Bạn hãy điền các thông tin mong muốn về khoản vay để hệ thống tính toán số tiền trả nợ cho bạn",
+    "loanProduct": "Sản phẩm vay",
+    "loanAmount": "Số tiền vay",
+    "loanTenor": "Thời gian vay",
+    "loanInsurance": "Tham gia bảo hiểm khoản vay",
+    "loanInsuranceDes": "Bảo hiểm An tâm Tài chính 600.000đ"
+  },
   "IncomePerMonth": {
     "title": "Thu nhập hàng tháng của bạn",
     "incomePerMonth": "Thu nhập hàng tháng"
   },
-  "LoanPerpose": {
+  "LoanPurpose": {
     "title": "Bạn muốn vay vốn để...",
-    "loanPerpose": "Mục đích sử dụng vốn"
+    "loanPurpose": "Mục đích sử dụng vốn"
   }
 }

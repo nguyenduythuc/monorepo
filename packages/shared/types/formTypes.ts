@@ -1,8 +1,13 @@
-import { UseControllerProps } from 'react-hook-form';
-import { KeyboardTypeOptions } from 'react-native';
-import { IconKeys } from '@lfvn-customer/shared/components';
-import { dropdownOptionProduct } from './components/dropdown';
-import { InputValidationKeys } from '.';
+import {
+  Control,
+  FieldValues,
+  UseControllerProps,
+  UseFormWatch,
+} from 'react-hook-form';
+import {KeyboardTypeOptions} from 'react-native';
+import {IconKeys} from '@lfvn-customer/shared/components';
+import {dropdownOptionProduct} from './components/dropdown';
+import {InputValidationKeys} from '.';
 
 export enum FieldType {
   TextInput = 'TextInput',
@@ -13,7 +18,7 @@ export enum FieldType {
   SelectDropdown = 'SelectDropdown',
   CheckboxWithIcon = 'CheckboxWithIcon',
   TextInputDisplayValidation = 'TextInputDisplayValidation',
-  TextInputDatePicker = 'TextInputDatePicker'
+  TextInputDatePicker = 'TextInputDatePicker',
 }
 
 export type FieldConfig = {
@@ -46,3 +51,10 @@ export type FormProps = {
   fields: FieldConfig[];
   defaultValues?: any;
 };
+
+export interface QuesionField {
+  stepNumber: number;
+  control: Control;
+  watch: UseFormWatch<FieldValues>;
+  onPressContinue: () => void;
+}

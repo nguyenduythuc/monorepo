@@ -1,5 +1,6 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
+  MetaDataRequestProps,
   PreCheckRequestProps,
   PreCheckResponseProps,
   RequestPendingByUserRequestProps,
@@ -35,6 +36,16 @@ export const loanAPI = (
   >({
     query: (body: RequestPendingRequestProps) => ({
       url: getPath('/request-pending'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  createAPL: builder.mutation<
+    RequestPendingResponseProps,
+    MetaDataRequestProps
+  >({
+    query: (body: MetaDataRequestProps) => ({
+      url: getPath('/create-apl'),
       method: 'post',
       data: body,
     }),
