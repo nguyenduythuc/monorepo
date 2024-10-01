@@ -13,6 +13,7 @@ const phone_nfc_icon = require('./phone_nfc_icon.png');
 const celebrate = require('./celebrate.png');
 const coin = require('./coin.gif');
 const precheck_fail_icon = require('./precheck_fail_icon.png');
+const congratulations_icon = require('./congratulations_icon.png');
 
 const ImageName = {
   login_bg,
@@ -28,6 +29,7 @@ const ImageName = {
   celebrate,
   coin,
   precheck_fail_icon,
+  congratulations_icon,
 };
 
 export default ImageName;

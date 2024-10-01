@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {
   Appbar,
   ConfirmModal,
+  CongratulationModal,
   CustomButton,
 } from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
@@ -18,9 +19,13 @@ import useHandleRequestPending from '@lfvn-customer/shared/hooks/useHandleReques
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import useHandleCreateAPL from '@lfvn-customer/shared/hooks/useHandleCreateAPL';
 import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTypes';
+import {useDispatch} from 'react-redux';
+import {setCifMetadata} from '@lfvn-customer/shared/redux/slices/productSlices';
 
 const LoanInformationScreen = () => {
+  const {cifMetadata} = useAppSelector(state => state.product);
   const t = useTranslations();
+  const dispatch = useDispatch();
 
   const {onPressGoBack} = useLoanInformation();
 
@@ -39,11 +44,20 @@ const LoanInformationScreen = () => {
   };
 
   const {onHandleSaveDaftAPL} = useHandleRequestPending();
-  const {onHandleCreateAPL} = useHandleCreateAPL();
+  const {onHandleCreateAPL, onHandleSubmitSuggestTR} = useHandleCreateAPL();
   const {requestPendingMetadata} = useAppSelector(state => state.product);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalCongratulationVisible, setIsModalCongratulationVisible] =
+    useState(false);
   const [contentModal, setContentModal] = useState('');
+
+  useEffect(() => {
+    // get suggest loan success
+    if (cifMetadata) {
+      setIsModalCongratulationVisible(true);
+    }
+  }, [cifMetadata]);
 
   const onSubmit = async (bodyCreateAPL: MetaDataRequestProps) => {
     await onHandleCreateAPL(bodyCreateAPL);
@@ -54,7 +68,7 @@ const LoanInformationScreen = () => {
       amount,
       participateInLoanInsurance,
       loanTerm,
-      schemeCode,
+      // schemeCode, TODO: use later
       loanPurpose,
     } = forms.getValues();
     if (!participateInLoanInsurance) {
@@ -62,16 +76,20 @@ const LoanInformationScreen = () => {
       setContentModal(t('Simulate.alertTitleUntickInsurance'));
     } else {
       setContentModal('');
-      setCurrentQuestion(currentQuestion + 1); // next question
+      if (currentQuestion + 1 <= questionComponents.length) {
+        setCurrentQuestion(currentQuestion + 1); // next question
+      }
       const metadata: MetaDataRequestProps = {
         ...requestPendingMetadata,
+        identityEntryMethod: 'ocr', // todo
         amount: amount ?? requestPendingMetadata?.amount,
         participateInLoanInsurance:
           participateInLoanInsurance !== undefined
             ? participateInLoanInsurance
             : requestPendingMetadata?.participateInLoanInsurance,
         loanTerm: loanTerm ?? requestPendingMetadata?.loanTerm,
-        schemeCode: schemeCode ?? requestPendingMetadata?.schemeCode,
+        // schemeCode: schemeCode ?? requestPendingMetadata?.schemeCode,
+        schemeCode: 'LD011', // TODO: map scheme with BE
         loanPurpose: loanPurpose ?? requestPendingMetadata?.loanPurpose,
       };
       const bodyRequestPending = {
@@ -82,8 +100,34 @@ const LoanInformationScreen = () => {
       };
       await onHandleSaveDaftAPL(bodyRequestPending);
       if (currentQuestion + 1 === questionComponents.length) {
-        onSubmit(metadata); // last question -> complete
+        await onSubmit(metadata); // last question -> complete
       }
+    }
+  };
+
+  const onPressAgreeLoanSuggestion = async () => {
+    // TODO: next to step after agree
+    if (cifMetadata) {
+      setIsModalCongratulationVisible(false);
+      onHandleSubmitSuggestTR({
+        flowId: cifMetadata.flowId,
+        action: 'approve',
+        trUserConfirm: 'Agree',
+      });
+    }
+  };
+
+  const onPressDisagreeLoanSuggestion = async () => {
+    // TODO: continue input customer information
+    setIsModalCongratulationVisible(false);
+    dispatch(setCifMetadata(null));
+    if (cifMetadata) {
+      setIsModalCongratulationVisible(false);
+      onHandleSubmitSuggestTR({
+        flowId: cifMetadata.flowId,
+        action: 'approve',
+        trUserConfirm: "Don't agree",
+      });
     }
   };
 
@@ -114,6 +158,14 @@ const LoanInformationScreen = () => {
           singleButton
         />
       </View>
+      <CongratulationModal
+        visible={isModalCongratulationVisible}
+        setVisible={setIsModalCongratulationVisible}
+        loanAmount={cifMetadata?.loanAmount}
+        interestRate={cifMetadata?.interestRate}
+        onButtonAgreePress={onPressAgreeLoanSuggestion}
+        onButtonCancelPress={onPressDisagreeLoanSuggestion}
+      />
     </>
   );
 };

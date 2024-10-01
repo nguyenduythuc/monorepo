@@ -88,6 +88,15 @@ export interface IConfirmModalProps {
   disabled?: boolean;
 }
 
+export interface ICongratulationModalProps {
+  visible: boolean;
+  setVisible?: (value: boolean) => void;
+  onButtonAgreePress?: () => void;
+  onButtonCancelPress?: () => void;
+  loanAmount?: number;
+  interestRate?: number;
+}
+
 export interface IImageProps {
   iconName: keyof typeof ImageName;
   style?: CSSProperties | StyleProp<ImageStyle> | string;

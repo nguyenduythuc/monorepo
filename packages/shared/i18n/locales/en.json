@@ -6,6 +6,13 @@
     "agree": "Đồng ý",
     "cancel": "Huỷ"
   },
+  "CongratulationModal": {
+    "congratulation": "Chúc mừng!",
+    "title": "Quý khách đủ điều kiện phê duyệt khoản vay lên đến",
+    "desc": "với lãi suất chỉ từ {percent}%/tháng, KH chỉ cần cung cấp CCCD",
+    "agree": "Đồng ý",
+    "cancel": "Tiếp tục khoản vay hiện tại"
+  },
   "ErrorCommon": {
     "title": "Lỗi",
     "message": "Đã xảy ra lỗi, vui lòng thử lại sau"

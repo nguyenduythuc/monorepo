@@ -1,5 +1,10 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
+  CheckTRandProductRequestProps,
+  CheckTRandProductResponseProps,
+  CreateAPLResponseProps,
+  FindCifInfoRequestProps,
+  FindCifInfoResponseProps,
   MetaDataRequestProps,
   PreCheckRequestProps,
   PreCheckResponseProps,
@@ -7,6 +12,8 @@ import {
   RequestPendingByUserResponseProps,
   RequestPendingRequestProps,
   RequestPendingResponseProps,
+  SubmmitSuggestTRRequestProps,
+  SubmmitSuggestTRResponseProps,
 } from '@lfvn-customer/shared/types/services/loanTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -40,12 +47,35 @@ export const loanAPI = (
       data: body,
     }),
   }),
-  createAPL: builder.mutation<
-    RequestPendingResponseProps,
-    MetaDataRequestProps
-  >({
+  createAPL: builder.mutation<CreateAPLResponseProps, MetaDataRequestProps>({
     query: (body: MetaDataRequestProps) => ({
       url: getPath('/create-apl'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  getCifInfo: builder.query<FindCifInfoResponseProps, FindCifInfoRequestProps>({
+    query: (query: FindCifInfoRequestProps) => ({
+      url: getPath(`/find-cif-apl?flowId=${query.flowId}`),
+      method: 'get',
+    }),
+  }),
+  checkTRAndProduct: builder.mutation<
+    CheckTRandProductResponseProps,
+    CheckTRandProductRequestProps
+  >({
+    query: (body: CheckTRandProductRequestProps) => ({
+      url: getPath('/topup-refinance/check-by-cifid'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  submitSuggestTR: builder.mutation<
+    SubmmitSuggestTRResponseProps,
+    SubmmitSuggestTRRequestProps
+  >({
+    query: (body: SubmmitSuggestTRRequestProps) => ({
+      url: getPath('/submit-topup-suggest-tr'),
       method: 'post',
       data: body,
     }),

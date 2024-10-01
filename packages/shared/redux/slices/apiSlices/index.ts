@@ -76,6 +76,9 @@ export const {
   useGetProductSchemeListQuery,
   useGetProductSchemeByIdQuery,
   useCreateAPLMutation,
+  useLazyGetCifInfoQuery,
+  useCheckTRAndProductMutation,
+  useSubmitSuggestTRMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;
