@@ -10,8 +10,6 @@ import {
   ProductDetailInfoCard,
   Image,
 } from '@lfvn-customer/shared/components';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {useGetProductByIdQuery} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
@@ -35,16 +33,9 @@ const ProductDetailScreen = ({
   t: any;
   params?: detailParamsProp;
 }) => {
-  console.log('params', params);
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
   const {appNavigate} = useConfigRouting();
-
-  const listProductData: ProductIntroDataType[] = useAppSelector(
-    state => state.product.listProduct,
-  );
-
-  console.log('listProduct', listProductData);
 
   const {data: productDetailData} = useGetProductByIdQuery({
     productId: params?.productId ?? 1,

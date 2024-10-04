@@ -1,4 +1,5 @@
 import {PreCheckStatusEnum, RequestPendingStepEnum} from '..';
+import {CifMetadataProps} from '../models/loanModel';
 
 export interface PreCheckRequestProps {
   customerName: string;
@@ -17,6 +18,7 @@ export interface PreCheckRequestProps {
   customerGender: string;
   customerNationality: string;
   identityReport: string[];
+  folderId: string;
   schemeCode: string;
   userId: string;
   loanSimulateProps: LoanSimulateProps;
@@ -64,6 +66,7 @@ export interface MetaDataResponseProps {
   status: PreCheckStatusEnum;
   requestData: string;
   precheckData: PreCheckDataMetadataProps;
+  precheckId: string;
 }
 
 export interface RequestPendingByUserResponseProps {
@@ -112,6 +115,7 @@ export interface MetaDataRequestProps
     Partial<LoanSimulateProps> {
   preCheckId?: string;
   createdOn?: string;
+  identityEntryMethod?: string;
 }
 
 export interface RequestPendingRequestProps {
@@ -127,4 +131,59 @@ export interface RequestPendingResponseProps {
   productCode: string;
   status: PreCheckStatusEnum;
   metadata: MetaDataRequestProps;
+}
+
+export interface CreateAPLResponseProps {
+  data: {
+    flowId: string;
+  };
+}
+
+export interface FindCifInfoRequestProps {
+  flowId: string;
+}
+
+export interface FindCifInfoResponseProps {
+  data: {
+    apl: {
+      createdAt: string;
+      applicantId: string;
+      name: string;
+      schemeId: string;
+      requestAmount: number;
+      status: 'open';
+      flowId: string;
+      customer: {
+        cif: string;
+      };
+    };
+  };
+}
+
+export interface CheckTRandProductRequestProps {
+  cifId: string;
+  productCode: string;
+  aplCreatedAt: string;
+}
+
+export interface CheckTRandProductResponseProps {
+  metadata: CifMetadataProps;
+}
+
+export interface SubmmitSuggestTRRequestProps {
+  flowId: string;
+  action: 'approve';
+  trUserConfirm: "Don't agree" | 'Agree';
+}
+
+export interface SubmmitSuggestTRResponseProps {
+  metadata: {
+    cifId: boolean;
+    productCode: boolean;
+    validTime: boolean;
+    productCodeTR: string;
+    interestRate: number;
+    loanTerm: number;
+    loanAmount: number;
+  };
 }

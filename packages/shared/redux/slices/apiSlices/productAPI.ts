@@ -2,7 +2,6 @@ import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
   ProductGroupProps,
   ProductDetailResponseProps,
-  ProductSchemeProps,
   ProductScheme,
 } from '@lfvn-customer/shared/types/services/productTypes';
 import {getPath} from './config';
@@ -27,7 +26,7 @@ export const productAPI = (
       method: 'get',
     }),
   }),
-  getProductSchemeList: builder.query<ProductSchemeProps, void>({
+  getProductSchemeList: builder.query<ProductScheme[], void>({
     query: () => ({
       url: getPath('/product-schemes'),
       method: 'get',

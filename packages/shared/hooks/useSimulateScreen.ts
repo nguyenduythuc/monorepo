@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useCustomForm } from '@lfvn-customer/shared/components/Form/Form.hook';
-import { FieldSimulateConfig } from '@lfvn-customer/shared/components/Form/Form.utils';
+import {useEffect, useMemo, useState} from 'react';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
@@ -11,28 +11,26 @@ import {
   ProductProps,
   PurposeProps,
 } from '@lfvn-customer/shared/types/models/loanModel';
-import { handleExecute } from '@lfvn-customer/shared/utils/simulateCalculate';
-import { decryptAES } from '@lfvn-customer/shared/utils/decryptText';
-import { useDispatch } from 'react-redux';
-import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
-import { useAppSelector } from '@lfvn-customer/shared/redux/store';
-import Config from 'react-native-config';
-import { Platform } from 'react-native';
-import { useConfigRouting } from '.';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
-import { OTPTypesEnum, CardTypesEnum } from '../types';
+import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
+import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
+import {useDispatch} from 'react-redux';
+import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import {useConfigRouting} from '.';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {OTPTypesEnum, CardTypesEnum} from '@lfvn-customer/shared/types';
 import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '../redux/slices/loadingSlices';
-import { handleEnvByPlatform } from '@lfvn-customer/shared/utils/handleEnvByPlatform';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
-  const { appNavigate } = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
 
-  const { data: metaData, error: metadataError } = useGetMetadataQuery();
-  const { user } = useAppSelector(state => state.auth);
+  const {data: metaData, error: metadataError} = useGetMetadataQuery();
+  const {user} = useAppSelector(state => state.auth);
   const [precheck] = usePreCheckMutation();
 
   if (!metadataError) {
@@ -40,16 +38,18 @@ const useSimulateScreen = () => {
       dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
     }, []);
   } else {
-    const defaultSimulate = handleEnvByPlatform('NEXT_PUBLIC_DEFAULT_SIMULATE_FORMULATE');
+    const defaultSimulate = handleEnvByPlatform(
+      'NEXT_PUBLIC_DEFAULT_SIMULATE_FORMULATE',
+    );
 
     useEffect(() => {
       dispatch(setSimulate(defaultSimulate));
     }, []);
   }
 
-  const { data: productData } = useGetProductQuery();
+  const {data: productData} = useGetProductQuery();
 
-  const { data: purposeData } = useGetPurposeQuery();
+  const {data: purposeData} = useGetPurposeQuery();
 
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
@@ -114,7 +114,7 @@ const useSimulateScreen = () => {
     ];
   }, [selectProduct, productData, purposeData]);
 
-  const { reset, renderFrom, handleSubmit, watch, control, setValue, getValues } =
+  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({
       fields,
       defaultValues: {},
@@ -179,13 +179,14 @@ const useSimulateScreen = () => {
           customerDistrict: '01009',
           customerWard: '0100900355',
           customerAddress: '267 Khương Trunggg',
-          customerNricDate: user.identityIssue || '',
+          customerNricDate: user.identityIssue ?? '2021-08-13T13:00:00.000Z',
           customerNricExpiry: '2028-05-31T13:00:00.000Z',
           customerNricIssuer: '068',
-          customerDOB: user.birthDate ?? '',
-          customerGender: user.gender ?? '',
-          customerNationality: user.nationality ?? '',
-          identityReport: ['idd_4036F68C-0000-C614-890D-29E3A6F28D4F'],
+          customerDOB: user.birthDate ?? '2000-05-31T13:00:00.000Z',
+          customerGender: user.gender ?? 'male',
+          customerNationality: user.nationality ?? 'VN',
+          identityReport: ['idf_703FEB8E-0000-C83A-A11C-D6E750511B6F'],
+          folderId: 'idf_703FEB8E-0000-C83A-A11C-D6E750511B6F',
           schemeCode: simulateLoanProduct,
           userId: user.login,
           loanSimulateProps: {

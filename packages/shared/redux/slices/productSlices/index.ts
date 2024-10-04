@@ -1,10 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {ProductProps} from '@lfvn-customer/shared/types/models/loanModel';
+import {
+  CifMetadataProps,
+  ProductProps,
+} from '@lfvn-customer/shared/types/models/loanModel';
 import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTypes';
 
 const initialState: {
   listProduct: ProductProps[];
   requestPendingMetadata: MetaDataRequestProps | null;
+  cifMetadata?: CifMetadataProps;
 } = {listProduct: [], requestPendingMetadata: null};
 
 const productSlice = createSlice({
@@ -20,9 +24,16 @@ const productSlice = createSlice({
     setRequestPendingMetadata: (state, action) => {
       state.requestPendingMetadata = action.payload;
     },
+    setCifMetadata: (state, action) => {
+      state.cifMetadata = action.payload;
+    },
   },
 });
 
-export const {setListProduct, clearListProduct, setRequestPendingMetadata} =
-  productSlice.actions;
+export const {
+  setListProduct,
+  clearListProduct,
+  setRequestPendingMetadata,
+  setCifMetadata,
+} = productSlice.actions;
 export default productSlice.reducer;

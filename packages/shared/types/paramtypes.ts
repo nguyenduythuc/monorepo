@@ -1,16 +1,16 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { OTPTypes } from '@lfvn-customer/shared/types';
-import { RouteProp } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {OTPTypes} from '@lfvn-customer/shared/types';
+import {RouteProp} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export type RootParamList = {
   home: undefined;
   Test: undefined;
   login:
-  | {
-    deeplinkPath?: string;
-  }
-  | undefined;
+    | {
+        deeplinkPath?: string;
+      }
+    | undefined;
   'verify-account': {
     type: OTPTypes;
   };
@@ -26,7 +26,7 @@ export type RootParamList = {
   simulate: undefined;
   'repayment-schedule': undefined;
   'product-introduction': undefined;
-  'product-detail': { productId: number; productName: string };
+  'product-detail': {productId: number; productName: string};
   'create-loan-apl': undefined;
   'reset-password': {
     phoneNumber: string;
@@ -38,6 +38,10 @@ export type RootParamList = {
   precheck: undefined;
   'precheck-fail': undefined;
   'loan-information': undefined;
+  'cif-info-pending-check': {
+    flowId: string;
+    productCode: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -59,6 +63,7 @@ export enum ScreenParamEnum {
   Precheck = 'precheck',
   PrecheckFail = 'precheck-fail',
   LoanInformation = 'loan-information',
+  CifInfoPendingCheck = 'cif-info-pending-check',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -104,4 +109,9 @@ export type ProductDetailScreenRouteProps = RouteProp<
 export type ReviewCustomerEKYCInfoScreenRouteProps = RouteProp<
   RootParamList,
   'review-customer-ekyc-info'
+>;
+
+export type CifInfoPendingCheckScreenRouteProps = RouteProp<
+  RootParamList,
+  'cif-info-pending-check'
 >;

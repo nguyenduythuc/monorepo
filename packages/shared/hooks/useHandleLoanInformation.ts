@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {
   useGetProductSchemeListQuery,
   useGetPurposeQuery,
@@ -6,6 +6,7 @@ import {
 import {
   AnswerType,
   LoanInformationAnswerName,
+  StepProps,
 } from '@lfvn-customer/shared/types/models/stepModel';
 import {FieldValues, UseFormWatch} from 'react-hook-form';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
@@ -24,8 +25,17 @@ const useHandleLoanInformation = ({
 
   console.log('simulateLoanProduct', simulateLoanProduct); // change content step when change product
 
+  const loanProductOptions = useMemo(() => {
+    return productSchemeListData?.map(item => {
+      return {
+        productCode: item.code,
+        productName: item.name,
+      };
+    });
+  }, [productSchemeListData]);
+
   const getStep = useCallback(
-    ({stepNumber}: {stepNumber: number}) => {
+    ({stepNumber}: {stepNumber: number}): StepProps => {
       switch (stepNumber) {
         case 1:
           return {
@@ -40,7 +50,7 @@ const useHandleLoanInformation = ({
                     name: LoanInformationAnswerName.LoanProduct,
                     type: AnswerType.DropdownOption,
                     title: 'ProductInformation.loanProduct',
-                    options: productSchemeListData,
+                    options: loanProductOptions,
                   },
                   {
                     name: LoanInformationAnswerName.LoanAmount,
@@ -49,7 +59,7 @@ const useHandleLoanInformation = ({
                     maxValue: 50000000, // todo: get max value from api
                     minValue: 10000000,
                     defaultValue:
-                      requestPendingMetadata?.amount ?? 5000000 + '', // todo: get default value from min-max value
+                      (requestPendingMetadata?.amount ?? 5000000) + '', // todo: get default value from min-max value
                     unit: 'VND',
                     step: 100000,
                   },
@@ -107,7 +117,7 @@ const useHandleLoanInformation = ({
                     name: LoanInformationAnswerName.LoanPurpose,
                     type: AnswerType.RadioButton,
                     title: 'LoanPurpose.loanPurpose',
-                    options: purposeData?.data?.data ?? [],
+                    options: purposeData?.data.data ?? [],
                   },
                 ],
               },
@@ -127,7 +137,7 @@ const useHandleLoanInformation = ({
           };
       }
     },
-    [productSchemeListData, purposeData],
+    [productSchemeListData, purposeData, loanProductOptions],
   );
 
   return {

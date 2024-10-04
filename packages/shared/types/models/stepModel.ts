@@ -22,8 +22,8 @@ export enum LoanInformationAnswerName {
 
 export interface AnswerProps {
   type: AnswerType;
-  name: string;
-  title: LoanInformationAnswerName;
+  name: LoanInformationAnswerName;
+  title: string;
   description?: string;
   required?: boolean;
   value?: string | dropdownOptionProduct | boolean | number;

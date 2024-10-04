@@ -50,6 +50,8 @@ const useHandleRequestPending = () => {
               ...rest,
               ...loanSimulateProps,
               createdOn: new Date().toISOString(),
+              preCheckId: result.data.metadata.precheckId,
+              folderId: 'idf_703FEB8E-0000-C83A-A11C-D6E750511B6F', // TODO: get folderId from api
             },
           };
           await onHandleSaveDaftAPL(bodyRequestPending);

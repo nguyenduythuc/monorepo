@@ -1,7 +1,7 @@
-import { IconKeys } from '@lfvn-customer/shared/components';
+import {IconKeys} from '@lfvn-customer/shared/components';
 
 export interface ProductResponseProps {
-  data: { data: ProductDataType[] };
+  data: {data: ProductDataType[]};
   code: string;
   message: string;
 }
