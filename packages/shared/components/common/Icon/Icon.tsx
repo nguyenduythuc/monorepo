@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable } from 'react-native';
+import {Pressable} from 'react-native';
 import SearchIcon from '@lfvn-customer/shared/assets/images/svg/SearchIcon';
 import CloseCircleIcon from '@lfvn-customer/shared/assets/images/svg/CloseCircleIcon';
 import AddIcon from '@lfvn-customer/shared/assets/images/svg/AddIcon';
 import AddFileIcon from '@lfvn-customer/shared/assets/images/svg/AddFileIcon';
-import { IconProps } from '@lfvn-customer/shared/types';
+import {IconProps} from '@lfvn-customer/shared/types';
 import TransferMoneyIcon from '@lfvn-customer/shared/assets/images/svg/TransferMoneyIcon';
 import ArrowLeft from '@lfvn-customer/shared/assets/images/svg/ArrowLeft';
 import ArrowRight from '@lfvn-customer/shared/assets/images/svg/ArrowRight';
@@ -41,7 +41,17 @@ import PhoneOCRIcon from '@lfvn-customer/shared/assets/images/svg/PhoneOCRIcon';
 import HintIcon from '@lfvn-customer/shared/assets/images/svg/HintIcon';
 import ChevronRight from '@lfvn-customer/shared/assets/images/svg/ChevronRight';
 import AddressCardIcon from '@lfvn-customer/shared/assets/images/svg/AddressCardIcon';
-import UndoIcon from '../../../assets/images/svg/UndoIcon';
+import UndoIcon from '@lfvn-customer/shared/assets/images/svg/UndoIcon';
+import ProfileIcon from '@lfvn-customer/shared/assets/images/svg/ProfileIcon';
+import ResidenceIcon from '@lfvn-customer/shared/assets/images/svg/ResidenceIcon';
+import OccupationIcon from '@lfvn-customer/shared/assets/images/svg/OccupationIcon';
+import ReferralContactIcon from '@lfvn-customer/shared/assets/images/svg/ReferralContactIcon';
+import BeneficiaryIcon from '@lfvn-customer/shared/assets/images/svg/BeneficiaryIcon';
+import UploadCircleIcon from '@lfvn-customer/shared/assets/images/svg/UploadCircleIcon';
+import FolderIcon from '@lfvn-customer/shared/assets/images/svg/FolderIcon';
+import UploadIcon from '@lfvn-customer/shared/assets/images/svg/UploadIcon';
+import CameraIcon from '@lfvn-customer/shared/assets/images/svg/CameraIcon';
+import PhotoIcon from '@lfvn-customer/shared/assets/images/svg/PhotoIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -84,7 +94,17 @@ const iconList = (props: IconProps) => ({
   'phone-ocr-icon': <PhoneOCRIcon {...props} />,
   'hint-icon': <HintIcon {...props} />,
   'address-card-icon': <AddressCardIcon {...props} />,
-  'undo-icon': <UndoIcon {...props} />
+  'undo-icon': <UndoIcon {...props} />,
+  'profile-icon': <ProfileIcon {...props} />,
+  'residence-icon': <ResidenceIcon {...props} />,
+  'occupation-icon': <OccupationIcon {...props} />,
+  'referral-contact-icon': <ReferralContactIcon {...props} />,
+  'beneficiary-icon': <BeneficiaryIcon {...props} />,
+  'upload-circle-icon': <UploadCircleIcon {...props} />,
+  'upload-icon': <UploadIcon {...props} />,
+  'camera-icon': <CameraIcon {...props} />,
+  'photo-icon': <PhotoIcon {...props} />,
+  'folder-icon': <FolderIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

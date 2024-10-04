@@ -1,7 +1,7 @@
 import DateTimePicker, { DateType } from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
 import { View } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 import { BaseModal } from '../AppModal';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {BaseSlider, TextInputWithUnit} from '@lfvn-customer/shared/components';
@@ -44,12 +44,21 @@ export const SliderWithTextInput = ({
     return value.toString();
   };
 
+  const [newValue, setNewValue] = useState(minValue);
+
+  useEffect(() => {
+    setNewValue(value || minValue);
+    if (value > maxValue || value < minValue) {
+      setNewValue(minValue);
+    }
+  }, [value, minValue, maxValue]);
+
   return (
     <View style={tw`mt-6`}>
       <TextInputWithUnit
         onChangeValue={onChangeText}
         label={label}
-        value={formatValue(value)}
+        value={formatValue(newValue)}
         unit={unit}
         keyboardType={'number-pad'}
       />
@@ -59,10 +68,9 @@ export const SliderWithTextInput = ({
           maxValue={maxValue}
           minValue={minValue}
           step={step}
-          sliderValue={value}
+          sliderValue={newValue}
           onChangeSlider={onChangeSlider}
           color={color}
-          defaultValue={parseFloat(defaultValue)}
         />
       </View>
       <View style={tw`flex flex-row justify-between`}>

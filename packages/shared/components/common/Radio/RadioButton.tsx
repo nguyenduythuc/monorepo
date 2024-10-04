@@ -11,6 +11,7 @@ export type RadioButtonProps = {
   size?: 'sm' | 'lg' | 'xl';
   renderContent?: React.ReactNode;
   group?: { label: string; value: string }[];
+  customStyle?: string
 };
 
 export const RadioButton: FC<RadioButtonProps> = ({
@@ -21,6 +22,7 @@ export const RadioButton: FC<RadioButtonProps> = ({
   label,
   size = 'sm',
   renderContent,
+  customStyle
 }) => {
   const radioSz = {
     text: {
@@ -31,28 +33,29 @@ export const RadioButton: FC<RadioButtonProps> = ({
   };
 
   return (
-    <TouchableOpacity
-      style={[tw`items-center my-2`, disabled && tw`opacity-50`]}
-      disabled={disabled}
-      onPress={onPress}>
-      <View
-        style={[
-          tw`flex flex-row border-[1px] rounded-lg bg-white items-center justify-center px-3 py-2`,
-          selected
-            ? tw`border-${color}-500 bg-${color}-100`
-            : tw`border-gray-300`,
-        ]}>
-        {renderContent}
-        {!renderContent && (
-          <Text
+    <View
+      style={[
+        tw`flex-1`,
+      ]}>
+      <TouchableOpacity
+        style={[tw`rounded-lg bg-white my-2 border-[1px] px-3 py-2 `,
+        !!customStyle && tw`${customStyle}`,
+        disabled && tw`opacity-50`,
+        selected ? tw`border-${color}-500 bg-${color}-100`
+          : tw`border-gray-300`,
+        ]}
+        disabled={disabled}
+        onPress={onPress}>
+        {!!renderContent
+          ? renderContent
+          : <Text
             style={[
-              tw`${radioSz.text[size]}`,
+              tw`items-start text-left ${radioSz.text[size]}`,
               selected ? tw`text-${color}-500` : null,
             ]}>
             {label}
-          </Text>
-        )}
-      </View>
-    </TouchableOpacity>
+          </Text>}
+      </TouchableOpacity>
+    </View>
   );
 };

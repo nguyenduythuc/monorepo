@@ -14,3 +14,5 @@ export * from './Image';
 export * from './CardItem';
 export * from './Calendar';
 export * from './LoadingOverlay';
+export * from './InformationTab';
+export * from './UploadFile';
