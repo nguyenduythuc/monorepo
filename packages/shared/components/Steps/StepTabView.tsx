@@ -11,6 +11,7 @@ const StepTabView: React.FC<IStepTabViewProps & UseFormReturn> = ({
   setCurrentQuestion,
   control,
   watch,
+  getValues,
 }) => {
   const {colors} = useGetTheme();
 
@@ -25,7 +26,12 @@ const StepTabView: React.FC<IStepTabViewProps & UseFormReturn> = ({
       (acc, Question, idx) => {
         acc[`question${idx}`] = () => (
           <View style={{flex: 1}}>
-            <Question control={control} watch={watch} stepNumber={idx + 1} />
+            <Question
+              control={control}
+              watch={watch}
+              getValues={getValues}
+              stepNumber={idx + 1}
+            />
           </View>
         );
         return acc;

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import { SVGProps } from '@lfvn-customer/shared/types';
+import Svg, {Path} from 'react-native-svg';
+import {SVGProps} from '@lfvn-customer/shared/types';
 
-const InfoIcon = ({ width = 19, height = 19, color = '#999999' }: SVGProps) => (
-  <Svg width={width} height={height} viewBox="0 0 19 19" fill="none">
+const InfoIcon = ({size = 19, color = '#999999'}: SVGProps) => (
+  <Svg width={size} height={size} viewBox="0 0 19 19" fill="none">
     <Path
       d="M1.33789 9.80807V9.80789C1.33709 5.38941 4.91822 1.80762 9.33699 1.80762C13.7559 1.80762 17.3379 5.38954 17.3379 9.80807C17.3379 14.2256 13.7559 17.8076 9.33699 17.8076C4.91832 17.8076 1.33789 14.2259 1.33789 9.80807Z"
       stroke={color}

@@ -6,6 +6,7 @@ import {
   ConfirmModal,
   CongratulationModal,
   CustomButton,
+  FormButton,
 } from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import IncomePerMonth from '@lfvn-customer/shared/components/Questions/IncomePerMonth';
@@ -21,6 +22,12 @@ import useHandleCreateAPL from '@lfvn-customer/shared/hooks/useHandleCreateAPL';
 import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTypes';
 import {useDispatch} from 'react-redux';
 import {setCifMetadata} from '@lfvn-customer/shared/redux/slices/productSlices';
+import {generateQuestionValidateStatusList} from '@lfvn-customer/shared/utils/commonFunction';
+
+const questionComponents = [ProductInformation, IncomePerMonth, LoanPurpose];
+const questionFormValidate = generateQuestionValidateStatusList(
+  questionComponents.length,
+);
 
 const LoanInformationScreen = () => {
   const {cifMetadata} = useAppSelector(state => state.product);
@@ -28,8 +35,6 @@ const LoanInformationScreen = () => {
   const dispatch = useDispatch();
 
   const {onPressGoBack} = useLoanInformation();
-
-  const questionComponents = [ProductInformation, IncomePerMonth, LoanPurpose];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
@@ -68,28 +73,28 @@ const LoanInformationScreen = () => {
       amount,
       participateInLoanInsurance,
       loanTerm,
-      // schemeCode, TODO: use later
+      schemeCode,
       loanPurpose,
     } = forms.getValues();
     if (!participateInLoanInsurance) {
       setIsModalVisible(true);
-      setContentModal(t('Simulate.alertTitleUntickInsurance'));
+      setContentModal(t('Simulate.alertTitleUncheckInsurance'));
     } else {
       setContentModal('');
-      if (currentQuestion + 1 <= questionComponents.length) {
+      if (currentQuestion + 1 < questionComponents.length) {
         setCurrentQuestion(currentQuestion + 1); // next question
       }
       const metadata: MetaDataRequestProps = {
         ...requestPendingMetadata,
         identityEntryMethod: 'ocr', // todo
-        amount: amount ?? requestPendingMetadata?.amount,
+        amount: amount.toString() ?? requestPendingMetadata?.amount,
         participateInLoanInsurance:
           participateInLoanInsurance !== undefined
             ? participateInLoanInsurance
             : requestPendingMetadata?.participateInLoanInsurance,
-        loanTerm: loanTerm ?? requestPendingMetadata?.loanTerm,
-        // schemeCode: schemeCode ?? requestPendingMetadata?.schemeCode,
-        schemeCode: 'LD011', // TODO: map scheme with BE
+        loanTerm: loanTerm.toString() ?? requestPendingMetadata?.loanTerm,
+        schemeCode: schemeCode ?? requestPendingMetadata?.schemeCode,
+        // schemeCode: 'LD011', // TODO: map scheme with BE
         loanPurpose: loanPurpose ?? requestPendingMetadata?.loanPurpose,
       };
       const bodyRequestPending = {
@@ -147,9 +152,11 @@ const LoanInformationScreen = () => {
           setCurrentQuestion={setCurrentQuestion}
           {...forms}
         />
-        <CustomButton onPress={goToNext} color={'red'} buttonStyle={'m-4'}>
-          {t('Step.continue')}
-        </CustomButton>
+        <FormButton
+          questionFormValidate={questionFormValidate}
+          currentQuestion={currentQuestion}
+          goToNext={goToNext}
+        />
         <ConfirmModal
           visible={isModalVisible}
           setVisible={setIsModalVisible}

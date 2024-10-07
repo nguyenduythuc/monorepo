@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   useGetProductSchemeListQuery,
   useGetPurposeQuery,
@@ -8,22 +8,88 @@ import {
   LoanInformationAnswerName,
   StepProps,
 } from '@lfvn-customer/shared/types/models/stepModel';
-import {FieldValues, UseFormWatch} from 'react-hook-form';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import { Control, FieldValues, UseFormWatch, useWatch } from 'react-hook-form';
+import { useAppSelector } from '@lfvn-customer/shared/redux/store';
+import { ProductScheme, schemeInterest } from '../types/services/productTypes';
+import useSimulateScreen from '../hooks/useSimulateScreen';
+import eventEmitter from '@lfvn-customer/shared//utils/eventEmitter';
 
 const useHandleLoanInformation = ({
-  watch,
+  control,
+  stepNumber
 }: {
-  watch: UseFormWatch<FieldValues>;
+  control: Control<FieldValues>;
+  stepNumber: number
 }) => {
-  const {data: productSchemeListData} = useGetProductSchemeListQuery();
-  const {data: purposeData} = useGetPurposeQuery();
+  const { data: productSchemeListData } = useGetProductSchemeListQuery();
+  const { data: purposeData } = useGetPurposeQuery();
 
-  const {requestPendingMetadata} = useAppSelector(state => state.product);
+  const { requestPendingMetadata } = useAppSelector(state => state.product);
 
-  const [simulateLoanProduct] = watch([LoanInformationAnswerName.LoanProduct]);
+  const { estimatePaymentMonthlyParamsInput } = useSimulateScreen();
 
-  console.log('simulateLoanProduct', simulateLoanProduct); // change content step when change product
+  const productData: ProductScheme[] = productSchemeListData || []
+  // const eventEmitter = new EventEmitter();
+
+  const [selectProduct, setSelectProduct] = useState(productData[0])
+  const [selectProductLoan, setSelectProductLoan] = useState(
+    {
+      loanAmount: { max: '300000000', min: '100000000' },
+      loanPeriod: { max: '36', min: '6' }
+    })
+
+  const simulateLoanProduct = useWatch({ control, name: LoanInformationAnswerName.LoanProduct });
+  const simulateLoanTenor = useWatch({ control, name: LoanInformationAnswerName.LoanTenor });
+  const simulateLoanAmount = useWatch({ control, name: LoanInformationAnswerName.LoanAmount });
+  const simulateLoanInsurance = useWatch({ control, name: LoanInformationAnswerName.LoanInsurance });
+
+  const simulateLoanIncomePerMonth = useWatch({ control, name: LoanInformationAnswerName.LoanIncomePerMonth })
+
+  const simulateLoanPurpose = useWatch({ control, name: LoanInformationAnswerName.LoanPurpose })
+
+  const getEstimate = useMemo(() => {
+    if (selectProduct && simulateLoanProduct && simulateLoanTenor && simulateLoanAmount) {
+      const selectedSchemeInterest: schemeInterest = JSON.parse(selectProduct.interest)
+      const estimate = estimatePaymentMonthlyParamsInput(selectedSchemeInterest.interest_one.value, simulateLoanTenor, simulateLoanAmount)
+      return estimate
+    }
+  }, [selectProduct, simulateLoanProduct, simulateLoanTenor, simulateLoanAmount])
+
+  const getInterest = useMemo(() => {
+    if (selectProduct && simulateLoanProduct) {
+      const selectedSchemeInterest: schemeInterest = JSON.parse(selectProduct.interest)
+
+      return selectedSchemeInterest.interest_one.value
+    }
+  }, [selectProduct])
+
+  useEffect(() => {
+    if (stepNumber === 1) {
+      const isDisabled = !(simulateLoanProduct && simulateLoanTenor && simulateLoanAmount && simulateLoanInsurance)
+      eventEmitter.emit('watch-form-data', { stepNumber, isDisabled });
+    }
+    if (stepNumber === 2) {
+      const isDisabled = !simulateLoanIncomePerMonth
+      eventEmitter.emit('watch-form-data', { stepNumber, isDisabled });
+    }
+    if (stepNumber === 3) {
+      const isDisabled = !simulateLoanPurpose
+      eventEmitter.emit('watch-form-data', { stepNumber, isDisabled });
+    }
+
+  }, [simulateLoanProduct, simulateLoanTenor, simulateLoanAmount, simulateLoanInsurance, simulateLoanIncomePerMonth, simulateLoanPurpose, stepNumber])
+
+  useEffect(() => {
+    if (productSchemeListData) {
+      const selectItem = productSchemeListData.filter((item) => item.code === simulateLoanProduct)
+      setSelectProduct(selectItem[0])
+
+      if (selectProduct) {
+        const selectProductLoanAmount = { loanAmount: JSON.parse(selectProduct.loanAmount), loanPeriod: JSON.parse(selectProduct.loanPeriod) }
+        setSelectProductLoan(selectProductLoanAmount)
+      }
+    }
+  }, [selectProduct, simulateLoanProduct])
 
   const loanProductOptions = useMemo(() => {
     return productSchemeListData?.map(item => {
@@ -35,7 +101,7 @@ const useHandleLoanInformation = ({
   }, [productSchemeListData]);
 
   const getStep = useCallback(
-    ({stepNumber}: {stepNumber: number}): StepProps => {
+    ({ stepNumber }: { stepNumber: number }): StepProps => {
       switch (stepNumber) {
         case 1:
           return {
@@ -56,20 +122,20 @@ const useHandleLoanInformation = ({
                     name: LoanInformationAnswerName.LoanAmount,
                     type: AnswerType.Slider,
                     title: 'ProductInformation.loanAmount',
-                    maxValue: 50000000, // todo: get max value from api
-                    minValue: 10000000,
+                    maxValue: parseInt(selectProductLoan.loanAmount.max), // todo: get max value from api
+                    minValue: parseInt(selectProductLoan.loanAmount.min),
                     defaultValue:
-                      (requestPendingMetadata?.amount ?? 5000000) + '', // todo: get default value from min-max value
+                      (parseInt(selectProductLoan.loanAmount.max) / 2).toString(), // todo: get default value from min-max value
                     unit: 'VND',
-                    step: 100000,
+                    step: 1000000,
                   },
                   {
                     name: LoanInformationAnswerName.LoanTenor,
                     type: AnswerType.Slider,
                     title: 'ProductInformation.loanTenor',
-                    maxValue: 36,
-                    minValue: 6,
-                    defaultValue: 12 + '',
+                    maxValue: parseInt(selectProductLoan.loanPeriod.max),
+                    minValue: parseInt(selectProductLoan.loanPeriod.min),
+                    defaultValue: '6',
                     unit: 'tháng',
                     step: 1,
                   },
@@ -137,12 +203,14 @@ const useHandleLoanInformation = ({
           };
       }
     },
-    [productSchemeListData, purposeData, loanProductOptions],
+    [selectProductLoan, productSchemeListData, purposeData, loanProductOptions],
   );
 
   return {
     getStep,
     productSchemeListData,
+    getInterest,
+    getEstimate,
   };
 };
 export default useHandleLoanInformation;

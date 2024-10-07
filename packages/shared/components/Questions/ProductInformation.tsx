@@ -6,14 +6,18 @@ import useHandleLoanInformation from '@lfvn-customer/shared/hooks/useHandleLoanI
 import Answer from '../Answers';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {Icon} from '../common';
-import {QuesionField} from '@lfvn-customer/shared/types/formTypes';
+import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
+import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
 
-const ProductInformation = ({stepNumber, control, watch}: QuesionField) => {
+const ProductInformation = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 
   const t = useTranslations();
-  const {getStep} = useHandleLoanInformation({watch});
+  const {getStep, getInterest, getEstimate} = useHandleLoanInformation({
+    control,
+    stepNumber,
+  });
 
   const step = getStep({stepNumber});
 
@@ -52,8 +56,10 @@ const ProductInformation = ({stepNumber, control, watch}: QuesionField) => {
                 <Icon size={15} color="#E7252B" name="info-icon" />
               </View>
               <Text style={tw`text-xl font-semibold text-red-500`}>
-                TODO
-                <Text style={tw`font-normal text-black`}>TODO</Text>
+                {formatNewAmount(getEstimate || 0).numberMoneyFormat}{' '}
+                <Text style={tw`font-normal text-black`}>
+                  {formatNewAmount(getEstimate || 0).currencySymbolVND}
+                </Text>
               </Text>
             </View>
             <View style={tw`w-4`} />
@@ -66,7 +72,7 @@ const ProductInformation = ({stepNumber, control, watch}: QuesionField) => {
                 <Icon size={15} color="#E7252B" name="info-icon" />
               </View>
               <Text style={tw`text-xl font-semibold text-red-500`}>
-                TODO %
+                {getInterest || '0'}%
                 <Text style={tw`font-normal text-black`}>
                   /{t('Simulate.year')}
                 </Text>

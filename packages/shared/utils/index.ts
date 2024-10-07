@@ -1,4 +1,4 @@
-import {PreCheckDataMetadataProps} from '@lfvn-customer/shared/types/services/loanTypes';
+import { PreCheckDataMetadataProps } from '@lfvn-customer/shared/types/services/loanTypes';
 
 export const maskPhoneNumber = (phoneNumber: string) => {
   return phoneNumber.replace(/(?<=.{2}).(?=.*.{3})/g, '*');
@@ -13,7 +13,7 @@ export const formatTime = (seconds: number) => {
 };
 
 export const checkErrorPrecheckResult = (result: PreCheckDataMetadataProps) => {
-  const {metadata} = result.data;
+  const { metadata } = result.data;
   return (
     result.data.errorMsg !== 'Success' ||
     !metadata?.duplicateResult ||
@@ -25,9 +25,9 @@ export const checkErrorPrecheckResult = (result: PreCheckDataMetadataProps) => {
   );
 };
 
-export const convertNumberToCurrency = (number?: number) => {
+export const convertNumberToCurrency = (number?: string) => {
   return new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND',
-  }).format(number ?? 0);
+  }).format(parseInt(number || '') ?? 0);
 };

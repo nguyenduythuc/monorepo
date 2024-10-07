@@ -50,3 +50,15 @@ export const formatNationalityInfo = (nationality: string) => {
   }
   return convertNationality[nationality] || 'UNKNOWN'
 }
+
+export const DISABLED = true;
+
+export const generateQuestionValidateStatusList = (totalQuestion: number): { [key: number]: boolean } => {
+  const dataResult: { [key: number]: boolean } = {};
+
+  for (let i = 0; i < totalQuestion; i++) {
+    dataResult[i] = DISABLED;
+  }
+
+  return dataResult;
+}

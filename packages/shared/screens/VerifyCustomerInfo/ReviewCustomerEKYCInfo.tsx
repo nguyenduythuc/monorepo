@@ -20,6 +20,7 @@ import {
 } from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
 import { formatGenderInfo } from '../../utils/commonFunction';
 import { useAppSelector } from '../../redux/store';
+import { InfoDataCard } from '../../components/common/InfoDataCard';
 
 export const ReviewCustomerEKYCInfo = () => {
   const t = useTranslations();
@@ -40,16 +41,6 @@ export const ReviewCustomerEKYCInfo = () => {
     origin: ekycData?.origin,
     oldIdNumber: ekycData?.oldIdNumber,
   };
-
-  const renamedEkycData = Object.keys(displayEkycData).reduce(
-    (acc, key) => {
-      const ekycKey = key as keyof ekycDataType;
-      const newKey = mapEkycKeyValue[ekycKey];
-      acc[newKey] = displayEkycData[ekycKey];
-      return acc;
-    },
-    {} as { [key: string]: string },
-  );
 
   const {
     isModalVisible,
@@ -94,32 +85,7 @@ export const ReviewCustomerEKYCInfo = () => {
               {t('VerifyCustomer.hintDes')}
             </Text>
           </View>
-          <View
-            style={tw.style('border border-[#E5E5E5] px-4 rounded-lg py-1')}>
-            {Object.entries(renamedEkycData).map(([key, value], index) => (
-              <View
-                key={key}
-                style={tw.style([
-                  'flex-row flex-1 border-[#E5E5E5] py-2.5 ',
-                  index !== Object.keys(renamedEkycData).length - 1
-                    ? 'border-b'
-                    : '',
-                ])}>
-                {/* <Text style={tw.style('text-base')}>{index}</Text> */}
-                <View style={tw.style('w-1/2')}>
-                  <Text style={tw.style('text-[#999999] text-base')}>
-                    {t(`${key}`)}:
-                  </Text>
-                </View>
-
-                <View style={tw.style('w-1/2 flex justify-end items-end')}>
-                  <Text style={tw.style('font-semibold text-base text-right')}>
-                    {value}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </View>
+          <InfoDataCard cardRawData={displayEkycData} />
         </View>
       </ScrollView>
       <View style={tw`bg-white px-4 pt-3 pb-4 border-gray-200`}>

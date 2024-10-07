@@ -4,7 +4,7 @@ import {
   FieldType,
   FormProps,
 } from '@lfvn-customer/shared/types/formTypes';
-import { Controller, useForm } from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 import {
   Checkbox,
   DropDownSelect,
@@ -15,15 +15,15 @@ import {
   TextInputDisplayValidation,
   TextInputDatePicker,
 } from '@lfvn-customer/shared/components/common';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
-export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
-  const { control, watch, formState, getValues, setValue, ...formReturn } =
+export const useCustomForm = ({fields, defaultValues}: FormProps) => {
+  const {control, watch, formState, getValues, setValue, ...formReturn} =
     useForm({
       defaultValues,
     });
-  const { errors } = formState;
+  const {errors} = formState;
 
   const renderField = (field: FieldConfig) => {
     switch (field.type) {
@@ -34,7 +34,7 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue=""
-            render={({ field: { onChange, onBlur, value, ref } }) => {
+            render={({field: {onChange, onBlur, value, ref}}) => {
               return (
                 <TextInput
                   keyboardType={field.keyboardType}
@@ -66,7 +66,7 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue=""
-            render={({ field: { onChange, onBlur, value, ref } }) => {
+            render={({field: {onChange, onBlur, value, ref}}) => {
               return (
                 <TextInputSearch
                   keyboardType={field.keyboardType}
@@ -96,7 +96,7 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={field.defaultValue}
-            render={({ field: { onChange, value } }) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <SliderWithTextInput
                   color="red"
@@ -121,7 +121,7 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             key={field.label}
             {...field.controlProps}
             control={control}
-            render={({ field: { onChange, value } }) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <DropDownSelect
                   disabled={field.disabled}
@@ -153,10 +153,10 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={false}
-            render={({ field: { onChange, value } }) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <View
-                  style={tw`flex flex-row justify-between items-start mt-6`}>
+                  style={tw`flex flex-row justify-between items-start mt-6 mr-4`}>
                   <Checkbox
                     label={field.label ?? ''}
                     description={field.description}
@@ -185,7 +185,7 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue=""
-            render={({ field: { onChange, onBlur, value, ref } }) => {
+            render={({field: {onChange, onBlur, value, ref}}) => {
               return (
                 <TextInputDisplayValidation
                   keyboardType={field.keyboardType}
@@ -220,7 +220,7 @@ export const useCustomForm = ({ fields, defaultValues }: FormProps) => {
             {...field.controlProps}
             control={control}
             defaultValue={field.defaultValue}
-            render={({ field: { onChange, value } }) => {
+            render={({field: {onChange, value}}) => {
               return (
                 <TextInputDatePicker
                   keyboardType={field.keyboardType}

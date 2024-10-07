@@ -23,7 +23,12 @@ const DropdownAnswer = ({
               ? options[0].productCode || options[0].code
               : []
           }
-          value={value}
+          value={
+            value ||
+            (options && options.length > 0
+              ? options[0].productCode || options[0].code
+              : '')
+          }
           label={answer.title}
           options={options}
           onChange={onChange}
