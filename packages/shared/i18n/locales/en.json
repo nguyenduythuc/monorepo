@@ -112,7 +112,7 @@
     "chooseLoanPurpose": "Choose Loan Purpose",
     "chooseLoanProduct": "Choose Loan Product",
     "confirm": "Xác nhận",
-    "alertTitleUntickInsurance": "Thông tin Khoản vay đề xuất chưa phù hợp, vui lòng chỉnh sửa lại thông tin"
+    "alertTitleUncheckInsurance": "Thông tin Khoản vay đề xuất chưa phù hợp, vui lòng chỉnh sửa lại thông tin"
   },
   "ProductIntroduction": {
     "cashLoan": "Cash Loan",
@@ -207,7 +207,8 @@
     "address": "Địa chỉ",
     "oldIdNumber": "Số CMND cũ",
     "manual": "Thêm địa chỉ",
-    "auto": "Tìm địa chỉ"
+    "auto": "Tìm địa chỉ",
+    "givenPlace": "Nơi cấp"
   },
   "AddAddress": {
     "address": "Địa chỉ",
@@ -253,5 +254,14 @@
   "LoanPurpose": {
     "title": "Bạn muốn vay vốn để...",
     "loanPurpose": "Mục đích sử dụng vốn"
+  },
+  "AdditionalInfo": {
+    "upload": "Upload",
+    "uploadDes": "Click to choose file upload",
+    "folder": "Folder",
+    "files": "files",
+    "camera": "Camera",
+    "choosePhoto": "Choose Photo",
+    "uploadFiles": "Upload Files"
   }
 }

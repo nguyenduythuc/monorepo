@@ -2,17 +2,17 @@ import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import {QuesionField} from '@lfvn-customer/shared/types/formTypes';
+import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
 import Answer from '../Answers';
 import useHandleLoanInformation from '@lfvn-customer/shared/hooks/useHandleLoanInformation';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
-const IncomePerMonth = ({stepNumber, control, watch}: QuesionField) => {
+const IncomePerMonth = ({stepNumber, control, watch}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 
   const t = useTranslations();
-  const {getStep} = useHandleLoanInformation({watch});
+  const {getStep} = useHandleLoanInformation({control, stepNumber});
 
   const step = getStep({stepNumber});
 

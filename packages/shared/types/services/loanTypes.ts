@@ -1,5 +1,5 @@
-import {PreCheckStatusEnum, RequestPendingStepEnum} from '..';
-import {CifMetadataProps} from '../models/loanModel';
+import { PreCheckStatusEnum, RequestPendingStepEnum } from '..';
+import { CifMetadataProps } from '../models/loanModel';
 
 export interface PreCheckRequestProps {
   customerName: string;
@@ -100,7 +100,7 @@ export interface ExpectedRepaymentScheduleProps {
 }
 
 export interface LoanSimulateProps {
-  amount: number;
+  amount: string;
   loanTerm: string;
   schemeId: string;
   schemeCode: string; // same meaning with productCode
@@ -112,7 +112,7 @@ export interface LoanSimulateProps {
 
 export interface MetaDataRequestProps
   extends Partial<PreCheckRequestProps>,
-    Partial<LoanSimulateProps> {
+  Partial<LoanSimulateProps> {
   preCheckId?: string;
   createdOn?: string;
   identityEntryMethod?: string;

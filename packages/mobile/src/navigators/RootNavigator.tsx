@@ -24,6 +24,7 @@ import {
   PrecheckContainer,
   PrecheckFailContainer,
   LoanInformationContainer,
+  VisionCameraContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -225,6 +226,13 @@ const RootStack = () => {
       <Stack.Screen
         name="cif-info-pending-check"
         component={CifInfoPendingCheckContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="vision-camera"
+        component={VisionCameraContainer}
         options={{
           headerShown: false,
         }}

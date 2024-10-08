@@ -136,3 +136,22 @@ export interface ProductSchemeProps {
   code: string;
   message: string;
 }
+
+export interface schemeInterest {
+  interest_one: {
+    value: string,
+    code: string,
+    period: string
+  },
+  interest_two?: {
+    value: string,
+    code: string,
+    period: string
+  },
+  interest_three?: {
+    value: string,
+    code: string,
+    period: string
+  },
+  maxBalloonPercentage: string
+}

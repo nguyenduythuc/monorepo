@@ -20,7 +20,7 @@ const CheckboxAnswer = ({
       control={control}
       name={answer.name}
       render={({field: {onChange, value}}) => (
-        <View style={tw`flex flex-row justify-between items-start mt-6`}>
+        <View style={tw`flex flex-row justify-between items-start mt-6 mr-4`}>
           <Checkbox
             label={t(answer.title) ?? ''}
             description={t(answer.description)}

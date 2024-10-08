@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Slider } from '@miblanchard/react-native-slider';
+import React from 'react';
+import {View} from 'react-native';
+import {Slider} from '@miblanchard/react-native-slider';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
 export interface BaseSliderProps {
@@ -45,11 +45,6 @@ export const BaseSlider = ({
         value={sliderValue}
         onValueChange={value => onChangeSlider(value[0])}
       />
-      {/* <View style={tw`flex flex-row justify-between`}>
-        <Text>{minValue} VND</Text>
-        <Text>{sliderValue}</Text>
-        <Text>{maxValue} VND</Text>
-      </View> */}
     </View>
   );
 };

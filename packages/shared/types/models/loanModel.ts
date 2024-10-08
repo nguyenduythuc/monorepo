@@ -1,6 +1,9 @@
 export interface ProductProps {
   interest: number;
   maxAmount: string;
+  minAmount?: string;
+  maxTenor?: string;
+  minTenor?: string;
   productCode: string;
   productName: string;
 }

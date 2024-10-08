@@ -6,11 +6,11 @@ import {
 } from '@lfvn-customer/shared/components';
 import useSimulateScreen from '@lfvn-customer/shared/hooks/useSimulateScreen';
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import { formatNewAmount } from '@lfvn-customer/shared/utils/commonFunction';
-import { useConfigRouting } from '@lfvn-customer/shared/hooks/routing';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
+import {formatNewAmount} from '@lfvn-customer/shared/utils/commonFunction';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks/routing';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const SimulateScreen = () => {
@@ -24,7 +24,7 @@ export const SimulateScreen = () => {
   } = useSimulateScreen();
 
   const t = useTranslations();
-  const { appNavigate } = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
 
   return (
     <>
@@ -93,7 +93,7 @@ export const SimulateScreen = () => {
       <ConfirmModal
         visible={isModalVisible}
         setVisible={setIsModalVisible}
-        content={t('Simulate.alertTitleUntickInsurance')}
+        content={t('Simulate.alertTitleUncheckInsurance')}
         labelButtonRight={t('Simulate.confirm')}
         singleButton
       />

@@ -87,9 +87,11 @@ export const DropDownSelect = ({
               `bg-white border border-gray-300 bottom-0 rounded-t-2xl max-h-96 w-full pb-6`,
               {position: isWeb ? 'fixed' : 'absolute'},
             )}>
-            {placeholder && (
+            {(placeholder || label) && (
               <View style={tw`py-2 justify-center items-center h-14`}>
-                <Text style={tw`font-semibold text-lg`}>{t(placeholder)}</Text>
+                <Text style={tw`font-semibold text-lg`}>
+                  {t(placeholder || label)}
+                </Text>
               </View>
             )}
             <ScrollView style={tw``} nestedScrollEnabled={true} bounces={false}>

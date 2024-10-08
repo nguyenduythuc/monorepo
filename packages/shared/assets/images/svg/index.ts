@@ -39,3 +39,13 @@ export * from './HintIcon';
 export * from './BgInProgressApplication';
 export * from './AddressCardIcon'
 export * from './UndoIcon'
+export * from './ProfileIcon';
+export * from './BeneficiaryIcon';
+export * from './OccupationIcon';
+export * from './ReferralContactIcon';
+export * from './ResidenceIcon';
+export * from './UploadCircleIcon';
+export * from './FolderIcon';
+export * from './UploadIcon';
+export * from './CameraIcon';
+export * from './PhotoIcon';

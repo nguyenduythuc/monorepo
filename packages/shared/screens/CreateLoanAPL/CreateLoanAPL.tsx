@@ -10,10 +10,10 @@ import {
   Image,
 } from '@lfvn-customer/shared/components';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {BaseProcess} from '@lfvn-customer/shared/components/common/Process/Process';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {ProductProps} from '@lfvn-customer/shared/types/models/loanModel';
 
 export type DescriptionInfo = {
   icon: IconKeys;
@@ -26,7 +26,7 @@ const CreateLoanAPLScreen = ({t}: {t: any}) => {
   const {textNegative500} = theme;
   const {appNavigate} = useConfigRouting();
 
-  const listProductData: ProductIntroDataType[] = useAppSelector(
+  const listProductData: ProductProps[] = useAppSelector(
     state => state.product.listProduct,
   );
 

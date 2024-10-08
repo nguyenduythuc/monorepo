@@ -1,9 +1,10 @@
-import {useEffect, useMemo, useState} from 'react';
-import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
-import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCustomForm } from '@lfvn-customer/shared/components/Form/Form.hook';
+import { FieldSimulateConfig } from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
   useGetProductQuery,
+  useGetProductSchemeListQuery,
   useGetPurposeQuery,
   usePreCheckMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
@@ -11,26 +12,26 @@ import {
   ProductProps,
   PurposeProps,
 } from '@lfvn-customer/shared/types/models/loanModel';
-import {handleExecute} from '@lfvn-customer/shared/utils/simulateCalculate';
-import {decryptAES} from '@lfvn-customer/shared/utils/decryptText';
-import {useDispatch} from 'react-redux';
-import {setSimulate} from '@lfvn-customer/shared/redux/slices/publicSlices';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {useConfigRouting} from '.';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {OTPTypesEnum, CardTypesEnum} from '@lfvn-customer/shared/types';
+import { handleExecute } from '@lfvn-customer/shared/utils/simulateCalculate';
+import { decryptAES } from '@lfvn-customer/shared/utils/decryptText';
+import { useDispatch } from 'react-redux';
+import { setSimulate } from '@lfvn-customer/shared/redux/slices/publicSlices';
+import { useAppSelector } from '@lfvn-customer/shared/redux/store';
+import { useConfigRouting } from '.';
+import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
+import { OTPTypesEnum, CardTypesEnum } from '@lfvn-customer/shared/types';
 import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '../redux/slices/loadingSlices';
-import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
+import { handleEnvByPlatform } from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 const useSimulateScreen = () => {
   const dispatch = useDispatch();
-  const {appNavigate} = useConfigRouting();
+  const { appNavigate } = useConfigRouting();
 
-  const {data: metaData, error: metadataError} = useGetMetadataQuery();
-  const {user} = useAppSelector(state => state.auth);
+  const { data: metaData, error: metadataError } = useGetMetadataQuery();
+  const { user } = useAppSelector(state => state.auth);
   const [precheck] = usePreCheckMutation();
 
   if (!metadataError) {
@@ -47,14 +48,29 @@ const useSimulateScreen = () => {
     }, []);
   }
 
-  const {data: productData} = useGetProductQuery();
+  const { data: productData } = useGetProductQuery();
 
-  const {data: purposeData} = useGetPurposeQuery();
+  const { data: purposeData } = useGetPurposeQuery();
+
+  const { data: productSchemeListData } = useGetProductSchemeListQuery();
+
+  const loanProductOptions = useMemo(() => {
+    return productSchemeListData?.map(item => {
+      return {
+        maxAmount: JSON.parse(item.loanAmount).max,
+        minAmount: JSON.parse(item.loanAmount).min,
+        minTenor: JSON.parse(item.loanPeriod).min,
+        maxTenor: JSON.parse(item.loanPeriod).max,
+        interest: JSON.parse(item.interest).interest_one.value,
+        productCode: item.code,
+        productName: item.name,
+      };
+    });
+  }, [productSchemeListData]);
 
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
   const stringFunc: string | null = useMemo(() => {
-    // console.log((getState() as any).public.simulate)
     const decodeKey = handleEnvByPlatform('NEXT_PUBLIC_DECODE_KEY');
     return decryptAES(loanSimulate, decodeKey);
   }, [loanSimulate]);
@@ -64,6 +80,8 @@ const useSimulateScreen = () => {
     productName: 'Car Loan Stepup',
     maxAmount: '1000000000',
     minAmount: '10000000',
+    minTenor: "6",
+    maxTenor: "36",
     interest: 10,
   };
   const defaultPurposeData = {
@@ -73,15 +91,20 @@ const useSimulateScreen = () => {
     template: null,
   };
 
-  const loanProductData: ProductProps[] = productData?.data.data || [
-    defaultProductData,
-  ];
+  const [loanProductData, setLoanProductData] = useState(loanProductOptions || []);
 
   const loanPurposeData: PurposeProps[] = purposeData?.data.data || [
     defaultPurposeData,
   ];
 
-  const [selectProduct, setSelectProduct] = useState(loanProductData[0]);
+  const [selectProduct, setSelectProduct] = useState(loanProductData[0] ||
+  {
+    maxAmount: "100000000",
+    minAmount: "10000000",
+    interest: 10,
+    minTenor: "6",
+    maxTenor: "36"
+  });
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fields = useMemo(() => {
@@ -96,25 +119,27 @@ const useSimulateScreen = () => {
       },
       {
         ...FieldSimulateConfig.SimulateLoanAmount,
-        maxValue: parseInt(selectProduct?.maxAmount || '1'),
-        minValue: 10000000,
+        maxValue: parseInt(selectProduct.maxAmount || '100000000'),
+        minValue: parseInt(selectProduct.minAmount || '10000000'),
         step: 1000000,
         defaultValue: (
-          parseInt(selectProduct?.maxAmount || '1') / 2
+          parseInt(selectProduct?.maxAmount || '10000000') / 2
         ).toString(),
       },
       {
         ...FieldSimulateConfig.SimulateTenor,
-        maxValue: 36,
-        minValue: 6,
+        maxValue: parseInt(selectProduct?.maxTenor || 36),
+        minValue: parseInt(selectProduct?.minTenor || 6),
         step: 1,
-        defaultValue: '18',
+        defaultValue: (
+          parseInt(selectProduct?.maxTenor || 36) / 2
+        ).toString(),
       },
       FieldSimulateConfig.SimulateLoanInsurance,
     ];
   }, [selectProduct, productData, purposeData]);
 
-  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
+  const { reset, renderFrom, handleSubmit, watch, control, setValue, getValues } =
     useCustomForm({
       fields,
       defaultValues: {},
@@ -137,24 +162,34 @@ const useSimulateScreen = () => {
     } else return '0';
   }, [stringFunc, simulateTenor, simulateLoanAmount, selectProduct.interest]);
 
+  const estimatePaymentMonthlyParamsInput = useCallback((interestRate: string, tenor: string, loanAmount: string) => {
+    if (stringFunc) {
+      return handleExecute(
+        stringFunc,
+        parseFloat(interestRate) / (12 * 100) || 0,
+        tenor,
+        loanAmount,
+      );
+    } else return '0';
+  }, [stringFunc])
+
   useEffect(() => {
-    const optionData = loanProductData.find(
-      item => item.productCode === simulateLoanProduct,
-    );
+    if (loanProductData) {
+      const optionData = loanProductData.find(
+        item => item.productCode === simulateLoanProduct,
+      );
 
-    const simulateLoanAmount = (
-      parseInt(optionData?.maxAmount ?? '1') / 2
-    ).toString();
+      const simulateLoanAmount = (
+        parseInt(optionData?.maxAmount ?? '1') / 2
+      ).toString();
 
-    setSelectProduct(
-      optionData || {
-        productCode: '999994',
-        productName: 'Car Loan Mix Ballon Stepup',
-        maxAmount: '1000000000',
-        interest: 10,
-      },
-    );
-    setValue('simulateLoanAmount', simulateLoanAmount);
+      if (optionData) {
+        setSelectProduct(optionData);
+        setLoanProductData(loanProductOptions || [])
+      }
+      setValue('simulateLoanAmount', simulateLoanAmount);
+    }
+
   }, [simulateLoanProduct]);
 
   const onPressSubmit = async () => {
@@ -231,6 +266,7 @@ const useSimulateScreen = () => {
     getValues,
     selectProduct,
     estimatePaymentMonthly,
+    estimatePaymentMonthlyParamsInput,
     onPressSubmit,
     isModalVisible,
     setIsModalVisible,
