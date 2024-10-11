@@ -1,11 +1,16 @@
 export interface ProductProps {
-  interest: number;
+  interest: string;
   maxAmount: string;
   minAmount?: string;
   maxTenor?: string;
   minTenor?: string;
   productCode: string;
   productName: string;
+  business?: string;
+  product?: string;
+  subproduct?: string;
+  process?: string;
+  id: string;
 }
 
 export interface PurposeProps {
@@ -24,4 +29,11 @@ export interface CifMetadataProps {
   loanTerm: number;
   loanAmount: number;
   flowId: string;
+}
+
+export interface FileProps {
+  filename: string;
+  type: string;
+  size?: string;
+  uri: string;
 }

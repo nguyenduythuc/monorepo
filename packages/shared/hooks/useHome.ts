@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useAppSelector} from '../redux/store';
 import {ScreenParamEnum} from '../types/paramtypes';
 import {useConfigRouting} from './routing';
@@ -22,13 +22,15 @@ const useHome = () => {
     appNavigate(ScreenParamEnum.LoanInformation);
   };
 
-  useEffect(() => {
-    (async () => {
-      if (user) {
-        onCheckRequestPending(user.login);
-      }
-    })();
+  const handleCheckRequestPending = useCallback(async () => {
+    if (user) {
+      onCheckRequestPending(user.login);
+    }
   }, [user]);
+
+  useEffect(() => {
+    handleCheckRequestPending();
+  }, [handleCheckRequestPending]);
 
   return {
     onPressLogin,

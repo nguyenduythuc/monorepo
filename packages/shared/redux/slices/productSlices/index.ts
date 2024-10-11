@@ -9,6 +9,7 @@ const initialState: {
   listProduct: ProductProps[];
   requestPendingMetadata: MetaDataRequestProps | null;
   cifMetadata?: CifMetadataProps;
+  productSelected?: ProductProps;
 } = {listProduct: [], requestPendingMetadata: null};
 
 const productSlice = createSlice({
@@ -27,6 +28,11 @@ const productSlice = createSlice({
     setCifMetadata: (state, action) => {
       state.cifMetadata = action.payload;
     },
+    setProductSelected: (state, action) => {
+      if (state?.productSelected?.id !== action.payload.id) {
+        state.productSelected = action.payload;
+      }
+    },
   },
 });
 
@@ -35,5 +41,6 @@ export const {
   clearListProduct,
   setRequestPendingMetadata,
   setCifMetadata,
+  setProductSelected,
 } = productSlice.actions;
 export default productSlice.reducer;

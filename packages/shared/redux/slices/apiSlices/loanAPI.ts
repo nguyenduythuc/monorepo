@@ -3,6 +3,8 @@ import {
   CheckTRandProductRequestProps,
   CheckTRandProductResponseProps,
   CreateAPLResponseProps,
+  CreateFolderEcmRequestProps,
+  CreateFolderEcmResponseProps,
   FindCifInfoRequestProps,
   FindCifInfoResponseProps,
   MetaDataRequestProps,
@@ -12,8 +14,12 @@ import {
   RequestPendingByUserResponseProps,
   RequestPendingRequestProps,
   RequestPendingResponseProps,
+  SubmitRbpInfoRequestProps,
+  SubmitRbpInfoResponseProps,
   SubmmitSuggestTRRequestProps,
   SubmmitSuggestTRResponseProps,
+  UploadDocumentEcmRequestProps,
+  UploadDocumentEcmResponseProps,
 } from '@lfvn-customer/shared/types/services/loanTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -79,5 +85,45 @@ export const loanAPI = (
       method: 'post',
       data: body,
     }),
+  }),
+  submitRbpInfo: builder.mutation<
+    SubmitRbpInfoResponseProps,
+    SubmitRbpInfoRequestProps
+  >({
+    query: (body: SubmitRbpInfoRequestProps) => ({
+      url: getPath('/submit-rbp-info'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  createFolderEcm: builder.mutation<
+    CreateFolderEcmResponseProps,
+    CreateFolderEcmRequestProps
+  >({
+    query: (body: CreateFolderEcmRequestProps) => ({
+      url: getPath('/create-folder-ecm'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  uploadDocumentEcm: builder.mutation<
+    UploadDocumentEcmResponseProps,
+    UploadDocumentEcmRequestProps
+  >({
+    query: (body: UploadDocumentEcmRequestProps) => {
+      const form = new FormData();
+      form.append('objectid', body.objectid);
+      form.append('docType', body.docType);
+      form.append('docName', body.docName);
+      form.append('fileType', body.fileType);
+      form.append('identity', body.identity);
+      const fileBlob = new Blob([body.file.uri], {type: body.file.type});
+      form.append('file', fileBlob, body.file.filename);
+      return {
+        url: getPath('/upload-document-ecm'),
+        method: 'post',
+        data: form,
+      };
+    },
   }),
 });
