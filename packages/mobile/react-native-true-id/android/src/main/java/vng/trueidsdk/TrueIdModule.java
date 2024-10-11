@@ -12,9 +12,9 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 
-import vng.com.vn.trueid.TrueID;
 import vng.com.vn.trueid.models.ConfigEndPoint;
 import vng.com.vn.trueid.models.ConfigInfo;
+import vng.com.vn.trueid.navigation.TrueID;
 
 public class TrueIdModule extends ReactContextBaseJavaModule {
 
@@ -46,19 +46,14 @@ public class TrueIdModule extends ReactContextBaseJavaModule {
             configEndPoint.setComplete(data.getMap("configEndPoint").getString("complete"));
             configEndPoint.setCreaterequest(data.getMap("configEndPoint").getString("createrequest"));
             configEndPoint.setFront(data.getMap("configEndPoint").getString("front"));
-            configEndPoint.setNfcbshield(data.getMap("configEndPoint").getString("nfcbshield"));
-            configEndPoint.setNfcqrverify(data.getMap("configEndPoint").getString("nfcqrverify"));
             configEndPoint.setNfcrar(data.getMap("configEndPoint").getString("nfcqrverify"));
             configEndPoint.setOcr(data.getMap("configEndPoint").getString("ocr"));
             configEndPoint.setSelfie(data.getMap("configEndPoint").getString("selfie"));
 
             ConfigInfo configInfo = new ConfigInfo(data.getString("domain"),
+                    data.getString("domain"),
                     data.getString("appId"),
                     data.getString("appSecret"),
-                    data.getString("zoomLicenseKey"),
-                    data.getString("zoomPublicKey"),
-                    data.getString("zoomServerBaseURL"),
-                    data.getString("appId"),
                     configEndPoint
             );
 

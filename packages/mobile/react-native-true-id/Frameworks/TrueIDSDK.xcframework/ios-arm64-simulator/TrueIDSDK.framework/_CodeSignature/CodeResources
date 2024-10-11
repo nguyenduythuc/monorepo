@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/TrueIDSDK-Swift.h</key>
 		<data>
-		qYis3NUOMltRJVpDMfDhNm12htk=
+		OLFRk7CfYdPecCCz9L9iNzoKPSk=
 		</data>
 		<key>Headers/TrueIDSDK.h</key>
 		<data>
@@ -154,15 +154,15 @@
 		</data>
 		<key>Modules/TrueIDSDK.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		JrUwoy47W1Ye+dXUq11yC9P5QLs=
+		UdMU4HbOHb6ejJQxq74al/wUAjE=
 		</data>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		QDEzJstgS/rvaVRkxdmA7oCDQhI=
+		Bp9//34L+O4DBgBDrT5cey3Y+l0=
 		</data>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		M/+R/9uo2bV1+AW0WkJbLxhp2Io=
+		PrQnrj14U81D7xxkzpMMzycJqLs=
 		</data>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -170,11 +170,11 @@
 		</data>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		M/+R/9uo2bV1+AW0WkJbLxhp2Io=
+		PrQnrj14U81D7xxkzpMMzycJqLs=
 		</data>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		5F/CJsTCrBrvapIXOQTTLOzNHos=
+		hHKOn+c5LuGfeQb4X4B5aaENa4c=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -211,7 +211,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hxj72agGcZ3NQKfqKitabLf99OG3Hj4km071XHTRriI=
+			/Dx/dBP1d3wq9RyhYbdnfaWep5AZXEoCp6mIrn3UD/c=
 			</data>
 		</dict>
 		<key>Headers/TrueIDSDK.h</key>
@@ -456,21 +456,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			oWlRhhELiafvKWGw7nC9HIiIbbDkq6B5EBEt5X0jCpA=
+			B03ILwAu8oBIbYCFP2IupVBtvZFE5hV68XDBLXa75dQ=
 			</data>
 		</dict>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4gdaIDan8zRRx07GS3+75p22LWA2sEIYl3rMBq2lvi0=
+			VtobfvAO7jbsBI3nV9tn0zdI3d4XxCGReBsxjvvGsC8=
 			</data>
 		</dict>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			l2uqAJu7gX0paohev63riJ4GcBgSbsr1OPXksrc4rv0=
+			HSsIuW/8+PBZNbqVfgwI9MhUmDbPe0TcgDL555Ed5Fw=
 			</data>
 		</dict>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -484,14 +484,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			l2uqAJu7gX0paohev63riJ4GcBgSbsr1OPXksrc4rv0=
+			HSsIuW/8+PBZNbqVfgwI9MhUmDbPe0TcgDL555Ed5Fw=
 			</data>
 		</dict>
 		<key>Modules/TrueIDSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GECsgQ2eFuHf4F5Uqdx4R4jkGsQwMyRjNKkacGMMcdg=
+			qUfplB7otVqOTJDH72OtG/zhwC3DpyNxY/d8X/RmJvI=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

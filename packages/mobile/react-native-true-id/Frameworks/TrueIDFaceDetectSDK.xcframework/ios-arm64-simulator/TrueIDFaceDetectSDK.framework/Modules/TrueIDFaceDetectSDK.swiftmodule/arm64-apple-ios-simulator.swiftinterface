@@ -1,0 +1,88 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TrueIDFaceDetectSDK
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import CoreImage
+import DeveloperToolsSupport
+import Foundation
+import ImageIO
+import MobileCoreServices
+import Photos
+import Swift
+import SwiftUI
+@_exported import TrueIDFaceDetectSDK
+import UIKit
+import Vision
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum TrueIDFaceDetectError : Swift.Error {
+  case userCancelled
+  case maxLimitTryagain
+  case permissionDenied
+  case cameraError
+  case visionFrameworkError
+  case callApiError
+  case backendApiError
+  case modeBackground
+  case sessionTimeout
+  public static func == (a: TrueIDFaceDetectSDK.TrueIDFaceDetectError, b: TrueIDFaceDetectSDK.TrueIDFaceDetectError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class TrueIDFaceDetect {
+  final public let config: TrueIDFaceDetectSDK.TrueIDFaceDetectConfiguration
+  final public let completion: (Swift.Result<Foundation.Data, TrueIDFaceDetectSDK.TrueIDFaceDetectError>, _ images: [Swift.String]?) -> Swift.Void
+  public init(config: TrueIDFaceDetectSDK.TrueIDFaceDetectConfiguration, completion: @escaping (Swift.Result<Foundation.Data, TrueIDFaceDetectSDK.TrueIDFaceDetectError>, _ images: [Swift.String]?) -> Swift.Void)
+  @objc deinit
+}
+extension TrueIDFaceDetectSDK.TrueIDFaceDetect {
+  public func setRootViewController(_ viewController: UIKit.UIViewController)
+}
+extension TrueIDFaceDetectSDK.TrueIDFaceDetect {
+  public func startDetecting()
+}
+public enum TrueIDFaceDetectConfigurationLanguage {
+  case en, vi
+  public static func == (a: TrueIDFaceDetectSDK.TrueIDFaceDetectConfigurationLanguage, b: TrueIDFaceDetectSDK.TrueIDFaceDetectConfigurationLanguage) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ClosePosition {
+  case LEFT
+  case RIGHT
+  case NONE
+  public static func == (a: TrueIDFaceDetectSDK.ClosePosition, b: TrueIDFaceDetectSDK.ClosePosition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct TrueIDFaceDetectUIConfig {
+  public init(closeColor: Swift.String, closePosition: TrueIDFaceDetectSDK.ClosePosition, primaryColor: Swift.String, backgroudColor: Swift.String, failColor: Swift.String, successColor: Swift.String, ovalColor: Swift.String, textColor: Swift.String, textHighlightColor: Swift.String, highlightSuccessColor: Swift.String, highlightFailColor: Swift.String, font: Swift.String, autoProcess: Swift.Bool, isLivenessConfirmed: Swift.Bool, textButtonColor: Swift.String = "#ffffff")
+  public static var defaultConfig: TrueIDFaceDetectSDK.TrueIDFaceDetectUIConfig {
+    get
+  }
+}
+public struct TrueIDFaceDetectNetworkConfig {
+  public init(clientId: Swift.String, clientSecret: Swift.String, personId: Swift.String, transID: Swift.String, baseUrl: Swift.String, getAccessTokenEndpoint: Swift.String = "", verifyEndpoint: Swift.String, maxRetryCount: Swift.Int, nfcData: Swift.String, configHeader: Swift.String, eKYCRequestId: Swift.String = "", accessToken: Swift.String = "", deviceID: Swift.String = "")
+}
+public struct TrueIDFaceDetectLivenessConfig {
+  public static var defaultConfig: TrueIDFaceDetectSDK.TrueIDFaceDetectLivenessConfig
+  public init(eyeOpenProbability: Swift.Double, smileProbability: Swift.Double, luminosityProbability: Swift.Double, brurProbability: Swift.Double, timeout: Swift.Int = 90, selfieType: Swift.Int = 1)
+}
+public class TrueIDFaceDetectConfiguration {
+  public init(productName: Swift.String = "example", language: TrueIDFaceDetectSDK.TrueIDFaceDetectConfigurationLanguage = .en, uiConfig: TrueIDFaceDetectSDK.TrueIDFaceDetectUIConfig = .defaultConfig, networkConfig: TrueIDFaceDetectSDK.TrueIDFaceDetectNetworkConfig, livenessConfig: TrueIDFaceDetectSDK.TrueIDFaceDetectLivenessConfig = .defaultConfig)
+  @objc deinit
+}
+extension TrueIDFaceDetectSDK.TrueIDFaceDetectError : Swift.Equatable {}
+extension TrueIDFaceDetectSDK.TrueIDFaceDetectError : Swift.Hashable {}
+extension TrueIDFaceDetectSDK.TrueIDFaceDetectConfigurationLanguage : Swift.Equatable {}
+extension TrueIDFaceDetectSDK.TrueIDFaceDetectConfigurationLanguage : Swift.Hashable {}
+extension TrueIDFaceDetectSDK.ClosePosition : Swift.Equatable {}
+extension TrueIDFaceDetectSDK.ClosePosition : Swift.Hashable {}

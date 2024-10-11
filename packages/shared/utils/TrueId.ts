@@ -19,7 +19,7 @@ export const CONFIG_UI = (type: EkycType) => {
 const configEndPoint = {
   front: '/ekyc/v1.2/id/verify/front',
   back: '/ekyc/v1.2/id/verify/back',
-  selfie: '/ekyc/v1.2/selfie/verify',
+  selfie: '/ekyc/v1.2/face/liveness',
   complete: '/ekyc/v1.2/complete',
   nfcqrverify: '/ekyc/v2.0/nfcqr/verify',
   nfcrar: '/ekyc/v1.2/nfcqr/upload',

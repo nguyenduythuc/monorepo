@@ -10,13 +10,12 @@ import CoreNFC
 import CryptoKit
 import CryptoTokenKit
 import DeveloperToolsSupport
-import FaceTecSDK
-import FaceTrueIDSDK
 import Foundation
 import IDCardReaderLite
 import OpenSSL
 import Swift
 import SwiftUI
+import TrueIDFaceDetectSDK
 @_exported import TrueIDSDK
 import UIKit
 import Vision
@@ -345,8 +344,7 @@ public class SimpleASN1DumpParser {
   @objc public var decision: TrueIDSDK.Decision?
   @objc public var faceMatching: TrueIDSDK.FaceMatching?
   @objc public var idInfo: TrueIDSDK.Person?
-  @objc public var nfcInfo: TrueIDSDK.NfcInfo?
-  @objc public var nfcRarInfo: TrueIDSDK.NfcRarInfo?
+  @objc public var nfcInfo: TrueIDSDK.NfcRarInfo?
   @objc public var livenessCheck: Swift.Bool
   @objc public var nfcStatus: TrueIDSDK.NFCStatus
   @objc public var rawImage: TrueIDSDK.RawImage?

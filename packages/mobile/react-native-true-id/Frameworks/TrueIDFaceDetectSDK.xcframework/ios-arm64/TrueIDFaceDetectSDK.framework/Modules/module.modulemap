@@ -1,0 +1,11 @@
+framework module TrueIDFaceDetectSDK {
+  umbrella header "TrueIDFaceDetectSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module TrueIDFaceDetectSDK.Swift {
+  header "TrueIDFaceDetectSDK-Swift.h"
+  requires objc
+}

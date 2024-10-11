@@ -13,13 +13,13 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)data) {
             NSString *authDomain = [data objectForKey:@"authDomain"];
             NSString *appId = [data objectForKey:@"appId"];
             NSString *appSecret = [data objectForKey:@"appSecret"];
-
+            
             ConfigInfo *configInfo;
             NSString *zoomLicenseKey = [data objectForKey:@"zoomLicenseKey"];
             NSString *zoomServerBaseURL = [data objectForKey:@"zoomServerBaseURL"];
             NSString *zoomPublicKey = [data objectForKey:@"zoomPublicKey"];
             NSString *zoomClient = @"320994dcb418e19ed41055b933066b8d";
-
+            
             NSString *zoomAuthURL = [data objectForKey:@"zoomAuthURL"];
             NSString *accessToken = [data objectForKey:@"accessToken"];
             NSString *configHeader = [data objectForKey:@"configHeader"];
@@ -37,7 +37,7 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)data) {
             configEndPoint.nfcbshield = endPoint[@"nfcbshield"];
             configEndPoint.createrequest = endPoint[@"createrequest"];
             configEndPoint.accesstoken = endPoint[@"accesstoken"];
-           
+            
             NSString *ui = [data objectForKey:@"configUI"];
             configInfo = [[ConfigInfo alloc] initWithDomain:domain
                                              configEndPoint:configEndPoint
@@ -53,7 +53,7 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)data) {
             
             ConfigUI *configUI;
             configUI =  [[ConfigUI alloc] initWithJsonString: ui];
-
+            
             [TrueID configureWithConfigInfo:configInfo configUI: configUI];
         }
         else {
@@ -74,10 +74,10 @@ RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)callback) {
                     if([verificationResult.code intValue] == 1){
                         res[@"clientId"] = verificationResult.clientId;
                         res[@"requestId"] = verificationResult.requestId;
-                    
+                        
                         if(verificationResult.livenessCheck != nil){
                             res[@"livenessCheck"] = [NSNumber numberWithBool:verificationResult.livenessCheck] ;
-
+                            
                         }
                         if(verificationResult.decision != nil) {
                             res[@"decision"] =  @{
@@ -85,112 +85,99 @@ RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)callback) {
                                 @"decision" : verificationResult.decision.decision
                             };//verificationResult.decision;
                         }
-                       
-
-                       
                         
-                    if(verificationResult.idInfo != nil) {
-                        res[@"idInfo"] =  @{
-                            @"idNumber" : verificationResult.idInfo.idNumber,
-                            @"gender" : verificationResult.idInfo.gender,
-                            @"dob": verificationResult.idInfo.dob,
-                            @"fullname" : verificationResult.idInfo.fullname,
-                            @"address" : verificationResult.idInfo.address,
-                            @"doi" : verificationResult.idInfo.doi,
-                            @"givenPlace" : verificationResult.idInfo.givenPlace,
-                            @"origin" : verificationResult.idInfo.origin,
-                           @"dueDate": verificationResult.idInfo.dueDate,
-                            @"idType" : [NSNumber numberWithInteger:verificationResult.idInfo.idTypeCode],
-                            @"qrcode" : verificationResult.idInfo.qrcode,
-
-                          @"idOriginWard" : @{
-                                @"value":  verificationResult.idInfo.idOriginWard.value,
-                                @"code": verificationResult.idInfo.idOriginWard.code
+                        
+                        
+                        
+                        if(verificationResult.idInfo != nil) {
+                            res[@"idInfo"] =  @{
+                                @"idNumber" : verificationResult.idInfo.idNumber,
+                                @"gender" : verificationResult.idInfo.gender,
+                                @"dob": verificationResult.idInfo.dob,
+                                @"fullname" : verificationResult.idInfo.fullname,
+                                @"address" : verificationResult.idInfo.address,
+                                @"doi" : verificationResult.idInfo.doi,
+                                @"givenPlace" : verificationResult.idInfo.givenPlace,
+                                @"origin" : verificationResult.idInfo.origin,
+                                @"dueDate": verificationResult.idInfo.dueDate,
+                                @"idType" : [NSNumber numberWithInteger:verificationResult.idInfo.idTypeCode],
+                                @"qrcode" : verificationResult.idInfo.qrcode,
+                                
+                                @"idOriginWard" : @{
+                                    @"value":  verificationResult.idInfo.idOriginWard.value,
+                                    @"code": verificationResult.idInfo.idOriginWard.code
                                 },
-                             @"idAddressProvince" : @{
-                                @"value":  verificationResult.idInfo.idAddressProvince.value,
-                                @"code": verificationResult.idInfo.idAddressProvince.code
+                                @"idAddressProvince" : @{
+                                    @"value":  verificationResult.idInfo.idAddressProvince.value,
+                                    @"code": verificationResult.idInfo.idAddressProvince.code
                                 },
-                             @"idOriginDistrict" : @{
-                                @"value":  verificationResult.idInfo.idOriginDistrict.value,
-                                @"code": verificationResult.idInfo.idOriginDistrict.code
+                                @"idOriginDistrict" : @{
+                                    @"value":  verificationResult.idInfo.idOriginDistrict.value,
+                                    @"code": verificationResult.idInfo.idOriginDistrict.code
                                 },
-                             @"idAddressWard" : @{
-                                @"value":  verificationResult.idInfo.idAddressWard.value,
-                                @"code": verificationResult.idInfo.idAddressWard.code
+                                @"idAddressWard" : @{
+                                    @"value":  verificationResult.idInfo.idAddressWard.value,
+                                    @"code": verificationResult.idInfo.idAddressWard.code
                                 },
-                             @"idOriginProvince" : @{
-                                @"value":  verificationResult.idInfo.idOriginProvince.value,
-                                @"code": verificationResult.idInfo.idOriginProvince.code
+                                @"idOriginProvince" : @{
+                                    @"value":  verificationResult.idInfo.idOriginProvince.value,
+                                    @"code": verificationResult.idInfo.idOriginProvince.code
                                 },
-                             @"idAddressDistrict" : @{
-                                @"value":  verificationResult.idInfo.idAddressDistrict.value,
-                                @"code": verificationResult.idInfo.idAddressDistrict.code
+                                @"idAddressDistrict" : @{
+                                    @"value":  verificationResult.idInfo.idAddressDistrict.value,
+                                    @"code": verificationResult.idInfo.idAddressDistrict.code
                                 }
-
-                        };// verificationResult.idInfo;
-                    }
-                    if(verificationResult.nfcInfo != nil) {
-                            res[@"nfcInfo"] =  @{
-                                    @"idNumber" : verificationResult.nfcInfo.idNumber,
-                                    @"gender" : verificationResult.nfcInfo.gender,
-                                    @"dob": verificationResult.nfcInfo.dob,
-                                    @"fullname" : verificationResult.nfcInfo.fullname,
-                                    @"dueDate": verificationResult.nfcInfo.dueDate,
-                                    @"mrz" : verificationResult.nfcInfo.mrz,
-                                     @"photo" : verificationResult.nfcInfo.photo
-                                };// verificationResult.idInfo;
-
-                    }
+                                
+                            };// verificationResult.idInfo;
+                        }
                         
                         if(verificationResult.nfcStatus != nil){
                             res[@"nfcStatus"] = [NSNumber numberWithInt:verificationResult.nfcStatus] ;
-
                         }
-
-                    if(verificationResult.nfcRarInfo != nil) {
+                        
+                        if(verificationResult.nfcInfo != nil) {
                             res[@"nfcInfo"] = @{
                                 
-                                    @"faceImage" : verificationResult.nfcRarInfo.faceImage,
-                                    @"cardNumber" : verificationResult.nfcRarInfo.cardNumber,
-                                    @"dateOfBirth": verificationResult.nfcRarInfo.dateOfBirth,
-                                    @"issueDate" : verificationResult.nfcRarInfo.issueDate,
-                                    @"previousNumber": verificationResult.nfcRarInfo.previousNumber,
-                                    @"name" : verificationResult.nfcRarInfo.name,
-                                    @"sex" : verificationResult.nfcRarInfo.sex,
-                                     @"nationality" : verificationResult.nfcRarInfo.nationality,
-                                    @"nation" : verificationResult.nfcRarInfo.nation,
-                                    @"religion": verificationResult.nfcRarInfo.religion,
-                                    @"hometown" : verificationResult.nfcRarInfo.hometown,
-                                    @"address": verificationResult.nfcRarInfo.address,
-                                    @"character" : verificationResult.nfcRarInfo.character,
-                                     @"expiredDate" : verificationResult.nfcRarInfo.expiredDate,
-                                    @"fatherName" : verificationResult.nfcRarInfo.fatherName,
-                                    @"motherName": verificationResult.nfcRarInfo.motherName,
-                                    //@"partnerName": verificationResult.nfcRarInfo.partnerName,
-                                    @"mrz" : verificationResult.nfcRarInfo.mrz
-                                };
+                                @"faceImage" : verificationResult.nfcInfo.faceImage,
+                                @"cardNumber" : verificationResult.nfcInfo.cardNumber,
+                                @"dateOfBirth": verificationResult.nfcInfo.dateOfBirth,
+                                @"issueDate" : verificationResult.nfcInfo.issueDate,
+                                @"previousNumber": verificationResult.nfcInfo.previousNumber,
+                                @"name" : verificationResult.nfcInfo.name,
+                                @"sex" : verificationResult.nfcInfo.sex,
+                                @"nationality" : verificationResult.nfcInfo.nationality,
+                                @"nation" : verificationResult.nfcInfo.nation,
+                                @"religion": verificationResult.nfcInfo.religion,
+                                @"hometown" : verificationResult.nfcInfo.hometown,
+                                @"address": verificationResult.nfcInfo.address,
+                                @"character" : verificationResult.nfcInfo.character,
+                                @"expiredDate" : verificationResult.nfcInfo.expiredDate,
+                                @"fatherName" : verificationResult.nfcInfo.fatherName,
+                                @"motherName": verificationResult.nfcInfo.motherName,
+                                //@"partnerName": verificationResult.nfcRarInfo.partnerName,
+                                @"mrz" : verificationResult.nfcInfo.mrz
+                            };
                         }
-
-                    if(verificationResult.rawImage != nil)
-                    {
-                        res[@"rawImage"] = @{
-                            @"front":verificationResult.rawImage.front == nil ? @"" : verificationResult.rawImage.front,
-                            @"back":verificationResult.rawImage.back == nil ? @"" : verificationResult.rawImage.back,
-                            @"selfie":verificationResult.rawImage.selfie == nil ? @"" : verificationResult.rawImage.selfie,
-                        };
-                    }
-                    if(verificationResult.faceMatching != nil) {
-                        res[@"faceMatching"] =  verificationResult.faceMatching.stringValue;
+                        
+                        if(verificationResult.rawImage != nil)
+                        {
+                            res[@"rawImage"] = @{
+                                @"front":verificationResult.rawImage.front == nil ? @"" : verificationResult.rawImage.front,
+                                @"back":verificationResult.rawImage.back == nil ? @"" : verificationResult.rawImage.back,
+                                @"selfie":verificationResult.rawImage.selfie == nil ? @"" : verificationResult.rawImage.selfie,
+                            };
+                        }
+                        if(verificationResult.faceMatching != nil) {
+                            res[@"faceMatching"] =  verificationResult.faceMatching.stringValue;
+                        }
+                        
+                        
+                        
+                        res[@"ekycResult"] = verificationResult.ekycResult;
                     }
                     
                     
                     
-                    res[@"ekycResult"] = verificationResult.ekycResult;
-                    }
-                   
-                  
-                   
                     callback(@[res]);
                 }
             }];
@@ -208,7 +195,7 @@ RCT_EXPORT_METHOD(startNFC:(NSString *)idnumber
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (@available(iOS 11, *)) {
-            [TrueID startNFCC06WithIdnumber:idnumber 
+            [TrueID startNFCC06WithIdnumber:idnumber
                                         dob:dob
                                         doe:doe
                                 listenerNFC:^(NfcResult * _Nonnull nfcResult) {
@@ -217,33 +204,33 @@ RCT_EXPORT_METHOD(startNFC:(NSString *)idnumber
                     
                     res[@"code"] = nfcResult.code;
                     res[@"errorMessage"] = nfcResult.errorMessage;
-
+                    
                     if(nfcResult.nfcInfo != nil) {
-                            res[@"nfcInfo"] = @{
-                                    @"faceImage" : nfcResult.nfcInfo.faceImage,
-                                    @"cardNumber" : nfcResult.nfcInfo.cardNumber,
-                                    @"dateOfBirth": nfcResult.nfcInfo.dateOfBirth,
-                                    @"issueDate" : nfcResult.nfcInfo.issueDate,
-                                    @"previousNumber": nfcResult.nfcInfo.previousNumber,
-                                    @"name" : nfcResult.nfcInfo.name,
-                                    @"sex" : nfcResult.nfcInfo.sex,
-                                    @"nationality" : nfcResult.nfcInfo.nationality,
-                                    @"nation" : nfcResult.nfcInfo.nation,
-                                    @"religion": nfcResult.nfcInfo.religion,
-                                    @"hometown" : nfcResult.nfcInfo.hometown,
-                                    @"address": nfcResult.nfcInfo.address,
-                                    @"character" : nfcResult.nfcInfo.character,
-                                    @"expiredDate" : nfcResult.nfcInfo.expiredDate,
-                                    @"fatherName" : nfcResult.nfcInfo.fatherName,
-                                    @"motherName": nfcResult.nfcInfo.motherName,
-                                   // @"partnerName": nfcResult.nfcInfo.partnerName,
-                                    @"mrz" : nfcResult.nfcInfo.mrz
-                                };
-                        }
+                        res[@"nfcInfo"] = @{
+                            @"faceImage" : nfcResult.nfcInfo.faceImage,
+                            @"cardNumber" : nfcResult.nfcInfo.cardNumber,
+                            @"dateOfBirth": nfcResult.nfcInfo.dateOfBirth,
+                            @"issueDate" : nfcResult.nfcInfo.issueDate,
+                            @"previousNumber": nfcResult.nfcInfo.previousNumber,
+                            @"name" : nfcResult.nfcInfo.name,
+                            @"sex" : nfcResult.nfcInfo.sex,
+                            @"nationality" : nfcResult.nfcInfo.nationality,
+                            @"nation" : nfcResult.nfcInfo.nation,
+                            @"religion": nfcResult.nfcInfo.religion,
+                            @"hometown" : nfcResult.nfcInfo.hometown,
+                            @"address": nfcResult.nfcInfo.address,
+                            @"character" : nfcResult.nfcInfo.character,
+                            @"expiredDate" : nfcResult.nfcInfo.expiredDate,
+                            @"fatherName" : nfcResult.nfcInfo.fatherName,
+                            @"motherName": nfcResult.nfcInfo.motherName,
+                            // @"partnerName": nfcResult.nfcInfo.partnerName,
+                            @"mrz" : nfcResult.nfcInfo.mrz
+                        };
+                    }
                     callback(@[res]);
                 }
             }];
-          
+            
         }
         else {
             [self showAlert:@"trueID doesn't support iOS less than 11"];
@@ -272,7 +259,7 @@ RCT_EXPORT_METHOD(startNFCNoExtract:(NSString *)idnumber
                     callback(@[res]);
                 }
             }];
-          
+            
         }
         else {
             [self showAlert:@"trueID doesn't support iOS less than 11"];
@@ -283,11 +270,11 @@ RCT_EXPORT_METHOD(startNFCNoExtract:(NSString *)idnumber
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(requestId) {
     return [TrueID requestId];
 }
-    
+
 
 RCT_EXPORT_METHOD(setLanguage:(NSDictionary*)data) {
-NSString *language = [data objectForKey:@"language"];
- [TrueID setLanguageWithLanguage: language];
+    NSString *language = [data objectForKey:@"language"];
+    [TrueID setLanguageWithLanguage: language];
 }
 
 - (void)showAlert:(NSString*)message {

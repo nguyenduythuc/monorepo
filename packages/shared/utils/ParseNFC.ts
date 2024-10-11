@@ -45,7 +45,7 @@ export function parsePassportData(passportData: string): any {
   // Decode and parse DG1
   const dg1Decoded = Buffer.from(data.dg1, 'base64').toString('ascii');
   const dg2Decoded = parseDG2(data.dg2);
-  const [documentNumber] = dg1Decoded.match(/(.{9})<{2}(.+)<{2}(.+)/) || [];
+  const documentNumber = dg1Decoded.slice(5);
 
   // Decode DG13
   const dg13DecodedBuffer = Buffer.from(data.dg13, 'base64');
@@ -96,6 +96,7 @@ export function parsePassportData(passportData: string): any {
     gender: cleanField(dg13Fields['4']),
     nationality: cleanField(dg13Fields['5']),
     ethnicity: cleanField(dg13Fields['6']),
+    religion: cleanString(cleanField(dg13Fields['7'])).replace(/^[#1]/, ''), // Remove leading # or 1
     origin: cleanString(cleanField(dg13Fields['8'])).replace(/^[#1]/, ''), // Remove leading # or 1
     address: cleanString(cleanField(dg13Fields['9'])).replace(/^[#1]/, ''), // Remove leading # or 1
     identifyingCharacteristics: cleanString(cleanField(dg13Fields['10'])),

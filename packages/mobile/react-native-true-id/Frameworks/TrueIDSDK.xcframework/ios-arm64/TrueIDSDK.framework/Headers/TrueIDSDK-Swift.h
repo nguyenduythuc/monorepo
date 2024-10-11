@@ -746,8 +746,7 @@ SWIFT_CLASS("_TtC9TrueIDSDK18VerificationResult")
 @property (nonatomic, strong) Decision * _Nullable decision;
 @property (nonatomic, strong) FaceMatching * _Nullable faceMatching;
 @property (nonatomic, strong) Person * _Nullable idInfo;
-@property (nonatomic, strong) NfcInfo * _Nullable nfcInfo;
-@property (nonatomic, strong) NfcRarInfo * _Nullable nfcRarInfo;
+@property (nonatomic, strong) NfcRarInfo * _Nullable nfcInfo;
 @property (nonatomic) BOOL livenessCheck;
 @property (nonatomic) enum NFCStatus nfcStatus;
 @property (nonatomic, strong) RawImage * _Nullable rawImage;
