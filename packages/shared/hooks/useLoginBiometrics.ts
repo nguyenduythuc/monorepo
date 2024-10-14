@@ -60,20 +60,23 @@ const useLoginBiometrics = () => {
     // Function to check if biometric authentication is supported
     (async () => {
       const userLogin = await mmkvStorage.getItem(USER_LOGIN);
-      const credentials = await Keychain.getGenericPassword();
-      const uuid = await mmkvStorage.getItem(UUID);
-      if (
-        userLogin &&
-        credentials &&
-        userLogin === credentials?.username &&
-        !!biometricType
-      ) {
-        const result = await checkBiometric({
-          login: userLogin,
-          token: credentials.password,
-          uuid,
-        });
-        setEnableBiometric(!!result.data?.isActive);
+      if (userLogin) {
+        const credentials = await Keychain.getGenericPassword();
+        const uuid = await mmkvStorage.getItem(UUID);
+        if (
+          credentials &&
+          userLogin === credentials?.username &&
+          !!biometricType
+        ) {
+          const result = await checkBiometric({
+            login: userLogin,
+            token: credentials.password,
+            uuid,
+          });
+          setEnableBiometric(!!result.data?.isActive);
+        }
+      } else {
+        await Keychain.resetGenericPassword();
       }
     })();
   }, [biometricType]);

@@ -79,6 +79,9 @@ export const {
   useLazyGetCifInfoQuery,
   useCheckTRAndProductMutation,
   useSubmitSuggestTRMutation,
+  useCreateFolderEcmMutation,
+  useUploadDocumentEcmMutation,
+  useSubmitRbpInfoMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

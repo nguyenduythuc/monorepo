@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   useGetProductSchemeListQuery,
   useGetPurposeQuery,
@@ -8,88 +8,143 @@ import {
   LoanInformationAnswerName,
   StepProps,
 } from '@lfvn-customer/shared/types/models/stepModel';
-import { Control, FieldValues, UseFormWatch, useWatch } from 'react-hook-form';
-import { useAppSelector } from '@lfvn-customer/shared/redux/store';
-import { ProductScheme, schemeInterest } from '../types/services/productTypes';
+import {Control, FieldValues, useWatch} from 'react-hook-form';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import {ProductScheme} from '../types/services/productTypes';
 import useSimulateScreen from '../hooks/useSimulateScreen';
 import eventEmitter from '@lfvn-customer/shared//utils/eventEmitter';
+import {useDispatch} from 'react-redux';
+import {setProductSelected} from '@lfvn-customer/shared/redux/slices/productSlices';
 
 const useHandleLoanInformation = ({
   control,
-  stepNumber
+  stepNumber,
 }: {
   control: Control<FieldValues>;
-  stepNumber: number
+  stepNumber: number;
 }) => {
-  const { data: productSchemeListData } = useGetProductSchemeListQuery();
-  const { data: purposeData } = useGetPurposeQuery();
+  const {data: productSchemeListData} = useGetProductSchemeListQuery();
+  const {data: purposeData} = useGetPurposeQuery();
 
-  const { requestPendingMetadata } = useAppSelector(state => state.product);
+  const dispatch = useDispatch();
 
-  const { estimatePaymentMonthlyParamsInput } = useSimulateScreen();
+  const {requestPendingMetadata} = useAppSelector(state => state.product);
 
-  const productData: ProductScheme[] = productSchemeListData || []
+  const {estimatePaymentMonthlyParamsInput} = useSimulateScreen();
+
+  const productData: ProductScheme[] = useMemo(() => {
+    return (productSchemeListData ?? []).map(item => {
+      return {
+        ...item,
+        interest: JSON.parse(item.interest).interest_one.value,
+      };
+    });
+  }, [productSchemeListData]);
   // const eventEmitter = new EventEmitter();
 
-  const [selectProduct, setSelectProduct] = useState(productData[0])
-  const [selectProductLoan, setSelectProductLoan] = useState(
-    {
-      loanAmount: { max: '300000000', min: '100000000' },
-      loanPeriod: { max: '36', min: '6' }
-    })
+  const [selectProductLoan, setSelectProductLoan] = useState({
+    loanAmount: {max: '300000000', min: '100000000'},
+    loanPeriod: {max: '36', min: '6'},
+  });
 
-  const simulateLoanProduct = useWatch({ control, name: LoanInformationAnswerName.LoanProduct });
-  const simulateLoanTenor = useWatch({ control, name: LoanInformationAnswerName.LoanTenor });
-  const simulateLoanAmount = useWatch({ control, name: LoanInformationAnswerName.LoanAmount });
-  const simulateLoanInsurance = useWatch({ control, name: LoanInformationAnswerName.LoanInsurance });
+  const simulateLoanProduct = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanProduct,
+  });
+  const simulateLoanTenor = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanTenor,
+  });
+  const simulateLoanAmount = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanAmount,
+  });
+  const simulateLoanInsurance = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanInsurance,
+  });
 
-  const simulateLoanIncomePerMonth = useWatch({ control, name: LoanInformationAnswerName.LoanIncomePerMonth })
+  const simulateLoanIncomePerMonth = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanIncomePerMonth,
+  });
 
-  const simulateLoanPurpose = useWatch({ control, name: LoanInformationAnswerName.LoanPurpose })
+  const simulateLoanPurpose = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanPurpose,
+  });
+
+  const selectProduct = useMemo(() => {
+    const selectItem = productData.find(
+      item => item.code === simulateLoanProduct,
+    );
+    if (!selectItem) {
+      return productData[0];
+    }
+    return selectItem;
+  }, [productData, simulateLoanProduct]);
+
+  useEffect(() => {
+    if (selectProduct) {
+      setSelectProductLoan({
+        loanAmount: {
+          max: JSON.parse(selectProduct.loanAmount).max,
+          min: JSON.parse(selectProduct.loanAmount).min,
+        },
+        loanPeriod: {
+          max: JSON.parse(selectProduct.loanPeriod).max,
+          min: JSON.parse(selectProduct.loanPeriod).min,
+        },
+      });
+      dispatch(setProductSelected(selectProduct));
+    }
+  }, [selectProduct]);
 
   const getEstimate = useMemo(() => {
-    if (selectProduct && simulateLoanProduct && simulateLoanTenor && simulateLoanAmount) {
-      const selectedSchemeInterest: schemeInterest = JSON.parse(selectProduct.interest)
-      const estimate = estimatePaymentMonthlyParamsInput(selectedSchemeInterest.interest_one.value, simulateLoanTenor, simulateLoanAmount)
-      return estimate
+    if (selectProduct && simulateLoanTenor && simulateLoanAmount) {
+      return estimatePaymentMonthlyParamsInput(
+        selectProduct.interest,
+        simulateLoanTenor,
+        simulateLoanAmount,
+      );
     }
-  }, [selectProduct, simulateLoanProduct, simulateLoanTenor, simulateLoanAmount])
+    return '0';
+  }, [selectProduct, simulateLoanTenor, simulateLoanAmount]);
 
   const getInterest = useMemo(() => {
-    if (selectProduct && simulateLoanProduct) {
-      const selectedSchemeInterest: schemeInterest = JSON.parse(selectProduct.interest)
-
-      return selectedSchemeInterest.interest_one.value
+    if (selectProduct) {
+      return selectProduct.interest;
     }
-  }, [selectProduct])
+    return '0';
+  }, [selectProduct]);
 
   useEffect(() => {
     if (stepNumber === 1) {
-      const isDisabled = !(simulateLoanProduct && simulateLoanTenor && simulateLoanAmount && simulateLoanInsurance)
-      eventEmitter.emit('watch-form-data', { stepNumber, isDisabled });
+      const isDisabled = !(
+        simulateLoanProduct &&
+        simulateLoanTenor &&
+        simulateLoanAmount &&
+        simulateLoanInsurance
+      );
+      eventEmitter.emit('watch-form-data', {stepNumber, isDisabled});
     }
     if (stepNumber === 2) {
-      const isDisabled = !simulateLoanIncomePerMonth
-      eventEmitter.emit('watch-form-data', { stepNumber, isDisabled });
+      const isDisabled = !simulateLoanIncomePerMonth;
+      eventEmitter.emit('watch-form-data', {stepNumber, isDisabled});
     }
     if (stepNumber === 3) {
-      const isDisabled = !simulateLoanPurpose
-      eventEmitter.emit('watch-form-data', { stepNumber, isDisabled });
+      const isDisabled = !simulateLoanPurpose;
+      eventEmitter.emit('watch-form-data', {stepNumber, isDisabled});
     }
-
-  }, [simulateLoanProduct, simulateLoanTenor, simulateLoanAmount, simulateLoanInsurance, simulateLoanIncomePerMonth, simulateLoanPurpose, stepNumber])
-
-  useEffect(() => {
-    if (productSchemeListData) {
-      const selectItem = productSchemeListData.filter((item) => item.code === simulateLoanProduct)
-      setSelectProduct(selectItem[0])
-
-      if (selectProduct) {
-        const selectProductLoanAmount = { loanAmount: JSON.parse(selectProduct.loanAmount), loanPeriod: JSON.parse(selectProduct.loanPeriod) }
-        setSelectProductLoan(selectProductLoanAmount)
-      }
-    }
-  }, [selectProduct, simulateLoanProduct])
+  }, [
+    simulateLoanProduct,
+    simulateLoanTenor,
+    simulateLoanAmount,
+    simulateLoanInsurance,
+    simulateLoanIncomePerMonth,
+    simulateLoanPurpose,
+    stepNumber,
+  ]);
 
   const loanProductOptions = useMemo(() => {
     return productSchemeListData?.map(item => {
@@ -101,7 +156,7 @@ const useHandleLoanInformation = ({
   }, [productSchemeListData]);
 
   const getStep = useCallback(
-    ({ stepNumber }: { stepNumber: number }): StepProps => {
+    ({stepNumber}: {stepNumber: number}): StepProps => {
       switch (stepNumber) {
         case 1:
           return {
@@ -124,8 +179,9 @@ const useHandleLoanInformation = ({
                     title: 'ProductInformation.loanAmount',
                     maxValue: parseInt(selectProductLoan.loanAmount.max), // todo: get max value from api
                     minValue: parseInt(selectProductLoan.loanAmount.min),
-                    defaultValue:
-                      (parseInt(selectProductLoan.loanAmount.max) / 2).toString(), // todo: get default value from min-max value
+                    defaultValue: (
+                      parseInt(selectProductLoan.loanAmount.max) / 2
+                    ).toString(), // todo: get default value from min-max value
                     unit: 'VND',
                     step: 1000000,
                   },

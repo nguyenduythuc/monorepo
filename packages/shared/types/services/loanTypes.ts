@@ -1,5 +1,5 @@
-import { PreCheckStatusEnum, RequestPendingStepEnum } from '..';
-import { CifMetadataProps } from '../models/loanModel';
+import {PreCheckStatusEnum, RequestPendingStepEnum} from '..';
+import {CifMetadataProps, FileProps} from '../models/loanModel';
 
 export interface PreCheckRequestProps {
   customerName: string;
@@ -108,14 +108,22 @@ export interface LoanSimulateProps {
   loanPurpose: string;
   participateInLoanInsurance: boolean;
   expectedRepaymentSchedule: ExpectedRepaymentScheduleProps[];
+  insuranceFee?: string;
+  business?: string;
+  product?: string;
+  subproduct?: string;
+  process?: string;
+  interest?: string;
 }
 
 export interface MetaDataRequestProps
   extends Partial<PreCheckRequestProps>,
-  Partial<LoanSimulateProps> {
+    Partial<LoanSimulateProps> {
   preCheckId?: string;
   createdOn?: string;
   identityEntryMethod?: string;
+  flowId?: string;
+  incomeMonthly?: string;
 }
 
 export interface RequestPendingRequestProps {
@@ -185,5 +193,78 @@ export interface SubmmitSuggestTRResponseProps {
     interestRate: number;
     loanTerm: number;
     loanAmount: number;
+  };
+}
+
+export interface SubmitRbpInfoRequestProps {
+  flowId?: string;
+  action?: 'approve';
+  schemeId?: string; // Scheme ID
+  loanAmount?: string; // Số tiền vay
+  loanTerm?: string; // Thời hạn vay
+  interest?: string; // Lãi suất vay
+  paymentMonthly?: string; // Số tiền trả hàng tháng dự kiến
+  insurance?: boolean; // Optional - Bảo hiểm khoản vay
+  insuranceAmount?: string; // Optional - Số tiền phí bảo hiểm
+  incomeMonthly?: string; // Thu nhập hàng tháng
+  purposeUse?: string; // Mục đích sử dụng vốn --> Lấy dữ liệu ở dataset loan purpose
+  workingTime?: string; // Thời gian làm việc
+  insuranceTime?: string; // Optional - Thời gian đóng bảo hiểm
+  merialStatus?: string; // Tình trạng hôn nhân [single, married, divorced, others]
+  residentialAddress?: string; // Địa chỉ cư trú
+  province?: string; // Tỉnh / Thành phố
+  district?: string; // Quận / huyện
+  ward?: string; // Phường / xã
+  address?: string; // Địa chỉ chi tiết
+  mailingProvince?: string; // [Thông tin cư trú] - Tỉnh / Thành phố
+  mailingDistrict?: string; // [Thông tin cư trú] - Quận / huyện
+  mailingWard?: string; // [Thông tin cư trú] - Phường / xã
+  mailingAddress?: string; // [Thông tin cư trú] - Địa chỉ chi tiết,
+  occupation?: string; // Nghề nghiệp
+}
+
+export interface SubmitRbpInfoResponseProps {
+  data: {
+    folderId: string;
+  };
+}
+
+export interface CreateFolderEcmRequestProps {
+  identity: string;
+  datecreated: string;
+  customerName: string;
+  business: string;
+  product: string;
+  subproduct: string;
+  process: string;
+}
+
+export interface CreateFolderEcmResponseProps {
+  data: {
+    folderId: string;
+  };
+}
+
+export interface UploadDocumentEcmRequestProps {
+  objectid: string;
+  docType: string;
+  docName: string;
+  fileType: string;
+  identity: string;
+  file: FileProps;
+}
+
+export interface UploadDocumentEcmResponseProps {
+  data: {
+    uploadedResult: {
+      documentList: {
+        folderId: string;
+        mimeType: string;
+        docId: string;
+        fileType: string;
+        docType: string;
+        docName: string;
+      };
+    };
   };
 }

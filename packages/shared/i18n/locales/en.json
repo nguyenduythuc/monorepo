@@ -245,7 +245,8 @@
     "loanAmount": "Số tiền vay",
     "loanTenor": "Thời gian vay",
     "loanInsurance": "Tham gia bảo hiểm khoản vay",
-    "loanInsuranceDes": "Bảo hiểm An tâm Tài chính 600.000đ"
+    "loanInsuranceDes": "Bảo hiểm An tâm Tài chính 600.000đ",
+    "msgInvalidProduct": "Sản phẩm vay của Quý Khách đã lựa chọn không phù hợp. Vui lòng lựa chọn sản phẩm vay khác."
   },
   "IncomePerMonth": {
     "title": "Thu nhập hàng tháng của bạn",

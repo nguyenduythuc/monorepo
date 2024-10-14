@@ -5,7 +5,6 @@ import {
   Appbar,
   ConfirmModal,
   CongratulationModal,
-  CustomButton,
   FormButton,
 } from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
@@ -30,7 +29,7 @@ const questionFormValidate = generateQuestionValidateStatusList(
 );
 
 const LoanInformationScreen = () => {
-  const {cifMetadata} = useAppSelector(state => state.product);
+  const {cifMetadata, productSelected} = useAppSelector(state => state.product);
   const t = useTranslations();
   const dispatch = useDispatch();
 
@@ -68,6 +67,10 @@ const LoanInformationScreen = () => {
     await onHandleCreateAPL(bodyCreateAPL);
   };
 
+  useEffect(() => {
+    console.log('productSelected', productSelected);
+  }, [productSelected]);
+
   const goToNext = async () => {
     const {
       amount,
@@ -75,6 +78,7 @@ const LoanInformationScreen = () => {
       loanTerm,
       schemeCode,
       loanPurpose,
+      incomePerMonth,
     } = forms.getValues();
     if (!participateInLoanInsurance) {
       setIsModalVisible(true);
@@ -94,8 +98,14 @@ const LoanInformationScreen = () => {
             : requestPendingMetadata?.participateInLoanInsurance,
         loanTerm: loanTerm.toString() ?? requestPendingMetadata?.loanTerm,
         schemeCode: schemeCode ?? requestPendingMetadata?.schemeCode,
-        // schemeCode: 'LD011', // TODO: map scheme with BE
         loanPurpose: loanPurpose ?? requestPendingMetadata?.loanPurpose,
+        incomeMonthly: incomePerMonth ?? requestPendingMetadata?.incomeMonthly,
+        business: productSelected?.business ?? requestPendingMetadata?.business,
+        product: productSelected?.product ?? requestPendingMetadata?.product,
+        subproduct:
+          productSelected?.subproduct ?? requestPendingMetadata?.subproduct,
+        process: productSelected?.process ?? requestPendingMetadata?.process,
+        interest: productSelected?.interest ?? requestPendingMetadata?.interest,
       };
       const bodyRequestPending = {
         userId: requestPendingMetadata?.userId ?? '',
