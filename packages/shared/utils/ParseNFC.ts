@@ -1,5 +1,6 @@
 // Import necessary modules
 import { Buffer } from 'buffer';
+import { Platform } from 'react-native';
 import { TextDecoder } from 'text-encoding';
 
 // Function to parse DG2 and extract JPEG image
@@ -40,7 +41,7 @@ function cleanString(input: string): string {
 
 // Function to parse passport data
 export function parsePassportData(passportData: string): any {
-  const data = JSON.parse(passportData);
+  const data = Platform.OS === 'ios' ? JSON.parse(passportData) : passportData;
 
   // Decode and parse DG1
   const dg1Decoded = Buffer.from(data.dg1, 'base64').toString('ascii');

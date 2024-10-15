@@ -65,6 +65,7 @@ export type NFCResultType = {
   code: number;
   errorMessage: string;
   nfcInfo: string;
+  nfcData: string;
 };
 
 export type OCRResultType = {
