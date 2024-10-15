@@ -35,18 +35,17 @@ const useRNTrueId = () => {
 
       if (type === 'verifyNFC') {
         RNTrueID.startNFCNoExtract('', '', '', (result: NFCResultType) => {
-          console.log('result', result);
           if (result.code == 0) {
             // user close sdk
             handleShowToast({
               msg: 'Close EKYC',
               type: 'info',
             });
-            console.log()
           } else if (result.code == 1) {
             // success
-            const data = parsePassportData(result.nfcInfo);
-            console.log('final data', parsePassportData(result.nfcInfo));
+            const nfcRawData = Platform.OS === 'android' ? result.nfcData : result.nfcInfo
+            const data = parsePassportData(nfcRawData);
+            console.log('final data', data);
             handleEkycSubmit(data);
           } else {
             // handle error
@@ -66,7 +65,6 @@ const useRNTrueId = () => {
             // success
             const data: ekycDataType = result.idInfo;
             handleEkycSubmit(data);
-            // console.log('final data', parsePassportData(result.nfcInfo));
           } else {
             // handle error
             console.log('errorMesssage : ', result.errorMessage);
