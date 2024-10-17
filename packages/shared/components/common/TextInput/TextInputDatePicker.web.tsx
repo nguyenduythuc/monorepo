@@ -7,7 +7,7 @@ import {Icon} from '../Icon';
 import dayjs from 'dayjs';
 import {CalendarDatePicker} from '../Calendar';
 import {DateType} from 'react-native-ui-datepicker';
-import DatePicker from 'react-native-date-picker';
+// import DatePicker from 'react-native-date-picker';
 
 export const TextInputDatePicker = forwardRef<NativeTextInput, ITextInputProps>(
   ({value, containerStyle, onChangeValue, ...props}, ref) => {
@@ -52,23 +52,11 @@ export const TextInputDatePicker = forwardRef<NativeTextInput, ITextInputProps>(
 
     return (
       <View>
-        {Platform.OS !== 'web' ? (
-          <DatePicker
-            modal
-            open={visible}
-            date={date}
-            mode="date" // You have to use 'date' mode but will handle month/year extraction manually
-            onConfirm={handleDateChange}
-            onCancel={() => setVisible(false)}
-            maximumDate={new Date()}
-          />
-        ) : (
-          <CalendarDatePicker
-            visible={visible}
-            setVisible={setVisible}
-            onChangeValue={handleDateChange}
-          />
-        )}
+        <CalendarDatePicker
+          visible={visible}
+          setVisible={setVisible}
+          onChangeValue={handleDateChange}
+        />
         <View style={tw.style(containerStyle)}>
           <TextInputBase
             {...props}

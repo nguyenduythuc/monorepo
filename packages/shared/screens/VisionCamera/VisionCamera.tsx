@@ -4,8 +4,8 @@ import {Platform} from 'react-native';
 import {useDispatch} from 'react-redux';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 // import useAppPermissons from '../../hooks/useAppPermission'
-import CameraVision from '../../components/common/CameraVision/CameraVision';
-import {useConfigRouting} from '../../hooks';
+import CameraVision from '@lfvn-customer/shared/components/common/CameraVision/CameraVision';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 
 //TODO: Implement component in progress
 
@@ -57,18 +57,8 @@ export const VisionCamera = () => {
     <CameraVision
       camera={camera}
       takePhoto={takePhoto}
-      // imagePaths={paths}
-      // onBack={() =>
-      //   route.params?.createApl
-      //     ? navigation.navigate('createAplOffline', { successCreateDoc: false })
-      //     : navigation.goBack()
-      // }
       flash={isFlash}
       setFlash={() => setIsFlash(!isFlash)}
-      // isPinGPS={!disablePinGPS && pinGPS}
-      // onPinGPS={route.params?.pinGPS ? onPressPinGPS : undefined}
-      // onPressImage={onPressImage}
-      // currentAddress={currentAddress}
     />
   );
 };
