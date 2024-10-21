@@ -23,7 +23,7 @@ export type ekycDataType = {
   oldIdNumber?: string;
 };
 
-export type webEkycDetailObject = { value: string }
+export type webEkycDetailObject = {value: string};
 
 export type webEkycDataType = {
   id_number?: webEkycDetailObject;
@@ -33,7 +33,7 @@ export type webEkycDataType = {
   due_date?: webEkycDetailObject;
   name?: webEkycDetailObject;
   ethnicity?: webEkycDetailObject;
-  gender?: { name: string };
+  gender?: {name: string};
   nationality?: webEkycDetailObject;
   id_origin?: webEkycDetailObject;
   id_address?: webEkycDetailObject;
@@ -58,7 +58,8 @@ export const mapEkycKeyValue = {
   origin: 'VerifyCustomer.origin',
   address: 'VerifyCustomer.address',
   oldIdNumber: 'VerifyCustomer.oldIdNumber',
-  givenPlace: 'VerifyCustomer.givenPlace'
+  givenPlace: 'VerifyCustomer.givenPlace',
+  rawImage: 'VerifyCustomer.rawImage',
 };
 
 export type NFCResultType = {
@@ -74,6 +75,11 @@ export type OCRResultType = {
   code: number;
   decision: object;
   idInfo: ekycDataType;
+  rawImage?: {
+    selfie?: string;
+    front?: string;
+    back?: string;
+  };
 };
 
 export type WebOCRResultType = {
@@ -82,5 +88,5 @@ export type WebOCRResultType = {
   code: number;
   decision: object;
   idInfo: webEkycDataType;
-  ekycResult: { kyc_result: { back: { given_date: { value: string } } } };
+  ekycResult: {kyc_result: {back: {given_date: {value: string}}}};
 };

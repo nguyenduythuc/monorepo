@@ -1,4 +1,4 @@
-import { mmkvStorage, storage } from './storage';
+import {mmkvStorage, storage} from './storage';
 
 export const formatterVND = (value: number) => {
   const intl = new Intl.NumberFormat('vn-VN', {
@@ -16,7 +16,7 @@ export const formatNewAmount = (value: number) => {
 
   numberMoneyFormat = numberMoneyFormat.replace(currencySymbolVND, '');
 
-  return { numberMoneyFormat, currencySymbolVND };
+  return {numberMoneyFormat, currencySymbolVND};
 };
 
 export const saveVerifyAccountInfo = (key: string, value: string | object) => {
@@ -28,37 +28,41 @@ export const getVerifyAccountInfo = (key: string) => {
 };
 
 export const convertDateToISO = (dateString: string) => {
+  // format date is DD/MM/YYYY
   const [day, month, year] = dateString.split('/').map(Number);
   const date = new Date(year, month - 1, day + 1);
-  const isoDate = date.toISOString();
-  console.log('isoDate', isoDate);
-  return isoDate;
+  return date.toISOString();
 };
 
-export const formatGenderInfo = (gender: string | undefined, type: 'display' | 'update') => {
+export const formatGenderInfo = (
+  gender: string | undefined,
+  type: 'display' | 'update',
+) => {
   if (type === 'display') {
-    return gender === 'Nam' || 'MALE' ? 'Nam' : 'Nữ'
+    return gender === 'Nam' || gender === 'MALE' ? 'Nam' : 'Nữ';
   } else {
-    return gender === 'Nam' || 'MALE' ? 'MALE' : 'FEMALE'
+    return gender === 'Nam' || gender === 'MALE' ? 'MALE' : 'FEMALE';
   }
-}
+};
 
 export const formatNationalityInfo = (nationality: string) => {
-  const convertNationality: { [key: string]: string } = {
+  const convertNationality: {[key: string]: string} = {
     'Việt Nam': 'VIETNAMESE',
-    '': 'UNKNOWN'
-  }
-  return convertNationality[nationality] || 'UNKNOWN'
-}
+    '': 'VIETNAMESE',
+  };
+  return convertNationality[nationality] || 'VIETNAMESE';
+};
 
 export const DISABLED = true;
 
-export const generateQuestionValidateStatusList = (totalQuestion: number): { [key: number]: boolean } => {
-  const dataResult: { [key: number]: boolean } = {};
+export const generateQuestionValidateStatusList = (
+  totalQuestion: number,
+): {[key: number]: boolean} => {
+  const dataResult: {[key: number]: boolean} = {};
 
   for (let i = 0; i < totalQuestion; i++) {
     dataResult[i] = DISABLED;
   }
 
   return dataResult;
-}
+};

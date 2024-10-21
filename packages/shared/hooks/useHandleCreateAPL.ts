@@ -1,8 +1,10 @@
 import {
   useCreateAPLMutation,
   useCreateFolderEcmMutation,
+  useLazyGetUserResourceQuery,
   useSubmitRbpInfoMutation,
   useSubmitSuggestTRMutation,
+  useUploadDocumentEcmMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useConfigRouting} from './routing';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
@@ -21,7 +23,11 @@ import {
 import useHandleRequestPending from '@lfvn-customer/shared/hooks/useHandleRequestPending';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {RequestPendingStepEnum} from '@lfvn-customer/shared/types';
+import RNFS from 'react-native-fs';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
+import {getToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 import moment from 'moment';
+import {removeFileAfterUpload} from '@lfvn-customer/shared/utils';
 
 const useHandleCreateAPL = () => {
   const {requestPendingMetadata} = useAppSelector(state => state.product);
@@ -31,6 +37,8 @@ const useHandleCreateAPL = () => {
   const [createFolderEcm] = useCreateFolderEcmMutation();
   const [submitSuggestTRMutation] = useSubmitSuggestTRMutation();
   const [submitRbpInfo] = useSubmitRbpInfoMutation();
+  const [getUserResource] = useLazyGetUserResourceQuery();
+  const [uploadDocumentEcmMutation] = useUploadDocumentEcmMutation();
 
   const {onHandleSaveDaftAPL} = useHandleRequestPending();
   const dispatch = useDispatch();
@@ -43,6 +51,63 @@ const useHandleCreateAPL = () => {
       msg: t('ErrorCommon.message'),
       type: 'error',
     });
+  };
+
+  const handleDownloadUserResourceFileAndUploadEcm = async (
+    body: MetaDataRequestProps,
+    flowId: string,
+  ) => {
+    const docIds: string[] = [];
+    const userResourceResponse = await getUserResource({
+      userId: body.customerNric ?? '',
+    });
+    if (!userResourceResponse.data?.length) {
+      return docIds;
+    }
+    await Promise.all(
+      userResourceResponse.data.map(async item => {
+        const url = `${handleEnvByPlatform('BASE_API_URL')}/api/files/download/${item.fileName}`;
+        const filePath = RNFS.DocumentDirectoryPath + `/${item.fileName}`;
+        await RNFS.downloadFile({
+          fromUrl: url,
+          toFile: filePath,
+          background: true,
+          discretionary: true,
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        })
+          .promise.then(async () => {
+            const uploadDocEcmResponse = await uploadDocumentEcmMutation({
+              objectid: flowId,
+              docType: 'DOC100',
+              docName: 'KH CMND/CCCD/CMTQĐ/ Hộ chiếu',
+              fileType: 'jpg',
+              identity: body.customerNric ?? '',
+              file: {
+                uri: filePath,
+                type: 'image/jpeg',
+                name: item.fileName,
+              },
+            });
+
+            if (
+              uploadDocEcmResponse.data?.data.uploadedResult.documentList.docId
+            ) {
+              docIds.push(
+                uploadDocEcmResponse.data?.data.uploadedResult.documentList
+                  .docId,
+              );
+              // Delete file after upload
+              removeFileAfterUpload(filePath);
+            }
+          })
+          .catch(err => {
+            console.log('Download error:', err);
+          });
+      }),
+    );
+    return docIds;
   };
 
   const onHandleCreateAPL = async (body: MetaDataRequestProps) => {
@@ -58,22 +123,31 @@ const useHandleCreateAPL = () => {
         // process: body.process ?? '',
         business: 'DL', // TODO: get data from BE
         product: 'DL_CARLOAN1',
-        subproduct: 'DC045',
+        subproduct: 'DC055',
         process: 'CarLoan',
       });
-      console.log('responseCreateFolder', responseCreateFolder.data);
       if (!responseCreateFolder?.data) {
         onHandleShowToast();
         return;
       }
-      const response = await createAPL(body);
+      const folderId = responseCreateFolder.data?.data.folderId;
+      const docIds = await handleDownloadUserResourceFileAndUploadEcm(
+        body,
+        folderId,
+      );
+      const createAPLBody = {
+        ...body,
+        folderId,
+        identityReport: docIds,
+      };
+      const response = await createAPL(createAPLBody);
       const flowId = response.data?.data.flowId;
       if (!flowId) {
         onHandleShowToast();
         return;
       }
       const metadata: MetaDataRequestProps = {
-        ...requestPendingMetadata,
+        ...createAPLBody,
         flowId,
       };
       const bodyRequestPending = {

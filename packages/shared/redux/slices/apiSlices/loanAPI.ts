@@ -117,8 +117,16 @@ export const loanAPI = (
       form.append('docName', body.docName);
       form.append('fileType', body.fileType);
       form.append('identity', body.identity);
-      const fileBlob = new Blob([body.file.uri], {type: body.file.type});
-      form.append('file', fileBlob, body.file.filename);
+      form.append(
+        'file',
+        JSON.parse(
+          JSON.stringify({
+            uri: body.file.uri,
+            name: body.file.name,
+            type: body.file.type,
+          }),
+        ),
+      );
       return {
         url: getPath('/upload-document-ecm'),
         method: 'post',

@@ -1,6 +1,9 @@
 import Toast from 'react-native-toast-message';
+import useTranslations from './useTranslations';
 
 const useShowToast = () => {
+  const t = useTranslations();
+
   const handleShowToast = ({
     msg,
     type,
@@ -14,8 +17,16 @@ const useShowToast = () => {
     });
   };
 
+  const showCommonErrorToast = () => {
+    handleShowToast({
+      msg: t('ErrorCommon.message'),
+      type: 'error',
+    });
+  };
+
   return {
     handleShowToast,
+    showCommonErrorToast,
   };
 };
 

@@ -17,8 +17,8 @@ export interface PreCheckRequestProps {
   customerDOB: string;
   customerGender: string;
   customerNationality: string;
-  identityReport: string[];
-  folderId: string;
+  identityReport?: string[];
+  folderId?: string;
   schemeCode: string;
   userId: string;
   loanSimulateProps: LoanSimulateProps;

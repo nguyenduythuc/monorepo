@@ -13,6 +13,7 @@ import {userAPI} from './userAPI';
 import {loanAPI} from './loanAPI';
 import {ggMapAPI} from './ggMapApi';
 import {localAddressAPI} from './localAddress';
+import {fileAPI} from './fileAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -31,6 +32,7 @@ export const apiSlice = createApi({
     ...userAPI(builder),
     ...loanAPI(builder),
     ...localAddressAPI(builder),
+    ...fileAPI(builder),
   }),
 });
 
@@ -82,6 +84,9 @@ export const {
   useCreateFolderEcmMutation,
   useUploadDocumentEcmMutation,
   useSubmitRbpInfoMutation,
+  useUploadUserResourceMutation,
+  useLazyGetUserResourceQuery,
+  useLazyGetFileQuery,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

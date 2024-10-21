@@ -17,3 +17,13 @@ export interface UserProfileProps {
   identityNumberOld?: null;
   authorities?: string[];
 }
+
+export interface UserResourceProps {
+  id: number;
+  fileName: string;
+  login: string;
+  resourceType: string;
+  fileExtendtion: string;
+  expiredDate: string;
+  createdAt: string;
+}

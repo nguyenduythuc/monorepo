@@ -32,7 +32,7 @@ export interface CifMetadataProps {
 }
 
 export interface FileProps {
-  filename: string;
+  name: string;
   type: string;
   size?: string;
   uri: string;

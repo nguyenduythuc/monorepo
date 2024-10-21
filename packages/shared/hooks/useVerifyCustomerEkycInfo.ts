@@ -1,39 +1,44 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import useTranslations from './useTranslations';
-import { useConfigRouting } from './routing';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
-import { convertDateToISO, formatGenderInfo, formatNationalityInfo, getVerifyAccountInfo } from '../utils/commonFunction';
-import { VERIFY_ACCOUNT_ID } from '../utils/constants';
+import {useConfigRouting} from './routing';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {
+  convertDateToISO,
+  formatGenderInfo,
+  formatNationalityInfo,
+  getVerifyAccountInfo,
+} from '../utils/commonFunction';
+import {VERIFY_ACCOUNT_ID} from '../utils/constants';
 import {
   useLoginMutation,
   useUpdateAccountMutation,
   useUpdateOCRIdentityNumberMutation,
 } from '../redux/slices/apiSlices';
-import { setAppToken } from '../redux/slices/apiSlices/config';
+import {setAppToken} from '../redux/slices/apiSlices/config';
 import useAuth from './useAuth';
-import { useAppSelector } from '../redux/store';
-import { ekycDataType } from '../types/services/verifyCustomerTypes';
-import { UpdateAccountRequestProps } from '../types/services/authTypes';
+import {useAppSelector} from '../redux/store';
+import {ekycDataType} from '../types/services/verifyCustomerTypes';
+import {UpdateAccountRequestProps} from '../types/services/authTypes';
 
-const useVerifyCustomerEkycInfo = ({ ekycData }: { ekycData: ekycDataType }) => {
+const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
   const t = useTranslations();
-  const { appNavigate, goBack } = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [msgRequestError, setMsgRequestError] = useState('');
+  const [msgRequestError] = useState('');
 
   const [isModalInvalidInfo, setIsModalInvalidInfo] = useState(false);
   const [msgRequestInvalidInfoError, setMsgRequestInvalidInfoError] =
     useState('');
-  const { onHandleGetUserProfile, onHandleLogout } = useAuth();
+  const {onHandleGetUserProfile, onHandleLogout} = useAuth();
 
-  const { user } = useAppSelector(state => state.auth);
+  const {user} = useAppSelector(state => state.auth);
 
   const onCustomerCancel = () => {
     appNavigate(ScreenParamEnum.Home);
   };
 
-  const [login, { isError, isLoading }] = useLoginMutation();
+  const [login, {isError, isLoading}] = useLoginMutation();
   const [
     updateOCRIdentityNumber,
     {
@@ -44,7 +49,7 @@ const useVerifyCustomerEkycInfo = ({ ekycData }: { ekycData: ekycDataType }) => 
 
   const [
     updateAccount,
-    { isError: updateAccountError, isLoading: updateAccountLoading },
+    {isError: updateAccountError, isLoading: updateAccountLoading},
   ] = useUpdateAccountMutation();
 
   const onInvalidInfoConfirm = () => {
@@ -70,7 +75,7 @@ const useVerifyCustomerEkycInfo = ({ ekycData }: { ekycData: ekycDataType }) => 
       birthDate: convertDateToISO(ekycData?.dob || ''),
       fullName: ekycData?.fullname,
       gender: formatGenderInfo(ekycData?.gender, 'update'),
-      nationality: formatNationalityInfo(ekycData?.nationality || '')
+      nationality: formatNationalityInfo(ekycData?.nationality || ''),
     };
 
     const updateResult = await updateAccount(updateBody);
@@ -91,7 +96,7 @@ const useVerifyCustomerEkycInfo = ({ ekycData }: { ekycData: ekycDataType }) => 
   const recheckIdINfo = async ({
     accountData,
   }: {
-    accountData: { idNum: string; phoneNum: string };
+    accountData: {idNum: string; phoneNum: string};
   }) => {
     const result = await login({
       username: accountData.idNum,
@@ -99,21 +104,21 @@ const useVerifyCustomerEkycInfo = ({ ekycData }: { ekycData: ekycDataType }) => 
     });
     if (result.data?.id_token) {
       setAppToken(result.data?.id_token || '');
-      onHandleGetUserProfile();
     }
     if (ekycData?.idNumber === accountData.idNum) {
       console.log('match');
 
       const updateAccountResult = await updateAccount({
-        login: user?.login,
-        phoneNumber: user?.phoneNumber,
-        email: user?.email,
-        // birthPlace: ekycData?.placeOfBirth,
+        login: accountData.idNum,
+        phoneNumber: accountData.phoneNum,
+        birthDate: convertDateToISO(ekycData?.dob ?? ''),
+        birthPlace: ekycData?.origin,
         fullName: ekycData?.fullname,
         gender: formatGenderInfo(ekycData?.gender, 'update'),
-        nationality:
-          formatNationalityInfo(ekycData?.nationality || ''),
+        nationality: 'VIETNAMESE',
         identityNumberOld: ekycData?.oldIdNumber,
+        identityNumber: ekycData?.idNumber,
+        identityIssue: convertDateToISO(ekycData?.doi ?? ''),
       });
 
       if (updateAccountResult) {
@@ -128,7 +133,7 @@ const useVerifyCustomerEkycInfo = ({ ekycData }: { ekycData: ekycDataType }) => 
     const manualInputInfo = JSON.parse(
       getVerifyAccountInfo(VERIFY_ACCOUNT_ID) || '',
     );
-    recheckIdINfo({ accountData: manualInputInfo });
+    recheckIdINfo({accountData: manualInputInfo});
   };
 
   return {
