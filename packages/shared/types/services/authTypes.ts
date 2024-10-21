@@ -1,3 +1,5 @@
+import {FileProps} from '@lfvn-customer/shared/types/models/loanModel';
+
 export interface GetAccountResponseProps {
   id: number;
   login: string;
@@ -18,7 +20,9 @@ export interface GetAccountResponseProps {
   authorities: string[];
 }
 
-export interface UpdateAccountResponseProps {}
+export interface UpdateAccountResponseProps {
+  id: string;
+}
 
 export interface UpdateAccountRequestProps {
   login?: string;
@@ -85,4 +89,18 @@ export interface UpdateOCRIdentityNumberResponseProps {
   lastModifiedBy: string;
   lastModifiedDate: string;
   authorities: [];
+}
+
+export interface UploadUserResourceRequestProps {
+  resourceType: string;
+  file: FileProps;
+  login: string;
+}
+
+export interface GetUserResourceRequestProps {
+  userId: string;
+}
+
+export interface GetFileRequestProps {
+  fileName: string;
 }
