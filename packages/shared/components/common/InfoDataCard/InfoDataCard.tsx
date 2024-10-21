@@ -27,10 +27,7 @@ export const InfoDataCard: React.FC<InfoDataCardProps> = ({cardRawData}) => {
   );
 
   return (
-    <View
-      style={tw.style(
-        'border border-dashed border-[#E5E5E5] px-4 rounded-lg py-1 my-3',
-      )}>
+    <View style={tw.style('border border-[#E5E5E5] px-4 rounded-lg py-1 my-3')}>
       {Object.entries(renamedData).map(([key, value], index) => (
         <View
           key={key}

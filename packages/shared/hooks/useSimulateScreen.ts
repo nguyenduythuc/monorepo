@@ -22,6 +22,7 @@ import {
   setLoadingScreen,
 } from '../redux/slices/loadingSlices';
 import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
+import {defaultPurposeData, defaultSelectProductData} from '../data/data';
 import {setProductSelected} from '@lfvn-customer/shared/redux/slices/productSlices';
 
 const useSimulateScreen = () => {
@@ -80,13 +81,6 @@ const useSimulateScreen = () => {
     return decryptAES(loanSimulate, decodeKey);
   }, [loanSimulate]);
 
-  const defaultPurposeData = {
-    name: 'Vay tiêu dùng',
-    code: '02',
-    product: '999994',
-    template: null,
-  };
-
   const [loanProductData, setLoanProductData] = useState(
     loanProductOptions || [],
   );
@@ -96,14 +90,7 @@ const useSimulateScreen = () => {
   ];
 
   const [selectProduct, setSelectProduct] = useState(
-    loanProductData[0] || {
-      maxAmount: '100000000',
-      minAmount: '10000000',
-      interest: 10,
-      minTenor: '6',
-      maxTenor: '36',
-      id: 1,
-    },
+    loanProductData[0] || defaultSelectProductData,
   );
   const [isModalVisible, setIsModalVisible] = useState(false);
 
