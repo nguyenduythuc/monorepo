@@ -5,7 +5,8 @@ const initialState: {
   token?: string | null;
   user?: UserProfileProps | null;
   deeplinkPath?: string | null;
-} = {token: null, user: null, deeplinkPath: null};
+  identityNumber?: string | null;
+} = {token: null, user: null, deeplinkPath: null, identityNumber: null};
 
 const authSlice = createSlice({
   name: 'auth',
@@ -26,9 +27,18 @@ const authSlice = createSlice({
     setDeeplinkPath: (state, action) => {
       state.deeplinkPath = action.payload;
     },
+    setIdentityNumber: (state, action) => {
+      state.identityNumber = action.payload;
+    },
   },
 });
 
-export const {setToken, clearToken, setUser, clearUser, setDeeplinkPath} =
-  authSlice.actions;
+export const {
+  setToken,
+  clearToken,
+  setUser,
+  clearUser,
+  setDeeplinkPath,
+  setIdentityNumber,
+} = authSlice.actions;
 export default authSlice.reducer;

@@ -193,23 +193,21 @@ const useSimulateScreen = () => {
       if (user) {
         dispatch(setLoadingScreen());
         await precheck({
-          customerName: 'Đặng Hữu Thanh', // user.fullName,
-          customerNric: '020200006487', // user.identityNumber,
+          customerName: user.fullName,
+          customerNric: user.identityNumber,
           customerNricType: CardTypesEnum.CCCD,
           customerOldNric: user.identityNumberOld ?? '',
           customerAdditionalNric: [],
-          customerProvince: '01',
+          customerProvince: '01', // todo: get from user info
           customerDistrict: '01009',
           customerWard: '0100900355',
           customerAddress: '267 Khương Trunggg',
-          customerNricDate: user.identityIssue ?? '2021-08-13T13:00:00.000Z',
+          customerNricDate: user.identityIssue ?? '',
           customerNricExpiry: '2028-05-31T13:00:00.000Z',
           customerNricIssuer: '068',
-          customerDOB: user.birthDate ?? '2000-05-31T13:00:00.000Z',
-          customerGender: user.gender ?? 'male',
-          customerNationality: user.nationality ?? 'VN',
-          identityReport: ['idf_703FEB8E-0000-C83A-A11C-D6E750511B6F'],
-          folderId: 'idf_703FEB8E-0000-C83A-A11C-D6E750511B6F',
+          customerDOB: user.birthDate ?? '',
+          customerGender: user.gender ?? '',
+          customerNationality: user.nationality ?? '',
           schemeCode: simulateLoanProduct,
           userId: user.login,
           loanSimulateProps: {
@@ -226,6 +224,7 @@ const useSimulateScreen = () => {
             subproduct: selectProduct.subproduct,
             process: selectProduct.process,
             expectedRepaymentSchedule: [
+              // todo: get from BE
               {
                 interestRate: 13.4,
                 interestMonthly: '198949',
