@@ -3735,10 +3735,6 @@ __metadata:
     prettier: ^3.3.3
     react-dom: ^18.3.1
     react-hook-form: ^7.52.0
-    react-native-document-picker: 9.0.1
-    react-native-fs: 2.20.0
-    react-native-image-crop-picker: 0.40.0
-    react-native-permissions: ^4.1.5
     react-native-svg: ^15.3.0
     react-native-ui-datepicker: ^2.0.3
     react-native-web: ^0.19.12
@@ -9676,6 +9672,7 @@ __metadata:
     react-native-biometrics: ^3.0.1
     react-native-config: ^1.5.2
     react-native-confirmation-code-field: ^7.4.0
+    react-native-date-picker: ^5.0.7
     react-native-device-info: ^11.1.0
     react-native-document-picker: 9.0.1
     react-native-fs: 2.20.0
@@ -11003,6 +11000,16 @@ __metadata:
     react-native:
       optional: true
   checksum: 1b12535c5037994cb4c5aee4a0d72d0034bb41bc8cda15aec99e1570174b5980fef5d3c54e450a87a387af26265f74813bdb889aef600e3a15242ac940c0f29d
+  languageName: node
+  linkType: hard
+
+"react-native-date-picker@npm:^5.0.7":
+  version: 5.0.7
+  resolution: "react-native-date-picker@npm:5.0.7"
+  peerDependencies:
+    react: ">= 17.0.1"
+    react-native: ">= 0.64.3"
+  checksum: 94191bf3ce6e88a3acc4ca5e5514eaa6fc15c61666393d85ca258dba3a3efd9145c8fd31ed0f18676d7f083e17f08c760de8193ad24367a65761330084bcdc6b
   languageName: node
   linkType: hard
 
