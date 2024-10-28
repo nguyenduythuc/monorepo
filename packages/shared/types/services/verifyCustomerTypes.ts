@@ -21,6 +21,7 @@ export type ekycDataType = {
   placeOfBirth?: string;
   spouseName?: string;
   oldIdNumber?: string;
+  marriedStatus?: string;
 };
 
 export type webEkycDetailObject = {value: string};
@@ -60,6 +61,7 @@ export const mapEkycKeyValue = {
   oldIdNumber: 'VerifyCustomer.oldIdNumber',
   givenPlace: 'VerifyCustomer.givenPlace',
   rawImage: 'VerifyCustomer.rawImage',
+  marriedStatus: 'VerifyCustomer.marriedStatus',
 };
 
 export type NFCResultType = {

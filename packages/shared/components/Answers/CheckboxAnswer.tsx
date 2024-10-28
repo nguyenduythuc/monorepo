@@ -19,12 +19,13 @@ const CheckboxAnswer = ({
       key={answer.name}
       control={control}
       name={answer.name}
+      defaultValue={answer.value}
       render={({field: {onChange, value}}) => (
         <View style={tw`flex flex-row justify-between items-start mt-6 mr-4`}>
           <Checkbox
             label={t(answer.title) ?? ''}
             description={t(answer.description)}
-            isChecked={value}
+            isChecked={value === undefined ? answer.value : value}
             onChange={onChange}
             color={answer.checkboxColor}
           />

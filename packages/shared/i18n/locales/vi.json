@@ -207,6 +207,7 @@
     "origin": "Quê quán",
     "address": "Địa chỉ",
     "oldIdNumber": "Số CMND cũ",
+    "marriedStatus": "Tình trạng hôn nhân",
     "manual": "Thêm địa chỉ",
     "auto": "Tìm địa chỉ",
     "givenPlace": "Nơi cấp"
@@ -258,8 +259,70 @@
     "incomePerMonth": "Thu nhập hàng tháng"
   },
   "LoanPurpose": {
-    "title": "Bạn muốn vay vốn để...",
+    "title": "Bạn muốn vay vốn để...",
     "loanPurpose": "Mục đích sử dụng vốn"
+  },
+  "PreviousCompanyWorkingTime": {
+    "title": "Thời gian làm việc cho công ty gần nhất",
+    "workingSince": "Làm việc từ"
+  },
+  "LifeInsuranceDuration": {
+    "title": "Thời gian đóng bảo hiểm nhân thọ",
+    "answer": "Thời gian đóng bảo hiểm nhân thọ từ"
+  },
+  "MarriedStatus": {
+    "title": "Bạn đã kết hôn chưa ?",
+    "answer": "Tình trạng hôn nhân"
+  },
+  "ResidentStatus": {
+    "title": "Bạn có sống ở địa chỉ trên ID không",
+    "livingSince": "Sinh sống từ",
+    "address": "Địa chỉ"
+  },
+  "CifAndAplInformation": {
+    "profileInformation": "Profile Information",
+    "description": "Please input the following information",
+    "addMoreInfo": "Nhập thông tin"
+  },
+  "AddOtherIdDoc": {
+    "title": "Please add some of your other identification documents",
+    "idDocType": "Label name",
+    "desc": "Personal Information"
+  },
+  "HouseHoldBookAddress": {
+    "title": "Is your household book address as same as the address in your ID card ?",
+    "desc": "Residence"
+  },
+  "JobInformation": {
+    "title": "Please tell us about your job",
+    "desc": "Occupation"
+  },
+  "WorkingCompanyInformation": {
+    "title": "Please tell us about your company",
+    "company": "Company",
+    "companyName": "Company Name",
+    "workingDuration": "Working since"
+  },
+  "WorkingCompanyAddress": {
+    "title": "Can you tell us what the company's address is ?"
+  },
+  "ReferralContactInfo": {
+    "title": "Please give us the information of a referral contact",
+    "desc": "Referral contact",
+    "notice": "Don't worry, we only reach that person in case we can not call your number",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone number"
+  },
+  "ReferralRelationship": {
+    "title": "What is the relationship with this contact?",
+    "relationship": "Relationship"
+  },
+  "Beneficiary": {
+    "title": "Please tell us the beneficiary information",
+    "desc": "Beneficiary",
+    "bank": "Bank",
+    "account": "Account",
+    "fullName": "Full Name"
   },
   "AdditionalInfo": {
     "chooseUploadMethod": "Choose the upload method",
@@ -276,5 +339,17 @@
     "currentPassword": "Nhập mật khẩu hiện tại",
     "changePasswordErr": "Nhập sai mật khẩu hiện tại",
     "changePasswordSuccess": "Đổi mật khẩu thành công"
+  },
+  "LoanOffer": {
+    "title": "Loan Offer"
+  },
+  "ChangePassword": {
+    "title": "Đổi mật khẩu",
+    "currentPassword": "Nhập mật khẩu hiện tại",
+    "changePasswordErr": "Nhập sai mật khẩu hiện tại",
+    "changePasswordSuccess": "Đổi mật khẩu thành công"
+  },
+  "LoanOffer": {
+    "title": "Loan Offer"
   }
 }

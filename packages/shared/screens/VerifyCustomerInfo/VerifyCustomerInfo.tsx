@@ -11,8 +11,8 @@ import {
   Image,
   RadioButton,
 } from '@lfvn-customer/shared/components';
-import useRNTrueId from '../../hooks/useRNTrueId';
-import {EkycType} from '../../utils/TrueId';
+import useRNTrueId from '@lfvn-customer/shared/hooks/useRNTrueId';
+import {EkycType} from '@lfvn-customer/shared/utils/TrueId';
 
 export const VerifyCustomerInfo = () => {
   const t = useTranslations();

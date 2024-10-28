@@ -3,7 +3,6 @@ import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
 import {FieldSimulateConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGetMetadataQuery,
-  useGetProductQuery,
   useGetProductSchemeListQuery,
   useGetPurposeQuery,
   usePreCheckMutation,
@@ -46,8 +45,6 @@ const useSimulateScreen = () => {
       dispatch(setSimulate(defaultSimulate));
     }, []);
   }
-
-  const {data: productData} = useGetProductQuery();
 
   const {data: purposeData} = useGetPurposeQuery();
 
@@ -122,7 +119,7 @@ const useSimulateScreen = () => {
       },
       FieldSimulateConfig.SimulateLoanInsurance,
     ];
-  }, [selectProduct, productData, purposeData]);
+  }, [selectProduct, loanProductData, purposeData]);
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({

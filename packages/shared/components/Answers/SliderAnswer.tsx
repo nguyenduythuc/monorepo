@@ -15,12 +15,13 @@ const SliderAnswer = ({
       key={answer.name}
       control={control}
       name={answer.name}
+      defaultValue={answer.value}
       render={({field: {onChange, value}}) => (
         <SliderWithTextInput
           color="red"
           onChangeText={onChange}
           onChangeSlider={onChange}
-          value={value}
+          value={value || answer.value}
           maxValue={answer.maxValue ?? 10}
           minValue={answer.minValue ?? 1}
           step={answer.step ?? 1}

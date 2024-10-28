@@ -4,3 +4,4 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const UUID = 'UUID';
 export const VERIFY_ACCOUNT_ID = 'VERIFY_ACCOUNT_ID';
 export const PREVIOUS_ROUTE = 'PREVIOUS_ROUTE';
+export const DEVICE_INFO = 'DEVICE_INFO';

@@ -15,11 +15,12 @@ const InputAnswer = ({
       key={answer.name}
       control={control}
       name={answer.name}
+      defaultValue={answer.value}
       render={({field: {onChange, onBlur, value, ref}}) => (
         <TextInputWithUnit
           keyboardType={answer.keyboardType}
           onChangeValue={onChange}
-          value={value}
+          value={value === undefined ? answer.value : value}
           onBlur={onBlur}
           disabled={answer.disabled}
           label={answer.title}

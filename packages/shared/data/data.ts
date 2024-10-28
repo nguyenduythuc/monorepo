@@ -1,22 +1,26 @@
 export const marriedStatusOption = [
   {
     name: 'Độc thân',
-    code: '01',
+    code: 'single',
   },
   {
     name: 'Đã kết hôn',
-    code: '02',
+    code: 'married',
+  },
+  {
+    name: 'Đã ly hôn',
+    code: 'divorced',
   },
 ];
 
 export const residentSameAsID = [
   {
     name: 'Yes',
-    code: '01',
+    code: 'yes',
   },
   {
     name: 'No',
-    code: '02',
+    code: 'no',
   },
 ];
 

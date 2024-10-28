@@ -26,15 +26,16 @@ import useHome from '@lfvn-customer/shared/hooks/useHome';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import BgInProgressApplication from '@lfvn-customer/shared/assets/images/svg/BgInProgressApplication';
 import {setDeeplinkPath} from '@lfvn-customer/shared/redux/slices/authSlice';
-import {transformUniversalToNative} from '../../utils/deeplink';
+import {transformUniversalToNative} from '@lfvn-customer/shared/utils/deeplink';
 import useAuth from '../../hooks/useAuth';
-import {convertNumberToCurrency} from '../../utils';
+import {convertNumberToCurrency} from '@lfvn-customer/shared/utils';
 import moment from 'moment';
 
 export type ListFeatureType = {
   iconName: IconKeys;
   title: string;
   goPage: ScreenParamEnum;
+  params?: object;
 };
 
 export const HomeScreen = () => {
@@ -78,7 +79,8 @@ export const HomeScreen = () => {
     {
       iconName: 'cash-loan-icon',
       title: 'Cash loan',
-      goPage: ScreenParamEnum.ProductIntroduction,
+      goPage: ScreenParamEnum.CifAndAplInformation,
+      params: {flowId: '0212605669550623'},
     },
     {
       iconName: 'credit-card-icon',
@@ -88,7 +90,7 @@ export const HomeScreen = () => {
     {
       iconName: 'car-loan-icon',
       title: 'Car loan',
-      goPage: ScreenParamEnum.SuccessAccountRegister,
+      goPage: ScreenParamEnum.LoanOffer,
     },
   ];
 
@@ -275,7 +277,7 @@ export const HomeScreen = () => {
           <View key={item.title} style={tw`flex-1 items-center`}>
             <TouchableOpacity
               onPress={() => {
-                appNavigate(item.goPage);
+                appNavigate(item.goPage, item.params);
               }}
               style={tw`flex-col items-center justify-center z-10`}>
               <View

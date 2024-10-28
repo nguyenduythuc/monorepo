@@ -1,5 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {
+  useGetAplDataMutation,
+  useGetCifDataMutation,
   useGetProductSchemeListQuery,
   useGetPurposeQuery,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
@@ -12,7 +14,17 @@ import {Control, FieldValues, useWatch} from 'react-hook-form';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {ProductScheme} from '../types/services/productTypes';
 import useSimulateScreen from '../hooks/useSimulateScreen';
-import eventEmitter from '@lfvn-customer/shared//utils/eventEmitter';
+import eventEmitter, {
+  EventEmitterEnum,
+} from '@lfvn-customer/shared/utils/eventEmitter';
+import {
+  marriedStatusOption,
+  residentSameAsID,
+  lifeInsuranceDuration,
+  defaultSelectProductInfo,
+} from '@lfvn-customer/shared/data/data';
+import {getVerifyAccountInfo} from '../utils/commonFunction';
+import {DEVICE_INFO} from '../utils/constants';
 import {useDispatch} from 'react-redux';
 import {setProductSelected} from '@lfvn-customer/shared/redux/slices/productSlices';
 
@@ -41,37 +53,53 @@ const useHandleLoanInformation = ({
     });
   }, [productSchemeListData]);
   // const eventEmitter = new EventEmitter();
+  const [getCifData] = useGetCifDataMutation();
+  const [getAplData] = useGetAplDataMutation();
+  const deviceInfo = JSON.parse(getVerifyAccountInfo(DEVICE_INFO) || '');
 
-  const [selectProductLoan, setSelectProductLoan] = useState({
-    loanAmount: {max: '300000000', min: '100000000'},
-    loanPeriod: {max: '36', min: '6'},
-  });
+  const {cifMetadata} = useAppSelector(state => state.product);
+
+  const [selectProductLoan, setSelectProductLoan] = useState(
+    defaultSelectProductInfo,
+  );
+
+  useEffect(() => {
+    if (stepNumber === 1) {
+      console.log('requestPendingMetadata', requestPendingMetadata);
+    }
+  }, [stepNumber]);
 
   const simulateLoanProduct = useWatch({
     control,
     name: LoanInformationAnswerName.LoanProduct,
+    defaultValue: requestPendingMetadata?.schemeCode,
   });
   const simulateLoanTenor = useWatch({
     control,
     name: LoanInformationAnswerName.LoanTenor,
+    defaultValue: requestPendingMetadata?.loanTerm,
   });
   const simulateLoanAmount = useWatch({
     control,
     name: LoanInformationAnswerName.LoanAmount,
+    defaultValue: requestPendingMetadata?.amount,
   });
   const simulateLoanInsurance = useWatch({
     control,
     name: LoanInformationAnswerName.LoanInsurance,
+    defaultValue: requestPendingMetadata?.participateInLoanInsurance,
   });
 
   const simulateLoanIncomePerMonth = useWatch({
     control,
     name: LoanInformationAnswerName.LoanIncomePerMonth,
+    defaultValue: requestPendingMetadata?.incomeMonthly,
   });
 
   const simulateLoanPurpose = useWatch({
     control,
     name: LoanInformationAnswerName.LoanPurpose,
+    defaultValue: requestPendingMetadata?.loanPurpose,
   });
 
   const selectProduct = useMemo(() => {
@@ -100,6 +128,15 @@ const useHandleLoanInformation = ({
     }
   }, [selectProduct]);
 
+  const simulateLoanPreviousCompanyWorkingTime = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanPreviousCompanyWorkingTime,
+  });
+  const simulateLoanInsuranceDuration = useWatch({
+    control,
+    name: LoanInformationAnswerName.LoanInsuranceDuration,
+  });
+
   const getEstimate = useMemo(() => {
     if (selectProduct && simulateLoanTenor && simulateLoanAmount) {
       return estimatePaymentMonthlyParamsInput(
@@ -118,24 +155,61 @@ const useHandleLoanInformation = ({
     return '0';
   }, [selectProduct]);
 
+  const getDuration = (date: string) => {
+    const [startMonth, startYear] = date.split('/').map(Number);
+
+    // Get today's date
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1; // getMonth() is zero-indexed, so add 1
+    const currentYear = today.getFullYear();
+
+    // Calculate the difference in years and months
+    let years = currentYear - startYear;
+    let months = currentMonth - startMonth;
+
+    // Adjust if months difference is negative
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    return {years, months};
+  };
+
+  const getPreviousWorkingDuration = useMemo(() => {
+    if (
+      simulateLoanPreviousCompanyWorkingTime &&
+      simulateLoanPreviousCompanyWorkingTime.length === 7
+    ) {
+      return getDuration(simulateLoanPreviousCompanyWorkingTime);
+    }
+  }, [simulateLoanPreviousCompanyWorkingTime]);
+
   useEffect(() => {
-    if (stepNumber === 1) {
-      const isDisabled = !(
-        simulateLoanProduct &&
-        simulateLoanTenor &&
-        simulateLoanAmount &&
-        simulateLoanInsurance
-      );
-      eventEmitter.emit('watch-form-data', {stepNumber, isDisabled});
+    let isDisabled = true;
+    switch (stepNumber) {
+      case 1:
+        isDisabled = !(
+          simulateLoanProduct &&
+          simulateLoanTenor &&
+          simulateLoanAmount &&
+          simulateLoanInsurance
+        );
+        break;
+      case 2:
+        isDisabled = !simulateLoanIncomePerMonth;
+        break;
+      case 3:
+        isDisabled = !simulateLoanPurpose;
+        break;
+      case 4:
+        isDisabled = !simulateLoanPreviousCompanyWorkingTime;
+        break;
+      case 5:
+        isDisabled = !simulateLoanInsuranceDuration;
+        break;
     }
-    if (stepNumber === 2) {
-      const isDisabled = !simulateLoanIncomePerMonth;
-      eventEmitter.emit('watch-form-data', {stepNumber, isDisabled});
-    }
-    if (stepNumber === 3) {
-      const isDisabled = !simulateLoanPurpose;
-      eventEmitter.emit('watch-form-data', {stepNumber, isDisabled});
-    }
+    eventEmitter.emit(EventEmitterEnum.WatchFormData, {stepNumber, isDisabled});
   }, [
     simulateLoanProduct,
     simulateLoanTenor,
@@ -143,8 +217,26 @@ const useHandleLoanInformation = ({
     simulateLoanInsurance,
     simulateLoanIncomePerMonth,
     simulateLoanPurpose,
+    simulateLoanPreviousCompanyWorkingTime,
+    simulateLoanInsuranceDuration,
+    requestPendingMetadata,
     stepNumber,
   ]);
+
+  useEffect(() => {
+    if (productSchemeListData) {
+      const selectItem = productSchemeListData.find(
+        item => item.code === simulateLoanProduct,
+      );
+      if (selectItem) {
+        const selectProductLoanAmount = {
+          loanAmount: JSON.parse(selectItem.loanAmount),
+          loanPeriod: JSON.parse(selectItem.loanPeriod),
+        };
+        setSelectProductLoan(selectProductLoanAmount);
+      }
+    }
+  }, [simulateLoanProduct]);
 
   const loanProductOptions = useMemo(() => {
     return productSchemeListData?.map(item => {
@@ -172,6 +264,7 @@ const useHandleLoanInformation = ({
                     type: AnswerType.DropdownOption,
                     title: 'ProductInformation.loanProduct',
                     options: loanProductOptions,
+                    value: simulateLoanProduct,
                   },
                   {
                     name: LoanInformationAnswerName.LoanAmount,
@@ -183,6 +276,7 @@ const useHandleLoanInformation = ({
                       parseInt(selectProductLoan.loanAmount.max) / 2
                     ).toString(), // todo: get default value from min-max value
                     unit: 'VND',
+                    value: requestPendingMetadata?.amount,
                     step: 1000000,
                   },
                   {
@@ -192,6 +286,7 @@ const useHandleLoanInformation = ({
                     maxValue: parseInt(selectProductLoan.loanPeriod.max),
                     minValue: parseInt(selectProductLoan.loanPeriod.min),
                     defaultValue: '6',
+                    value: requestPendingMetadata?.loanTerm,
                     unit: 'tháng',
                     step: 1,
                   },
@@ -200,6 +295,7 @@ const useHandleLoanInformation = ({
                     type: AnswerType.Checkbox,
                     title: 'ProductInformation.loanInsurance',
                     description: 'ProductInformation.loanInsuranceDes',
+                    value: requestPendingMetadata?.participateInLoanInsurance,
                   },
                 ],
               },
@@ -218,7 +314,7 @@ const useHandleLoanInformation = ({
                     name: LoanInformationAnswerName.LoanIncomePerMonth,
                     type: AnswerType.Input,
                     title: 'IncomePerMonth.incomePerMonth',
-                    value: '',
+                    value: requestPendingMetadata?.incomeMonthly,
                     keyboardType: 'numeric',
                     unit: 'VND',
                   },
@@ -240,6 +336,7 @@ const useHandleLoanInformation = ({
                     type: AnswerType.RadioButton,
                     title: 'LoanPurpose.loanPurpose',
                     options: purposeData?.data.data ?? [],
+                    value: requestPendingMetadata?.loanPurpose,
                   },
                 ],
               },
@@ -248,8 +345,41 @@ const useHandleLoanInformation = ({
         case 4:
           return {
             id: 4,
-            name: 'Step 4: Document Upload',
-            description: 'Please upload the required documents',
+            name: 'PreviousCompanyWorkingTime.title',
+            description: 'Step.addMoreInformation',
+            questions: [
+              {
+                title: '',
+                answers: [
+                  {
+                    name: LoanInformationAnswerName.LoanPreviousCompanyWorkingTime,
+                    type: AnswerType.CalenderDatePicker,
+                    title: 'PreviousCompanyWorkingTime.workingSince',
+                    value: '',
+                    keyboardType: 'numeric',
+                  },
+                ],
+              },
+            ],
+          };
+        case 5:
+          return {
+            id: 5,
+            name: 'LifeInsuranceDuration.title',
+            description: 'Step.addMoreInformation',
+            questions: [
+              {
+                title: '',
+                answers: [
+                  {
+                    name: LoanInformationAnswerName.LoanInsuranceDuration,
+                    type: AnswerType.RadioButton,
+                    title: 'LifeInsuranceDuration.answer',
+                    options: lifeInsuranceDuration ?? [],
+                  },
+                ],
+              },
+            ],
           };
         default:
           return {
@@ -259,7 +389,13 @@ const useHandleLoanInformation = ({
           };
       }
     },
-    [selectProductLoan, productSchemeListData, purposeData, loanProductOptions],
+    [
+      selectProductLoan,
+      productSchemeListData,
+      purposeData,
+      loanProductOptions,
+      requestPendingMetadata,
+    ],
   );
 
   return {
@@ -267,6 +403,8 @@ const useHandleLoanInformation = ({
     productSchemeListData,
     getInterest,
     getEstimate,
+    getPreviousWorkingDuration,
+    cifMetadata,
   };
 };
 export default useHandleLoanInformation;

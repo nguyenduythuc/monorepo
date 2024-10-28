@@ -7,6 +7,10 @@ import {
   CreateFolderEcmResponseProps,
   FindCifInfoRequestProps,
   FindCifInfoResponseProps,
+  GetAPLDataRequestProps,
+  GetAPLDataResponseProps,
+  GetCifDataRequestProps,
+  GetCifDataResponseProps,
   MetaDataRequestProps,
   PreCheckRequestProps,
   PreCheckResponseProps,
@@ -16,8 +20,8 @@ import {
   RequestPendingResponseProps,
   SubmitRbpInfoRequestProps,
   SubmitRbpInfoResponseProps,
-  SubmmitSuggestTRRequestProps,
-  SubmmitSuggestTRResponseProps,
+  SubmitSuggestTRRequestProps,
+  SubmitSuggestTRResponseProps,
   UploadDocumentEcmRequestProps,
   UploadDocumentEcmResponseProps,
   UploadDocumentEcmWebRequestProps,
@@ -78,10 +82,10 @@ export const loanAPI = (
     }),
   }),
   submitSuggestTR: builder.mutation<
-    SubmmitSuggestTRResponseProps,
-    SubmmitSuggestTRRequestProps
+    SubmitSuggestTRResponseProps,
+    SubmitSuggestTRRequestProps
   >({
-    query: (body: SubmmitSuggestTRRequestProps) => ({
+    query: (body: SubmitSuggestTRRequestProps) => ({
       url: getPath('/submit-topup-suggest-tr'),
       method: 'post',
       data: body,
@@ -97,6 +101,15 @@ export const loanAPI = (
       data: body,
     }),
   }),
+  getAplData: builder.mutation<GetAPLDataResponseProps, GetAPLDataRequestProps>(
+    {
+      query: (body: GetAPLDataRequestProps) => ({
+        url: getPath('/deh/apl'),
+        method: 'post',
+        data: body,
+      }),
+    },
+  ),
   createFolderEcm: builder.mutation<
     CreateFolderEcmResponseProps,
     CreateFolderEcmRequestProps
@@ -154,4 +167,13 @@ export const loanAPI = (
       };
     },
   }),
+  getCifData: builder.mutation<GetCifDataResponseProps, GetCifDataRequestProps>(
+    {
+      query: (body: GetCifDataRequestProps) => ({
+        url: getPath('/deh/cif'),
+        method: 'post',
+        data: body,
+      }),
+    },
+  ),
 });

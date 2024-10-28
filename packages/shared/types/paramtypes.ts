@@ -48,6 +48,22 @@ export type RootParamList = {
     phoneNumber: string;
     identityNumber: string;
   };
+  'cif-apl-information': {
+    flowId: string;
+  };
+  'input-additional-information': undefined;
+  'rbp-information': undefined;
+  'loan-offer': undefined;
+  'change-password': {
+    phoneNumber: string;
+    identityNumber: string;
+  };
+  'cif-apl-information': {
+    flowId: string;
+  };
+  'input-additional-information': undefined;
+  'rbp-information': undefined;
+  'loan-offer': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -72,6 +88,15 @@ export enum ScreenParamEnum {
   CifInfoPendingCheck = 'cif-info-pending-check',
   VisionCamera = 'vision-camera',
   ChangePassword = 'change-password',
+  CifAndAplInformation = 'cif-apl-information',
+  InputAdditionalInformation = 'input-additional-information',
+  RBPInformation = 'rbp-information',
+  LoanOffer = 'loan-offer',
+  ChangePassword = 'change-password',
+  CifAndAplInformation = 'cif-apl-information',
+  InputAdditionalInformation = 'input-additional-information',
+  RBPInformation = 'rbp-information',
+  LoanOffer = 'loan-offer',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -122,4 +147,9 @@ export type ReviewCustomerEKYCInfoScreenRouteProps = RouteProp<
 export type CifInfoPendingCheckScreenRouteProps = RouteProp<
   RootParamList,
   'cif-info-pending-check'
+>;
+
+export type CifAndAplInformationRouteProps = RouteProp<
+  RootParamList,
+  'cif-apl-information'
 >;

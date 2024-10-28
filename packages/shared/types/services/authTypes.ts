@@ -62,35 +62,6 @@ export interface UpdateAccountRequestProps {
   authorities?: string[];
 }
 
-export interface UpdateOCRIdentityNumberRequestProps {
-  login: string;
-  identityNumber: string;
-}
-
-export interface UpdateOCRIdentityNumberResponseProps {
-  id: number;
-  login: string;
-  fullName: string;
-  phoneNumber: string;
-  identityNumber: string;
-  email: string;
-  imageUrl: string;
-  activated: boolean;
-  changeRequired: null;
-  langKey: string;
-  identityIssue: null;
-  birthDate: null;
-  birthPlace: null;
-  gender: null;
-  nationality: null;
-  identityNumberOld: null;
-  createdBy: string;
-  createdDate: null;
-  lastModifiedBy: string;
-  lastModifiedDate: string;
-  authorities: [];
-}
-
 export interface UploadUserResourceRequestProps {
   resourceType: string;
   file: FileProps;

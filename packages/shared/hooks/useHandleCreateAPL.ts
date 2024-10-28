@@ -10,7 +10,7 @@ import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {
   MetaDataRequestProps,
   SubmitRbpInfoRequestProps,
-  SubmmitSuggestTRRequestProps,
+  SubmitSuggestTRRequestProps,
 } from '@lfvn-customer/shared/types/services/loanTypes';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
@@ -25,10 +25,10 @@ import {RequestPendingStepEnum} from '@lfvn-customer/shared/types';
 
 import moment from 'moment';
 import useHandleSaveFile from './useHandleSaveFile';
+import useCifAndAplInformation from './useCifAndAplInformation';
 
 const useHandleCreateAPL = () => {
   const {requestPendingMetadata} = useAppSelector(state => state.product);
-
   const {appNavigate} = useConfigRouting();
   const [createAPL] = useCreateAPLMutation();
   const [createFolderEcm] = useCreateFolderEcmMutation();
@@ -50,6 +50,10 @@ const useHandleCreateAPL = () => {
       type: 'error',
     });
   };
+
+  const {onHandlePrescoring} = useCifAndAplInformation({
+    flowId: requestPendingMetadata?.flowId ?? '',
+  });
 
   const handleDownloadUserResourceFileAndUploadEcm = async (
     body: MetaDataRequestProps,
@@ -137,9 +141,7 @@ const useHandleCreateAPL = () => {
     }
   };
 
-  const onHandleSubmitSuggestTR = async (
-    body: SubmmitSuggestTRRequestProps,
-  ) => {
+  const onHandleSubmitSuggestTR = async (body: SubmitSuggestTRRequestProps) => {
     dispatch(setLoadingScreen());
     try {
       // TODO: check loan offer from response BE (step 8.3)
@@ -151,36 +153,52 @@ const useHandleCreateAPL = () => {
     }
   };
 
+  const startPrescoring = () => {
+    onHandlePrescoring();
+  };
+
   const onHandleSubmitRbpInfo = async (data: MetaDataRequestProps) => {
     dispatch(setLoadingScreen());
     const body: SubmitRbpInfoRequestProps = {
       flowId: data.flowId,
       action: 'approve',
       schemeId: data.schemeId,
-      loanAmount: data.amount,
+      amount: data.amount,
       loanTerm: data.loanTerm,
       interest: data.interest,
-      paymentMonthly: '750000', // Số tiền trả hàng tháng dự kiến
-      insurance: data.participateInLoanInsurance,
-      insuranceAmount: data.insuranceFee,
-      incomeMonthly: data.incomeMonthly,
-      purposeUse: data.loanPurpose,
-      workingTime: '50', // TODO: get from data input
-      insuranceTime: '15', // TODO: Chưa biết lấy data ở đâu
-      merialStatus: 'married', // TODO: get from data input
-      residentialAddress: 'Đồng Cương - Yên Lạc - Vĩnh Phúc', // TODO: get from verify cus step
-      province: 'Hà Nội', // TODO: get from verify cus step
-      district: 'Đống Đa', // TODO: get from verify cus step
-      ward: 'Khâm Thiên', // TODO: get from verify cus step
-      address: data.customerAddress,
-      mailingProvince: data.customerProvince,
-      mailingDistrict: data.customerDistrict,
-      mailingWard: data.customerWard,
-      mailingAddress: data.customerAddress,
-      occupation: '132', // TODO: get from data input
+      expectedMonthlyPayment: '750000',
+      insuranceFee: data.insuranceFee,
+      participateInLoanInsurance: data.participateInLoanInsurance?.toString(),
+      loanPurpose: data.loanPurpose,
+      customerMonthlyIncome: data.incomeMonthly,
+      customerWorkingTime: data.loanPreviousCompanyWorkingTime,
+      insuranceTime: data.loanInsuranceDuration,
+      customerMaritalStatus: data.loanMarriedStatus,
+      customerMailingProvince: data.customerProvince,
+      customerMailingDistrict: data.customerDistrict,
+      customerMailingWard: data.customerWard,
+      customerMailingAddress: data.customerAddress,
+      customerOccupation: data.loanOccupation,
     };
     try {
-      await submitRbpInfo(body);
+      const result = await submitRbpInfo(body);
+      if (result.data?.message === 'success') {
+        const metadata: MetaDataRequestProps = {
+          ...data,
+        };
+        const bodyRequestPending = {
+          userId: requestPendingMetadata?.userId ?? '',
+          currentStep: RequestPendingStepEnum.VERIFY_INFORMATION,
+          productCode: requestPendingMetadata?.schemeCode ?? '',
+          metadata,
+        };
+        console.log('bodyRequestPending1234', bodyRequestPending);
+        await onHandleSaveDaftAPL(bodyRequestPending);
+
+        startPrescoring();
+      } else {
+        console.log();
+      }
     } catch {
       onHandleShowToast();
     } finally {

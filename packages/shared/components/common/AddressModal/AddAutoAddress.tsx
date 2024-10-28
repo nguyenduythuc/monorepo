@@ -8,10 +8,15 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {Icon} from '../Icon';
 import useAddAddress from '@lfvn-customer/shared/hooks/useAddAddress';
 
+export const enum SubmitType {
+  Reset = 'reset',
+  Submit = 'submit',
+}
+
 type AutoAddressModalProps = {
   value?: string;
   changeMode: () => void;
-  autoSubmit: (value: string) => void;
+  autoSubmit: (type: SubmitType, value?: string) => void;
   listAutoAddress: autoCompleteData[];
   onChange: (value: string) => void;
 };
@@ -30,7 +35,7 @@ export const AddAutoAddress: React.FC<AutoAddressModalProps> = ({
     list: autoCompleteData[],
   ) => {
     const selectedAddress = list.filter(item => item._id === value)[0];
-    autoSubmit(selectedAddress.name);
+    autoSubmit(SubmitType.Submit, selectedAddress.name);
   };
 
   useEffect(() => {
