@@ -17,18 +17,13 @@ import useShowToast from './useShowToast';
 import {Platform} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setVerifyAccount} from '@lfvn-customer/shared/redux/slices/verifyAccountSlices';
-import {useUploadUserResourceMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {
-  removeFileAfterUpload,
-  saveEKYCImageBase64ToFile,
-} from '@lfvn-customer/shared/utils';
-import {UploadUserResourceRequestProps} from '@lfvn-customer/shared/types/services/authTypes';
-import moment from 'moment';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
+import {useEffect} from 'react';
+import useHandleSaveFile from './useHandleSaveFile';
 
 declare global {
   interface Window {
@@ -48,38 +43,11 @@ const useRNTrueId = () => {
   const {showCommonErrorToast, handleShowToast} = useShowToast();
   const dispatch = useDispatch();
 
-  const [uploadUserResource] = useUploadUserResourceMutation();
+  const {handleUploadUserResouce} = useHandleSaveFile();
 
-  const handleUploadUserResouce = async ({
-    rawImage,
-    resourceType,
-  }: {
-    rawImage: string;
-    resourceType: string;
-  }) => {
-    const fileName =
-      identityNumber +
-      `_${resourceType}_` +
-      moment().format('YYYYMMDDHHmmss') +
-      '.jpg';
-    const filePath = await saveEKYCImageBase64ToFile(rawImage, fileName);
-    console.log('filePath', filePath);
-    if (!filePath) {
-      showCommonErrorToast();
-      return;
-    }
-    const body: UploadUserResourceRequestProps = {
-      resourceType,
-      file: {
-        uri: filePath,
-        type: 'image/jpeg',
-        name: fileName,
-      },
-      login: identityNumber ?? '',
-    };
-    await uploadUserResource(body);
-    removeFileAfterUpload(filePath);
-  };
+  useEffect(() => {
+    dispatch(clearLoadingScreen());
+  }, []);
 
   const startEkyc = (type: EkycType) => {
     try {
@@ -100,10 +68,11 @@ const useRNTrueId = () => {
                 Platform.OS === 'android' ? result.nfcData : result.nfcInfo;
               const data = parsePassportData(nfcRawData);
               console.log('final data', data);
-              if (data?.passportImage) {
+              if (data?.passportImage && identityNumber) {
                 handleUploadUserResouce({
                   rawImage: data.passportImage,
                   resourceType: 'IDCARD_SELFIE',
+                  identityNumber,
                 });
               }
               handleEkycSubmit(data);
@@ -129,22 +98,25 @@ const useRNTrueId = () => {
               dispatch(setLoadingScreen());
 
               // success
-              if (result?.rawImage?.front) {
+              if (result?.rawImage?.front && identityNumber) {
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.front,
                   resourceType: 'IDCARD_FRONT',
+                  identityNumber,
                 });
               }
-              if (result?.rawImage?.back) {
+              if (result?.rawImage?.back && identityNumber) {
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.back,
                   resourceType: 'IDCARD_BACK',
+                  identityNumber,
                 });
               }
-              if (result?.rawImage?.selfie) {
+              if (result?.rawImage?.selfie && identityNumber) {
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.selfie,
                   resourceType: 'IDCARD_SELFIE',
+                  identityNumber,
                 });
               }
               const data: ekycDataType = result.idInfo;
@@ -162,7 +134,7 @@ const useRNTrueId = () => {
       } else {
         // Todo set up true id web
         if (window?.TrueIDSDK && window?.TrueIDSDK.start) {
-          let callBack = (result: WebOCRResultType) => {
+          let callBack = async (result: WebOCRResultType) => {
             console.log('SDK result', result);
             if (result.code == 0) {
               // user close sdk
@@ -171,6 +143,30 @@ const useRNTrueId = () => {
                 type: 'info',
               });
             } else if (result.code == 1) {
+              dispatch(setLoadingScreen());
+
+              // success
+              if (result?.rawImage?.front && identityNumber) {
+                await handleUploadUserResouce({
+                  rawImage: result.rawImage?.front,
+                  resourceType: 'IDCARD_FRONT',
+                  identityNumber,
+                });
+              }
+              if (result?.rawImage?.back && identityNumber) {
+                await handleUploadUserResouce({
+                  rawImage: result.rawImage?.back,
+                  resourceType: 'IDCARD_BACK',
+                  identityNumber,
+                });
+              }
+              if (result?.rawImage?.selfie && identityNumber) {
+                await handleUploadUserResouce({
+                  rawImage: result.rawImage?.selfie,
+                  resourceType: 'IDCARD_SELFIE',
+                  identityNumber,
+                });
+              }
               // success
               const data: ekycDataType = {
                 fullname: result.idInfo?.name?.value,
@@ -184,7 +180,6 @@ const useRNTrueId = () => {
                 oldIdNumber: result.idInfo?.id_old_number?.value,
               };
               handleEkycSubmit(data);
-              // TODO: handle upload image in Web
               // console.log('final data', parsePassportData(result.nfcInfo));
             } else {
               // handle error

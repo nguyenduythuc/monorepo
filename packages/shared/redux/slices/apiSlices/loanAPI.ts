@@ -20,6 +20,7 @@ import {
   SubmmitSuggestTRResponseProps,
   UploadDocumentEcmRequestProps,
   UploadDocumentEcmResponseProps,
+  UploadDocumentEcmWebRequestProps,
 } from '@lfvn-customer/shared/types/services/loanTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -127,6 +128,25 @@ export const loanAPI = (
           }),
         ),
       );
+      return {
+        url: getPath('/upload-document-ecm'),
+        method: 'post',
+        data: form,
+      };
+    },
+  }),
+  uploadDocumentEcmWeb: builder.mutation<
+    UploadDocumentEcmResponseProps,
+    UploadDocumentEcmWebRequestProps
+  >({
+    query: (body: UploadDocumentEcmWebRequestProps) => {
+      const form = new FormData();
+      form.append('objectid', body.objectid);
+      form.append('docType', body.docType);
+      form.append('docName', body.docName);
+      form.append('fileType', body.fileType);
+      form.append('identity', body.identity);
+      form.append('file', body.file, body.fileName);
       return {
         url: getPath('/upload-document-ecm'),
         method: 'post',

@@ -1,5 +1,4 @@
 import {PreCheckDataMetadataProps} from '@lfvn-customer/shared/types/services/loanTypes';
-import RNFS from 'react-native-fs';
 
 export const maskPhoneNumber = (phoneNumber: string) => {
   return phoneNumber.replace(/(?<=.{2}).(?=.*.{3})/g, '*');
@@ -42,32 +41,4 @@ export const base64ToBlob = (
 
   // use fetch to convert base64 to blob
   return fetch(validBase64).then(res => res.blob());
-};
-
-export const saveEKYCImageBase64ToFile = async (
-  base64Data: string,
-  fileName: string,
-) => {
-  try {
-    const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-
-    const prefix = `data:image/jpeg;base64,`;
-    const validBase64 = base64Data.startsWith(prefix)
-      ? base64Data
-      : `${prefix}${base64Data}`;
-
-    // save base64 to file
-    await RNFS.writeFile(
-      path,
-      validBase64.replace(/^data:image\/\w+;base64,/, ''),
-      'base64',
-    );
-    return path;
-  } catch (error) {
-    console.error('Error saving file: ', error);
-  }
-};
-
-export const removeFileAfterUpload = (filePath: string) => {
-  RNFS.unlink(filePath);
 };

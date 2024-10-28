@@ -254,6 +254,16 @@ export interface UploadDocumentEcmRequestProps {
   file: FileProps;
 }
 
+export interface UploadDocumentEcmWebRequestProps {
+  objectid: string;
+  docType: string;
+  docName: string;
+  fileType: string;
+  identity: string;
+  file: Blob;
+  fileName: string;
+}
+
 export interface UploadDocumentEcmResponseProps {
   data: {
     uploadedResult: {

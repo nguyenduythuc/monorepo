@@ -4,7 +4,6 @@ import {
   useLazyGetUserResourceQuery,
   useSubmitRbpInfoMutation,
   useSubmitSuggestTRMutation,
-  useUploadDocumentEcmMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useConfigRouting} from './routing';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
@@ -23,11 +22,9 @@ import {
 import useHandleRequestPending from '@lfvn-customer/shared/hooks/useHandleRequestPending';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {RequestPendingStepEnum} from '@lfvn-customer/shared/types';
-import RNFS from 'react-native-fs';
-import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
-import {getToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
+
 import moment from 'moment';
-import {removeFileAfterUpload} from '@lfvn-customer/shared/utils';
+import useHandleSaveFile from './useHandleSaveFile';
 
 const useHandleCreateAPL = () => {
   const {requestPendingMetadata} = useAppSelector(state => state.product);
@@ -38,10 +35,11 @@ const useHandleCreateAPL = () => {
   const [submitSuggestTRMutation] = useSubmitSuggestTRMutation();
   const [submitRbpInfo] = useSubmitRbpInfoMutation();
   const [getUserResource] = useLazyGetUserResourceQuery();
-  const [uploadDocumentEcmMutation] = useUploadDocumentEcmMutation();
 
   const {onHandleSaveDaftAPL} = useHandleRequestPending();
   const dispatch = useDispatch();
+
+  const {handleUploadDocEcm} = useHandleSaveFile();
 
   const t = useTranslations();
   const {handleShowToast} = useShowToast();
@@ -66,45 +64,16 @@ const useHandleCreateAPL = () => {
     }
     await Promise.all(
       userResourceResponse.data.map(async item => {
-        const url = `${handleEnvByPlatform('BASE_API_URL')}/api/files/download/${item.fileName}`;
-        const filePath = RNFS.DocumentDirectoryPath + `/${item.fileName}`;
-        await RNFS.downloadFile({
-          fromUrl: url,
-          toFile: filePath,
-          background: true,
-          discretionary: true,
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-          },
-        })
-          .promise.then(async () => {
-            const uploadDocEcmResponse = await uploadDocumentEcmMutation({
-              objectid: flowId,
-              docType: 'DOC100',
-              docName: 'KH CMND/CCCD/CMTQĐ/ Hộ chiếu',
-              fileType: 'jpg',
-              identity: body.customerNric ?? '',
-              file: {
-                uri: filePath,
-                type: 'image/jpeg',
-                name: item.fileName,
-              },
-            });
-
-            if (
-              uploadDocEcmResponse.data?.data.uploadedResult.documentList.docId
-            ) {
-              docIds.push(
-                uploadDocEcmResponse.data?.data.uploadedResult.documentList
-                  .docId,
-              );
-              // Delete file after upload
-              removeFileAfterUpload(filePath);
-            }
-          })
-          .catch(err => {
-            console.log('Download error:', err);
-          });
+        const uploadDocEcmResponse = await handleUploadDocEcm({
+          fileName: item.fileName,
+          flowId,
+          customerNric: body.customerNric ?? '',
+        });
+        if (uploadDocEcmResponse?.data.uploadedResult.documentList.docId) {
+          docIds.push(
+            uploadDocEcmResponse.data.uploadedResult.documentList.docId,
+          );
+        }
       }),
     );
     return docIds;
