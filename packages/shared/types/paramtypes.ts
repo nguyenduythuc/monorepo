@@ -1,16 +1,16 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { OTPTypes } from '@lfvn-customer/shared/types';
-import { RouteProp } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {OTPTypes} from '@lfvn-customer/shared/types';
+import {RouteProp} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export type RootParamList = {
   home: undefined;
   Test: undefined;
   login:
-  | {
-    deeplinkPath?: string;
-  }
-  | undefined;
+    | {
+        deeplinkPath?: string;
+      }
+    | undefined;
   'verify-account': {
     type: OTPTypes;
   };
@@ -20,13 +20,14 @@ export type RootParamList = {
     identityNumber: string;
     type: OTPTypes;
     newPassword?: string;
+    currentPassword?: string;
     path?: string;
   };
   'sign-up': undefined;
   simulate: undefined;
   'repayment-schedule': undefined;
   'product-introduction': undefined;
-  'product-detail': { productId: number; productName: string };
+  'product-detail': {productId: number; productName: string};
   'create-loan-apl': undefined;
   'reset-password': {
     phoneNumber: string;
@@ -42,7 +43,11 @@ export type RootParamList = {
     flowId: string;
     productCode: string;
   };
-  'vision-camera': undefined
+  'vision-camera': undefined;
+  'change-password': {
+    phoneNumber: string;
+    identityNumber: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -65,7 +70,8 @@ export enum ScreenParamEnum {
   PrecheckFail = 'precheck-fail',
   LoanInformation = 'loan-information',
   CifInfoPendingCheck = 'cif-info-pending-check',
-  VisionCamera = 'vision-camera'
+  VisionCamera = 'vision-camera',
+  ChangePassword = 'change-password',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;

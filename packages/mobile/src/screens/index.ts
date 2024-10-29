@@ -14,3 +14,4 @@ export * from './VerifyCustomerInfoContainer';
 export * from './PrecheckContainer';
 export * from './LoanInformationContainer';
 export * from './VisionCameraContainer';
+export * from './ChangePasswordContainer';

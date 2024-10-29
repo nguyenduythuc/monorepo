@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import { View, Text, ScrollView, Platform } from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {
   Appbar,
   ConfirmModal,
@@ -14,18 +14,17 @@ import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
-import {
-  ekycDataType,
-  mapEkycKeyValue,
-} from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
-import { formatGenderInfo } from '../../utils/commonFunction';
-import { useAppSelector } from '../../redux/store';
-import { InfoDataCard } from '../../components/common/InfoDataCard';
+import {ekycDataType} from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
+import {formatGenderInfo} from '../../utils/commonFunction';
+import {useAppSelector} from '../../redux/store';
+import {InfoDataCard} from '../../components/common/InfoDataCard';
 
 export const ReviewCustomerEKYCInfo = () => {
   const t = useTranslations();
 
-  const ekycData: ekycDataType = useAppSelector(state => state.verifyAccount.ekycData)
+  const ekycData: ekycDataType = useAppSelector(
+    state => state.verifyAccount.ekycData,
+  );
   // const submitAction = () => {
   //   // appNavigate(ScreenParamEnum.CreateLoanApl);
   // };
@@ -45,7 +44,6 @@ export const ReviewCustomerEKYCInfo = () => {
   const {
     isModalVisible,
     setIsModalVisible,
-    msgRequestError,
     onCustomerCancel,
     handleSubmit,
     onCustomerConfirm,
@@ -54,7 +52,7 @@ export const ReviewCustomerEKYCInfo = () => {
     msgRequestInvalidInfoError,
     onInvalidInfoConfirm,
     isLoading,
-  } = useVerifyCustomerEkycInfo({ ekycData: ekycData });
+  } = useVerifyCustomerEkycInfo({ekycData: ekycData});
 
   useEffect(() => {
     if (isLoading) {

@@ -18,15 +18,16 @@ type AppModalType = {
   backdropStyle?: string | ViewStyle;
   children?: React.ReactNode;
   disabled?: boolean;
+  disabledPressBackdrop?: boolean;
 };
 
 export const BaseModal = forwardRef(
   (
     {
-      contentStyle = '',
       backdropStyle = '',
       children,
       disabled = false,
+      disabledPressBackdrop,
     }: AppModalType,
     ref,
   ) => {
@@ -65,7 +66,7 @@ export const BaseModal = forwardRef(
             backdropStyle,
           )}
           disabled={disabled}
-          onPress={onClose}>
+          onPress={disabledPressBackdrop ? undefined : onClose}>
           {children}
         </TouchableOpacity>
       );

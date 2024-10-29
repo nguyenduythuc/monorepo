@@ -25,6 +25,7 @@ import {
   PrecheckFailContainer,
   LoanInformationContainer,
   VisionCameraContainer,
+  ChangePasswordContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -233,6 +234,13 @@ const RootStack = () => {
       <Stack.Screen
         name="vision-camera"
         component={VisionCameraContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="change-password"
+        component={ChangePasswordContainer}
         options={{
           headerShown: false,
         }}

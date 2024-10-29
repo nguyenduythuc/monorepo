@@ -86,6 +86,7 @@ export interface IConfirmModalProps {
   buttonRightStyle?: string;
   buttonLeftStyle?: string;
   disabled?: boolean;
+  disabledPressBackdrop?: boolean;
 }
 
 export interface ICongratulationModalProps {

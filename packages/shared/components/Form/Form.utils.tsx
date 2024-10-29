@@ -92,6 +92,19 @@ export const FieldTestConfig: Record<string, FieldConfig> = {
     placeholder: 'ResetPassword.confirmPasswordPlaceholder',
     secureTextEntry: true,
   },
+  CurrentPassword: {
+    label: 'ChangePassword.currentPassword',
+    controlProps: {
+      name: 'currentPassword',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+      },
+    },
+    type: FieldType.TextInput,
+    placeholder: 'ChangePassword.currentPassword',
+    containerStyle: 'mt-4',
+    secureTextEntry: true,
+  },
   PhoneNumber: {
     label: '',
     controlProps: {

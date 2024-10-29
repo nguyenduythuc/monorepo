@@ -84,7 +84,8 @@
     "msgLoginFail": "Thông tin đăng nhập không chính xác, vui lòng kiểm tra lại",
     "faceIDLogin": "Đăng nhập bằng Face ID",
     "touchIDLogin": "Đăng nhập bằng Touch ID",
-    "biometricLoginFail": "Đăng nhập bằng {biometricType} không thành công"
+    "biometricLoginFail": "Đăng nhập bằng {biometricType} không thành công",
+    "loginSuccess": "Đăng nhập thành công"
   },
   "VerifyAccount": {
     "title": "Verify account",
@@ -121,7 +122,8 @@
     "readAndAgree": "Tôi đã đọc và chấp nhận",
     "conditional": "Điều kiện và điều khoản",
     "useService": "sử dụng dịch vụ",
-    "msgSignupFail": "Thông tin của Quý Khách đã được đăng ký thành viên, vui lòng đăng nhập để sử dụng ứng dụng"
+    "msgSignupFail": "Thông tin của Quý Khách đã được đăng ký thành viên, vui lòng đăng nhập để sử dụng ứng dụng",
+    "signUpSuccess": "Đăng ký thành công"
   },
   "Home": {
     "welcome": "Chào mừng bạn đến với,",
@@ -133,7 +135,9 @@
     "tenor": "Tenor",
     "detailTenor": "{month} tháng",
     "createdOn": "Created on",
-    "continue": "Continue"
+    "continue": "Continue",
+    "changePasswordFirstTime": "Vui lòng đổi mật khẩu cho lần đăng nhập đầu tiên",
+    "verifyAccount": "Vui lòng xác thực tài khoản để sử dụng ứng dụng"
   },
   "ProductDetail": {
     "fastLoan": "Fast Loan",
@@ -266,5 +270,11 @@
     "camera": "Camera",
     "choosePhoto": "Choose Photo",
     "uploadFiles": "Upload Files"
+  },
+  "ChangePassword": {
+    "title": "Đổi mật khẩu",
+    "currentPassword": "Nhập mật khẩu hiện tại",
+    "changePasswordErr": "Nhập sai mật khẩu hiện tại",
+    "changePasswordSuccess": "Đổi mật khẩu thành công"
   }
 }
