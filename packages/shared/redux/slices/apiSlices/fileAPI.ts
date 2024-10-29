@@ -3,6 +3,7 @@ import {
   GetFileRequestProps,
   GetUserResourceRequestProps,
   UploadUserResourceRequestProps,
+  UploadUserResourceWebRequestProps,
 } from '@lfvn-customer/shared/types/services/authTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -36,6 +37,22 @@ export const fileAPI = (
       };
     },
   }),
+  uploadUserResourceWeb: builder.mutation<
+    UserResourceProps,
+    UploadUserResourceWebRequestProps
+  >({
+    query: (body: UploadUserResourceWebRequestProps) => {
+      const form = new FormData();
+      form.append('resourceType', body.resourceType);
+      form.append('file', body.file, body.fileName);
+      form.append('login', body.login);
+      return {
+        url: getPath('/user-resource/add'),
+        method: 'post',
+        data: form,
+      };
+    },
+  }),
   getUserResource: builder.query<
     UserResourceProps[],
     GetUserResourceRequestProps
@@ -45,7 +62,7 @@ export const fileAPI = (
       method: 'get',
     }),
   }),
-  getFile: builder.query<void, GetFileRequestProps>({
+  getFile: builder.query<Response, GetFileRequestProps>({
     query: ({fileName}) => ({
       url: getPath(`/files/download/${fileName}`),
       method: 'get',

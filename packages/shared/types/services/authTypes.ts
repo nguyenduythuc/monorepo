@@ -97,6 +97,13 @@ export interface UploadUserResourceRequestProps {
   login: string;
 }
 
+export interface UploadUserResourceWebRequestProps {
+  resourceType: string;
+  file: Blob;
+  login: string;
+  fileName: string;
+}
+
 export interface GetUserResourceRequestProps {
   userId: string;
 }

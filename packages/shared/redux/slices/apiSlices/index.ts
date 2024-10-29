@@ -83,8 +83,10 @@ export const {
   useSubmitSuggestTRMutation,
   useCreateFolderEcmMutation,
   useUploadDocumentEcmMutation,
+  useUploadDocumentEcmWebMutation,
   useSubmitRbpInfoMutation,
   useUploadUserResourceMutation,
+  useUploadUserResourceWebMutation,
   useLazyGetUserResourceQuery,
   useLazyGetFileQuery,
 } = apiSlice;

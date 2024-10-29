@@ -2,6 +2,9 @@ import CryptoJS from 'crypto-js';
 
 // Encryption process
 export const decryptAES = (cipherText: any, passpharse: any) => {
+  if (!cipherText || !passpharse) {
+    return null;
+  }
   try {
     const parsedBase64Key = CryptoJS.enc.Base64.parse(passpharse);
 

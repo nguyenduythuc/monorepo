@@ -1,7 +1,10 @@
-import { Bounce, toast } from 'react-toastify';
+import {Bounce, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useTranslations from './useTranslations';
 
 const useShowToast = () => {
+  const t = useTranslations();
+
   const handleShowToast = ({
     msg,
     type,
@@ -11,18 +14,6 @@ const useShowToast = () => {
   }) => {
     type === 'success'
       ? toast.success(msg, {
-        position: 'top-center',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-        transition: Bounce,
-      })
-      : type === 'info'
-        ? toast.warn(msg, {
           position: 'top-center',
           autoClose: 5000,
           hideProgressBar: true,
@@ -33,21 +24,41 @@ const useShowToast = () => {
           theme: 'colored',
           transition: Bounce,
         })
+      : type === 'info'
+        ? toast.warn(msg, {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+            transition: Bounce,
+          })
         : toast.error(msg, {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-          transition: Bounce,
-        });
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+            transition: Bounce,
+          });
+  };
+
+  const showCommonErrorToast = () => {
+    handleShowToast({
+      msg: t('ErrorCommon.message'),
+      type: 'error',
+    });
   };
 
   return {
     handleShowToast,
+    showCommonErrorToast,
   };
 };
 

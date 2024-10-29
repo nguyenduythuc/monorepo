@@ -89,4 +89,9 @@ export type WebOCRResultType = {
   decision: object;
   idInfo: webEkycDataType;
   ekycResult: {kyc_result: {back: {given_date: {value: string}}}};
+  rawImage?: {
+    selfie?: string;
+    front?: string;
+    back?: string;
+  };
 };
