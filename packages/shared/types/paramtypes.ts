@@ -54,16 +54,6 @@ export type RootParamList = {
   'input-additional-information': undefined;
   'rbp-information': undefined;
   'loan-offer': undefined;
-  'change-password': {
-    phoneNumber: string;
-    identityNumber: string;
-  };
-  'cif-apl-information': {
-    flowId: string;
-  };
-  'input-additional-information': undefined;
-  'rbp-information': undefined;
-  'loan-offer': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -87,11 +77,6 @@ export enum ScreenParamEnum {
   LoanInformation = 'loan-information',
   CifInfoPendingCheck = 'cif-info-pending-check',
   VisionCamera = 'vision-camera',
-  ChangePassword = 'change-password',
-  CifAndAplInformation = 'cif-apl-information',
-  InputAdditionalInformation = 'input-additional-information',
-  RBPInformation = 'rbp-information',
-  LoanOffer = 'loan-offer',
   ChangePassword = 'change-password',
   CifAndAplInformation = 'cif-apl-information',
   InputAdditionalInformation = 'input-additional-information',

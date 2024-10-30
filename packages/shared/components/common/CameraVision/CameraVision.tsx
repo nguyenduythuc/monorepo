@@ -88,7 +88,7 @@ const CameraVision = ({
               ref={camera}
               photo={true}
               style={{width: '100%', height: '100%'}}
-              enableHighQualityPhotos={true}
+              // enableHighQualityPhotos={true}
             />
           </View>
         )}

@@ -9,12 +9,6 @@ import DeviceInfo from 'react-native-device-info';
 import {storage} from '../utils/storage';
 import {DEVICE_INFO} from '../utils/constants';
 import {nanoid} from '@reduxjs/toolkit';
-import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {useFocusEffect} from '@react-navigation/native';
-import DeviceInfo from 'react-native-device-info';
-import {storage} from '../utils/storage';
-import {DEVICE_INFO} from '../utils/constants';
-import {nanoid} from '@reduxjs/toolkit';
 
 const useHome = () => {
   const {user} = useAppSelector(state => state.auth);

@@ -95,12 +95,6 @@ export const {
   useGetAplDataMutation,
   useGetBankListDataMutation,
   useGetOccupationListDataMutation,
-  useChangePasswordRequestMutation,
-  useVerifyChangePasswordMutation,
-  useGetCifDataMutation,
-  useGetAplDataMutation,
-  useGetBankListDataMutation,
-  useGetOccupationListDataMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

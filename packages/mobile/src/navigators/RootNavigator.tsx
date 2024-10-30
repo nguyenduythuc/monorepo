@@ -28,9 +28,6 @@ import {
   ChangePasswordContainer,
   CifAndAplInformationContainer,
   LoanOfferScreenContainer,
-  ChangePasswordContainer,
-  CifAndAplInformationContainer,
-  LoanOfferScreenContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -253,36 +250,6 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="cif-apl-information"
-        component={CifAndAplInformationContainer}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="input-additional-information"
-        component={InputAdditionalInformationContainer}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="rbp-information"
-        component={RBPInformationContainer}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="loan-offer"
-        component={LoanOfferScreenContainer}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="change-password"
-        component={ChangePasswordContainer}
         name="cif-apl-information"
         component={CifAndAplInformationContainer}
         options={{
