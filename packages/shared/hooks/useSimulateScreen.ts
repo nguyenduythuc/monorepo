@@ -119,7 +119,7 @@ const useSimulateScreen = () => {
       },
       FieldSimulateConfig.SimulateLoanInsurance,
     ];
-  }, [selectProduct, loanProductData, purposeData]);
+  }, [selectProduct, loanProductOptions, purposeData]);
 
   const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({

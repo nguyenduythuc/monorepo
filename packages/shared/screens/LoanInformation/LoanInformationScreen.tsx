@@ -21,18 +21,13 @@ import useHandleCreateAPL from '@lfvn-customer/shared/hooks/useHandleCreateAPL';
 import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTypes';
 import {useDispatch} from 'react-redux';
 import {setCifMetadata} from '@lfvn-customer/shared/redux/slices/productSlices';
-import {
-  generateQuestionValidateStatusList,
-  getVerifyAccountInfo,
-} from '@lfvn-customer/shared/utils/commonFunction';
+import {generateQuestionValidateStatusList} from '@lfvn-customer/shared/utils/commonFunction';
 import PreviousCompanyWorkingTime from '@lfvn-customer/shared/components/Questions/PreviousCompanyWorkingTime';
-import InsuranceDuration from '../../components/Questions/InsuranceDuration';
-import useShowToast from '../../hooks/useShowToast';
-import {storage} from '../../utils/storage';
-import {DEVICE_INFO} from '../../utils/constants';
-import {useConfigRouting} from '../../hooks';
-import {ScreenParamEnum} from '../../types/paramtypes';
-import {EventEmitterEnum} from '../../utils/eventEmitter';
+import InsuranceDuration from '@lfvn-customer/shared/components/Questions/InsuranceDuration';
+import useShowToast from '@lfvn-customer/shared/hooks/useShowToast';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {EventEmitterEnum} from '@lfvn-customer/shared/utils/eventEmitter';
 
 const questionComponents = [
   ProductInformation,
@@ -51,8 +46,6 @@ const LoanInformationScreen = () => {
   const t = useTranslations();
   const dispatch = useDispatch();
   const {handleShowToast} = useShowToast();
-
-  const deviceInfo = JSON.parse(getVerifyAccountInfo(DEVICE_INFO) || '');
 
   const {onPressGoBack} = useLoanInformation();
 

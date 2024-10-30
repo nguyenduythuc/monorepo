@@ -10,6 +10,7 @@ import {useDispatch} from 'react-redux';
 import {setCifMetadata} from '../redux/slices/productSlices';
 
 const INTERVAL_TIME = 3000;
+const TIMEOUT_TIME = 150000;
 
 const useCifAndAplPrescoring = ({
   flowId,
@@ -60,8 +61,14 @@ const useCifAndAplPrescoring = ({
         });
       }
     }, INTERVAL_TIME);
+
+    const setTimeForPrescoring = setTimeout(() => {
+      clearInterval(unsubcribe);
+    }, TIMEOUT_TIME);
+
     return () => {
       clearInterval(unsubcribe);
+      clearTimeout(setTimeForPrescoring);
     };
   }, []);
 };

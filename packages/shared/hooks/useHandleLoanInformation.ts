@@ -1,7 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {
-  useGetAplDataMutation,
-  useGetCifDataMutation,
   useGetProductSchemeListQuery,
   useGetPurposeQuery,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
@@ -18,13 +16,9 @@ import eventEmitter, {
   EventEmitterEnum,
 } from '@lfvn-customer/shared/utils/eventEmitter';
 import {
-  marriedStatusOption,
-  residentSameAsID,
   lifeInsuranceDuration,
   defaultSelectProductInfo,
 } from '@lfvn-customer/shared/data/data';
-import {getVerifyAccountInfo} from '../utils/commonFunction';
-import {DEVICE_INFO} from '../utils/constants';
 import {useDispatch} from 'react-redux';
 import {setProductSelected} from '@lfvn-customer/shared/redux/slices/productSlices';
 
@@ -52,22 +46,12 @@ const useHandleLoanInformation = ({
       };
     });
   }, [productSchemeListData]);
-  // const eventEmitter = new EventEmitter();
-  const [getCifData] = useGetCifDataMutation();
-  const [getAplData] = useGetAplDataMutation();
-  const deviceInfo = JSON.parse(getVerifyAccountInfo(DEVICE_INFO) || '');
 
   const {cifMetadata} = useAppSelector(state => state.product);
 
   const [selectProductLoan, setSelectProductLoan] = useState(
     defaultSelectProductInfo,
   );
-
-  useEffect(() => {
-    if (stepNumber === 1) {
-      console.log('requestPendingMetadata', requestPendingMetadata);
-    }
-  }, [stepNumber]);
 
   const simulateLoanProduct = useWatch({
     control,

@@ -48,20 +48,20 @@ const useHome = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [contentModal, setContentModal] = useState('');
 
-  useFocusEffect(
-    useCallback(() => {
-      if (user && !user?.identityIssue) {
-        // not verify account by ekyc
-        setIsModalVisible(true);
-        setContentModal(t('Home.verifyAccount'));
-      } else if (user?.changeRequired) {
-        // not update password
-        setIsModalVisible(true);
-        setContentModal(t('Home.changePasswordFirstTime'));
-      }
-      return () => {};
-    }, [user]),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     if (user && !user?.identityIssue) {
+  //       // not verify account by ekyc
+  //       setIsModalVisible(true);
+  //       setContentModal(t('Home.verifyAccount'));
+  //     } else if (user?.changeRequired) {
+  //       // not update password
+  //       setIsModalVisible(true);
+  //       setContentModal(t('Home.changePasswordFirstTime'));
+  //     }
+  //     return () => {};
+  //   }, [user]),
+  // );
 
   const onPressLogin = () => {
     appNavigate(ScreenParamEnum.Login);
