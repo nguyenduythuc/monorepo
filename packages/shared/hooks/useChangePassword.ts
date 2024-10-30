@@ -1,5 +1,5 @@
 import {FieldTestConfig} from '@lfvn-customer/shared/components/Form/Form.utils';
-import {useResetPasswordInitMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {useChangePasswordRequestMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {Keyboard} from 'react-native';
 import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
@@ -7,12 +7,10 @@ import {useCustomForm} from '../components/Form/Form.hook';
 import {OTPTypesEnum} from '../types';
 import {useEffect, useMemo} from 'react';
 import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
-import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
 import useShowToast from './useShowToast';
-import {API_SUCCESS_MESSAGE} from '../utils/constants';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
-const useResetPassword = ({
+const useChangePassword = ({
   phoneNumber,
   identityNumber,
 }: {
@@ -20,13 +18,17 @@ const useResetPassword = ({
   identityNumber: string;
 }) => {
   const t = useTranslations();
-  const [resetPasswordInit, {error, isLoading}] =
-    useResetPasswordInitMutation();
+  const [changePasswordRequest, {isLoading, error}] =
+    useChangePasswordRequestMutation();
   const {appNavigate} = useConfigRouting();
   const {handleShowToast, showCommonErrorToast} = useShowToast();
 
   const fields = useMemo(() => {
-    return [FieldTestConfig.NewPassword, FieldTestConfig.ConfirmPassword];
+    return [
+      FieldTestConfig.CurrentPassword,
+      FieldTestConfig.NewPassword,
+      FieldTestConfig.ConfirmPassword,
+    ];
   }, []);
 
   const {
@@ -51,22 +53,13 @@ const useResetPassword = ({
 
   useEffect(() => {
     if (error) {
-      try {
-        const data = (error as ErrorResponseProps)?.data;
-        const errorCode = JSON.parse(data.detail).code;
-        const responseCode = handleResponseOTPGenerateAPI(errorCode);
-        if (
-          responseCode.msg !== API_SUCCESS_MESSAGE &&
-          responseCode.type === 'toast'
-        ) {
-          handleShowToast({
-            msg: t(responseCode.msg),
-            type: 'error',
-          });
-        }
-      } catch (error) {
-        // handle cannot parse error
-        console.log('error reset password', error);
+      const data = (error as ErrorResponseProps)?.data;
+      if (data.status === 400) {
+        handleShowToast({
+          type: 'error',
+          msg: t('ChangePassword.changePasswordErr'),
+        });
+      } else {
         showCommonErrorToast();
       }
     }
@@ -84,20 +77,26 @@ const useResetPassword = ({
   }, [newPassword, confirmPassword]);
 
   const onPressSubmit = handleSubmit(async () => {
-    Keyboard.dismiss();
-    const {newPassword} = getValues();
-    const result = await resetPasswordInit({
-      identityNumber,
-      phoneNumber,
-    });
-    if (result.data) {
-      appNavigate(ScreenParamEnum.EnterOtp, {
-        authSeq: result.data?.authSeq,
-        phoneNumber,
-        identityNumber,
+    try {
+      Keyboard.dismiss();
+      const {currentPassword, newPassword} = getValues();
+      const result = await changePasswordRequest({
+        currentPassword,
         newPassword,
-        type: OTPTypesEnum.RESET_PASSWORD,
       });
+      if (result.data) {
+        appNavigate(ScreenParamEnum.EnterOtp, {
+          authSeq: result.data?.authSeq,
+          phoneNumber,
+          identityNumber,
+          newPassword,
+          currentPassword,
+          type: OTPTypesEnum.CHANGE_PASSWORD,
+        });
+      }
+    } catch (error) {
+      console.log('error change password', error);
+      showCommonErrorToast();
     }
   });
 
@@ -113,4 +112,4 @@ const useResetPassword = ({
   };
 };
 
-export default useResetPassword;
+export default useChangePassword;

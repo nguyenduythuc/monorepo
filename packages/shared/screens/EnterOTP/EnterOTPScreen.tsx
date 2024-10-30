@@ -15,12 +15,14 @@ const EnterOTPScreen = ({
   identityNumber,
   type,
   newPassword,
+  currentPassword,
 }: {
   authSeq: string;
   phoneNumber: string;
   identityNumber: string;
   type: OTPTypesEnum;
   newPassword?: string;
+  currentPassword?: string;
 }) => {
   const t = useTranslations();
   const {theme} = useGetTheme();
@@ -32,7 +34,7 @@ const EnterOTPScreen = ({
     isModalVisible,
     setIsModalVisible,
     msgRequestError,
-  } = useEnterOTP({authSeq, phoneNumber, identityNumber, type, newPassword});
+  } = useEnterOTP({authSeq, phoneNumber, identityNumber, type});
 
   return (
     <View style={tw.style('flex-1')}>
@@ -53,7 +55,12 @@ const EnterOTPScreen = ({
           </Text>
         </View>
       </View>
-      <OTPInput authSeq={authSeq} type={type} newPassword={newPassword} />
+      <OTPInput
+        authSeq={authSeq}
+        type={type}
+        newPassword={newPassword}
+        currentPassword={currentPassword}
+      />
       <View style={tw.style('flex-row items-center justify-between mt-6 mx-4')}>
         <View style={tw.style('flex-row items-center')}>
           <Text style={tw.style(`text-sm`)}>

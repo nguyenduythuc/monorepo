@@ -89,6 +89,8 @@ export const {
   useUploadUserResourceWebMutation,
   useLazyGetUserResourceQuery,
   useLazyGetFileQuery,
+  useChangePasswordRequestMutation,
+  useVerifyChangePasswordMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import { IConfirmModalProps } from '@lfvn-customer/shared/types';
-import { View, Text } from 'react-native';
+import React, {useEffect, useMemo, useRef} from 'react';
+import {IConfirmModalProps} from '@lfvn-customer/shared/types';
+import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import { BaseModal, CustomButton } from '..';
+import {BaseModal, CustomButton} from '..';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export const ConfirmModal: React.FC<IConfirmModalProps> = ({
@@ -22,7 +22,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
   renderContent,
   singleButton,
   disabled,
-  ...props
+  disabledPressBackdrop,
 }) => {
   const dropDownRef = useRef<any>(null);
   const onOpen = () => dropDownRef.current?.open();
@@ -32,22 +32,33 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
   };
   const t = useTranslations();
 
-  labelButtonLeft = !labelButtonLeft ? t('Modal.cancel') : labelButtonLeft;
-  labelButtonRight = !labelButtonRight ? t('Modal.agree') : labelButtonRight;
+  const labelLeft = useMemo(() => {
+    if (renderAction) {
+      return null;
+    }
+    return labelButtonLeft || t('Modal.cancel');
+  }, [labelButtonLeft, t, renderAction]);
 
-  if (renderAction) {
-    labelButtonLeft = null;
-    labelButtonRight = null;
-  }
+  const labelRight = useMemo(() => {
+    if (renderAction) {
+      return null;
+    }
+    return labelButtonRight || t('Modal.agree');
+  }, [labelButtonRight, t, renderAction]);
 
-  if (visible) {
-    onOpen();
-  } else {
-    onClose();
-  }
+  useEffect(() => {
+    if (visible) {
+      onOpen();
+    } else {
+      onClose();
+    }
+  }, [visible]);
 
   return (
-    <BaseModal ref={dropDownRef} disabled>
+    <BaseModal
+      ref={dropDownRef}
+      disabled={disabled}
+      disabledPressBackdrop={disabledPressBackdrop}>
       <View
         style={tw.style('flex items-center justify-center w-full h-full px-4')}>
         <View
@@ -62,24 +73,24 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
           )}
           {renderContent}
           <View style={tw.style('flex-row mt-4 w-full justify-between')}>
-            {!!labelButtonLeft && !singleButton && (
+            {!!labelLeft && !singleButton && (
               <View style={tw.style('flex-1 mr-3')}>
                 <CustomButton
                   onPress={onButtonLeftPress || onClose}
                   buttonStyle={`bg-[#F4F8FF] shadow-none ${buttonLeftStyle}`}
                   textCustomStyle={`text-blue-500 ${textLeftStyle}`}>
-                  {labelButtonLeft}
+                  {labelLeft}
                 </CustomButton>
               </View>
             )}
-            {(!!labelButtonRight || singleButton) && (
+            {(!!labelRight || singleButton) && (
               <View style={tw.style('flex-1')}>
                 <CustomButton
                   buttonStyle={buttonRightStyle}
                   textCustomStyle={textRightStyle}
                   onPress={onButtonRightPress || onClose}
                   color="blue">
-                  {labelButtonRight}
+                  {labelRight}
                 </CustomButton>
               </View>
             )}

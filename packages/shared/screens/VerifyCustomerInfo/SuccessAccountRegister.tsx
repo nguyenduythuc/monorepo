@@ -3,10 +3,13 @@ import React from 'react';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import useVerifyAccount from '../../hooks/useVerifyAccount';
+import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 export const SuccessAccountRegister = () => {
+  const {user} = useAppSelector(state => state.auth);
+
   const t = useTranslations();
 
   const {onSuccessSubmit} = useVerifyAccount({
@@ -24,14 +27,14 @@ export const SuccessAccountRegister = () => {
             {t('VerifyCustomer.congratsSuccessAccountRegister')}
           </Text>
           <Text style={tw.style('text-2xl font-semibold text-red-500 mb-2')}>
-            {t('VerifyCustomer.yourIdNum')}
+            {user?.login}
           </Text>
           <Text style={tw.style('text-base text-center mb-2')}>
             {t('VerifyCustomer.yourFirstPassword')}
           </Text>
 
           <Text style={tw.style('text-2xl font-semibold text-red-500 mb-2')}>
-            {t('VerifyCustomer.yourPhoneNum')}
+            {user?.phoneNumber}
           </Text>
         </View>
       </ScrollView>

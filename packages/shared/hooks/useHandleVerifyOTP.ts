@@ -1,7 +1,8 @@
-import {useEffect, useMemo} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {
   useLazyActiveQuery,
   useResetPasswordFinishMutation,
+  useVerifyChangePasswordMutation,
   useVerifyOTPMutation,
 } from '../redux/slices/apiSlices';
 import useTranslations from './useTranslations';
@@ -21,99 +22,140 @@ const useHandleVerifyOTP = ({
   type,
   authSeq,
   newPassword = '',
+  currentPassword = '',
 }: {
   value: string;
   maxLengthOTP: number;
   type: OTPTypesEnum;
   authSeq: string;
   newPassword?: string;
+  currentPassword?: string;
 }) => {
   const [verifyOTP, {error: verifyOTPError}] = useVerifyOTPMutation();
   const [resetPasswordFinish, {error: resetPasswordFinishError}] =
     useResetPasswordFinishMutation();
+  const [verifyChangePassword, {error: verifyChangePasswordError}] =
+    useVerifyChangePasswordMutation();
   const [active, {error: activeError}] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
   const t = useTranslations();
-  const {handleShowToast} = useShowToast();
+  const {handleShowToast, showCommonErrorToast} = useShowToast();
 
   const {appNavigate} = useConfigRouting();
 
   const error = useMemo(() => {
-    return verifyOTPError || resetPasswordFinishError || activeError;
-  }, [verifyOTPError, resetPasswordFinishError, activeError]);
+    return (
+      verifyOTPError ||
+      resetPasswordFinishError ||
+      activeError ||
+      verifyChangePasswordError
+    );
+  }, [
+    verifyOTPError,
+    resetPasswordFinishError,
+    activeError,
+    verifyChangePasswordError,
+  ]);
 
   useEffect(() => {
     if (error) {
-      try {
-        const data = (error as ErrorResponseProps)?.data;
+      const data = (error as ErrorResponseProps)?.data;
+      if (data.status === 400 && data.detail === 'Incorrect password') {
+        // handle for only incorrect password
+        handleShowToast({
+          type: 'error',
+          msg: t('ChangePassword.changePasswordErr'),
+        });
+      } else {
         const errorCode = JSON.parse(data.detail).code;
         const responseCode = handleResponseOTPGenerateAPI(errorCode);
-        if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-          if (responseCode.type === 'toast') {
-            handleShowToast({
-              msg: t(responseCode.msg),
-              type: 'error',
-            });
-          }
+        if (
+          responseCode.msg !== API_SUCCESS_MESSAGE &&
+          responseCode.type === 'toast'
+        ) {
+          handleShowToast({
+            msg: t(responseCode.msg),
+            type: 'error',
+          });
         }
-      } catch (error) {
-        // handle cannot parse error
-        handleShowToast({
-          msg: t('ErrorCommon.message'),
-          type: 'error',
-        });
       }
     }
   }, [error]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        if (value.length === maxLengthOTP) {
-          const result =
-            type === OTPTypesEnum.LOGIN_OTP
-              ? await verifyOTP({
-                  authSeq,
-                  code: value,
-                  type: 'AUTH',
-                })
-              : type === OTPTypesEnum.SIGN_UP
-                ? await active({
-                    key: authSeq,
-                    otp: value,
-                  })
-                : await resetPasswordFinish({
-                    key: authSeq,
-                    otp: value,
-                    newPassword,
-                  });
-          if (result.data) {
-            handleShowToast({
-              msg:
-                type === OTPTypesEnum.LOGIN_OTP
-                  ? 'Đăng nhập thành công'
-                  : type === OTPTypesEnum.SIGN_UP
-                    ? 'Đăng ký thành công'
-                    : 'Đổi mật khẩu thành công',
-              type: 'success',
+  const handleVerifyOTP = useCallback(async () => {
+    try {
+      if (value.length === maxLengthOTP) {
+        let result;
+        switch (type) {
+          case OTPTypesEnum.LOGIN_OTP:
+            result = await verifyOTP({
+              authSeq,
+              code: value,
+              type: 'AUTH',
             });
-            if (type === OTPTypesEnum.LOGIN_OTP) {
+            break;
+          case OTPTypesEnum.SIGN_UP:
+            result = await active({
+              key: authSeq,
+              otp: value,
+            });
+            break;
+          case OTPTypesEnum.CHANGE_PASSWORD:
+            result = await verifyChangePassword({
+              currentPassword,
+              newPassword,
+              key: authSeq,
+              otp: value,
+            });
+            break;
+          case OTPTypesEnum.RESET_PASSWORD:
+            result = await resetPasswordFinish({
+              key: authSeq,
+              otp: value,
+              newPassword,
+            });
+            break;
+          default:
+            break;
+        }
+        if (result?.data) {
+          handleShowToast({
+            msg:
+              type === OTPTypesEnum.LOGIN_OTP
+                ? t('Login.loginSuccess')
+                : type === OTPTypesEnum.SIGN_UP
+                  ? t('SignUp.signUpSuccess')
+                  : t('ChangePassword.changePasswordSuccess'),
+            type: 'success',
+          });
+          switch (type) {
+            case OTPTypesEnum.LOGIN_OTP:
               setAppToken((result.data as VerifyOTPResponseProps)?.token);
               onHandleGetUserProfile();
               appNavigate(ScreenParamEnum.Home);
-            } else {
+              break;
+            case OTPTypesEnum.CHANGE_PASSWORD:
+              onHandleGetUserProfile();
+              appNavigate(ScreenParamEnum.Home);
+              break;
+            case OTPTypesEnum.RESET_PASSWORD:
+              appNavigate(ScreenParamEnum.Login);
+              break;
+            default:
               appNavigate(ScreenParamEnum.VerifyCustomerInfo);
-            }
+              break;
           }
         }
-      } catch (error) {
-        handleShowToast({
-          msg: t('ErrorCommon.message'),
-          type: 'error',
-        });
       }
-    })();
-  }, [value]);
+    } catch (error) {
+      console.log('error handle verify otp', error);
+      showCommonErrorToast();
+    }
+  }, [value, maxLengthOTP, type, authSeq, newPassword, currentPassword, t]);
+
+  useEffect(() => {
+    handleVerifyOTP();
+  }, [handleVerifyOTP]);
 
   return {};
 };

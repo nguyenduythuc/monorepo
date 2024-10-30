@@ -111,3 +111,21 @@ export interface GetUserResourceRequestProps {
 export interface GetFileRequestProps {
   fileName: string;
 }
+
+export interface ChangePasswordRequestProps {
+  currentPassword: string;
+  newPassword: string;
+}
+export interface ChangePasswordResponseProps {
+  authSeq: string;
+  code: string;
+  message: string | null;
+  status: boolean;
+}
+
+export interface VerifyChangePasswordRequestProps {
+  currentPassword: string;
+  newPassword: string;
+  key: string;
+  otp: string;
+}

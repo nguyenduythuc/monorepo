@@ -9,6 +9,7 @@ import {
 import React, {useEffect, useMemo, useRef} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {
+  ConfirmModal,
   CustomButton,
   Icon,
   IconKeys,
@@ -48,8 +49,15 @@ export const HomeScreen = () => {
   const {theme, colors} = useGetTheme();
   const {textDanger500, textNegative300, borderNegative100} = theme;
 
-  const {onPressLogin, onPressSignUp, onPressContinueRequestPending} =
-    useHome();
+  const {
+    onPressLogin,
+    onPressSignUp,
+    onPressContinueRequestPending,
+    isModalVisible,
+    setIsModalVisible,
+    contentModal,
+    onPressConfirmModal,
+  } = useHome();
 
   const {data: metaData, isLoading: metadataLoading} = useGetMetadataQuery();
 
@@ -282,6 +290,15 @@ export const HomeScreen = () => {
           </View>
         ))}
       </View>
+      <ConfirmModal
+        visible={isModalVisible}
+        setVisible={setIsModalVisible}
+        content={contentModal}
+        labelButtonRight={t('Simulate.confirm')}
+        singleButton
+        onButtonRightPress={onPressConfirmModal}
+        disabledPressBackdrop
+      />
     </View>
   );
 };

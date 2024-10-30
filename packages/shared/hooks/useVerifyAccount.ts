@@ -1,28 +1,28 @@
-import { useCustomForm } from '@lfvn-customer/shared/components/Form/Form.hook';
-import { FieldVerifyAccount } from '@lfvn-customer/shared/components/Form/Form.utils';
+import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
+import {FieldVerifyAccount} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useGenerateOTPMutation,
   useRegisterMutation,
   useVerifyAccountMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
-import { useEffect, useState } from 'react';
-import { handleResponseOTPGenerateAPI } from '../utils/handleResponseAPI';
+import {useEffect, useState} from 'react';
+import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
 import {
   API_SUCCESS_MESSAGE,
   PREVIOUS_ROUTE,
   VERIFY_ACCOUNT_ID,
 } from '../utils/constants';
-import { Keyboard, Platform } from 'react-native';
-import { useConfigRouting } from './routing';
+import {Keyboard, Platform} from 'react-native';
+import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
 import useTranslations from './useTranslations';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
-import { OTPTypesEnum } from '@lfvn-customer/shared/types';
-import { ErrorResponseProps } from '@lfvn-customer/shared/types/services';
-import { AccountType } from '@lfvn-customer/shared/types/services/verifyAccount';
-import { storage } from '../utils/storage';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
+import {AccountType} from '@lfvn-customer/shared/types/services/verifyAccount';
+import {storage} from '../utils/storage';
 
-const useVerifyAccount = ({ type }: { type: OTPTypesEnum }) => {
+const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
   const t = useTranslations();
   // const idTypeList: object[] = [{productName: 'CCCD', productCode: 'cccd'}];
 
@@ -37,25 +37,25 @@ const useVerifyAccount = ({ type }: { type: OTPTypesEnum }) => {
 
   const [
     verifyAccount,
-    { isLoading: verifyAccountLoading, error: verifyAccountError },
+    {isLoading: verifyAccountLoading, error: verifyAccountError},
   ] = useVerifyAccountMutation();
 
-  const [register, { isError: errorRegister, isLoading: loadingRegister }] =
+  const [register, {isError: errorRegister, isLoading: loadingRegister}] =
     useRegisterMutation();
 
   const [
     generateOTP,
-    { isLoading: generateOTPLoading, error: generateOTPError },
+    {isLoading: generateOTPLoading, error: generateOTPError},
   ] = useGenerateOTPMutation();
 
-  const { appNavigate, goBack, getPreviousRoute } = useConfigRouting();
-  const { handleShowToast } = useShowToast();
+  const {appNavigate, goBack, getPreviousRoute} = useConfigRouting();
+  const {handleShowToast} = useShowToast();
 
   const onCustomerCancel = () => {
     appNavigate(ScreenParamEnum.Home);
   };
 
-  const { reset, renderFrom, handleSubmit, watch, control, setValue, getValues } =
+  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
     useCustomForm({
       fields,
       defaultValues: {},
@@ -87,15 +87,14 @@ const useVerifyAccount = ({ type }: { type: OTPTypesEnum }) => {
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
-    const { idCard, phoneNumber } = getValues();
+    const {idCard, phoneNumber} = getValues();
     if (type === OTPTypesEnum.RESET_PASSWORD) {
       // RESET PASSWORD
       appNavigate(ScreenParamEnum.ResetPassword, {
         phoneNumber,
         identityNumber: idCard,
       });
-    }
-    if (type === OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN) {
+    } else if (type === OTPTypesEnum.VERIFY_CUSTOMER_BEFORE_LOAN) {
       try {
         const resultVerifyAccount = await verifyAccount({
           phoneNumber,

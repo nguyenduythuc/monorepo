@@ -12,10 +12,12 @@ const useInputOTP = ({
   authSeq,
   type,
   newPassword,
+  currentPassword,
 }: {
   authSeq: string;
   type: OTPTypesEnum;
   newPassword?: string;
+  currentPassword?: string;
 }) => {
   const [value, setValue] = useState('');
 
@@ -31,6 +33,7 @@ const useInputOTP = ({
     type,
     authSeq,
     newPassword,
+    currentPassword,
   });
 
   return {

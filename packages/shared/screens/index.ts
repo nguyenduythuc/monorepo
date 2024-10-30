@@ -12,4 +12,5 @@ export * from './VerifyCustomerInfo';
 export * from './Precheck';
 export * from './LoanInformation';
 export * from './CifInfoPendingCheck';
-export * from './VisionCamera'
+export * from './VisionCamera';
+export * from './ChangePassword';

@@ -19,11 +19,10 @@ const useEnterOTP = ({
   phoneNumber: string;
   identityNumber: string;
   type: OTPTypesEnum;
-  newPassword?: string;
 }) => {
   const t = useTranslations();
   const [resendOTP, {error}] = useResendOTPMutation();
-  const {handleShowToast} = useShowToast();
+  const {handleShowToast, showCommonErrorToast} = useShowToast();
   const {goBack} = useConfigRouting();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -37,20 +36,18 @@ const useEnterOTP = ({
         const data = (error as ErrorResponseProps)?.data;
         const errorCode = JSON.parse(data.detail).code;
         const responseCode = handleResponseOTPGenerateAPI(errorCode);
-        if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-          if (responseCode.type === 'toast') {
-            handleShowToast({
-              msg: t(responseCode.msg),
-              type: 'error',
-            });
-          }
+        if (
+          responseCode.msg !== API_SUCCESS_MESSAGE &&
+          responseCode.type === 'toast'
+        ) {
+          handleShowToast({
+            msg: t(responseCode.msg),
+            type: 'error',
+          });
         }
       } catch {
         // handle cannot parse error
-        handleShowToast({
-          msg: t('EnterOTP.msgResendFail'),
-          type: 'error',
-        });
+        showCommonErrorToast();
       }
     }
   }, [error]);

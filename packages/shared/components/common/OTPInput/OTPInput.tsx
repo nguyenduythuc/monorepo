@@ -10,10 +10,12 @@ export const OTPInput = ({
   authSeq,
   type,
   newPassword,
+  currentPassword,
 }: {
   authSeq: string;
   type: OTPTypesEnum;
   newPassword?: string;
+  currentPassword?: string;
 }) => {
   const {theme} = useGetTheme();
   const {textNegative500, borderDanger500} = theme;
@@ -23,6 +25,7 @@ export const OTPInput = ({
       authSeq,
       type,
       newPassword,
+      currentPassword,
     });
 
   return (
