@@ -18,12 +18,15 @@ import {PortalProvider} from '@gorhom/portal';
 import Toast from 'react-native-toast-message';
 import toastConfig from './toastConfig';
 import {LoadingOverlay} from '@lfvn-customer/shared/components';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 const App = () => {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);
 
   // OneSignal Initialization
-  OneSignal.initialize('7e530448-173f-4056-ace4-91ba163ede72');
+  OneSignal.initialize(
+    handleEnvByPlatform('NEXT_PUBLIC_ONE_SIGNAL_APP_ID') || '',
+  );
 
   // requestPermission will show the native iOS or Android notification permission prompt.
   // We recommend removing the following code and instead using an In-App Message to prompt for notification permission

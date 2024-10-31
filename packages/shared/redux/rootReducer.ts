@@ -1,11 +1,12 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import {combineReducers} from '@reduxjs/toolkit';
 import counterReducer from './slices/counterSlice';
-import { apiSlice } from './slices/apiSlices';
+import {apiSlice} from './slices/apiSlices';
 import authReducer from './slices/authSlice';
 import publicReducer from './slices/publicSlices';
 import productReducer from './slices/productSlices';
 import loadingSlices from './slices/loadingSlices';
 import verifyAccountSlices from './slices/verifyAccountSlices';
+import LoanAplSlices from './slices/LoanAplSlices';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   public: publicReducer,
   product: productReducer,
   loading: loadingSlices,
-  verifyAccount: verifyAccountSlices
+  verifyAccount: verifyAccountSlices,
+  loanApl: LoanAplSlices,
 });
 
 export default rootReducer;

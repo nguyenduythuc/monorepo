@@ -26,6 +26,8 @@ import {
   LoanInformationContainer,
   VisionCameraContainer,
   ChangePasswordContainer,
+  CifAndAplInformationContainer,
+  LoanOfferScreenContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -38,6 +40,8 @@ import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 const Stack = createNativeStackNavigator<RootParamList>();
 import {apiSlice} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {CifInfoPendingCheckContainer} from '../screens/CifInfoPendingCheckContainer';
+import {InputAdditionalInformationContainer} from '../screens/InputAdditionalInformationContainer';
+import {RBPInformationContainer} from '../screens/RBPInformationContainer';
 
 export type PrimaryNavigatorNavigationProp =
   NativeStackNavigationProp<RootParamList>;
@@ -241,6 +245,34 @@ const RootStack = () => {
       <Stack.Screen
         name="change-password"
         component={ChangePasswordContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="cif-apl-information"
+        component={CifAndAplInformationContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="input-additional-information"
+        component={InputAdditionalInformationContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="rbp-information"
+        component={RBPInformationContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="loan-offer"
+        component={LoanOfferScreenContainer}
         options={{
           headerShown: false,
         }}

@@ -14,6 +14,7 @@ export const TextInputWithUnit = forwardRef<NativeTextInput, ITextInputProps>(
     return (
       <View style={tw.style(containerStyle)}>
         <TextInputBase
+          disabled
           {...props}
           ref={ref}
           value={value}

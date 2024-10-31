@@ -12,7 +12,6 @@ import {VERIFY_ACCOUNT_ID} from '../utils/constants';
 import {
   useLoginMutation,
   useUpdateAccountMutation,
-  useUpdateOCRIdentityNumberMutation,
 } from '../redux/slices/apiSlices';
 import {setAppToken} from '../redux/slices/apiSlices/config';
 import useAuth from './useAuth';
@@ -39,13 +38,6 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
   };
 
   const [login, {isError, isLoading}] = useLoginMutation();
-  const [
-    updateOCRIdentityNumber,
-    {
-      isError: updateOCRIdentityNumberError,
-      isLoading: updateOCRIdentityLoading,
-    },
-  ] = useUpdateOCRIdentityNumberMutation();
 
   const [
     updateAccount,
@@ -84,9 +76,6 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
       setMsgRequestInvalidInfoError(t('VerifyCustomer.needSupport'));
     } else {
       appNavigate(ScreenParamEnum.SuccessAccountRegister);
-    }
-    if (updateOCRIdentityNumberError) {
-      console.log('error');
     }
   };
 
@@ -140,7 +129,7 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
     setIsModalVisible,
     isModalVisible,
     msgRequestError,
-    isLoading: isLoading || updateAccountLoading || updateOCRIdentityLoading,
+    isLoading: isLoading || updateAccountLoading,
     handleSubmit,
     setIsModalInvalidInfo,
     isModalInvalidInfo,

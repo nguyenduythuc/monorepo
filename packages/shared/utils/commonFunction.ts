@@ -34,21 +34,36 @@ export const convertDateToISO = (dateString: string) => {
   return date.toISOString();
 };
 
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed, so add 1
+  const day = date.getDate().toString().padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
 export const formatGenderInfo = (
   gender: string | undefined,
   type: 'display' | 'update',
 ) => {
   if (type === 'display') {
-    return gender === 'Nam' || gender === 'MALE' ? 'Nam' : 'Nữ';
+    return gender?.toLowerCase() === 'nam' || gender?.toLowerCase() == 'male'
+      ? 'Nam'
+      : 'Nữ';
   } else {
-    return gender === 'Nam' || gender === 'MALE' ? 'MALE' : 'FEMALE';
+    return gender?.toLowerCase() === 'nam' || gender?.toLowerCase() == 'male'
+      ? 'MALE'
+      : 'FEMALE';
   }
 };
 
 export const formatNationalityInfo = (nationality: string) => {
   const convertNationality: {[key: string]: string} = {
     'Việt Nam': 'VIETNAMESE',
-    '': 'VIETNAMESE',
+    VN: 'Việt Nam',
+    '': 'UNKNOWN',
   };
   return convertNationality[nationality] || 'VIETNAMESE';
 };

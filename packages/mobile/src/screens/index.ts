@@ -15,3 +15,8 @@ export * from './PrecheckContainer';
 export * from './LoanInformationContainer';
 export * from './VisionCameraContainer';
 export * from './ChangePasswordContainer';
+export * from './CifAndAplInformationContainer';
+export * from './LoanOfferScreenContainer';
+export * from './ChangePasswordContainer';
+export * from './CifAndAplInformationContainer';
+export * from './LoanOfferScreenContainer';

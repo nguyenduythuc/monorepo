@@ -9,6 +9,8 @@ import SliderAnswer from './SliderAnswer';
 import CheckboxAnswer from './CheckboxAnswer';
 import RadioButtonAnswer from './RadioButtonAnswer';
 import {Control} from 'react-hook-form';
+import CalendarDatePickerAnswer from './CalanderDatePickerAnswer';
+import AddressInputModalAnswer from './AddressInputModalAnswer';
 
 const Answer = ({answer, control}: {answer: AnswerProps; control: Control}) => {
   switch (answer.type) {
@@ -22,6 +24,10 @@ const Answer = ({answer, control}: {answer: AnswerProps; control: Control}) => {
       return <CheckboxAnswer answer={answer} control={control} />;
     case AnswerType.RadioButton:
       return <RadioButtonAnswer answer={answer} control={control} />;
+    case AnswerType.CalenderDatePicker:
+      return <CalendarDatePickerAnswer answer={answer} control={control} />;
+    case AnswerType.AddressInputModal:
+      return <AddressInputModalAnswer answer={answer} control={control} />;
     default:
       return null;
   }

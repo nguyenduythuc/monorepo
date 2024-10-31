@@ -22,8 +22,21 @@ import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTyp
 import {useDispatch} from 'react-redux';
 import {setCifMetadata} from '@lfvn-customer/shared/redux/slices/productSlices';
 import {generateQuestionValidateStatusList} from '@lfvn-customer/shared/utils/commonFunction';
+import PreviousCompanyWorkingTime from '@lfvn-customer/shared/components/Questions/PreviousCompanyWorkingTime';
+import InsuranceDuration from '@lfvn-customer/shared/components/Questions/InsuranceDuration';
+import useShowToast from '@lfvn-customer/shared/hooks/useShowToast';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {EventEmitterEnum} from '@lfvn-customer/shared/utils/eventEmitter';
 
-const questionComponents = [ProductInformation, IncomePerMonth, LoanPurpose];
+const questionComponents = [
+  ProductInformation,
+  IncomePerMonth,
+  LoanPurpose,
+  PreviousCompanyWorkingTime,
+  InsuranceDuration,
+];
+
 const questionFormValidate = generateQuestionValidateStatusList(
   questionComponents.length,
 );
@@ -32,10 +45,12 @@ const LoanInformationScreen = () => {
   const {cifMetadata, productSelected} = useAppSelector(state => state.product);
   const t = useTranslations();
   const dispatch = useDispatch();
+  const {handleShowToast} = useShowToast();
 
   const {onPressGoBack} = useLoanInformation();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const {appNavigate} = useConfigRouting();
 
   const forms = useForm();
 
@@ -57,19 +72,52 @@ const LoanInformationScreen = () => {
   const [contentModal, setContentModal] = useState('');
 
   useEffect(() => {
-    // get suggest loan success
-    if (cifMetadata) {
-      setIsModalCongratulationVisible(true);
+    if (requestPendingMetadata?.flowId) {
+      appNavigate(ScreenParamEnum.RBPInformation);
     }
-  }, [cifMetadata]);
+  }, [requestPendingMetadata]);
 
   const onSubmit = async (bodyCreateAPL: MetaDataRequestProps) => {
     await onHandleCreateAPL(bodyCreateAPL);
   };
 
   useEffect(() => {
-    console.log('productSelected', productSelected);
-  }, [productSelected]);
+    // get suggest loan success
+    if (cifMetadata) {
+      const {cifId, productCode, validTime} = cifMetadata;
+      if (cifId && productCode) {
+        if (validTime) {
+          // TODO: Step 8: Pre-scoring
+        } else {
+          // TODO: Step 7: Input RBP's information
+          setTimeout(() => {
+            appNavigate(ScreenParamEnum.RBPInformation);
+          }, 600);
+        }
+      } else if (cifId && !productCode) {
+        if (validTime) {
+          setIsModalCongratulationVisible(true);
+        } else {
+          // TODO: Step 7: Input RBP's information
+          setTimeout(() => {
+            appNavigate(ScreenParamEnum.RBPInformation);
+          }, 600);
+        }
+      } else if (!cifId && !productCode) {
+        // TODO: Step 7: Input RBP's information
+        setTimeout(() => {
+          appNavigate(ScreenParamEnum.RBPInformation);
+        }, 600);
+      } else {
+        // !cifId && productCode
+        handleShowToast({
+          msg: t('ProductInformation.msgInvalidProduct'),
+          type: 'error',
+        });
+        setCurrentQuestion(0);
+      }
+    }
+  }, [cifMetadata]);
 
   const goToNext = async () => {
     const {
@@ -79,6 +127,8 @@ const LoanInformationScreen = () => {
       schemeCode,
       loanPurpose,
       incomePerMonth,
+      loanPreviousCompanyWorkingTime,
+      loanInsuranceDuration,
     } = forms.getValues();
     if (!participateInLoanInsurance) {
       setIsModalVisible(true);
@@ -98,6 +148,8 @@ const LoanInformationScreen = () => {
             : requestPendingMetadata?.participateInLoanInsurance,
         loanTerm: loanTerm.toString() ?? requestPendingMetadata?.loanTerm,
         schemeCode: schemeCode ?? requestPendingMetadata?.schemeCode,
+        loanPreviousCompanyWorkingTime: loanPreviousCompanyWorkingTime,
+        loanInsuranceDuration: loanInsuranceDuration,
         loanPurpose: loanPurpose ?? requestPendingMetadata?.loanPurpose,
         incomeMonthly: incomePerMonth ?? requestPendingMetadata?.incomeMonthly,
         business: productSelected?.business ?? requestPendingMetadata?.business,
@@ -163,6 +215,7 @@ const LoanInformationScreen = () => {
           {...forms}
         />
         <FormButton
+          watchForm={EventEmitterEnum.WatchFormData}
           questionFormValidate={questionFormValidate}
           currentQuestion={currentQuestion}
           goToNext={goToNext}

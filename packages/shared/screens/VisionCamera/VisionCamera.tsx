@@ -37,7 +37,7 @@ export const VisionCamera = () => {
       const result = await camera.current?.takePhoto({
         flash: isFlash ? 'on' : 'off',
         enableShutterSound: false,
-        qualityPrioritization: 'speed',
+        // qualityPrioritization: 'speed',
       });
       if (result) {
         const newImage: ImageType = {

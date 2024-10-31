@@ -16,6 +16,7 @@ const DropdownAnswer = ({
       key={answer.name}
       control={control}
       name={answer.name}
+      defaultValue={answer.value}
       render={({field: {onChange, value}}) => (
         <DropDownSelect
           defaultValue={
@@ -25,6 +26,7 @@ const DropdownAnswer = ({
           }
           value={
             value ||
+            answer.value ||
             (options && options.length > 0
               ? options[0].productCode || options[0].code
               : '')

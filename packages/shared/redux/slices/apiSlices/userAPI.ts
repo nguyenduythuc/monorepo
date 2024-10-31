@@ -4,8 +4,6 @@ import {
   ChangePasswordResponseProps,
   UpdateAccountRequestProps,
   UpdateAccountResponseProps,
-  UpdateOCRIdentityNumberRequestProps,
-  UpdateOCRIdentityNumberResponseProps,
   VerifyChangePasswordRequestProps,
 } from '@lfvn-customer/shared/types/services/authTypes';
 import {getPath} from './config';
@@ -20,16 +18,6 @@ export const userAPI = (
   >({
     query: (body: UpdateAccountRequestProps) => ({
       url: getPath('/account'),
-      method: 'post',
-      data: body,
-    }),
-  }),
-  updateOCRIdentityNumber: builder.mutation<
-    UpdateOCRIdentityNumberResponseProps,
-    UpdateOCRIdentityNumberRequestProps
-  >({
-    query: (body: UpdateOCRIdentityNumberRequestProps) => ({
-      url: getPath('/account/update-ocr-identity-number'),
       method: 'post',
       data: body,
     }),

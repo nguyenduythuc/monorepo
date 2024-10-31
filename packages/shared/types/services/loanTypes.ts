@@ -108,6 +108,7 @@ export interface LoanSimulateProps {
   loanPurpose: string;
   participateInLoanInsurance: boolean;
   expectedRepaymentSchedule: ExpectedRepaymentScheduleProps[];
+  expectedMonthlyPayment?: string;
   insuranceFee?: string;
   business?: string;
   product?: string;
@@ -124,6 +125,12 @@ export interface MetaDataRequestProps
   identityEntryMethod?: string;
   flowId?: string;
   incomeMonthly?: string;
+  loanPreviousCompanyWorkingTime?: string;
+  loanInsuranceDuration?: string;
+  loanMarriedStatus?: string;
+  loanResidentAddress?: string;
+  loanOccupation?: string;
+  loanOfferResult?: object;
 }
 
 export interface RequestPendingRequestProps {
@@ -178,13 +185,13 @@ export interface CheckTRandProductResponseProps {
   metadata: CifMetadataProps;
 }
 
-export interface SubmmitSuggestTRRequestProps {
+export interface SubmitSuggestTRRequestProps {
   flowId: string;
   action: 'approve';
   trUserConfirm: "Don't agree" | 'Agree';
 }
 
-export interface SubmmitSuggestTRResponseProps {
+export interface SubmitSuggestTRResponseProps {
   metadata: {
     cifId: boolean;
     productCode: boolean;
@@ -200,7 +207,7 @@ export interface SubmitRbpInfoRequestProps {
   flowId?: string;
   action?: 'approve';
   schemeId?: string; // Scheme ID
-  loanAmount?: string; // Số tiền vay
+  amount?: string; // Số tiền vay
   loanTerm?: string; // Thời hạn vay
   interest?: string; // Lãi suất vay
   paymentMonthly?: string; // Số tiền trả hàng tháng dự kiến
@@ -210,23 +217,26 @@ export interface SubmitRbpInfoRequestProps {
   purposeUse?: string; // Mục đích sử dụng vốn --> Lấy dữ liệu ở dataset loan purpose
   workingTime?: string; // Thời gian làm việc
   insuranceTime?: string; // Optional - Thời gian đóng bảo hiểm
-  merialStatus?: string; // Tình trạng hôn nhân [single, married, divorced, others]
-  residentialAddress?: string; // Địa chỉ cư trú
-  province?: string; // Tỉnh / Thành phố
-  district?: string; // Quận / huyện
-  ward?: string; // Phường / xã
-  address?: string; // Địa chỉ chi tiết
-  mailingProvince?: string; // [Thông tin cư trú] - Tỉnh / Thành phố
-  mailingDistrict?: string; // [Thông tin cư trú] - Quận / huyện
-  mailingWard?: string; // [Thông tin cư trú] - Phường / xã
-  mailingAddress?: string; // [Thông tin cư trú] - Địa chỉ chi tiết,
-  occupation?: string; // Nghề nghiệp
+  expectedMonthlyPayment?: string;
+  insuranceFee?: string;
+  loanPurpose?: string;
+  customerMonthlyIncome?: string;
+  customerWorkingTime?: string;
+  customerMaritalStatus?: string;
+  customerMailingProvince?: string;
+  customerMailingDistrict?: string;
+  customerMailingWard?: string;
+  customerMailingAddress?: string;
+  customerOccupation?: string;
+  participateInLoanInsurance?: string;
 }
 
 export interface SubmitRbpInfoResponseProps {
-  data: {
-    folderId: string;
-  };
+  folderId: string;
+  err: string;
+  message: string;
+  statusCode: string;
+  status: string;
 }
 
 export interface CreateFolderEcmRequestProps {
@@ -275,6 +285,89 @@ export interface UploadDocumentEcmResponseProps {
         docType: string;
         docName: string;
       };
+    };
+  };
+}
+
+export interface aplCustomerDataType {
+  name: string;
+  gender: string;
+  nric: string;
+  nricType: string;
+  nricDate: string;
+  nricExpiry: string;
+  oldNric: string;
+  demographic: {
+    dob: string;
+    nationality: string;
+    placeOfOrigin: string;
+    maritalStatus: string;
+  };
+  homeContact: {
+    province: string;
+    district: string;
+    ward: string;
+    address: string;
+  };
+  financial: {
+    monthlyIncome: string;
+  };
+  workingTime: string;
+}
+export interface GetAPLDataRequestProps {
+  flowId: string;
+}
+
+export interface GetAPLDataResponseProps {
+  err: number;
+  message: string;
+  data: {
+    errorCode: number;
+    errorMsg: string;
+    err: string;
+    status: string;
+    statusCode: string;
+    apl: GetAPLDataTypeProps;
+  };
+}
+
+export interface GetAPLDataTypeProps {
+  customer: aplCustomerDataType | undefined;
+  loanOfferResult: {
+    result: string;
+    productOffer: string;
+    schemeOffer: string;
+    amtOffer: number;
+    irOffer: string;
+    emiOffer: number;
+    insuranceOffer: number;
+    offer: number;
+    interestRate: string;
+    paymentMonthly: number;
+    insuranceFee: number;
+  };
+}
+
+export interface GetCifDataRequestProps {
+  deviceId: string;
+  flowId: string;
+  customerNric: string;
+  customerAdditionalNric: string;
+  customerName: string;
+}
+
+export interface GetCifDataResponseProps {
+  err: number;
+  message: string;
+  data: {
+    errorCode: number;
+    errorMsg: string;
+    data: {
+      errorCode: number;
+      isExisted: boolean;
+      cifs: object[];
+      cif: string;
+      result: string;
     };
   };
 }

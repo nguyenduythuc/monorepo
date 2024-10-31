@@ -44,14 +44,15 @@ export const SliderWithTextInput = ({
     return value.toString();
   };
 
-  const [newValue, setNewValue] = useState(minValue);
+  const [newValue, setNewValue] = useState(parseInt(defaultValue));
 
   useEffect(() => {
-    setNewValue(value || minValue);
+    setNewValue(value || minValue || parseInt(defaultValue));
     if (value > maxValue || value < minValue) {
+      console.log('value', value);
       setNewValue(minValue);
     }
-  }, [value, minValue, maxValue]);
+  }, [value, minValue, maxValue, defaultValue]);
 
   return (
     <View style={tw`mt-6`}>

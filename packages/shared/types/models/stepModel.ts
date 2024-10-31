@@ -9,6 +9,8 @@ export enum AnswerType {
   Checkbox = 'checkbox',
   Slider = 'slider',
   RadioButton = 'radio-button',
+  CalenderDatePicker = 'calender-date-picker',
+  AddressInputModal = 'address-input-modal',
 }
 
 export enum LoanInformationAnswerName {
@@ -18,11 +20,37 @@ export enum LoanInformationAnswerName {
   LoanInsurance = 'participateInLoanInsurance',
   LoanIncomePerMonth = 'incomePerMonth',
   LoanPurpose = 'loanPurpose',
+  LoanPreviousCompanyWorkingTime = 'loanPreviousCompanyWorkingTime',
+  LoanInsuranceDuration = 'loanInsuranceDuration',
+  LoanMarriedStatus = 'loanMarriedStatus',
+  LoanResidentAddress = 'loanResidentAddress',
+  LoanResidentAddressType = 'loanResidentAddressType',
+  LoanResidentAddressDuration = 'loanResidentAddressDuration',
+  LoanCustomerOccupation = 'loanOccupation',
+}
+
+export enum InputAdditionalInfo {
+  OtherIdDoc = 'otherIdDoc',
+  OtherIdType = 'otherIdType',
+  HouseholdBookAddressType = 'householdBookAddressType',
+  HouseholdBookAddress = 'householdBookAddress',
+  HouseholdBookAddressDuration = 'householdBookAddressDuration',
+  JobInformation = 'jobInformation',
+  CompanyType = 'companyInformation',
+  CompanyName = 'companyName',
+  CompanyWorkingTime = 'companyWorkingTime',
+  CompanyAddress = 'companyAddress',
+  ReferralContactName = 'referralContactName',
+  ReferralContactPhoneNumber = 'referralContactPhoneNumber',
+  ReferralRelationship = 'referralRelationship',
+  BeneficiaryBank = 'beneficiaryBank',
+  BeneficiaryFullName = 'beneficiaryFullName',
+  BeneficiaryAccount = 'beneficiaryAccount',
 }
 
 export interface AnswerProps {
   type: AnswerType;
-  name: LoanInformationAnswerName;
+  name: LoanInformationAnswerName | InputAdditionalInfo;
   title: string;
   description?: string;
   required?: boolean;
@@ -40,6 +68,7 @@ export interface AnswerProps {
   keyboardType?: KeyboardTypeOptions;
   disabled?: boolean;
   placeholder?: string;
+  flexStyle?: string;
 }
 
 export interface Question {

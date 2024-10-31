@@ -14,6 +14,7 @@ import {loanAPI} from './loanAPI';
 import {ggMapAPI} from './ggMapApi';
 import {localAddressAPI} from './localAddress';
 import {fileAPI} from './fileAPI';
+import {cifAPI} from './cifAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -33,6 +34,7 @@ export const apiSlice = createApi({
     ...loanAPI(builder),
     ...localAddressAPI(builder),
     ...fileAPI(builder),
+    ...cifAPI(builder),
   }),
 });
 
@@ -51,7 +53,6 @@ export const {
   useGenerateOTPMutation,
   useVerifyOTPMutation,
   useResendOTPMutation,
-  useGetProductQuery,
   useGetPurposeQuery,
   useGetProductListQuery,
   useGetMetadataQuery,
@@ -67,7 +68,6 @@ export const {
   useResetPasswordFinishMutation,
   useVerifyAccountMutation,
   useUpdateAccountMutation,
-  useUpdateOCRIdentityNumberMutation,
   usePreCheckMutation,
   useRequestPendingByUserMutation,
   useSaveDaftAPLMutation,
@@ -91,6 +91,10 @@ export const {
   useLazyGetFileQuery,
   useChangePasswordRequestMutation,
   useVerifyChangePasswordMutation,
+  useGetCifDataMutation,
+  useGetAplDataMutation,
+  useGetBankListDataMutation,
+  useGetOccupationListDataMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;
