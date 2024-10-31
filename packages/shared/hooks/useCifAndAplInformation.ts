@@ -104,7 +104,7 @@ const useCifAndAplInformation = ({flowId}: {flowId: string}) => {
 
               dispatch(clearLoadingScreen());
               clearInterval(interval);
-              appNavigate(ScreenParamEnum.LoanOffer);
+              appNavigate(ScreenParamEnum.ReviewLoanOffer);
               // Go to loan offer screen
             }
           }

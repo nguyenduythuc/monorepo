@@ -7,7 +7,7 @@ import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
 import Answer from '../Answers';
 import useHandleRBPInformation from '../../hooks/useHandleRBPInformation';
 
-const MarriedStatus = ({stepNumber, control, watch}: QuestionField) => {
+const MarriedStatus = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

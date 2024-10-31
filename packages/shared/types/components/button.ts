@@ -44,6 +44,7 @@ export interface BaseButtonProps extends React.ComponentProps<'button'> {
   loading?: boolean;
   children?: children;
   styleTextLeft?: boolean;
+  textColor?: string;
   buttonStyle?: string;
   textCustomStyle?: string;
 }

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
@@ -7,7 +7,7 @@ import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
 import Answer from '../Answers';
 import useHandleRBPInformation from '../../hooks/useHandleRBPInformation';
 
-const ResidentAddress = ({stepNumber, control, watch}: QuestionField) => {
+const ResidentAddress = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

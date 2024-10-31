@@ -213,7 +213,8 @@
     "marriedStatus": "Married Status",
     "manual": "Thêm địa chỉ",
     "auto": "Tìm địa chỉ",
-    "givenPlace": "Nơi cấp"
+    "givenPlace": "Nơi cấp",
+    "updateCCCDSuccess": "Cập nhật thông tin thành công, vui lòng đăng nhập lại"
   },
   "AddAddress": {
     "address": "Địa chỉ",
@@ -341,13 +342,18 @@
   "LoanOffer": {
     "title": "Loan Offer"
   },
-  "ChangePassword": {
-    "title": "Đổi mật khẩu",
-    "currentPassword": "Nhập mật khẩu hiện tại",
-    "changePasswordErr": "Nhập sai mật khẩu hiện tại",
-    "changePasswordSuccess": "Đổi mật khẩu thành công"
-  },
-  "LoanOffer": {
-    "title": "Loan Offer"
+  "ReviewLoanOffer": {
+    "title": "Xác nhận khoản vay",
+    "desc": "Vui lòng kiểm tra những thông tin tạm tính về khoản vay dưới đây. Nếu có sai sót, vui lòng điều chỉnh lại thông tin khoản vay",
+    "loanInfo": "Thông tin khoản vay",
+    "loanProduct": "Sản phẩm vay",
+    "loanAmount": "Số tiền vay (VND)",
+    "loanTenor": "Thời gian vay",
+    "interestMonthly": "Trả hàng tháng (VND)",
+    "interestRate": "Lãi suất dự kiến",
+    "loanInsuranceFee": "Số tiền phí bảo hiểm (VND)",
+    "confirmTitle": "Vui lòng xác nhận thông tin để tiếp tục hoàn thiện hồ sơ vay",
+    "editLoanInfo": "Sửa thông tin vay",
+    "confirm": "Xác nhận"
   }
 }

@@ -3,14 +3,20 @@ import {
   CifMetadataProps,
   ProductProps,
 } from '@lfvn-customer/shared/types/models/loanModel';
-import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTypes';
+import {
+  LoanOfferResultProps,
+  MetaDataRequestProps,
+} from '@lfvn-customer/shared/types/services/loanTypes';
+import {OccupationType} from '@lfvn-customer/shared/types/services/localAddressType';
 
 const initialState: {
   listProduct: ProductProps[];
   requestPendingMetadata: MetaDataRequestProps | null;
   cifMetadata?: CifMetadataProps;
   productSelected?: ProductProps;
-} = {listProduct: [], requestPendingMetadata: null};
+  loanOfferResult?: LoanOfferResultProps;
+  occupations: OccupationType[];
+} = {listProduct: [], requestPendingMetadata: null, occupations: []};
 
 const productSlice = createSlice({
   name: 'product',
@@ -33,6 +39,20 @@ const productSlice = createSlice({
         state.productSelected = action.payload;
       }
     },
+    setLoanOfferResult: (state, action) => {
+      state.loanOfferResult = action.payload;
+    },
+    setOccupations: (state, action) => {
+      state.occupations = action.payload;
+    },
+    clearProductData: state => {
+      state.cifMetadata = undefined;
+      state.productSelected = undefined;
+      state.loanOfferResult = undefined;
+      state.listProduct = [];
+      state.requestPendingMetadata = null;
+      state.occupations = [];
+    },
   },
 });
 
@@ -42,5 +62,8 @@ export const {
   setRequestPendingMetadata,
   setCifMetadata,
   setProductSelected,
+  setLoanOfferResult,
+  clearProductData,
+  setOccupations,
 } = productSlice.actions;
 export default productSlice.reducer;

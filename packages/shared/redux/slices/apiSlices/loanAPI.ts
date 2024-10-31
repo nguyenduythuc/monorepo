@@ -11,6 +11,8 @@ import {
   GetAPLDataResponseProps,
   GetCifDataRequestProps,
   GetCifDataResponseProps,
+  LoanOfferRequestProps,
+  LoanOfferResponseProps,
   MetaDataRequestProps,
   PreCheckRequestProps,
   PreCheckResponseProps,
@@ -176,4 +178,11 @@ export const loanAPI = (
       }),
     },
   ),
+  loanOffer: builder.mutation<LoanOfferResponseProps, LoanOfferRequestProps>({
+    query: (body: LoanOfferRequestProps) => ({
+      url: getPath('/loan-offer/review'),
+      method: 'post',
+      data: body,
+    }),
+  }),
 });

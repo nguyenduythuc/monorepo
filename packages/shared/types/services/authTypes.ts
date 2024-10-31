@@ -26,6 +26,7 @@ export interface UpdateAccountResponseProps {
 
 export interface UpdateAccountRequestProps {
   login?: string;
+  loginNew?: string;
   fullName?: string;
   phoneNumber?: string;
   identityNumber?: string;

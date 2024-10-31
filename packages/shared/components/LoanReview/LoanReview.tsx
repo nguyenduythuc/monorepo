@@ -5,14 +5,13 @@ import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {UseFormReturn} from 'react-hook-form';
 
-const StepTabView: React.FC<IStepTabViewProps & UseFormReturn> = ({
+const LoanReview: React.FC<IStepTabViewProps & UseFormReturn> = ({
   questionComponents,
   currentQuestion,
   setCurrentQuestion,
   control,
   watch,
   getValues,
-  reset,
 }) => {
   const {colors} = useGetTheme();
 
@@ -31,7 +30,6 @@ const StepTabView: React.FC<IStepTabViewProps & UseFormReturn> = ({
               control={control}
               watch={watch}
               getValues={getValues}
-              reset={reset}
               stepNumber={idx + 1}
             />
           </View>
@@ -69,4 +67,4 @@ const StepTabView: React.FC<IStepTabViewProps & UseFormReturn> = ({
   );
 };
 
-export default StepTabView;
+export default LoanReview;

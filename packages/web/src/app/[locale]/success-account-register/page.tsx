@@ -1,9 +1,15 @@
 'use client';
-import { Appbar, SuccessAccountRegister } from '@lfvn-customer/shared';
+import { SuccessAccountRegister } from '@lfvn-customer/shared';
 import tw from '@lfvn-customer/shared/themes/tailwind';
+import { useSearchParams } from 'next/navigation';
 import { View } from 'react-native';
 
 export default function VerifyAccount() {
+  const searchParams = useSearchParams();
+
+  const phoneNumber = searchParams.get('phoneNumber') ?? '';
+  const identityNumber = searchParams.get('identityNumber') ?? '';
+
   return (
     <View style={tw.style('flex-1 bg-white h-full')}>
       <img
@@ -12,7 +18,10 @@ export default function VerifyAccount() {
         alt="My Image"
       />
       <View style={tw.style('pt-2')}>
-        <SuccessAccountRegister />
+        <SuccessAccountRegister
+          phoneNumber={phoneNumber}
+          identityNumber={identityNumber}
+        />
       </View>
     </View>
   );

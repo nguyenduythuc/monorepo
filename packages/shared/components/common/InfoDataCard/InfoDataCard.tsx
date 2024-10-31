@@ -1,16 +1,13 @@
-import {View, Text, TouchableOpacity, ScrollView, Platform} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {View, Text} from 'react-native';
+import React from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Icon} from '../Icon';
-import {
-  ekycDataType,
-  mapEkycKeyValue,
-} from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
+import {mapEkycKeyValue} from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
 
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+import {LoanReviewInfoProps} from '@lfvn-customer/shared/types/services/loanTypes';
 
 type InfoDataCardProps = {
-  cardRawData: ekycDataType;
+  cardRawData: LoanReviewInfoProps;
 };
 
 export const InfoDataCard: React.FC<InfoDataCardProps> = ({cardRawData}) => {
@@ -18,7 +15,7 @@ export const InfoDataCard: React.FC<InfoDataCardProps> = ({cardRawData}) => {
 
   const renamedData = Object.keys(cardRawData).reduce(
     (acc, key) => {
-      const ekycKey = key as keyof ekycDataType;
+      const ekycKey = key as keyof LoanReviewInfoProps;
       const newKey = mapEkycKeyValue[ekycKey];
       acc[newKey] = cardRawData[ekycKey];
       return acc;

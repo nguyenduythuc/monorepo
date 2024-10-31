@@ -5,11 +5,14 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import useVerifyAccount from '@lfvn-customer/shared/hooks/useVerifyAccount';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
-export const SuccessAccountRegister = () => {
-  const {user} = useAppSelector(state => state.auth);
-
+export const SuccessAccountRegister = ({
+  phoneNumber,
+  identityNumber,
+}: {
+  phoneNumber: string;
+  identityNumber: string;
+}) => {
   const t = useTranslations();
 
   const {onSuccessSubmit} = useVerifyAccount({
@@ -27,14 +30,14 @@ export const SuccessAccountRegister = () => {
             {t('VerifyCustomer.congratsSuccessAccountRegister')}
           </Text>
           <Text style={tw.style('text-2xl font-semibold text-red-500 mb-2')}>
-            {user?.login}
+            {identityNumber}
           </Text>
           <Text style={tw.style('text-base text-center mb-2')}>
             {t('VerifyCustomer.yourFirstPassword')}
           </Text>
 
           <Text style={tw.style('text-2xl font-semibold text-red-500 mb-2')}>
-            {user?.phoneNumber}
+            {phoneNumber}
           </Text>
         </View>
       </ScrollView>

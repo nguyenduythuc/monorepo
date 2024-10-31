@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Appbar, FormButton} from '@lfvn-customer/shared/components';
@@ -13,6 +13,17 @@ import ResidentAddress from '@lfvn-customer/shared/components/Questions/Resident
 import {MetaDataRequestProps} from '@lfvn-customer/shared/types/services/loanTypes';
 import {EventEmitterEnum} from '@lfvn-customer/shared/utils/eventEmitter';
 import useHandleCreateAPL from '@lfvn-customer/shared/hooks/useHandleCreateAPL';
+import useHandleRequestPending from '@lfvn-customer/shared/hooks/useHandleRequestPending';
+import {RequestPendingStepEnum} from '@lfvn-customer/shared/types';
+import {useGetOccupationListDataMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import useShowToast from '../../hooks/useShowToast';
+import {useDispatch} from 'react-redux';
+import {
+  setLoanOfferResult,
+  setOccupations,
+} from '../../redux/slices/productSlices';
+import {ScreenParamEnum} from '../../types/paramtypes';
+import {useConfigRouting} from '../../hooks';
 
 const questionComponents = [MarriedStatus, ResidentAddress, MarriedStatus];
 
@@ -26,15 +37,61 @@ const RBPInformationScreen = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const {onPressGoBack} = useLoanInformation();
 
-  const {requestPendingMetadata} = useAppSelector(state => state.product);
+  const {requestPendingMetadata, loanOfferResult} = useAppSelector(
+    state => state.product,
+  );
   const {aplAddressCode} = useAppSelector(state => state.loanApl);
 
-  const {onHandleSubmitRbpInfo} = useHandleCreateAPL();
+  const dispatch = useDispatch();
+  const {showCommonErrorToast} = useShowToast();
+  const {appNavigate} = useConfigRouting();
 
-  // const {cifData, aplData, onHandleGetAplData, onHandleGetCifData} =
-  //   useCifAndAplInformation({
-  //     flowId: requestPendingMetadata?.flowId || '',
-  //   });
+  const {onHandleSaveDaftAPL} = useHandleRequestPending();
+  const {onHandleSubmitRbpInfo} = useHandleCreateAPL();
+  const [listOccupation] = useGetOccupationListDataMutation();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await listOccupation({
+          queryInput: {},
+          limit: 100,
+          skip: 0,
+          sort: [],
+        });
+        if (result?.data?.data) {
+          dispatch(setOccupations(result.data.data));
+        } else {
+          showCommonErrorToast();
+        }
+      } catch {
+        showCommonErrorToast();
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (loanOfferResult) {
+      // (async () => {
+      // const metadata: MetaDataRequestProps = {
+      //   ...requestPendingMetadata,
+      //   loanOfferResult,
+      // };
+      // const bodyRequestPending = {
+      //   userId: requestPendingMetadata?.userId ?? '',
+      //   currentStep: RequestPendingStepEnum.VERIFY_INFORMATION,
+      //   productCode: requestPendingMetadata?.schemeCode ?? '',
+      //   metadata,
+      // };
+      // await onHandleSaveDaftAPL(bodyRequestPending);
+      // })();
+      dispatch(setLoanOfferResult(undefined)); // remove data when save to draft apl
+      setTimeout(() => {
+        console.log('loanOfferResult222222222');
+        appNavigate(ScreenParamEnum.ReviewLoanOffer);
+      }, 600);
+    }
+  }, [loanOfferResult]);
 
   const onGoBack = () => {
     if (currentQuestion > 0) {
@@ -51,13 +108,6 @@ const RBPInformationScreen = () => {
       loanResidentAddress,
       loanOccupation,
     } = forms.getValues();
-
-    console.log(
-      'getValue',
-      loanResidentAddressType,
-      loanResidentAddress,
-      loanOccupation,
-    );
 
     if (currentQuestion + 1 < questionComponents.length) {
       setCurrentQuestion(currentQuestion + 1); // next question
@@ -82,7 +132,13 @@ const RBPInformationScreen = () => {
             loanOccupation: loanOccupation,
           };
 
-    console.log('metadata', metadata);
+    const bodyRequestPending = {
+      userId: requestPendingMetadata?.userId ?? '',
+      currentStep: RequestPendingStepEnum.LOAN_INFORMATION,
+      productCode: requestPendingMetadata?.schemeCode ?? '',
+      metadata,
+    };
+    await onHandleSaveDaftAPL(bodyRequestPending);
 
     if (currentQuestion + 1 === questionComponents.length) {
       await onHandleSubmitRbpInfo(metadata); // last question -> complete

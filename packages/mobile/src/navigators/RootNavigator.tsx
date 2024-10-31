@@ -27,7 +27,8 @@ import {
   VisionCameraContainer,
   ChangePasswordContainer,
   CifAndAplInformationContainer,
-  LoanOfferScreenContainer,
+  ReviewLoanOfferContainer,
+  PreScoringPendingCheckContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -271,8 +272,15 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="loan-offer"
-        component={LoanOfferScreenContainer}
+        name="review-loan-offer"
+        component={ReviewLoanOfferContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="pre-scoring-pending-check"
+        component={PreScoringPendingCheckContainer}
         options={{
           headerShown: false,
         }}

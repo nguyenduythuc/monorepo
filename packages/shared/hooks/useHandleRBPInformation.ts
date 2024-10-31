@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {Control, FieldValues, useWatch} from 'react-hook-form';
 import {
   AnswerType,
@@ -9,7 +9,7 @@ import {marriedStatusOption, residentSameAsID} from '../data/data';
 import eventEmitter, {
   EventEmitterEnum,
 } from '@lfvn-customer/shared/utils/eventEmitter';
-import {useGetOccupationListDataMutation} from '../redux/slices/apiSlices';
+import {useAppSelector} from '../redux/store';
 
 const useHandleRBPInformation = ({
   control,
@@ -18,38 +18,16 @@ const useHandleRBPInformation = ({
   control: Control<FieldValues>;
   stepNumber: number;
 }) => {
-  const [listOccupation] = useGetOccupationListDataMutation();
+  const {occupations} = useAppSelector(state => state.product);
 
-  const [listOccupationOption, setListOccupationOption] = useState<
-    {
-      code: string;
-      name: string;
-    }[]
-  >([]);
-
-  const getOccupationList = async () => {
-    const result = await listOccupation({
-      queryInput: {},
-      limit: 100,
-      skip: 0,
-      sort: [],
+  const listOccupationOption = useMemo(() => {
+    return occupations.map(item => {
+      return {
+        code: item.code,
+        name: item.name,
+      };
     });
-
-    if (result.data) {
-      const options: {code: string; name: string}[] = [];
-      result.data.data.map(item => {
-        if (item.code) {
-          options.push({
-            name: item.name,
-            code: item.code,
-          });
-        }
-      });
-      setListOccupationOption(options);
-    } else {
-      console.log('error', result.error);
-    }
-  };
+  }, [occupations]);
 
   const aplLoanMarriedStatus = useWatch({
     control,
@@ -71,12 +49,6 @@ const useHandleRBPInformation = ({
     control,
     name: LoanInformationAnswerName.LoanCustomerOccupation,
   });
-
-  useEffect(() => {
-    if (stepNumber === 3) {
-      getOccupationList();
-    }
-  }, [stepNumber, aplLoanCustomerOccupation]);
 
   useEffect(() => {
     let isDisabled = true;
@@ -113,11 +85,7 @@ const useHandleRBPInformation = ({
   ]);
 
   const selectAddressType = useMemo(() => {
-    console.log(aplResidentAddressType);
-    if (aplResidentAddressType === residentSameAsID[1].code) {
-      return false;
-    }
-    return true;
+    return aplResidentAddressType !== residentSameAsID[1].code;
   }, [aplResidentAddressType]);
 
   const getStep = useCallback(

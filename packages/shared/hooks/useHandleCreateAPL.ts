@@ -25,7 +25,6 @@ import {RequestPendingStepEnum} from '@lfvn-customer/shared/types';
 
 import moment from 'moment';
 import useHandleSaveFile from './useHandleSaveFile';
-import useCifAndAplInformation from './useCifAndAplInformation';
 
 const useHandleCreateAPL = () => {
   const {requestPendingMetadata} = useAppSelector(state => state.product);
@@ -50,10 +49,6 @@ const useHandleCreateAPL = () => {
       type: 'error',
     });
   };
-
-  const {onHandlePrescoring} = useCifAndAplInformation({
-    flowId: requestPendingMetadata?.flowId ?? '',
-  });
 
   const handleDownloadUserResourceFileAndUploadEcm = async (
     body: MetaDataRequestProps,
@@ -153,10 +148,6 @@ const useHandleCreateAPL = () => {
     }
   };
 
-  const startPrescoring = () => {
-    onHandlePrescoring();
-  };
-
   const onHandleSubmitRbpInfo = async (data: MetaDataRequestProps) => {
     dispatch(setLoadingScreen());
     const body: SubmitRbpInfoRequestProps = {
@@ -183,19 +174,7 @@ const useHandleCreateAPL = () => {
     try {
       const result = await submitRbpInfo(body);
       if (result.data?.message === 'success') {
-        const metadata: MetaDataRequestProps = {
-          ...data,
-        };
-        const bodyRequestPending = {
-          userId: requestPendingMetadata?.userId ?? '',
-          currentStep: RequestPendingStepEnum.VERIFY_INFORMATION,
-          productCode: requestPendingMetadata?.schemeCode ?? '',
-          metadata,
-        };
-        console.log('bodyRequestPending1234', bodyRequestPending);
-        await onHandleSaveDaftAPL(bodyRequestPending);
-
-        startPrescoring();
+        appNavigate(ScreenParamEnum.PreScoringPendingCheck);
       } else {
         console.log();
       }
