@@ -80,7 +80,7 @@ export const HomeScreen = () => {
       iconName: 'cash-loan-icon',
       title: 'Cash loan',
       goPage: ScreenParamEnum.CifAndAplInformation,
-      params: {flowId: '0212605669550623'},
+      params: {flowId: requestPendingMetadata?.flowId},
     },
     {
       iconName: 'credit-card-icon',

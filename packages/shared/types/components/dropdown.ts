@@ -7,4 +7,5 @@ export type dropdownOptionProduct = {
   code?: string;
   product?: string;
   template?: string | null;
+  data?: object[]
 };

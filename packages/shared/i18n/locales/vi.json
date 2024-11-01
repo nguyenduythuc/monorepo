@@ -283,7 +283,9 @@
   "CifAndAplInformation": {
     "profileInformation": "Profile Information",
     "description": "Please input the following information",
-    "addMoreInfo": "Nhập thông tin"
+    "addMoreInfo": "Nhập thông tin",
+    "submit": "Submit",
+    "edit": "Edit Information"
   },
   "AddOtherIdDoc": {
     "title": "Please add some of your other identification documents",
@@ -343,6 +345,41 @@
   },
   "LoanOffer": {
     "title": "Loan Offer"
+  },
+  "ReviewLoanOffer": {
+    "title": "Xác nhận khoản vay",
+    "desc": "Vui lòng kiểm tra những thông tin tạm tính về khoản vay dưới đây. Nếu có sai sót, vui lòng điều chỉnh lại thông tin khoản vay",
+    "loanInfo": "Thông tin khoản vay",
+    "loanProduct": "Sản phẩm vay",
+    "loanAmount": "Số tiền vay (VND)",
+    "loanTenor": "Thời gian vay",
+    "interestMonthly": "Trả hàng tháng (VND)",
+    "interestRate": "Lãi suất dự kiến",
+    "loanInsuranceFee": "Số tiền phí bảo hiểm (VND)",
+    "confirmTitle": "Vui lòng xác nhận thông tin để tiếp tục hoàn thiện hồ sơ vay",
+    "editLoanInfo": "Sửa thông tin vay",
+    "confirm": "Xác nhận"
+  },
+  "ProfileInformation": {
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "ward": "Phường/Xã",
+    "detailAdd": "Địa chỉ chi tiết",
+    "occupation": "Nghề nghiệp",
+    "monthlyIncome": "Thu nhập hàng tháng",
+    "companyName": "Tên cơ quan",
+    "workplace": "Cơ quan/nơi làm việc",
+    "referralRelationship": "Quan hệ với người đăng ký",
+    "bankName": "Ngân hàng",
+    "bankAccountNum": "Số tài khoản",
+    "bankAccountName": "Tên tài khoản",
+    "residenceAddress": "Địa chỉ cư trú",
+    "registerAddress": "Địa chỉ đăng ký hộ khẩu",
+    "occupationInformation": "Thông tin việc làm",
+    "workPlaceInformation": "Thông tin nơi làm việc",
+    "companyAddress": "Địa chỉ nơi làm việc",
+    "beneficiary": "Ngân hàng",
+    "phoneNumber": "Số điện thoại"
   },
   "ReviewLoanOffer": {
     "title": "Xác nhận khoản vay",

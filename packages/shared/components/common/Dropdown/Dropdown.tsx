@@ -35,7 +35,8 @@ export const DropDownSelect = ({
   disabled = false,
   required = false,
 }: DropdownProps) => {
-  const listPage = options || [];
+  const listPage: dropdownOptionProduct[] = 'data' in options ? options.data as dropdownOptionProduct[] : options || [];
+
   const dropDownRef = useRef<any>(null);
   const t = useTranslations();
 

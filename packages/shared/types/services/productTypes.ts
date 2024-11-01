@@ -54,10 +54,7 @@ export interface ProductIntroDataType {
 }
 
 export interface PurposeResponseProps {
-  data: {
-    count: number;
-    data: PurposeDataType[];
-  };
+  data: PurposeDataType[];
   code: string;
   message: string;
 }

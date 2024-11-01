@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react';
 import {useConfigRouting} from './routing';
 import {
+  useCheckBeneficiaryAccountMutation,
   //   useCheckTRAndProductMutation,
   useGetAplDataMutation,
   useGetCifDataMutation,
+  useVerifyBankAccountMutation,
   //   useLazyGetCifInfoQuery,
 } from '../redux/slices/apiSlices';
 import useTranslations from './useTranslations';
@@ -14,6 +16,7 @@ import {DEVICE_INFO} from '../utils/constants';
 import {
   GetAPLDataTypeProps,
   MetaDataRequestProps,
+  cifsDataListType,
 } from '../types/services/loanTypes';
 import useShowToast from './useShowToast';
 import {
@@ -38,27 +41,56 @@ const useCifAndAplInformation = ({flowId}: {flowId: string}) => {
   const {onHandleSaveDaftAPL} = useHandleRequestPending();
   //   const [getCifInfo] = useLazyGetCifInfoQuery();
   //   const [checkTRAndProduct] = useCheckTRAndProductMutation();
-  const [cifData, setCifData] = useState<object[]>([]);
+  const [cifData, setCifData] = useState<cifsDataListType>();
   const [aplData, setAplDate] = useState<GetAPLDataTypeProps | undefined>();
+  const [checkExistCustomer, setCheckExistCustomer] = useState(false);
+  const [backAccount, setBankAccount] = useState({});
+  const deviceInfo = JSON.parse(getVerifyAccountInfo(DEVICE_INFO) || '');
 
   const [getCifData] = useGetCifDataMutation();
   const [getAplData] = useGetAplDataMutation();
 
-  const deviceInfo = JSON.parse(getVerifyAccountInfo(DEVICE_INFO) || '');
+  const [verifyBankAccount] = useVerifyBankAccountMutation();
+
+  const verifyBankAccountData = async ({
+    bank,
+    accountNumber,
+    accountName,
+  }: {
+    bank: string;
+    accountNumber: string;
+    accountName?: string;
+  }) => {
+    const body = {
+      flowId: flowId,
+      action: 'approve',
+      bankCode: '970406',
+      accountNo: '0129837294',
+      // accountName: 'Nguyen Van A',
+    };
+    console.log('body', body);
+    const result = await verifyBankAccount(body);
+
+    if (result.data?.data) {
+      console.log('result.data?.data', result.data?.data);
+      setBankAccount(result.data?.data.metadata.Individual.dppeNm);
+    }
+  };
 
   const onHandleGetCifData = async () => {
     try {
       const body = {
         deviceId: deviceInfo.deviceIdData,
         flowId: flowId,
-        customerNric: '020200006487',
+        customerNric: requestPendingMetadata?.customerNric || '',
         customerAdditionalNric: '',
-        customerName: 'Đặng Hữu Thanh',
+        customerName: requestPendingMetadata?.customerName || '',
       };
       const responseCifData = await getCifData(body);
       if (responseCifData.data) {
         const cifData = responseCifData.data.data;
-        setCifData(cifData.data.cifs);
+        setCifData(cifData.data.cifs[0]);
+        setCheckExistCustomer(cifData.data.isExisted);
       }
     } catch (err) {
       console.log(err);
@@ -77,6 +109,10 @@ const useCifAndAplInformation = ({flowId}: {flowId: string}) => {
       console.log('err', error);
     }
   };
+
+  useEffect(() => {
+    onHandleGetCifData();
+  }, []);
 
   const onHandlePrescoring = () => {
     const interval = setInterval(async () => {
@@ -136,6 +172,9 @@ const useCifAndAplInformation = ({flowId}: {flowId: string}) => {
     aplData,
     onHandlePrescoring,
     setTimeForPrescoring,
+    checkExistCustomer,
+    verifyBankAccountData,
+    backAccount,
   };
 };
 

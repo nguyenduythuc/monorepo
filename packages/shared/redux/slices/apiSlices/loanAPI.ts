@@ -1,5 +1,6 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
+  CheckBeneficiaryAccountRequestProps,
   CheckTRandProductRequestProps,
   CheckTRandProductResponseProps,
   CreateAPLResponseProps,
@@ -27,6 +28,8 @@ import {
   UploadDocumentEcmRequestProps,
   UploadDocumentEcmResponseProps,
   UploadDocumentEcmWebRequestProps,
+  VerifyBankAccountRequestProps,
+  VerifyBankAccountResponseProps,
 } from '@lfvn-customer/shared/types/services/loanTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -112,6 +115,26 @@ export const loanAPI = (
       }),
     },
   ),
+  checkBeneficiaryAccount: builder.mutation<
+    GetAPLDataResponseProps,
+    CheckBeneficiaryAccountRequestProps
+  >({
+    query: (body: CheckBeneficiaryAccountRequestProps) => ({
+      url: getPath('/deh/beneficiary-account'),
+      method: 'post',
+      data: body,
+    }),
+  }),
+  verifyBankAccount: builder.mutation<
+    VerifyBankAccountResponseProps,
+    VerifyBankAccountRequestProps
+  >({
+    query: (body: VerifyBankAccountRequestProps) => ({
+      url: getPath('/bank-account/verify'),
+      method: 'post',
+      data: body,
+    }),
+  }),
   createFolderEcm: builder.mutation<
     CreateFolderEcmResponseProps,
     CreateFolderEcmRequestProps

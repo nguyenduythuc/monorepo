@@ -20,7 +20,7 @@ const InputAnswer = ({
         <TextInputWithUnit
           keyboardType={answer.keyboardType}
           onChangeValue={onChange}
-          value={value === undefined ? answer.value : value}
+          value={value === undefined || value === '' ? answer.value : value}
           onBlur={onBlur}
           disabled={answer.disabled}
           label={answer.title}

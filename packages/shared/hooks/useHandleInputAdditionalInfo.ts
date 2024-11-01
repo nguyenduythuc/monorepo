@@ -22,7 +22,11 @@ import {getVerifyAccountInfo} from '../utils/commonFunction';
 import {DEVICE_INFO} from '../utils/constants';
 import {useDispatch} from 'react-redux';
 import {setProductSelected} from '@lfvn-customer/shared/redux/slices/productSlices';
-import {useGetBankListDataMutation} from '../redux/slices/apiSlices';
+import {
+  useCheckBeneficiaryAccountMutation,
+  useGetBankListDataMutation,
+} from '../redux/slices/apiSlices';
+import useCifAndAplInformation from './useCifAndAplInformation';
 
 const idDocType = [
   {
@@ -79,6 +83,7 @@ const useHandleInputAdditionalInfo = ({
   stepNumber: number;
 }) => {
   const dispatch = useDispatch();
+  const {requestPendingMetadata} = useAppSelector(state => state.product);
 
   const [listBank] = useGetBankListDataMutation();
   const [listBankOption, setListOption] = useState<
@@ -87,6 +92,12 @@ const useHandleInputAdditionalInfo = ({
       name: string;
     }[]
   >();
+
+  const {verifyBankAccountData, cifData, backAccount} = useCifAndAplInformation(
+    {
+      flowId: requestPendingMetadata?.flowId || '',
+    },
+  );
 
   const getBankList = async () => {
     const result = await listBank({
@@ -113,10 +124,14 @@ const useHandleInputAdditionalInfo = ({
   };
 
   useEffect(() => {
-    if (stepNumber === 1) {
+    if (stepNumber === 8) {
       getBankList();
     }
   }, [stepNumber]);
+
+  useEffect(() => {
+    console.log('cifData', cifData);
+  }, [cifData]);
 
   const infoIdDocType = useWatch({
     control,
@@ -126,6 +141,7 @@ const useHandleInputAdditionalInfo = ({
   const infoHouseholdBookAddress = useWatch({
     control,
     name: InputAdditionalInfo.HouseholdBookAddressType,
+    defaultValue: cifData?.Adr_home.city,
   });
 
   const infoJobInformation = useWatch({
@@ -151,21 +167,40 @@ const useHandleInputAdditionalInfo = ({
   const infoCompanyInfoAddress = useWatch({
     control,
     name: InputAdditionalInfo.CompanyAddress,
+    defaultValue: cifData?.Adr_work.city,
   });
 
   const infoReferralName = useWatch({
     control,
     name: InputAdditionalInfo.ReferralContactName,
+    defaultValue: cifData?.Reference1.name1,
   });
 
   const infoReferralPhoneNumber = useWatch({
     control,
     name: InputAdditionalInfo.ReferralContactPhoneNumber,
+    defaultValue: cifData?.Reference1.phone1,
   });
 
   const infoReferralRelationship = useWatch({
     control,
     name: InputAdditionalInfo.ReferralRelationship,
+    defaultValue: cifData?.Reference1.relate1,
+  });
+
+  const infoBeneficiaryAccount = useWatch({
+    control,
+    name: InputAdditionalInfo.BeneficiaryAccount,
+  });
+
+  const infoBeneficiaryBank = useWatch({
+    control,
+    name: InputAdditionalInfo.BeneficiaryBank,
+  });
+
+  const infoBeneficiaryFullName = useWatch({
+    control,
+    name: InputAdditionalInfo.BeneficiaryFullName,
   });
 
   const selectAddressType = useMemo(() => {
@@ -174,6 +209,26 @@ const useHandleInputAdditionalInfo = ({
     }
     return true;
   }, [infoHouseholdBookAddress]);
+
+  useEffect(() => {
+    console.log(
+      'infoBeneficiaryAccount',
+      infoBeneficiaryAccount,
+      infoBeneficiaryBank,
+    );
+
+    if (infoBeneficiaryAccount && infoBeneficiaryBank) {
+      const timeoutId = setTimeout(() => {
+        verifyBankAccountData({
+          bank: infoBeneficiaryBank,
+          accountNumber: infoBeneficiaryAccount,
+        });
+      }, 500); // 300ms debounce delay
+
+      // Clean up the timeout if the query changes before the timeout completes
+      return () => clearTimeout(timeoutId);
+    }
+  }, [infoBeneficiaryAccount, infoBeneficiaryBank]);
 
   useEffect(() => {
     let isDisabled = true;
@@ -203,8 +258,13 @@ const useHandleInputAdditionalInfo = ({
       case 7:
         isDisabled = !infoReferralRelationship;
         break;
-
       case 8:
+        isDisabled = !(
+          infoBeneficiaryBank &&
+          infoBeneficiaryAccount &&
+          infoBeneficiaryFullName
+        );
+        break;
     }
     eventEmitter.emit(EventEmitterEnum.WatchFormData, {stepNumber, isDisabled});
   }, [
@@ -218,15 +278,18 @@ const useHandleInputAdditionalInfo = ({
     infoReferralName,
     infoReferralPhoneNumber,
     infoReferralRelationship,
+    infoBeneficiaryFullName,
+    infoBeneficiaryBank,
+    infoBeneficiaryAccount,
     stepNumber,
   ]);
 
   const getStep = useCallback(
     ({stepNumber}: {stepNumber: number}): StepProps => {
       switch (stepNumber) {
-        case 8:
+        case 1:
           return {
-            id: 8,
+            id: 1,
             name: 'AddOtherIdDoc.title',
             description: 'AddOtherIdDoc.desc',
             questions: [
@@ -271,7 +334,7 @@ const useHandleInputAdditionalInfo = ({
                         name: InputAdditionalInfo.HouseholdBookAddress,
                         type: AnswerType.AddressInputModal,
                         title: 'ResidentStatus.address',
-                        value: '',
+                        value: cifData?.Adr_home.city,
                       },
                       {
                         name: InputAdditionalInfo.HouseholdBookAddressDuration,
@@ -358,7 +421,7 @@ const useHandleInputAdditionalInfo = ({
                     name: InputAdditionalInfo.CompanyAddress,
                     type: AnswerType.AddressInputModal,
                     title: 'ResidentStatus.address',
-                    value: '',
+                    value: cifData?.Adr_work.city,
                   },
                 ],
               },
@@ -377,13 +440,13 @@ const useHandleInputAdditionalInfo = ({
                     name: InputAdditionalInfo.ReferralContactName,
                     type: AnswerType.Input,
                     title: 'ReferralContactInfo.fullName',
-                    value: '',
+                    value: cifData?.Reference1.name1,
                   },
                   {
                     name: InputAdditionalInfo.ReferralContactPhoneNumber,
                     type: AnswerType.Input,
                     title: 'ReferralContactInfo.phoneNumber',
-                    value: '',
+                    value: cifData?.Reference1.phone1,
                     keyboardType: 'numeric',
                   },
                 ],
@@ -404,14 +467,15 @@ const useHandleInputAdditionalInfo = ({
                     type: AnswerType.RadioButton,
                     title: 'ReferralRelationship.relationship',
                     options: relationshipList ?? [],
+                    value: cifData?.Reference1.relate1,
                   },
                 ],
               },
             ],
           };
-        case 1:
+        case 8:
           return {
-            id: 1,
+            id: 8,
             name: 'Beneficiary.title',
             description: 'Beneficiary.desc',
             questions: [
@@ -423,19 +487,19 @@ const useHandleInputAdditionalInfo = ({
                     type: AnswerType.DropdownOption,
                     title: 'Beneficiary.bank',
                     options: listBankOption,
-                  },
-                  {
-                    name: InputAdditionalInfo.BeneficiaryFullName,
-                    type: AnswerType.Input,
-                    title: 'Beneficiary.account',
-                    value: '',
-                    keyboardType: 'numeric',
+                    value: listBankOption && listBankOption[0].code,
                   },
                   {
                     name: InputAdditionalInfo.BeneficiaryAccount,
                     type: AnswerType.Input,
+                    title: 'Beneficiary.account',
+                    keyboardType: 'numeric',
+                  },
+                  {
+                    name: InputAdditionalInfo.BeneficiaryFullName,
+                    type: AnswerType.Input,
                     title: 'Beneficiary.fullName',
-                    value: '',
+                    value: backAccount,
                   },
                 ],
               },
@@ -454,6 +518,9 @@ const useHandleInputAdditionalInfo = ({
       //   productSchemeListData,
       //   purposeData,
       //   loanProductOptions,
+      cifData,
+      occupationList,
+      backAccount,
       listBankOption,
       selectAddressType,
     ],

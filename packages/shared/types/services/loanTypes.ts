@@ -329,6 +329,57 @@ export interface aplCustomerDataType {
   };
   workingTime: string;
 }
+export interface CheckBeneficiaryAccountRequestProps {
+  deviceId: string;
+  flowId: string;
+  action: string;
+  disbursementBank: string;
+  disbursementBankAccountNumber: string;
+  disbursementBankAccountName: string;
+}
+
+export interface VerifyBankAccountRequestProps {
+  flowId: string;
+  action: string;
+  bankCode: string;
+  accountNo: string;
+  accountName?: string;
+}
+
+export interface VerifyBankAccountResponseProps {
+  err: number;
+  message: string;
+  data: {
+    errorCode: number;
+    errorMsg: string;
+    metadata: {
+      Common: {
+        msgLn: string;
+        coNo: string;
+        msgDscd: string;
+        reqRspDscd: string;
+        msgNo: string;
+        tmsDt: string;
+        tmsTm: string;
+        rspCd: string;
+        idCd: string;
+        dataCnt: string;
+        etcAr: string;
+      };
+      Individual: {
+        wdrActNo: string;
+        rcvActNo: string;
+        dppeNm: string;
+        tobkDscd: string;
+        istDscd: string;
+        dpBkCd: string;
+        inCdAccGb: string;
+        filler: string;
+      };
+    };
+  };
+}
+
 export interface GetAPLDataRequestProps {
   flowId: string;
 }
@@ -355,7 +406,7 @@ export interface GetCifDataRequestProps {
   deviceId: string;
   flowId: string;
   customerNric: string;
-  customerAdditionalNric: string;
+  customerAdditionalNric: string | [];
   customerName: string;
 }
 
@@ -368,13 +419,131 @@ export interface GetCifDataResponseProps {
     data: {
       errorCode: number;
       isExisted: boolean;
-      cifs: object[];
+      cifs: cifsDataListType[];
       cif: string;
       result: string;
     };
   };
 }
 
+export interface cifsDataListType {
+  CIF: string;
+  LastName: string;
+  Dob: string;
+  Gender: string;
+  Income: string;
+  Document: string;
+  Adr_mailing: {
+    addresline1: string;
+    addresline2: string;
+    state: string;
+    city: string;
+  };
+  Adr_home: {
+    addresline1: string;
+    addresline2: string;
+    state: string;
+    city: string;
+  };
+  Adr_work: {
+    addresline1: string;
+    addresline2: string;
+    state: string;
+    city: string;
+  };
+  Reference2: {
+    name2: string;
+    relate2: string;
+    phone2: string;
+  };
+  Reference1: {
+    name1: string;
+    relate1: string;
+    phone1: string;
+  };
+  Phone: {
+    HOMEPH1: string[];
+  };
+  Email: {
+    HOMEEML: string[];
+  };
+  Expense: [
+    {
+      expenseDetailid: string;
+      monthlyAmt: string;
+    },
+  ];
+  Outstanding: null;
+  DPD: null;
+  DisbursementDate: null;
+  WAY4: {};
+  LMS: {};
+}
+export interface LoanReviewInfoProps extends ekycDataType {
+  loanProduct?: string;
+  loanAmount?: string;
+  loanTenor?: string;
+  interestMonthly?: string;
+  interestRate?: string;
+  loanInsuranceFee?: string;
+  untitled?: ekycDataType;
+  residenceAddress?: ekycDataType;
+  registerAddress?: ekycDataType;
+  occupationInformation?: ekycDataType;
+  workPlaceInformation?: ekycDataType;
+  companyAddress?: ekycDataType;
+  referralContact?: ekycDataType;
+  beneficiary?: ekycDataType;
+}
+
+export interface LoanOfferRequestProps {
+  flowId: string;
+  action: string; // only approve
+  userConfirmLoanOffer: string; // string of boolean
+}
+
+export interface UploadedResultProps {
+  LOTTE_Business: string;
+  Lotte_Note: string;
+  UWAccount: string;
+  LOTTE_KeepbyUser: string;
+  SAAccount: string;
+  LOTTE_Subproduct: string;
+  DEAccount: string;
+  RejectedEkycNote: string;
+  SelfieGPS: string;
+  UWNote: string;
+  CmIsMarkedForDeletion: string;
+  SalesCode: string;
+  NFC: string;
+  LOTTE_Identify: string;
+  LOTTE_Product: string;
+  System: string;
+  ASM: string;
+  OPNote: string;
+  LOTTE_Status: string;
+  ClosedReason: string;
+  CmIndexingFailureCode: string;
+  IndexationId: string;
+  LOTTE_ReasonSellerApp: string;
+  OPAccount: string;
+  ApplicationNo: string;
+  SellerLead: string;
+  SignType: string;
+  Process: string;
+  LOTTE_Fullname: string;
+  SANote: string;
+  ekycResult: string;
+}
+
+export interface LoanOfferResponseProps {
+  err: number;
+  message: string;
+  data: {
+    errorCode: number;
+    errorMsg: string;
+  };
+}
 export interface LoanReviewInfoProps extends ekycDataType {
   loanProduct?: string;
   loanAmount?: string;
@@ -431,4 +600,43 @@ export interface LoanOfferResponseProps {
     errorCode: number;
     errorMsg: string;
   };
+  Adr_home: {
+    addresline1: string;
+    addresline2: string;
+    state: string;
+    city: string;
+  };
+  Adr_work: {
+    addresline1: string;
+    addresline2: string;
+    state: string;
+    city: string;
+  };
+  Reference2: {
+    name2: string;
+    relate2: string;
+    phone2: string;
+  };
+  Reference1: {
+    name1: string;
+    relate1: string;
+    phone1: string;
+  };
+  Phone: {
+    HOMEPH1: string[];
+  };
+  Email: {
+    HOMEEML: string[];
+  };
+  Expense: [
+    {
+      expenseDetailid: string;
+      monthlyAmt: string;
+    },
+  ];
+  Outstanding: null;
+  DPD: null;
+  DisbursementDate: null;
+  WAY4: {};
+  LMS: {};
 }

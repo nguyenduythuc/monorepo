@@ -319,7 +319,7 @@ const useHandleLoanInformation = ({
                     name: LoanInformationAnswerName.LoanPurpose,
                     type: AnswerType.RadioButton,
                     title: 'LoanPurpose.loanPurpose',
-                    options: purposeData?.data.data ?? [],
+                    options: purposeData?.data ?? [],
                     value: requestPendingMetadata?.loanPurpose,
                   },
                 ],

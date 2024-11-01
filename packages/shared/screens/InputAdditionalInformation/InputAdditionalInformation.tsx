@@ -17,20 +17,29 @@ import {EventEmitterEnum} from '../../utils/eventEmitter';
 const questionComponents = [
   AddOtherIdentificationDoc,
   HouseholdBookAddress,
-  // AddOtherIdentificationDoc,
+  AddOtherIdentificationDoc,
+  AddOtherIdentificationDoc,
+  AddOtherIdentificationDoc,
+  AddOtherIdentificationDoc,
+  AddOtherIdentificationDoc,
+  AddOtherIdentificationDoc,
 ];
 
 const questionFormValidate = generateQuestionValidateStatusList(
   questionComponents.length,
 );
 
-const InputAdditionalInformation = () => {
+const InputAdditionalInformation = ({
+  currentStep = 0,
+}: {
+  currentStep: number;
+}) => {
   const {cifMetadata, productSelected} = useAppSelector(state => state.product);
   const dispatch = useDispatch();
 
   const t = useTranslations();
   const forms = useForm();
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(currentStep);
 
   const {onPressGoBack} = useLoanInformation();
 

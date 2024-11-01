@@ -72,9 +72,9 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
             <Text style={tw.style('text-lg text-center')}>{content}</Text>
           )}
           {renderContent}
-          <View style={tw.style('flex-row mt-4 w-full justify-between')}>
+          <View style={tw.style('flex-row mt-4 w-full justify-between gap-3')}>
             {!!labelLeft && !singleButton && (
-              <View style={tw.style('flex-1 mr-3')}>
+              <View style={tw.style('flex-1')}>
                 <CustomButton
                   onPress={onButtonLeftPress || onClose}
                   buttonStyle={`bg-[#F4F8FF] shadow-none ${buttonLeftStyle}`}

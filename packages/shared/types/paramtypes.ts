@@ -54,7 +54,9 @@ export type RootParamList = {
   'cif-apl-information': {
     flowId: string;
   };
-  'input-additional-information': undefined;
+  'input-additional-information': {
+    currentStep: number;
+  };
   'rbp-information': undefined;
   'review-loan-offer': undefined;
   'pre-scoring-pending-check': undefined;
@@ -144,6 +146,10 @@ export type CifAndAplInformationRouteProps = RouteProp<
   'cif-apl-information'
 >;
 
+export type InputAdditionalInformationRouteProps = RouteProp<
+  RootParamList,
+  'input-additional-information'
+>;
 export type SuccessAccountRegisterScreenRouteProps = RouteProp<
   RootParamList,
   'success-account-register'
