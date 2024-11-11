@@ -35,7 +35,10 @@ export type RootParamList = {
   };
   'verify-customer-info': undefined;
   'review-customer-ekyc-info': undefined;
-  'success-account-register': undefined;
+  'success-account-register': {
+    phoneNumber: string;
+    identityNumber: string;
+  };
   precheck: undefined;
   'precheck-fail': undefined;
   'loan-information': undefined;
@@ -53,7 +56,8 @@ export type RootParamList = {
   };
   'input-additional-information': undefined;
   'rbp-information': undefined;
-  'loan-offer': undefined;
+  'review-loan-offer': undefined;
+  'pre-scoring-pending-check': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -81,7 +85,8 @@ export enum ScreenParamEnum {
   CifAndAplInformation = 'cif-apl-information',
   InputAdditionalInformation = 'input-additional-information',
   RBPInformation = 'rbp-information',
-  LoanOffer = 'loan-offer',
+  ReviewLoanOffer = 'review-loan-offer',
+  PreScoringPendingCheck = 'pre-scoring-pending-check',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -137,4 +142,9 @@ export type CifInfoPendingCheckScreenRouteProps = RouteProp<
 export type CifAndAplInformationRouteProps = RouteProp<
   RootParamList,
   'cif-apl-information'
+>;
+
+export type SuccessAccountRegisterScreenRouteProps = RouteProp<
+  RootParamList,
+  'success-account-register'
 >;

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {ICongratulationModalProps} from '@lfvn-customer/shared/types';
 import {View, Text, StyleSheet} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
@@ -25,11 +25,13 @@ export const CongratulationModal: React.FC<ICongratulationModalProps> = ({
   };
   const t = useTranslations();
 
-  if (visible) {
-    onOpen();
-  } else {
-    onClose();
-  }
+  useEffect(() => {
+    if (visible) {
+      onOpen();
+    } else {
+      onClose();
+    }
+  }, [visible]);
 
   return (
     <BaseModal ref={dropDownRef} disabled>

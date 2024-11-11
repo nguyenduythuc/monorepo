@@ -1,5 +1,6 @@
 import {PreCheckStatusEnum, RequestPendingStepEnum} from '..';
 import {CifMetadataProps, FileProps} from '../models/loanModel';
+import {ekycDataType} from './verifyCustomerTypes';
 
 export interface PreCheckRequestProps {
   customerName: string;
@@ -117,6 +118,20 @@ export interface LoanSimulateProps {
   interest?: string;
 }
 
+export interface LoanOfferResultProps {
+  result: string;
+  productOffer: string;
+  schemeOffer: string;
+  amtOffer: number;
+  irOffer: string;
+  emiOffer: number;
+  insuranceOffer: number;
+  offer: number;
+  interestRate: string;
+  paymentMonthly: number;
+  insuranceFee: number;
+}
+
 export interface MetaDataRequestProps
   extends Partial<PreCheckRequestProps>,
     Partial<LoanSimulateProps> {
@@ -130,7 +145,7 @@ export interface MetaDataRequestProps
   loanMarriedStatus?: string;
   loanResidentAddress?: string;
   loanOccupation?: string;
-  loanOfferResult?: object;
+  loanOfferResult?: LoanOfferResultProps;
 }
 
 export interface RequestPendingRequestProps {
@@ -333,19 +348,7 @@ export interface GetAPLDataResponseProps {
 
 export interface GetAPLDataTypeProps {
   customer: aplCustomerDataType | undefined;
-  loanOfferResult: {
-    result: string;
-    productOffer: string;
-    schemeOffer: string;
-    amtOffer: number;
-    irOffer: string;
-    emiOffer: number;
-    insuranceOffer: number;
-    offer: number;
-    interestRate: string;
-    paymentMonthly: number;
-    insuranceFee: number;
-  };
+  loanOfferResult: LoanOfferResultProps;
 }
 
 export interface GetCifDataRequestProps {
@@ -369,5 +372,63 @@ export interface GetCifDataResponseProps {
       cif: string;
       result: string;
     };
+  };
+}
+
+export interface LoanReviewInfoProps extends ekycDataType {
+  loanProduct?: string;
+  loanAmount?: string;
+  loanTenor?: string;
+  interestMonthly?: string;
+  interestRate?: string;
+  loanInsuranceFee?: string;
+}
+
+export interface LoanOfferRequestProps {
+  flowId: string;
+  action: string; // only approve
+  userConfirmLoanOffer: string; // string of boolean
+}
+
+export interface UploadedResultProps {
+  LOTTE_Business: string;
+  Lotte_Note: string;
+  UWAccount: string;
+  LOTTE_KeepbyUser: string;
+  SAAccount: string;
+  LOTTE_Subproduct: string;
+  DEAccount: string;
+  RejectedEkycNote: string;
+  SelfieGPS: string;
+  UWNote: string;
+  CmIsMarkedForDeletion: string;
+  SalesCode: string;
+  NFC: string;
+  LOTTE_Identify: string;
+  LOTTE_Product: string;
+  System: string;
+  ASM: string;
+  OPNote: string;
+  LOTTE_Status: string;
+  ClosedReason: string;
+  CmIndexingFailureCode: string;
+  IndexationId: string;
+  LOTTE_ReasonSellerApp: string;
+  OPAccount: string;
+  ApplicationNo: string;
+  SellerLead: string;
+  SignType: string;
+  Process: string;
+  LOTTE_Fullname: string;
+  SANote: string;
+  ekycResult: string;
+}
+
+export interface LoanOfferResponseProps {
+  err: number;
+  message: string;
+  data: {
+    errorCode: number;
+    errorMsg: string;
   };
 }

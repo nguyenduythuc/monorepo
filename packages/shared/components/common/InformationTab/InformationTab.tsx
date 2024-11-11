@@ -1,16 +1,17 @@
-import {View, Text, TouchableOpacity, ScrollView, Platform} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
-import {
-  ekycDataType,
-  mapEkycKeyValue,
-} from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {InfoDataCard} from '../InfoDataCard';
+import {LoanReviewInfoProps} from '@lfvn-customer/shared/types/services/loanTypes';
 
 type InformationProps = {
-  tabData: {name: string; icon: IconKeys; data: ekycDataType | undefined}[];
+  tabData: {
+    name: string;
+    icon: IconKeys;
+    data: LoanReviewInfoProps | undefined;
+  }[];
 };
 
 export const InformationTab: React.FC<InformationProps> = ({tabData}) => {

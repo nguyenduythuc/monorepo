@@ -3,10 +3,10 @@ import {UserProfileProps} from '@lfvn-customer/shared/types/models/authModel';
 
 const initialState: {
   token?: string | null;
-  user?: UserProfileProps | null;
+  user?: UserProfileProps;
   deeplinkPath?: string | null;
   identityNumber?: string | null;
-} = {token: null, user: null, deeplinkPath: null, identityNumber: null};
+} = {token: null, user: undefined, deeplinkPath: null, identityNumber: null};
 
 const authSlice = createSlice({
   name: 'auth',
@@ -22,7 +22,7 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     clearUser: state => {
-      state.user = null;
+      state.user = undefined;
     },
     setDeeplinkPath: (state, action) => {
       state.deeplinkPath = action.payload;

@@ -130,6 +130,7 @@ const LoanInformationScreen = () => {
       loanPreviousCompanyWorkingTime,
       loanInsuranceDuration,
     } = forms.getValues();
+    console.log('forms.getValues()', forms.getValues());
     if (!participateInLoanInsurance) {
       setIsModalVisible(true);
       setContentModal(t('Simulate.alertTitleUncheckInsurance'));

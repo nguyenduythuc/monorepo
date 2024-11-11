@@ -1,10 +1,11 @@
 import {useGetAccountMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useDispatch} from 'react-redux';
-import {setUser, clearUser} from '../redux/slices/authSlice';
-import {mmkvStorage} from '../utils/storage';
-import {USER_LOGIN} from '../utils/constants';
-import {clearAppToken} from '../redux/slices/apiSlices/config';
+import {setUser, clearUser} from '@lfvn-customer/shared/redux/slices/authSlice';
+import {mmkvStorage} from '@lfvn-customer/shared/utils/storage';
+import {USER_LOGIN} from '@lfvn-customer/shared/utils/constants';
+import {clearAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
 import {Platform} from 'react-native';
+import {clearProductData} from '@lfvn-customer/shared/redux/slices/productSlices';
 
 const useAuth = () => {
   const [getAccount] = useGetAccountMutation();
@@ -21,6 +22,7 @@ const useAuth = () => {
   const onHandleLogout = async () => {
     clearAppToken();
     dispatch(clearUser());
+    dispatch(clearProductData());
     Platform.OS !== 'web' && mmkvStorage.removeItem(USER_LOGIN);
   };
 

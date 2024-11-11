@@ -62,6 +62,12 @@ export const mapEkycKeyValue = {
   givenPlace: 'VerifyCustomer.givenPlace',
   rawImage: 'VerifyCustomer.rawImage',
   marriedStatus: 'VerifyCustomer.marriedStatus',
+  loanProduct: 'ReviewLoanOffer.loanProduct',
+  loanAmount: 'ReviewLoanOffer.loanAmount',
+  loanTenor: 'ReviewLoanOffer.loanTenor',
+  interestMonthly: 'ReviewLoanOffer.interestMonthly',
+  interestRate: 'ReviewLoanOffer.interestRate',
+  loanInsuranceFee: 'ReviewLoanOffer.loanInsuranceFee',
 };
 
 export type NFCResultType = {

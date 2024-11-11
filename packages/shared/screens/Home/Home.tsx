@@ -90,7 +90,7 @@ export const HomeScreen = () => {
     {
       iconName: 'car-loan-icon',
       title: 'Car loan',
-      goPage: ScreenParamEnum.LoanOffer,
+      goPage: ScreenParamEnum.ReviewLoanOffer,
     },
   ];
 

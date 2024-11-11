@@ -29,7 +29,7 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
   const [isModalInvalidInfo, setIsModalInvalidInfo] = useState(false);
   const [msgRequestInvalidInfoError, setMsgRequestInvalidInfoError] =
     useState('');
-  const {onHandleGetUserProfile, onHandleLogout} = useAuth();
+  const {onHandleLogout} = useAuth();
 
   const {user} = useAppSelector(state => state.auth);
 
@@ -56,7 +56,7 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
     const updateBody: UpdateAccountRequestProps = {
       login: user?.login || '',
       identityNumber: ekycData?.idNumber,
-      // identityNumber: '012023034039',
+      loginNew: ekycData?.idNumber,
       phoneNumber: user?.phoneNumber,
       email: user?.email,
       identityNumberOld: ekycData?.oldIdNumber || user?.identityNumberOld,
@@ -68,14 +68,16 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
     };
 
     const updateResult = await updateAccount(updateBody);
-    onHandleGetUserProfile();
 
-    console.log('updateResult', updateResult);
     if (updateResult.error) {
       setIsModalInvalidInfo(true);
       setMsgRequestInvalidInfoError(t('VerifyCustomer.needSupport'));
     } else {
-      appNavigate(ScreenParamEnum.SuccessAccountRegister);
+      onHandleLogout();
+      appNavigate(ScreenParamEnum.SuccessAccountRegister, {
+        phoneNumber: user?.phoneNumber,
+        identityNumber: ekycData?.idNumber,
+      });
     }
   };
 
@@ -108,7 +110,11 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
       });
 
       if (updateAccountResult) {
-        appNavigate(ScreenParamEnum.SuccessAccountRegister);
+        onHandleLogout();
+        appNavigate(ScreenParamEnum.SuccessAccountRegister, {
+          phoneNumber: accountData.phoneNum,
+          identityNumber: accountData.idNum,
+        });
       }
     } else {
       setIsModalVisible(true);

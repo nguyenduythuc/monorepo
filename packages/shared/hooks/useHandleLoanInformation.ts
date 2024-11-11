@@ -379,6 +379,7 @@ const useHandleLoanInformation = ({
       purposeData,
       loanProductOptions,
       requestPendingMetadata,
+      simulateLoanProduct,
     ],
   );
 
