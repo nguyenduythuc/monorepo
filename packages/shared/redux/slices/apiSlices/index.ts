@@ -15,6 +15,7 @@ import {ggMapAPI} from './ggMapApi';
 import {localAddressAPI} from './localAddress';
 import {fileAPI} from './fileAPI';
 import {cifAPI} from './cifAPI';
+import {eSignForSaleAPI} from './eSignForSaleAPI';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
@@ -35,6 +36,7 @@ export const apiSlice = createApi({
     ...localAddressAPI(builder),
     ...fileAPI(builder),
     ...cifAPI(builder),
+    ...eSignForSaleAPI(builder),
   }),
 });
 
@@ -96,6 +98,7 @@ export const {
   useGetBankListDataMutation,
   useGetOccupationListDataMutation,
   useLoanOfferMutation,
+  useSaleImportDocsUploadWebMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

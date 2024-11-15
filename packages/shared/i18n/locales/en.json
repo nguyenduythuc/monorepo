@@ -325,10 +325,10 @@
     "fullName": "Full Name"
   },
   "AdditionalInfo": {
-    "upload": "Upload",
-    "uploadDes": "Click to choose file upload",
-    "folder": "Folder",
-    "files": "files",
+    "upload": "Tải lên",
+    "uploadDes": "Nhấn để chọn tệp tải lên",
+    "folder": "Thư mục tải lên",
+    "files": "{length}files",
     "camera": "Camera",
     "choosePhoto": "Choose Photo",
     "uploadFiles": "Upload Files"
@@ -355,5 +355,27 @@
     "confirmTitle": "Vui lòng xác nhận thông tin để tiếp tục hoàn thiện hồ sơ vay",
     "editLoanInfo": "Sửa thông tin vay",
     "confirm": "Xác nhận"
+  },
+  "VerifyESignForSale": {
+    "title": "Cung cấp hồ sơ",
+    "desc": "Danh sách tài liệu cần hoàn thiện trước khi nộp đơn",
+    "cccd": "Căn cước công dân mặt trước và mặt sau",
+    "avatar": "Ảnh chân dung",
+    "address": "Giấy tờ chứng minh cư trú hoặc chứng từ tương đương",
+    "degree": "Văn bằng",
+    "resume": "Sơ yếu lý lịch",
+    "bankInfo": "Ảnh thông tin tài khoản ngân hàng",
+     "upload": "Tải hồ sơ lên"
+  },
+  "DetailFolder": {
+    "selectedAll": "Chọn tất cả",
+    "removeAttachment": "Xóa tệp đính kèm",
+    "removeGuide": "Bạn có thể giữ chọn ảnh để xóa",
+    "removeAlertTitle": "Xóa tệp tin",
+    "removeAlertDesc": "Bạn chắc chắn muốn xóa những tệp tin đính kèm đã chọn?",
+    "cancel": "Hủy bỏ",
+    "confirm": "Gỡ tệp tin",
+    "file": "Tệp tin",
+    "choose": "Đã chọn"
   }
 }

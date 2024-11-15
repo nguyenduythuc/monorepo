@@ -20,3 +20,6 @@ export * from './ChangePasswordContainer';
 export * from './CifAndAplInformationContainer';
 export * from './ReviewLoanOfferContainer';
 export * from './PreScoringPendingCheckContainer';
+export * from './VerifyESignForSaleContainer';
+export * from './DetailFolderContainer';
+export * from './ZoomRotateImageContainer';

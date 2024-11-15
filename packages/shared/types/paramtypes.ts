@@ -58,6 +58,16 @@ export type RootParamList = {
   'rbp-information': undefined;
   'review-loan-offer': undefined;
   'pre-scoring-pending-check': undefined;
+  'verify-esign-for-sale': {
+    saleImportId: string;
+    tokenEsign: string;
+  };
+  'detail-folder': {
+    folderEncoded: string;
+  };
+  'zoom-rotate-image': {
+    uri: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -87,6 +97,9 @@ export enum ScreenParamEnum {
   RBPInformation = 'rbp-information',
   ReviewLoanOffer = 'review-loan-offer',
   PreScoringPendingCheck = 'pre-scoring-pending-check',
+  VerifyEsignForSale = 'verify-esign-for-sale',
+  DetailFolder = 'detail-folder',
+  ZoomRotateImage = 'zoom-rotate-image',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -147,4 +160,14 @@ export type CifAndAplInformationRouteProps = RouteProp<
 export type SuccessAccountRegisterScreenRouteProps = RouteProp<
   RootParamList,
   'success-account-register'
+>;
+
+export type DetailFolderScreenRouteProps = RouteProp<
+  RootParamList,
+  'detail-folder'
+>;
+
+export type ZoomRotateImageScreenRouteProps = RouteProp<
+  RootParamList,
+  'zoom-rotate-image'
 >;

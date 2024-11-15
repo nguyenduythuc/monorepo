@@ -57,7 +57,6 @@ const useHandleSaveFile = () => {
       moment().format('YYYYMMDDHHmmss') +
       '.jpg';
     const filePath = await saveEKYCImageBase64ToFile(rawImage, fileName);
-    console.log('filePath', filePath);
     if (!filePath) {
       showCommonErrorToast();
       return;

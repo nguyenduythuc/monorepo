@@ -29,6 +29,9 @@ import {
   CifAndAplInformationContainer,
   ReviewLoanOfferContainer,
   PreScoringPendingCheckContainer,
+  VerifyESignForSaleContainer,
+  DetailFolderContainer,
+  ZoomRotateImageContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -82,6 +85,9 @@ const config: LinkingOptions<RootParamList>['config'] = {
     },
     'create-loan-apl': {
       path: 'create-loan-apl',
+    },
+    'verify-esign-for-sale': {
+      path: 'verify-esign-for-sale/:saleImportId/:tokenEsign',
     },
   },
 };
@@ -281,6 +287,27 @@ const RootStack = () => {
       <Stack.Screen
         name="pre-scoring-pending-check"
         component={PreScoringPendingCheckContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-esign-for-sale"
+        component={VerifyESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="detail-folder"
+        component={DetailFolderContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="zoom-roate-image"
+        component={ZoomRotateImageContainer}
         options={{
           headerShown: false,
         }}

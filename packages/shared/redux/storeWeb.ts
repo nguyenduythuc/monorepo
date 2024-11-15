@@ -10,6 +10,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfigWeb = {
   key: 'root',
   storage,
+  blacklist: ['auth', 'loading', 'product', 'eSignForSaleSlice'],
 };
 
 const persistedReducerWeb = persistReducer(persistConfigWeb, rootReducer);

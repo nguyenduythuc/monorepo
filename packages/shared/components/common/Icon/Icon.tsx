@@ -52,6 +52,9 @@ import FolderIcon from '@lfvn-customer/shared/assets/images/svg/FolderIcon';
 import UploadIcon from '@lfvn-customer/shared/assets/images/svg/UploadIcon';
 import CameraIcon from '@lfvn-customer/shared/assets/images/svg/CameraIcon';
 import PhotoIcon from '@lfvn-customer/shared/assets/images/svg/PhotoIcon';
+import TrashIcon from '@lfvn-customer/shared/assets/images/svg/TrashIcon';
+import CloseIcon from '@lfvn-customer/shared/assets/images/svg/CloseIcon';
+import RotatePhoneIcon from '@lfvn-customer/shared/assets/images/svg/RotatePhoneIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -105,6 +108,9 @@ const iconList = (props: IconProps) => ({
   'camera-icon': <CameraIcon {...props} />,
   'photo-icon': <PhotoIcon {...props} />,
   'folder-icon': <FolderIcon {...props} />,
+  'trash-icon': <TrashIcon {...props} />,
+  'close-icon': <CloseIcon {...props} />,
+  'rotate-phone-icon': <RotatePhoneIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

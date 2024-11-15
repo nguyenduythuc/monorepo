@@ -10,6 +10,8 @@ import {BaseModal} from '../AppModal';
 import {SelectFileButton} from './SelectFileButton';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {UploadESignForSaleFile} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
 const parseNumber = (text: string) => {
   if (!text) return 0;
@@ -27,7 +29,15 @@ const generateFileType = (path: string) => {
   return arr![length - 1].toLowerCase();
 };
 
-export const FileOptionModal = ({}) => {
+export const FileOptionModal = ({
+  doc,
+  setDoc,
+  handleOpenFolder,
+}: {
+  doc?: UploadESignForSaleFile;
+  setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+  handleOpenFolder: (doc: UploadESignForSaleFile) => void;
+}) => {
   const fileOptionModalRef = useRef<any>(null);
 
   const {appNavigate} = useConfigRouting();
@@ -125,7 +135,10 @@ export const FileOptionModal = ({}) => {
   };
 
   return (
-    <>
+    <View>
+      <Text style={tw`text-red-700 text-center text-lg ml-4 mr-4`}>
+        {file.title}
+      </Text>
       <View style={tw.style('flex-1 flex-row justify-between gap-3')}>
         <SelectFileButton
           icon="upload-circle-icon"
@@ -175,6 +188,6 @@ export const FileOptionModal = ({}) => {
           </View>
         </View>
       </BaseModal>
-    </>
+    </View>
   );
 };
