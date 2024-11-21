@@ -96,6 +96,8 @@ export const {
   useGetBankListDataMutation,
   useGetOccupationListDataMutation,
   useLoanOfferMutation,
+  useVerifyBankAccountMutation,
+  useCheckBeneficiaryAccountMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

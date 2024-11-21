@@ -71,6 +71,10 @@ const useSimulateScreen = () => {
     });
   }, [productSchemeListData]);
 
+  const loanPurposeOption = useMemo(() => {
+    return purposeData
+  }, [purposeData])
+
   const loanSimulate = useAppSelector(state => state.public.simulate);
 
   const stringFunc: string | null = useMemo(() => {
@@ -82,7 +86,7 @@ const useSimulateScreen = () => {
     loanProductOptions || [],
   );
 
-  const loanPurposeData: PurposeProps[] = purposeData?.data.data || [
+  const loanPurposeData: PurposeProps[] = loanPurposeOption?.data || [
     defaultPurposeData,
   ];
 

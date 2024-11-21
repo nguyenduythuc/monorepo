@@ -61,11 +61,20 @@ export const formatGenderInfo = (
 
 export const formatNationalityInfo = (nationality: string) => {
   const convertNationality: {[key: string]: string} = {
-    'Việt Nam': 'VIETNAMESE',
+    VIETNAMESE: 'Việt Nam',
     VN: 'Việt Nam',
     '': 'UNKNOWN',
   };
-  return convertNationality[nationality] || 'VIETNAMESE';
+  return convertNationality[nationality] || 'Việt Nam';
+};
+
+export const formatMaritalStatus = (status: string) => {
+  const convertMaritalStatus: {[key: string]: string} = {
+    married: 'Đã kết hôn',
+    single: 'Độc thân',
+    divorced: 'Ly hôn',
+  };
+  return convertMaritalStatus[status] || '';
 };
 
 export const DISABLED = true;

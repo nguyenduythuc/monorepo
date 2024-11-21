@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {CustomButton, IconKeys} from '@lfvn-customer/shared/components';
@@ -20,6 +20,22 @@ const ReviewLoanOfferScreen = () => {
   const {theme} = useGetTheme();
   const {textUseful500} = theme;
 
+  const displayLoanOfferData = useMemo(() => {
+    const displayData = cardRawData
+      ? {
+          untitled: {
+            loanProduct: cardRawData?.loanProduct,
+            loanAmount: cardRawData?.loanAmount,
+            loanTenor: cardRawData?.loanTenor,
+            interestMonthly: cardRawData?.interestMonthly,
+            interestRate: cardRawData?.interestRate,
+            loanInsuranceFee: cardRawData?.loanInsuranceFee,
+          },
+        }
+      : cardRawData;
+    return displayData;
+  }, [cardRawData]);
+
   return (
     <>
       <View style={tw.style('flex-1 pb-24')}>
@@ -32,7 +48,7 @@ const ReviewLoanOfferScreen = () => {
           </Text>
         </View>
         <View style={tw.style('mx-4')}>
-          <InfoDataCard cardRawData={cardRawData} />
+          <InfoDataCard cardRawData={displayLoanOfferData} />
         </View>
         <View style={tw.style('mx-4')}>
           <Text style={tw.style(`text-lg mt-2 ${textUseful500}`)}>

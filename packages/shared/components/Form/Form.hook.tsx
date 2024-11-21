@@ -17,6 +17,7 @@ import {
 } from '@lfvn-customer/shared/components/common';
 import {View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
+import { dropdownOptionProduct } from '../../types/components/dropdown';
 
 export const useCustomForm = ({fields, defaultValues}: FormProps) => {
   const {control, watch, formState, getValues, setValue, ...formReturn} =
@@ -122,12 +123,13 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
             {...field.controlProps}
             control={control}
             render={({field: {onChange, value}}) => {
+              const listOption: dropdownOptionProduct[] = field.options && 'data' in field.options ? field.options.data as dropdownOptionProduct[] : field.options || [];
               return (
                 <DropDownSelect
                   disabled={field.disabled}
                   defaultValue={
-                    field.options && field.options.length > 0
-                      ? field.options[0].productCode || field.options[0].code
+                    listOption.length > 0
+                      ? listOption[0].productCode || listOption[0].code
                       : []
                   }
                   value={value}

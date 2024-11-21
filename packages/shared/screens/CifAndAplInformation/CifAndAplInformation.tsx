@@ -12,6 +12,7 @@ import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {
   formatDate,
   formatGenderInfo,
+  formatMaritalStatus,
   formatNationalityInfo,
 } from '@lfvn-customer/shared/utils/commonFunction';
 import {useDispatch} from 'react-redux';
@@ -27,50 +28,111 @@ const CifAndAplInformation = ({flowId}: {flowId: string}) => {
   const dispatch = useDispatch();
   const t = useTranslations();
 
-  const {cifData, aplData, onHandleGetAplData, onHandleGetCifData} =
-    useCifAndAplInformation({
-      flowId,
-    });
+  const {
+    cifData,
+    aplData,
+    onHandleGetAplData,
+    onHandleGetCifData,
+    checkExistCustomer,
+  } = useCifAndAplInformation({
+    flowId,
+  });
 
-  const displayData = useMemo(() => {
+  const displayPersonalInfoData = useMemo(() => {
     const displayCustomerData = aplData
       ? {
-          fullname: aplData.customer?.name,
-          dob: formatDate(aplData.customer?.demographic.dob || ''),
-          gender: formatGenderInfo(aplData.customer?.gender, 'display'),
-          idNumber: aplData.customer?.nric,
-          doi: formatDate(aplData.customer?.nricDate || ''),
-          nationality: formatNationalityInfo(
-            aplData.customer?.demographic.nationality || '',
-          ),
-          oldIdNumber: aplData.customer?.oldNric,
-          origin: aplData.customer?.demographic.placeOfOrigin,
-          marriedStatus: aplData.customer?.demographic.maritalStatus,
+          untitled: {
+            fullname: aplData.customer?.name,
+            dob: formatDate(aplData.customer?.demographic.dob || ''),
+            gender: formatGenderInfo(aplData.customer?.gender, 'display'),
+            idNumber: aplData.customer?.nric,
+            doi: formatDate(aplData.customer?.nricDate || ''),
+            nationality: formatNationalityInfo(
+              aplData.customer?.demographic.nationality || '',
+            ),
+            oldIdNumber: aplData.customer?.oldNric,
+            origin: aplData.customer?.demographic.placeOfOrigin,
+            marriedStatus: formatMaritalStatus(
+              aplData.customer?.demographic.maritalStatus || '',
+            ),
+          },
         }
       : aplData;
     return displayCustomerData;
   }, [aplData]);
+
+  const displayResidenceData = useMemo(() => {
+    const displayCustomerData = cifData
+      ? {
+          residenceAddress: {
+            province: cifData?.Adr_home?.city,
+            district: cifData?.Adr_home?.state,
+            ward: cifData?.Adr_home?.addresline1,
+            detailAdd: cifData?.Adr_home?.addresline2,
+          },
+          registerAddress: {
+            province: cifData?.Adr_mailing?.city,
+            district: cifData?.Adr_mailing?.state,
+            ward: cifData?.Adr_mailing?.addresline1,
+            detailAdd: cifData?.Adr_mailing?.addresline2,
+          },
+        }
+      : cifData;
+    return displayCustomerData;
+  }, [cifData]);
+
+  const displayOccupationData = useMemo(() => {
+    const displayCustomerData = cifData
+      ? {
+          occupationInformation: {},
+          workPlaceInformation: {},
+          companyAddress: {
+            province: cifData?.Adr_work?.city,
+            district: cifData?.Adr_work?.state,
+            ward: cifData?.Adr_work?.addresline1,
+            detailAdd: cifData?.Adr_work?.addresline2,
+          },
+        }
+      : cifData;
+    return displayCustomerData;
+  }, [cifData]);
+
+  const displayReferralContactData = useMemo(() => {
+    const displayCustomerData = cifData
+      ? {
+          untitled: {
+            fullname: cifData?.Reference1.name1,
+            phoneNumber: cifData?.Reference1.phone1,
+            referralRelationship: cifData?.Reference1.relate1,
+          },
+        }
+      : cifData;
+    return displayCustomerData;
+  }, [cifData]);
 
   useEffect(() => {
     onHandleGetCifData();
     onHandleGetAplData();
   }, []);
 
-  useEffect(() => {
-    console.log('cifData', cifData);
-    console.log('aplData', aplData);
-  }, [cifData, aplData]);
-
   const listTab: {name: string; icon: IconKeys; data: {} | undefined}[] = [
-    {name: 'Personal Information', icon: 'profile-icon', data: displayData},
-    {name: 'Occupation', icon: 'occupation-icon', data: displayData},
-    {name: 'Residence', icon: 'residence-icon', data: displayData},
+    {
+      name: 'Personal Information',
+      icon: 'profile-icon',
+      data: displayPersonalInfoData,
+    },
+    {name: 'Occupation', icon: 'occupation-icon', data: displayOccupationData},
+    {name: 'Residence', icon: 'residence-icon', data: displayResidenceData},
     {
       name: 'Referral contact',
       icon: 'referral-contact-icon',
-      data: displayData,
+      data: displayReferralContactData,
     },
-    {name: 'Beneficiary', icon: 'beneficiary-icon', data: displayData},
+    {
+      name: 'Beneficiary',
+      icon: 'beneficiary-icon',
+      data: displayReferralContactData,
+    },
   ];
 
   return (
@@ -100,14 +162,33 @@ const CifAndAplInformation = ({flowId}: {flowId: string}) => {
           </CustomButton>
         </View> */}
 
-        <View style={tw.style('flex-1')}>
-          <CustomButton
-            onPress={() =>
-              appNavigate(ScreenParamEnum.InputAdditionalInformation)
-            }
-            color="red">
-            {t('CifAndAplInformation.addMoreInfo')}
-          </CustomButton>
+        <View style={tw.style('w-full flex-1 flex-row justify-between gap-3')}>
+          {checkExistCustomer && (
+            <View style={tw.style('flex-1')}>
+              <CustomButton
+                onPress={() =>
+                  appNavigate(ScreenParamEnum.InputAdditionalInformation, {
+                    currentStep: 0,
+                  })
+                }
+                buttonStyle={`bg-red-100 shadow-none`}
+                textCustomStyle={`text-red-500`}>
+                {t('CifAndAplInformation.edit')}
+              </CustomButton>
+            </View>
+          )}
+          <View style={tw.style('flex-1')}>
+            <CustomButton
+              disabled={!cifData}
+              onPress={() =>
+                appNavigate(ScreenParamEnum.InputAdditionalInformation, {
+                  currentStep: 7,
+                })
+              }
+              color="red">
+              {t('CifAndAplInformation.submit')}
+            </CustomButton>
+          </View>
         </View>
       </View>
     </View>

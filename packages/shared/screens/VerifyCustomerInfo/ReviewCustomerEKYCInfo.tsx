@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useDispatch} from 'react-redux';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
@@ -30,16 +30,23 @@ export const ReviewCustomerEKYCInfo = () => {
   // };
   const dispatch = useDispatch();
 
-  const displayEkycData: ekycDataType = {
-    fullname: ekycData?.fullname,
-    idNumber: ekycData?.idNumber,
-    doi: ekycData?.doi,
-    dob: ekycData?.dob,
-    gender: formatGenderInfo(ekycData?.gender || '', 'display'),
-    nationality: ekycData?.nationality || ekycData?.ethnicity,
-    origin: ekycData?.origin,
-    oldIdNumber: ekycData?.oldIdNumber,
-  };
+  const displayEkycData = useMemo(() => {
+    const displayData = ekycData
+      ? {
+          untitled: {
+            fullname: ekycData?.fullname,
+            idNumber: ekycData?.idNumber,
+            doi: ekycData?.doi,
+            dob: ekycData?.dob,
+            gender: formatGenderInfo(ekycData?.gender || '', 'display'),
+            nationality: ekycData?.nationality || ekycData?.ethnicity,
+            origin: ekycData?.origin,
+            oldIdNumber: ekycData?.oldIdNumber,
+          },
+        }
+      : ekycData;
+    return displayData;
+  }, [ekycData]);
 
   const {
     isModalVisible,
@@ -103,7 +110,7 @@ export const ReviewCustomerEKYCInfo = () => {
               {t('VerifyCustomer.verifyChangeIdNumber')}
             </Text>
             <Text style={tw.style('text-2xl text-red-500 font-bold')}>
-              {displayEkycData.idNumber}
+              {ekycData.idNumber}
             </Text>
           </View>
         }

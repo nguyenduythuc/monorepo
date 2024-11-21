@@ -22,6 +22,47 @@ export type ekycDataType = {
   spouseName?: string;
   oldIdNumber?: string;
   marriedStatus?: string;
+  province?: string;
+  district?: string;
+  ward?: string;
+  detailAdd?: string;
+  occupation?: string;
+  monthlyIncome?: string;
+  companyName?: string;
+  companyWork?: string;
+  referralRelationship?: string;
+  bankName?: string;
+  bankAccountNum?: string;
+  bankAccountName?: string;
+  phoneNumber?: string;
+  loanProduct?: string;
+  loanAmount?: string;
+  loanTenor?: string;
+  interestMonthly?: string;
+  interestRate?: string;
+  loanInsuranceFee?: string;
+};
+
+export type profileInformationType = {
+  untitled?: ekycDataType;
+  residenceAddress?: ekycDataType;
+  registerAddress?: ekycDataType;
+  occupationInformation?: ekycDataType;
+  workPlaceInformation?: ekycDataType;
+  companyAddress?: ekycDataType;
+  referralContact?: ekycDataType;
+  beneficiary?: ekycDataType;
+  // loanOffer?: ekycDataType
+};
+
+export const mapProfileInformationValue = {
+  residenceAddress: 'ProfileInformation.residenceAddress',
+  registerAddress: 'ProfileInformation.registerAddress',
+  occupationInformation: 'ProfileInformation.occupationInformation',
+  workPlaceInformation: 'ProfileInformation.workPlaceInformation',
+  companyAddress: 'ProfileInformation.companyAddress',
+  referralContact: 'ProfileInformation.referralContact',
+  beneficiary: 'ProfileInformation.beneficiary',
 };
 
 export type webEkycDetailObject = {value: string};
@@ -62,6 +103,19 @@ export const mapEkycKeyValue = {
   givenPlace: 'VerifyCustomer.givenPlace',
   rawImage: 'VerifyCustomer.rawImage',
   marriedStatus: 'VerifyCustomer.marriedStatus',
+  province: 'ProfileInformation.province',
+  district: 'ProfileInformation.district',
+  ward: 'ProfileInformation.ward',
+  detailAdd: 'ProfileInformation.detailAdd',
+  occupation: 'ProfileInformation.occupation',
+  monthlyIncome: 'ProfileInformation.monthlyIncome',
+  companyName: 'ProfileInformation.companyName',
+  companyWork: 'ProfileInformation.workplace',
+  referralRelationship: 'ProfileInformation.referralRelationship',
+  bankName: 'ProfileInformation.bankName',
+  bankAccountNum: 'ProfileInformation.bankAccountNum',
+  bankAccountName: 'ProfileInformation.bankAccountName',
+  phoneNumber: 'ProfileInformation.phoneNumber',
   loanProduct: 'ReviewLoanOffer.loanProduct',
   loanAmount: 'ReviewLoanOffer.loanAmount',
   loanTenor: 'ReviewLoanOffer.loanTenor',

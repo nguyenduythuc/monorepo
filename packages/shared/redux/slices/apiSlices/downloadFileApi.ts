@@ -9,15 +9,19 @@ const downloadFileApi = async ({
 }): Promise<string> => {
   const url = `${handleEnvByPlatform('BASE_API_URL')}/api/files/download/${fileName}`;
   const filePath = RNFS.DocumentDirectoryPath + `/${fileName}`;
-  await RNFS.downloadFile({
-    fromUrl: url,
-    toFile: filePath,
-    background: true,
-    discretionary: true,
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  }).promise;
+  try {
+    await RNFS.downloadFile({
+      fromUrl: url,
+      toFile: filePath,
+      background: true,
+      discretionary: true,
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }).promise;
+  } catch (error) {
+    console.log('download file error')
+  }
 
   return filePath;
 };
