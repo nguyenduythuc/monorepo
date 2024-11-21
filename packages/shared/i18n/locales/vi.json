@@ -380,19 +380,5 @@
     "companyAddress": "Địa chỉ nơi làm việc",
     "beneficiary": "Ngân hàng",
     "phoneNumber": "Số điện thoại"
-  },
-  "ReviewLoanOffer": {
-    "title": "Xác nhận khoản vay",
-    "desc": "Vui lòng kiểm tra những thông tin tạm tính về khoản vay dưới đây. Nếu có sai sót, vui lòng điều chỉnh lại thông tin khoản vay",
-    "loanInfo": "Thông tin khoản vay",
-    "loanProduct": "Sản phẩm vay",
-    "loanAmount": "Số tiền vay (VND)",
-    "loanTenor": "Thời gian vay",
-    "interestMonthly": "Trả hàng tháng (VND)",
-    "interestRate": "Lãi suất dự kiến",
-    "loanInsuranceFee": "Số tiền phí bảo hiểm (VND)",
-    "confirmTitle": "Vui lòng xác nhận thông tin để tiếp tục hoàn thiện hồ sơ vay",
-    "editLoanInfo": "Sửa thông tin vay",
-    "confirm": "Xác nhận"
   }
 }
