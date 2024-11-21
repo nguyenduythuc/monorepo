@@ -8,7 +8,6 @@ module.exports = {
           '^react-native$': 'react-native-web',
         },
       },
-      'react-native-reanimated/plugin',
     ],
   ],
 };

@@ -23,3 +23,4 @@ export * from './PreScoringPendingCheckContainer';
 export * from './VerifyESignForSaleContainer';
 export * from './DetailFolderContainer';
 export * from './ZoomRotateImageContainer';
+export * from './VerifyIdCardESignForSaleContainer';

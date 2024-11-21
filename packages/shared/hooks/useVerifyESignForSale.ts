@@ -18,16 +18,30 @@ import {
   setDegreeInfo,
   setResumeInfo,
 } from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
+import useShowToast from './useShowToast';
+import {
+  clearLoadingScreen,
+  setLoadingScreen,
+} from '@lfvn-customer/shared/redux/slices/loadingSlices';
 
 const useVerifyESignForSale = () => {
   const t = useTranslations();
-  const {cccdInfo, avatarInfo, addressInfo, degreeInfo, resumeInfo, bankInfo} =
-    useAppSelector(state => state.eSignForSale);
+  const {
+    cccdInfo,
+    avatarInfo,
+    addressInfo,
+    degreeInfo,
+    resumeInfo,
+    bankInfo,
+    dataSaleInfo,
+  } = useAppSelector(state => state.eSignForSale);
 
   const {createPdfFromImages} = useHandlePDF();
   const {appNavigate} = useConfigRouting();
 
   const dispatch = useDispatch();
+
+  const {showCommonErrorToast, handleShowToast} = useShowToast();
 
   const [uploadDocs] = useSaleImportDocsUploadWebMutation();
 
@@ -89,39 +103,55 @@ const useVerifyESignForSale = () => {
   }, [cccdInfo, avatarInfo, addressInfo, degreeInfo, resumeInfo, bankInfo]);
 
   const onPressSubmit = () => {
-    if (
-      !!cccdInfo &&
-      !!avatarInfo &&
-      !!addressInfo &&
-      !!degreeInfo &&
-      !!resumeInfo &&
-      !!bankInfo
-    ) {
-      const files = [
-        cccdInfo,
-        avatarInfo,
-        addressInfo,
-        degreeInfo,
-        resumeInfo,
-        bankInfo,
-      ];
-      const pdfs = files.map(file => createPdfFromImages(file));
-      Promise.all(pdfs).then(async pdfFiles => {
-        // Upload pdfFiles to server
-        console.log(pdfFiles);
-        const res = await uploadDocs({
-          saleImportId: '3',
-          idCardNumber: '017097000088',
-          docIdCard: pdfFiles[0],
-          docSelfie: pdfFiles[1],
-          docGtct: pdfFiles[2],
-          docVb: pdfFiles[3],
-          docSyll: pdfFiles[4],
-          docBank: pdfFiles[5],
-          tokenEsign: 'd67fbffc-137c-4eee-bc48-94c6c482b9e0',
+    try {
+      if (
+        !!cccdInfo &&
+        !!avatarInfo &&
+        !!addressInfo &&
+        !!degreeInfo &&
+        !!resumeInfo &&
+        !!bankInfo
+      ) {
+        dispatch(setLoadingScreen());
+        const files = [
+          cccdInfo,
+          avatarInfo,
+          addressInfo,
+          degreeInfo,
+          resumeInfo,
+          bankInfo,
+        ];
+        const pdfs = files.map(file => createPdfFromImages(file));
+        Promise.all(pdfs).then(async pdfFiles => {
+          // Upload pdfFiles to server
+          console.log(pdfFiles);
+          const res = await uploadDocs({
+            saleImportId: dataSaleInfo?.saleImportId ?? '',
+            idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+            docIdCard: pdfFiles[0],
+            docSelfie: pdfFiles[1],
+            docGtct: pdfFiles[2],
+            docVb: pdfFiles[3],
+            docSyll: pdfFiles[4],
+            docBank: pdfFiles[5],
+            tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+          });
+          if (res.data) {
+            // navigate to check NAPAS
+          } else {
+            showCommonErrorToast();
+          }
         });
-        console.log(res);
-      });
+      } else {
+        handleShowToast({
+          msg: t('VerifyESignForSale.missingFile'),
+          type: 'error',
+        });
+      }
+    } catch {
+      showCommonErrorToast();
+    } finally {
+      dispatch(clearLoadingScreen());
     }
   };
 

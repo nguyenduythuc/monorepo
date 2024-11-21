@@ -58,15 +58,16 @@ export type RootParamList = {
   'rbp-information': undefined;
   'review-loan-offer': undefined;
   'pre-scoring-pending-check': undefined;
-  'verify-esign-for-sale': {
-    saleImportId: string;
-    tokenEsign: string;
-  };
+  'verify-esign-for-sale': undefined;
   'detail-folder': {
     folderEncoded: string;
   };
   'zoom-rotate-image': {
     uri: string;
+  };
+  'verify-idcard-esign-for-sale': {
+    saleImportId: string;
+    tokenEsign: string;
   };
 };
 
@@ -100,6 +101,7 @@ export enum ScreenParamEnum {
   VerifyEsignForSale = 'verify-esign-for-sale',
   DetailFolder = 'detail-folder',
   ZoomRotateImage = 'zoom-rotate-image',
+  VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -170,4 +172,9 @@ export type DetailFolderScreenRouteProps = RouteProp<
 export type ZoomRotateImageScreenRouteProps = RouteProp<
   RootParamList,
   'zoom-rotate-image'
+>;
+
+export type VerifyIdCardEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'verify-idcard-esign-for-sale'
 >;

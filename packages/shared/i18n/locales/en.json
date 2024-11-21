@@ -365,7 +365,8 @@
     "degree": "Văn bằng",
     "resume": "Sơ yếu lý lịch",
     "bankInfo": "Ảnh thông tin tài khoản ngân hàng",
-     "upload": "Tải hồ sơ lên"
+     "upload": "Tải hồ sơ lên",
+     "missingFile": "Vui lòng tải lên tất cả các tài liệu cần thiết"
   },
   "DetailFolder": {
     "selectedAll": "Chọn tất cả",
@@ -377,5 +378,11 @@
     "confirm": "Gỡ tệp tin",
     "file": "Tệp tin",
     "choose": "Đã chọn"
+  },
+  "VerifyIdCardESignForSale": {
+    "title": "Nhập số CCCD",
+    "desc": "Vui lòng nhập thông tin CCCD để hoàn thiện đăng ký",
+    "continue":"Tiếp theo",
+    "checkFail": "Thông tin CCCD không chính xác, vui lòng kiểm tra lại"
   }
 }

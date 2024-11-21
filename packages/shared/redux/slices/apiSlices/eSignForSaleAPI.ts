@@ -1,5 +1,8 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
-import {SaleimportDocsUploadWebRequestProps} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {
+  SaleimportDocsUploadWebRequestProps,
+  VerifySaleRequestProps,
+} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
 
@@ -29,5 +32,12 @@ export const eSignForSaleAPI = (
         data: form,
       };
     },
+  }),
+  verifySale: builder.mutation<void, VerifySaleRequestProps>({
+    query: (body: VerifySaleRequestProps) => ({
+      url: getPath('/sale-import/verify-sale'),
+      method: 'post',
+      data: body,
+    }),
   }),
 });

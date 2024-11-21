@@ -8,6 +8,11 @@ const initialState: {
   degreeInfo?: UploadESignForSaleFile;
   resumeInfo?: UploadESignForSaleFile;
   bankInfo?: UploadESignForSaleFile;
+  dataSaleInfo?: {
+    saleImportId: string;
+    tokenEsign: string;
+    idCardNumber: string;
+  };
 } = {};
 
 const eSignForSaleSlice = createSlice({
@@ -32,6 +37,9 @@ const eSignForSaleSlice = createSlice({
     setBankInfo: (state, action) => {
       state.bankInfo = action.payload;
     },
+    setDataSaleInfo: (state, action) => {
+      state.dataSaleInfo = action.payload;
+    },
     clearDataEsingForSale: state => {
       state.cccdInfo = undefined;
       state.avatarInfo = undefined;
@@ -39,6 +47,7 @@ const eSignForSaleSlice = createSlice({
       state.degreeInfo = undefined;
       state.resumeInfo = undefined;
       state.bankInfo = undefined;
+      state.dataSaleInfo = undefined;
     },
   },
 });
@@ -50,6 +59,7 @@ export const {
   setDegreeInfo,
   setResumeInfo,
   setBankInfo,
+  setDataSaleInfo,
   clearDataEsingForSale,
 } = eSignForSaleSlice.actions;
 export default eSignForSaleSlice.reducer;

@@ -32,6 +32,7 @@ import {
   VerifyESignForSaleContainer,
   DetailFolderContainer,
   ZoomRotateImageContainer,
+  VerifyIdCardESignForSaleContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -306,8 +307,15 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="zoom-roate-image"
+        name="zoom-rotate-image"
         component={ZoomRotateImageContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-idcard-esign-for-sale"
+        component={VerifyIdCardESignForSaleContainer}
         options={{
           headerShown: false,
         }}

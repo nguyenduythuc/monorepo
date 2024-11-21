@@ -99,6 +99,7 @@ export const {
   useGetOccupationListDataMutation,
   useLoanOfferMutation,
   useSaleImportDocsUploadWebMutation,
+  useVerifySaleMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

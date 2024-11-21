@@ -32,3 +32,9 @@ export interface SaleimportDocsUploadWebRequestProps {
   docBank: UploadFile;
   tokenEsign: string;
 }
+
+export interface VerifySaleRequestProps {
+  token: string;
+  idCardNumber: string;
+  id: number;
+}
