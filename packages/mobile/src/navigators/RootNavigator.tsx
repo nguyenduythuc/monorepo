@@ -87,8 +87,8 @@ const config: LinkingOptions<RootParamList>['config'] = {
     'create-loan-apl': {
       path: 'create-loan-apl',
     },
-    'verify-esign-for-sale': {
-      path: 'verify-esign-for-sale/:saleImportId/:tokenEsign',
+    'verify-idcard-esign-for-sale': {
+      path: 'verify-idcard-esign-for-sale/:saleImportId/:tokenEsign',
     },
   },
 };
