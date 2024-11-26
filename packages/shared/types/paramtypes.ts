@@ -2,6 +2,8 @@
 import {OTPTypes} from '@lfvn-customer/shared/types';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {UploadESignForSaleFile} from './services/eSignForSaleTypes';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
 export type RootParamList = {
   home: undefined;
@@ -46,7 +48,10 @@ export type RootParamList = {
     flowId: string;
     productCode: string;
   };
-  'vision-camera': undefined;
+  'vision-camera': {
+    doc: UploadESignForSaleFile;
+    setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+  };
   'change-password': {
     phoneNumber: string;
     identityNumber: string;
@@ -69,6 +74,7 @@ export type RootParamList = {
     saleImportId: string;
     tokenEsign: string;
   };
+  'check-napas': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -102,6 +108,7 @@ export enum ScreenParamEnum {
   DetailFolder = 'detail-folder',
   ZoomRotateImage = 'zoom-rotate-image',
   VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',
+  CheckNapas = 'check-napas',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -178,3 +185,5 @@ export type VerifyIdCardEsignForSaleScreenRouteProps = RouteProp<
   RootParamList,
   'verify-idcard-esign-for-sale'
 >;
+
+export type VisionCameraRouteProps = RouteProp<RootParamList, 'vision-camera'>;

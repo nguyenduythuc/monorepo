@@ -38,3 +38,15 @@ export interface VerifySaleRequestProps {
   idCardNumber: string;
   id: number;
 }
+
+export interface CheckNapasResponseProps {
+  result: boolean;
+  message: string;
+}
+export interface CheckNapasRequestProps {
+  id: string;
+  bankCode: string;
+  accountNo: string;
+  idCardNumber: string;
+  tokenEsign: string;
+}

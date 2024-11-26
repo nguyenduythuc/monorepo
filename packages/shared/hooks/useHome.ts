@@ -44,7 +44,7 @@ const useHome = () => {
   const {onCheckRequestPending} = useHandleRequestPending();
 
   const onPressLogin = () => {
-    appNavigate(ScreenParamEnum.VerifyEsignForSale);
+    appNavigate(ScreenParamEnum.Login);
   };
 
   const onPressSignUp = () => {

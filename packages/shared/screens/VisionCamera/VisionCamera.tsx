@@ -6,6 +6,9 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 // import useAppPermissons from '../../hooks/useAppPermission'
 import CameraVision from '@lfvn-customer/shared/components/common/CameraVision/CameraVision';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {UploadESignForSaleFile} from '../../types/services/eSignForSaleTypes';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
+import moment from 'moment';
 
 //TODO: Implement component in progress
 
@@ -13,7 +16,16 @@ export type ImageType = {
   path: string;
 };
 
-export const VisionCamera = () => {
+export const VisionCamera = ({
+  // getPath,
+  doc,
+  setDoc,
+}: {
+  // getPath: void;
+  doc?: UploadESignForSaleFile;
+  setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+}) => {
+  console.log('doc', doc);
   const camera = React.useRef<Camera>(null);
   const {goBack} = useConfigRouting();
 
@@ -43,6 +55,7 @@ export const VisionCamera = () => {
         const newImage: ImageType = {
           path: result.path,
         };
+        handleFileChange(newImage.path);
         console.log('newImage', newImage);
         goBack();
       } else {
@@ -51,6 +64,23 @@ export const VisionCamera = () => {
     } catch (e) {
       console.warn('e', e);
     }
+  };
+
+  const handleFileChange = (imageUrl: string) => {
+    // const imageUrl = URL.createObjectURL(file);
+    doc &&
+      dispatch(
+        setDoc({
+          ...doc,
+          links: [
+            ...doc.links,
+            {
+              id: moment().format(),
+              uri: imageUrl,
+            },
+          ],
+        }),
+      );
   };
 
   return (

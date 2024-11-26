@@ -19,14 +19,10 @@ const VerifyIdCardESignForSaleContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled">
-          <VerifyIdCardESignForSaleScreen
-            tokenEsign={tokenEsign}
-            saleImportId={saleImportId}
-          />
-        </KeyboardAwareScrollView>
+        <VerifyIdCardESignForSaleScreen
+          tokenEsign={tokenEsign}
+          saleImportId={saleImportId}
+        />
       </SafeAreaView>
     </View>
   );

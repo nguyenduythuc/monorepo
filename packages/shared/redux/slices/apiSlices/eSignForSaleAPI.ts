@@ -2,6 +2,8 @@ import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
   SaleimportDocsUploadWebRequestProps,
   VerifySaleRequestProps,
+  CheckNapasRequestProps,
+  CheckNapasResponseProps,
 } from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -38,6 +40,20 @@ export const eSignForSaleAPI = (
       url: getPath('/sale-import/verify-sale'),
       method: 'post',
       data: body,
+    }),
+  }),
+
+  checkNapasAccount: builder.mutation<
+    CheckNapasResponseProps,
+    CheckNapasRequestProps
+  >({
+    query: (body: CheckNapasRequestProps) => ({
+      url: getPath('/sale-import/check-napas'),
+      method: 'post',
+      data: body,
+      headers: {
+        'sale-import-token': body.tokenEsign,
+      },
     }),
   }),
 });

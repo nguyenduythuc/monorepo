@@ -124,7 +124,6 @@ const useVerifyESignForSale = () => {
         const pdfs = files.map(file => createPdfFromImages(file));
         Promise.all(pdfs).then(async pdfFiles => {
           // Upload pdfFiles to server
-          console.log(pdfFiles);
           const res = await uploadDocs({
             saleImportId: dataSaleInfo?.saleImportId ?? '',
             idCardNumber: dataSaleInfo?.idCardNumber ?? '',
@@ -138,6 +137,7 @@ const useVerifyESignForSale = () => {
           });
           if (res.data) {
             // navigate to check NAPAS
+            appNavigate(ScreenParamEnum.CheckNapas);
           } else {
             showCommonErrorToast();
           }

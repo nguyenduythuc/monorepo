@@ -149,9 +149,9 @@ const DetailFolderScreen = ({folderEncoded}: {folderEncoded: string}) => {
 
   const renderHeader = () => {
     return (
-      <View style={tw.style('pt-4')}>
+      <View style={tw.style('pt-16 pb-4')}>
         {!selectedImages.length ? (
-          <View style={tw.style('flex-row items-center px-2')}>
+          <View style={tw.style('flex-row items-center px-4')}>
             <Icon name={'arrow-left'} color={'black'} onPress={goBack} />
             <View style={tw.style('flex-1 ml-4')}>
               <Text
@@ -164,7 +164,7 @@ const DetailFolderScreen = ({folderEncoded}: {folderEncoded: string}) => {
             </View>
           </View>
         ) : (
-          <View style={tw.style('flex-row items-center px-2')}>
+          <View style={tw.style('flex-row items-center px-4')}>
             <Icon
               name={'close-icon'}
               color={'black'}
@@ -197,6 +197,7 @@ const DetailFolderScreen = ({folderEncoded}: {folderEncoded: string}) => {
         numColumns={3}
         contentContainerStyle={tw.style('flex-1 pt-[21px] pb-25 px-4')}
         style={{backgroundColor: '#F5F5F7'}}
+        nestedScrollEnabled={true}
       />
       <View style={tw.style('absolute bottom-0 w-full')}>
         {!selectedImages.length ? (

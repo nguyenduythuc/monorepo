@@ -27,3 +27,4 @@ export * from './VerifyESignForSale';
 export * from './DetailFolder';
 export * from './ZoomRotateImage';
 export * from './VerifyIdCardESignForSale';
+export * from './CheckNapasScreen';

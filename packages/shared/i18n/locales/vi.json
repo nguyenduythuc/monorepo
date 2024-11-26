@@ -327,7 +327,7 @@
   },
   "AdditionalInfo": {
     "chooseUploadMethod": "Choose the upload method",
-   "upload": "Tải lên",
+    "upload": "Tải lên",
     "uploadDes": "Nhấn để chọn tệp tải lên",
     "folder": "Thư mục tải lên",
     "files": "{length}files",
@@ -384,7 +384,30 @@
   "VerifyIdCardESignForSale": {
     "title": "Nhập số CCCD",
     "desc": "Vui lòng nhập thông tin CCCD để hoàn thiện đăng ký",
-    "continue":"Tiếp theo",
-    "checkFail": "Thông tin CCCD không chính xác, vui lòng kiểm tra lại"
+    "continue": "Tiếp theo",
+    "checkFail": "Thông tin CCCD không chính xác, vui lòng kiểm tra lại",
+    "checkNapas": "Kiểm tra Napas",
+    "checkNapasDesc": "Vui lòng nhập thông tin tài khoản ngân hàng"
+  },
+  "ProfileInformation": {
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "ward": "Phường/Xã",
+    "detailAdd": "Địa chỉ chi tiết",
+    "occupation": "Nghề nghiệp",
+    "monthlyIncome": "Thu nhập hàng tháng",
+    "companyName": "Tên cơ quan",
+    "workplace": "Cơ quan/nơi làm việc",
+    "referralRelationship": "Quan hệ với người đăng ký",
+    "bankName": "Ngân hàng",
+    "bankAccountNum": "Số tài khoản",
+    "bankAccountName": "Tên tài khoản",
+    "residenceAddress": "Địa chỉ cư trú",
+    "registerAddress": "Địa chỉ đăng ký hộ khẩu",
+    "occupationInformation": "Thông tin việc làm",
+    "workPlaceInformation": "Thông tin nơi làm việc",
+    "companyAddress": "Địa chỉ nơi làm việc",
+    "beneficiary": "Ngân hàng",
+    "phoneNumber": "Số điện thoại"
   }
 }

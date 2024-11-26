@@ -14,20 +14,8 @@ const DetailFolderContainer = () => {
   const {folderEncoded} = route.params;
 
   return (
-    <View style={tw.style('flex-1 bg-white')}>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle={'dark-content'}
-      />
-      <SafeAreaView style={tw.style('flex-1')}>
-        <Appbar />
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled">
-          <DetailFolderScreen folderEncoded={folderEncoded} />
-        </KeyboardAwareScrollView>
-      </SafeAreaView>
+    <View style={tw.style('flex-1 bg-white h-full')}>
+      <DetailFolderScreen folderEncoded={folderEncoded} />
     </View>
   );
 };

@@ -299,6 +299,41 @@ export const FieldVerifyAccount: Record<string, FieldConfig> = {
   },
 };
 
+export const FieldCheckNapas: Record<string, FieldConfig> = {
+  CheckNapasBankList: {
+    label: 'ProfileInformation.bankName',
+    type: FieldType.SelectDropdown,
+    controlProps: {
+      name: 'bankName',
+      rules: {required: 'Validation.fieldIsRequirement'},
+    },
+    placeholder: 'Simulate.chooseLoanProduct',
+  },
+  CheckNapasBankAccount: {
+    label: 'ProfileInformation.bankAccountNum',
+    controlProps: {
+      name: 'bankAccount',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        pattern: {
+          value: REGEX.phone,
+          message: 'Validation.phonenumber',
+        },
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+        },
+      },
+    },
+    type: FieldType.TextInput,
+    keyboardType: 'numeric',
+    // placeholder: 'VerifyAccount.phonenumberPlaceholder',
+    containerStyle: 'mt-4',
+    // textInputStyle: 'text-xl font-medium',
+  },
+};
+
 export const FieldSimulateConfig: Record<string, FieldConfig> = {
   SimulateLoanAmount: {
     label: 'Simulate.loanAmount',

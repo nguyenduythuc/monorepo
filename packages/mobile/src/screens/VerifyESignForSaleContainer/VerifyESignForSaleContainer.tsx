@@ -15,12 +15,7 @@ const VerifyESignForSaleContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <Appbar />
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled">
-          <VerifyESignForSaleScreen />
-        </KeyboardAwareScrollView>
+        <VerifyESignForSaleScreen />
       </SafeAreaView>
     </View>
   );

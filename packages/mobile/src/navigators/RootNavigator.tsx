@@ -1,5 +1,9 @@
 import React, {useEffect} from 'react';
-import {LinkingOptions, NavigationContainer} from '@react-navigation/native';
+import {
+  LinkingOptions,
+  NavigationContainer,
+  getStateFromPath,
+} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
@@ -33,6 +37,7 @@ import {
   DetailFolderContainer,
   ZoomRotateImageContainer,
   VerifyIdCardESignForSaleContainer,
+  CheckNapasContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -320,6 +325,13 @@ const RootStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="check-napas"
+        component={CheckNapasContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -345,6 +357,9 @@ const linkingWithoutAuthen = {
   config,
   getStateFromPath: (path: string) => {
     // we can check path and return special router for handle not authen case here
+    if (path.includes('verify-idcard-esign-for-sale')) {
+      return getStateFromPath(path, config);
+    }
     return {
       routes: [
         {
