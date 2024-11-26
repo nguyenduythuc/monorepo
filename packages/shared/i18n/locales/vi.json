@@ -409,5 +409,19 @@
     "companyAddress": "Địa chỉ nơi làm việc",
     "beneficiary": "Ngân hàng",
     "phoneNumber": "Số điện thoại"
+  },
+  "ESign": {
+    "phonenumber": "Số điện thoại",
+    "phonenumberPlaceholder": "Nhập số điện thoại",
+    "idCard": "Số CCCD",
+    "idCardPlaceholder": "Nhập số CCCD",
+    "idContract": "Mã APL",
+    "idContractPlaceholder": "Nhập mã APL"
+  },
+  "VerifyIdContractESignForSale": {
+    "title": "Nhập thông tin hợp đồng",
+    "desc": "Vui lòng cung cấp thêm thông tin để hoàn thiện đăng ký",
+    "continue":"Tiếp theo",
+    "checkFail": "Thông tin CCCD hoặc Số điện thoại không chính xác, vui lòng kiểm tra lại"
   }
 }

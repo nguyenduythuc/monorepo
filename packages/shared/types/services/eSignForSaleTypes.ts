@@ -39,6 +39,13 @@ export interface VerifySaleRequestProps {
   id: number;
 }
 
+export interface VerifySaleContractRequestProps {
+  token: string;
+  idCardNumber: string;
+  id: number;
+  phoneNumber: string;
+}
+
 export interface CheckNapasResponseProps {
   result: boolean;
   message: string;

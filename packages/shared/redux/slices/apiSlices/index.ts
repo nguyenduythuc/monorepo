@@ -101,6 +101,7 @@ export const {
   useSaleImportDocsUploadWebMutation,
   useVerifySaleMutation,
   useCheckNapasAccountMutation,
+  useGetESignDraftMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

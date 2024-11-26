@@ -2,11 +2,9 @@ import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Appbar} from '@lfvn-customer/shared/components';
-import {VerifyESignForSaleScreen} from '@lfvn-customer/shared/screens';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {UploadDocsESignForSaleScreen} from '@lfvn-customer/shared/screens';
 
-const VerifyESignForSaleContainer = () => {
+const UploadDocsESignForSaleContainer = () => {
   return (
     <View style={tw.style('flex-1 bg-white')}>
       <StatusBar
@@ -15,10 +13,10 @@ const VerifyESignForSaleContainer = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={tw.style('flex-1')}>
-        <VerifyESignForSaleScreen />
+        <UploadDocsESignForSaleScreen />
       </SafeAreaView>
     </View>
   );
 };
 
-export default VerifyESignForSaleContainer;
+export default UploadDocsESignForSaleContainer;

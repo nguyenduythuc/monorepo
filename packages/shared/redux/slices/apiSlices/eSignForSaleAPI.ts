@@ -1,6 +1,7 @@
 import {BaseQueryFn, EndpointBuilder} from '@reduxjs/toolkit/query';
 import {
   SaleimportDocsUploadWebRequestProps,
+  VerifySaleContractRequestProps,
   VerifySaleRequestProps,
   CheckNapasRequestProps,
   CheckNapasResponseProps,
@@ -42,7 +43,13 @@ export const eSignForSaleAPI = (
       data: body,
     }),
   }),
-
+  getESignDraft: builder.mutation<void, VerifySaleContractRequestProps>({
+    query: (body: VerifySaleContractRequestProps) => ({
+      url: getPath('/sale-import/get-contract/draft'),
+      method: 'post',
+      data: body,
+    }),
+  }),
   checkNapasAccount: builder.mutation<
     CheckNapasResponseProps,
     CheckNapasRequestProps

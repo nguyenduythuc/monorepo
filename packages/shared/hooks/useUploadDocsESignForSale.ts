@@ -24,7 +24,7 @@ import {
   setLoadingScreen,
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
 
-const useVerifyESignForSale = () => {
+const useUploadDocsESignForSale = () => {
   const t = useTranslations();
   const {
     cccdInfo,
@@ -179,4 +179,4 @@ const useVerifyESignForSale = () => {
     setResumeInfo,
   };
 };
-export default useVerifyESignForSale;
+export default useUploadDocsESignForSale;

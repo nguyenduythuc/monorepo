@@ -4,9 +4,9 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {CustomButton, FileOptionModal} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import useVerifyESignForSale from '@lfvn-customer/shared/hooks/useVerifyESignForSale';
+import useUploadDocsESignForSale from '@lfvn-customer/shared/hooks/useUploadDocsESignForSale';
 
-const VerifyESignForSaleScreen = () => {
+const UploadDocsESignForSaleScreen = () => {
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
 
@@ -27,7 +27,7 @@ const VerifyESignForSaleScreen = () => {
     setDegreeInfo,
     setResumeInfo,
     handleOpenFolder,
-  } = useVerifyESignForSale();
+  } = useUploadDocsESignForSale();
 
   return (
     <>
@@ -84,4 +84,4 @@ const VerifyESignForSaleScreen = () => {
   );
 };
 
-export default VerifyESignForSaleScreen;
+export default UploadDocsESignForSaleScreen;

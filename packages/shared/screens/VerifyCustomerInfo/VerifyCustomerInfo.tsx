@@ -76,45 +76,23 @@ export const VerifyCustomerInfo = () => {
   ];
 
   return (
-    <>
+    <View style={tw.style('flex-1')}>
       <Appbar />
-      <View style={tw.style('flex-1')}>
-        <View style={tw.style('flex-1 px-4 my-4')}>
-          <View style={tw.style('')}>
-            <Text style={tw.style('text-3xl font-bold')}>
-              {t('VerifyCustomer.verifyInfo')}
-            </Text>
-            <Text style={tw.style('text-base my-3')}>
-              {t('VerifyCustomer.verifyInfoDes')}
-            </Text>
+      <View style={tw.style('px-4 my-4')}>
+        <View style={tw.style('')}>
+          <Text style={tw.style('text-3xl font-bold')}>
+            {t('VerifyCustomer.verifyInfo')}
+          </Text>
+          <Text style={tw.style('text-base my-3')}>
+            {t('VerifyCustomer.verifyInfoDes')}
+          </Text>
 
-            <ScrollView>
-              {Platform.OS !== 'web' ? (
-                <View style={tw`flex-col`}>
-                  {options.map(option => (
-                    <RadioButton
-                      renderContent={option.renderContent}
-                      color="red"
-                      key={option.value}
-                      label={option.label}
-                      selected={selectedValue === option.value}
-                      onPress={() => handleSelect(option.value)}
-                    />
-                  ))}
-                </View>
-              ) : (
-                <View
-                  style={tw.style(
-                    'border-[1px] border-red-500 rounded-lg px-3 py-2',
-                  )}>
-                  {options[1].renderContent}
-                </View>
-              )}
-              <View style={tw`flex-row items-center gap-3 justify-between`}>
-                {options.map((option, index) => (
+          <ScrollView>
+            {Platform.OS !== 'web' ? (
+              <View style={tw`flex-col`}>
+                {options.map(option => (
                   <RadioButton
-                    // renderContent={option.renderContent}
-
+                    renderContent={option.renderContent}
                     color="red"
                     key={option.value}
                     label={option.label}
@@ -123,40 +101,64 @@ export const VerifyCustomerInfo = () => {
                   />
                 ))}
               </View>
-              <View style={tw.style('flex flex-row')}>
-                <FileOptionModal />
+            ) : (
+              <View
+                style={tw.style(
+                  'border-[1px] border-red-500 rounded-lg px-3 py-2',
+                )}>
+                {options[1].renderContent}
               </View>
-            </ScrollView>
-          </View>
-        </View>
-        <View style={tw`bg-white px-4 pt-3 pb-4 border-gray-200`}>
-          <Checkbox
-            size="sm"
-            isChecked={confirmTerm}
-            onChange={() => setConfirm(!confirmTerm)}
-            label={''}
-            renderContent={
-              <Text style={tw.style('ml-2 text-sm  font-normal text-black')}>
-                {t('VerifyCustomer.termAgreement1')}
-                <TouchableOpacity
-                  style={tw.style('flex-1 justify-end')}
-                  onPress={() => console.log('commonTerm')}>
-                  <Text
-                    style={tw.style('text-blue-500 text-end font-semibold')}>
-                    {t('VerifyCustomer.commonTerm')}
-                  </Text>
-                </TouchableOpacity>
+            )}
+            <View style={tw`flex-row items-center gap-3 justify-between`}>
+              {options.map((option, index) => (
+                <RadioButton
+                  // renderContent={option.renderContent}
 
-                {t('VerifyCustomer.termAgreement2')}
-              </Text>
-            }
-            color={'red'}
-          />
-          <CustomButton onPress={() => submitAction(selectedValue)} color="red">
-            {t('VerifyCustomer.startVerify')}
-          </CustomButton>
+                  color="red"
+                  key={option.value}
+                  label={option.label}
+                  selected={selectedValue === option.value}
+                  onPress={() => handleSelect(option.value)}
+                />
+              ))}
+            </View>
+            <View style={tw.style('flex flex-row')}>
+              <FileOptionModal />
+            </View>
+          </ScrollView>
         </View>
       </View>
-    </>
+      <View style={tw`bg-white px-4 pt-3 pb-4 border-gray-200`}>
+        <Checkbox
+          size="sm"
+          isChecked={confirmTerm}
+          onChange={() => setConfirm(!confirmTerm)}
+          label={''}
+          renderContent={
+            <Text style={tw.style('ml-2 text-sm  font-normal text-black')}>
+              {t('VerifyCustomer.termAgreement1')}
+              <TouchableOpacity
+                style={tw.style('flex-1 justify-end')}
+                onPress={() => console.log('commonTerm')}>
+                <Text style={tw.style('text-blue-500 text-end font-semibold')}>
+                  {t('VerifyCustomer.commonTerm')}
+                </Text>
+              </TouchableOpacity>
+
+              {t('VerifyCustomer.termAgreement2')}
+            </Text>
+          }
+          color={'red'}
+        />
+      </View>
+      <View style={tw.style('absolute bottom-4 w-full')}>
+        <CustomButton
+          onPress={() => submitAction(selectedValue)}
+          color={'red'}
+          buttonStyle={'mt-4 mx-4'}>
+          {t('VerifyIdCardESignForSale.continue')}
+        </CustomButton>
+      </View>
+    </View>
   );
 };
