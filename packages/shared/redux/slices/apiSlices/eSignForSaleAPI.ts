@@ -43,12 +43,18 @@ export const eSignForSaleAPI = (
       data: body,
     }),
   }),
-  getESignDraft: builder.mutation<void, VerifySaleContractRequestProps>({
-    query: (body: VerifySaleContractRequestProps) => ({
-      url: getPath('/sale-import/get-contract/draft'),
-      method: 'post',
-      data: body,
-    }),
+  getESignDraft: builder.mutation<Response, VerifySaleContractRequestProps>({
+    query: (body: VerifySaleContractRequestProps) => {
+      const {token, ...rest} = body;
+      return {
+        url: getPath('/sale-import/get-contract/draft'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': token,
+        },
+      };
+    },
   }),
   checkNapasAccount: builder.mutation<
     CheckNapasResponseProps,

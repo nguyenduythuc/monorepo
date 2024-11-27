@@ -29,3 +29,4 @@ export * from './ZoomRotateImage';
 export * from './VerifyIdCardESignForSale';
 export * from './CheckNapasScreen';
 export * from './VerifyIdContractESignForSale';
+export * from './ViewContractESignForSale';

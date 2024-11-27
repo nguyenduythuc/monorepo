@@ -39,6 +39,7 @@ import {
   CheckNapasContainer,
   VerifyIdContractESignForSaleContainer,
   UploadDocsESignForSaleContainer,
+  ViewContractESignForSaleContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -339,6 +340,13 @@ const RootStack = () => {
       <Stack.Screen
         name="verify-idcontract-esign-for-sale"
         component={VerifyIdContractESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="view-contract-esign-for-sale"
+        component={ViewContractESignForSaleContainer}
         options={{
           headerShown: false,
         }}

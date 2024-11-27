@@ -79,6 +79,9 @@ export type RootParamList = {
     saleImportId: string;
     tokenEsign: string;
   };
+  'view-contract-esign-for-sale': {
+    uri: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -114,6 +117,7 @@ export enum ScreenParamEnum {
   VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',
   CheckNapas = 'check-napas',
   VerifyIdContractEsignForSale = 'verify-idcontract-esign-for-sale',
+  ViewContractEsignForSale = 'view-contract-esign-for-sale',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -196,4 +200,9 @@ export type VisionCameraRouteProps = RouteProp<RootParamList, 'vision-camera'>;
 export type VerifyIdContractEsignForSaleScreenRouteProps = RouteProp<
   RootParamList,
   'verify-idcontract-esign-for-sale'
+>;
+
+export type ViewContractEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'view-contract-esign-for-sale'
 >;
