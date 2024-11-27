@@ -302,7 +302,7 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="verify-esign-for-sale"
+        name="upload-docs-esign-for-sale"
         component={UploadDocsESignForSaleContainer}
         options={{
           headerShown: false,

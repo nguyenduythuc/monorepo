@@ -51,7 +51,7 @@ const useVerifyIdContractESignForSale = ({
             idCardNumber: idCard,
           }),
         );
-        appNavigate(ScreenParamEnum.VerifyEsignForSale, {
+        appNavigate(ScreenParamEnum.UploadDocsEsignForSale, {
           saleImportId,
           tokenEsign,
         });

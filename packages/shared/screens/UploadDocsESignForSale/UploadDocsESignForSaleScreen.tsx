@@ -36,10 +36,10 @@ const UploadDocsESignForSaleScreen = () => {
         showsVerticalScrollIndicator={false}>
         <Text
           style={tw.style(`text-2xl font-semibold pb-2 ${textNegative500}`)}>
-          {t('VerifyESignForSale.title')}
+          {t('UploadDocsESignForSale.title')}
         </Text>
         <Text style={tw.style(`text-base pb-1 ${textNegative500} mb-2`)}>
-          {t('VerifyESignForSale.desc')}
+          {t('UploadDocsESignForSale.desc')}
         </Text>
         <FileOptionModal
           doc={cccdInfo}
@@ -77,7 +77,7 @@ const UploadDocsESignForSaleScreen = () => {
           onPress={onPressSubmit}
           color={'red'}
           buttonStyle={'mt-4 mx-4'}>
-          {t('VerifyESignForSale.upload')}
+          {t('UploadDocsESignForSale.upload')}
         </CustomButton>
       </View>
     </>

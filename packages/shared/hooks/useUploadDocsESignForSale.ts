@@ -49,7 +49,7 @@ const useUploadDocsESignForSale = () => {
     if (!cccdInfo) {
       dispatch(
         setCccdInfo({
-          title: t('VerifyESignForSale.cccd'),
+          title: t('UploadDocsESignForSale.cccd'),
           type: ESignForSaleDocType.CARD,
           links: [],
         }),
@@ -58,7 +58,7 @@ const useUploadDocsESignForSale = () => {
     if (!avatarInfo) {
       dispatch(
         setAvatarInfo({
-          title: t('VerifyESignForSale.avatar'),
+          title: t('UploadDocsESignForSale.avatar'),
           type: ESignForSaleDocType.SELFIE,
           links: [],
         }),
@@ -67,7 +67,7 @@ const useUploadDocsESignForSale = () => {
     if (!addressInfo) {
       dispatch(
         setAddressInfo({
-          title: t('VerifyESignForSale.address'),
+          title: t('UploadDocsESignForSale.address'),
           type: ESignForSaleDocType.ADDRESS,
           links: [],
         }),
@@ -76,7 +76,7 @@ const useUploadDocsESignForSale = () => {
     if (!degreeInfo) {
       dispatch(
         setDegreeInfo({
-          title: t('VerifyESignForSale.degree'),
+          title: t('UploadDocsESignForSale.degree'),
           type: ESignForSaleDocType.DEGREE,
           links: [],
         }),
@@ -85,7 +85,7 @@ const useUploadDocsESignForSale = () => {
     if (!resumeInfo) {
       dispatch(
         setResumeInfo({
-          title: t('VerifyESignForSale.resume'),
+          title: t('UploadDocsESignForSale.resume'),
           type: ESignForSaleDocType.RESUME,
           links: [],
         }),
@@ -94,7 +94,7 @@ const useUploadDocsESignForSale = () => {
     if (!bankInfo) {
       dispatch(
         setBankInfo({
-          title: t('VerifyESignForSale.bankInfo'),
+          title: t('UploadDocsESignForSale.bankInfo'),
           type: ESignForSaleDocType.BANK_INFO,
           links: [],
         }),
@@ -144,7 +144,7 @@ const useUploadDocsESignForSale = () => {
         });
       } else {
         handleShowToast({
-          msg: t('VerifyESignForSale.missingFile'),
+          msg: t('UploadDocsESignForSale.missingFile'),
           type: 'error',
         });
       }

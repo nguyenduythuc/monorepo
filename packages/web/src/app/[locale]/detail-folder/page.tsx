@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import { useSearchParams } from 'next/navigation';
 
-export default function VerifyESignForSale() {
+export default function DetailFolderContrainer() {
   const searchParams = useSearchParams();
 
   const folderEncoded = searchParams.get('folderEncoded') ?? '';

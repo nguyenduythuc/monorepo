@@ -63,7 +63,7 @@ export type RootParamList = {
   'rbp-information': undefined;
   'review-loan-offer': undefined;
   'pre-scoring-pending-check': undefined;
-  'verify-esign-for-sale': undefined;
+  'upload-docs-esign-for-sale': undefined;
   'detail-folder': {
     folderEncoded: string;
   };
@@ -108,7 +108,7 @@ export enum ScreenParamEnum {
   RBPInformation = 'rbp-information',
   ReviewLoanOffer = 'review-loan-offer',
   PreScoringPendingCheck = 'pre-scoring-pending-check',
-  VerifyEsignForSale = 'verify-esign-for-sale',
+  UploadDocsEsignForSale = 'upload-docs-esign-for-sale',
   DetailFolder = 'detail-folder',
   ZoomRotateImage = 'zoom-rotate-image',
   VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',

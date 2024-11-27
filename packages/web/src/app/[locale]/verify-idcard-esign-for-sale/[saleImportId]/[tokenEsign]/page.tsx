@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import { usePathname } from 'next/navigation';
 
-export default function VerifyESignForSale() {
+export default function VerifyIdCardESignForSaleContainer() {
   const pathname = usePathname();
   const pathParts = pathname?.split('/') || [];
   const tokenEsign = pathParts[pathParts.length - 1];
