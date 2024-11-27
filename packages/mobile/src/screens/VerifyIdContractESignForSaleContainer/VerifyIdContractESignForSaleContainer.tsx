@@ -2,13 +2,13 @@ import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {VerifyIdCardESignForSaleScreen} from '@lfvn-customer/shared/screens';
+import {VerifyIdContractESignForSaleScreen} from '@lfvn-customer/shared/screens';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useRoute} from '@react-navigation/native';
-import {VerifyIdCardEsignForSaleScreenRouteProps} from '@lfvn-customer/shared/types/paramtypes';
+import {VerifyIdContractEsignForSaleScreenRouteProps} from '@lfvn-customer/shared/types/paramtypes';
 
 const VerifyIdContractESignForSaleContainer = () => {
-  const route = useRoute<VerifyIdCardEsignForSaleScreenRouteProps>();
+  const route = useRoute<VerifyIdContractEsignForSaleScreenRouteProps>();
   const {tokenEsign, saleImportId} = route.params;
 
   return (
@@ -22,7 +22,7 @@ const VerifyIdContractESignForSaleContainer = () => {
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <VerifyIdCardESignForSaleScreen
+          <VerifyIdContractESignForSaleScreen
             tokenEsign={tokenEsign}
             saleImportId={saleImportId}
           />

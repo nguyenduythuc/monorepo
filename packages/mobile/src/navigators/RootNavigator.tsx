@@ -33,11 +33,12 @@ import {
   CifAndAplInformationContainer,
   ReviewLoanOfferContainer,
   PreScoringPendingCheckContainer,
-  VerifyESignForSaleContainer,
   DetailFolderContainer,
   ZoomRotateImageContainer,
   VerifyIdCardESignForSaleContainer,
   CheckNapasContainer,
+  VerifyIdContractESignForSaleContainer,
+  UploadDocsESignForSaleContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -94,6 +95,9 @@ const config: LinkingOptions<RootParamList>['config'] = {
     },
     'verify-idcard-esign-for-sale': {
       path: 'verify-idcard-esign-for-sale/:saleImportId/:tokenEsign',
+    },
+    'verify-idcontract-esign-for-sale': {
+      path: 'verify-idcontract-esign-for-sale/:saleImportId/:tokenEsign',
     },
   },
 };
@@ -299,7 +303,7 @@ const RootStack = () => {
       />
       <Stack.Screen
         name="verify-esign-for-sale"
-        component={VerifyESignForSaleContainer}
+        component={UploadDocsESignForSaleContainer}
         options={{
           headerShown: false,
         }}
@@ -328,6 +332,13 @@ const RootStack = () => {
       <Stack.Screen
         name="check-napas"
         component={CheckNapasContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-idcontract-esign-for-sale"
+        component={VerifyIdContractESignForSaleContainer}
         options={{
           headerShown: false,
         }}

@@ -75,6 +75,10 @@ export type RootParamList = {
     tokenEsign: string;
   };
   'check-napas': undefined;
+  'verify-idcontract-esign-for-sale': {
+    saleImportId: string;
+    tokenEsign: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -109,6 +113,7 @@ export enum ScreenParamEnum {
   ZoomRotateImage = 'zoom-rotate-image',
   VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',
   CheckNapas = 'check-napas',
+  VerifyIdContractEsignForSale = 'verify-idcontract-esign-for-sale',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -187,3 +192,8 @@ export type VerifyIdCardEsignForSaleScreenRouteProps = RouteProp<
 >;
 
 export type VisionCameraRouteProps = RouteProp<RootParamList, 'vision-camera'>;
+
+export type VerifyIdContractEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'verify-idcontract-esign-for-sale'
+>;

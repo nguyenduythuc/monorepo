@@ -4,7 +4,7 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {CustomButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import useVerifyIdCardESignForSale from '../../hooks/useVerifyIdCardESignForSale';
+import useVerifyIdCardESignForSale from '@lfvn-customer/shared/hooks/useVerifyIdCardESignForSale';
 
 const VerifyIdCardESignForSaleScreen = ({
   tokenEsign,

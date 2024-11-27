@@ -1,8 +1,7 @@
-import React, {useMemo, useState} from 'react';
-import {View, Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import React, {useState} from 'react';
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {
   PinchGestureHandler,
   PinchGestureHandlerGestureEvent,
@@ -21,12 +20,11 @@ const {width, height} = {width: 300, height: 300};
 
 const ZoomRotateImageScreen = ({uri}: {uri: string}) => {
   const {theme} = useGetTheme();
-  const {textNegative500} = theme;
 
   const scale = useSharedValue(1);
   const [rotation, setRotation] = useState(0);
 
-  const {bgUseful500, bgNegative100} = theme;
+  const {bgUseful500} = theme;
 
   const imageStyle = useAnimatedStyle(() => {
     return {
@@ -56,8 +54,6 @@ const ZoomRotateImageScreen = ({uri}: {uri: string}) => {
       ],
     };
   }, [rotation]);
-
-  const t = useTranslations();
 
   return (
     <GestureHandlerRootView>
