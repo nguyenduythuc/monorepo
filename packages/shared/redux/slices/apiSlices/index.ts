@@ -102,6 +102,15 @@ export const {
   useVerifySaleMutation,
   useCheckNapasAccountMutation,
   useGetESignDraftMutation,
+  useOtpGenerateBaseMutation,
+  useOtpVerifyBaseMutation,
+  useOtpResendBaseMutation,
+  useCheckEKYCMutation,
+  useVerifyEKYCMutation,
+  useVerifyEKYCWebMutation,
+  useSaleSelfCertMutation,
+  useSignContractMutation,
+  useResendOTPSignContractMutation,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

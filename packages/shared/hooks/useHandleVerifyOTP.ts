@@ -1,20 +1,26 @@
 import {useCallback, useEffect, useMemo} from 'react';
 import {
+  useCheckEKYCMutation,
   useLazyActiveQuery,
+  useOtpVerifyBaseMutation,
   useResetPasswordFinishMutation,
   useVerifyChangePasswordMutation,
   useVerifyOTPMutation,
-} from '../redux/slices/apiSlices';
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import useTranslations from './useTranslations';
 import useShowToast from './useShowToast';
-import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
-import {API_SUCCESS_MESSAGE} from '../utils/constants';
-import {ErrorResponseProps, VerifyOTPResponseProps} from '../types/services';
+import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
+import {API_SUCCESS_MESSAGE} from '@lfvn-customer/shared/utils/constants';
+import {
+  ErrorResponseProps,
+  VerifyOTPResponseProps,
+} from '@lfvn-customer/shared/types/services';
 import useAuth from './useAuth';
 import {useConfigRouting} from './routing';
-import {setAppToken} from '../redux/slices/apiSlices/config';
-import {OTPTypesEnum} from '../types';
+import {setAppToken} from '@lfvn-customer/shared/redux/slices/apiSlices/config';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 const useHandleVerifyOTP = ({
   value,
@@ -36,38 +42,44 @@ const useHandleVerifyOTP = ({
     useResetPasswordFinishMutation();
   const [verifyChangePassword, {error: verifyChangePasswordError}] =
     useVerifyChangePasswordMutation();
+  const [verifyOTPESign, {isError: isVerifyErrorESign}] =
+    useOtpVerifyBaseMutation();
+  const [checkEKYC] = useCheckEKYCMutation();
   const [active, {error: activeError}] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
   const t = useTranslations();
   const {handleShowToast, showCommonErrorToast} = useShowToast();
 
   const {appNavigate} = useConfigRouting();
+  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const error = useMemo(() => {
     return (
       verifyOTPError ||
       resetPasswordFinishError ||
       activeError ||
-      verifyChangePasswordError
+      verifyChangePasswordError ||
+      isVerifyErrorESign
     );
   }, [
     verifyOTPError,
     resetPasswordFinishError,
     activeError,
     verifyChangePasswordError,
+    isVerifyErrorESign,
   ]);
 
   useEffect(() => {
     if (error) {
       const data = (error as ErrorResponseProps)?.data;
-      if (data.status === 400 && data.detail === 'Incorrect password') {
+      if (data?.status === 400 && data?.detail === 'Incorrect password') {
         // handle for only incorrect password
         handleShowToast({
           type: 'error',
           msg: t('ChangePassword.changePasswordErr'),
         });
       } else {
-        const errorCode = JSON.parse(data.detail).code;
+        const errorCode = JSON.parse(data?.detail).code;
         const responseCode = handleResponseOTPGenerateAPI(errorCode);
         if (
           responseCode.msg !== API_SUCCESS_MESSAGE &&
@@ -115,6 +127,13 @@ const useHandleVerifyOTP = ({
               newPassword,
             });
             break;
+          case OTPTypesEnum.ESIGN:
+            result = await verifyOTPESign({
+              authSeq,
+              code: value,
+              type: OTPTypesEnum.ESIGN,
+            });
+            break;
           default:
             break;
         }
@@ -140,6 +159,19 @@ const useHandleVerifyOTP = ({
               break;
             case OTPTypesEnum.RESET_PASSWORD:
               appNavigate(ScreenParamEnum.Login);
+              break;
+            case OTPTypesEnum.ESIGN:
+              const resultCheckEKYC = await checkEKYC({
+                id: Number(dataSaleInfo?.saleImportId ?? 0),
+                idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+              });
+              if (resultCheckEKYC?.data) {
+                // đã verify eKYC
+              } else {
+                appNavigate(ScreenParamEnum.VerifyCustomerInfo, {
+                  type: OTPTypesEnum.ESIGN,
+                });
+              }
               break;
             default:
               appNavigate(ScreenParamEnum.VerifyCustomerInfo);

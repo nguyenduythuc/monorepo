@@ -58,6 +58,7 @@ const useVerifyIdContractESignForSale = ({
               saleImportId,
               tokenEsign,
               idCardNumber: idCard,
+              phoneNumber,
             }),
           );
           let pdfUri = URL.createObjectURL(fileBlob);

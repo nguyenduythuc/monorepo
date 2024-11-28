@@ -12,6 +12,7 @@ const initialState: {
     saleImportId: string;
     tokenEsign: string;
     idCardNumber: string;
+    phoneNumber?: string;
   };
 } = {};
 

@@ -22,8 +22,9 @@ import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import useHandleSaveFile from './useHandleSaveFile';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 
 declare global {
   interface Window {
@@ -36,14 +37,17 @@ declare global {
   }
 }
 
-const useRNTrueId = () => {
+const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
   const {identityNumber} = useAppSelector(state => state.auth);
+  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const {appNavigate} = useConfigRouting();
   const {showCommonErrorToast, handleShowToast} = useShowToast();
   const dispatch = useDispatch();
 
-  const {handleUploadUserResouce} = useHandleSaveFile();
+  const [selfieImg, setSelfieImg] = useState<string>();
+
+  const {handleUploadUserResouce, handleVerifyEKYCSubmit} = useHandleSaveFile();
 
   useEffect(() => {
     dispatch(clearLoadingScreen());
@@ -75,6 +79,7 @@ const useRNTrueId = () => {
                   identityNumber,
                 });
               }
+              setSelfieImg(data?.passportImage);
               handleEkycSubmit(data);
             } else {
               // handle error
@@ -113,6 +118,7 @@ const useRNTrueId = () => {
                 });
               }
               if (result?.rawImage?.selfie && identityNumber) {
+                setSelfieImg(result?.rawImage?.selfie);
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.selfie,
                   resourceType: 'IDCARD_SELFIE',
@@ -161,6 +167,7 @@ const useRNTrueId = () => {
                 });
               }
               if (result?.rawImage?.selfie && identityNumber) {
+                setSelfieImg(result?.rawImage?.selfie);
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.selfie,
                   resourceType: 'IDCARD_SELFIE',
@@ -206,9 +213,28 @@ const useRNTrueId = () => {
     startEkyc(type);
   };
 
-  const handleEkycSubmit = (ekycData: ekycDataType | webEkycDataType) => {
+  const handleEkycSubmit = async (ekycData: ekycDataType | webEkycDataType) => {
     dispatch(setVerifyAccount(ekycData));
-    appNavigate(ScreenParamEnum.ReviewCustomerEKYCInfo);
+    if (type === OTPTypesEnum.ESIGN) {
+      try {
+        const result = await handleVerifyEKYCSubmit({
+          id: dataSaleInfo?.saleImportId ?? '',
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          selfieImg: selfieImg ?? '',
+          idCardIssuedAt: ekycData?.doi?.toString() ?? '',
+          idCardIssuedBy: ekycData?.givenPlace?.toString() ?? '',
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+        });
+        if (!result) {
+          showCommonErrorToast();
+          return;
+        }
+      } catch {
+        showCommonErrorToast();
+      }
+    } else {
+      appNavigate(ScreenParamEnum.ReviewCustomerEKYCInfo);
+    }
   };
 
   return {

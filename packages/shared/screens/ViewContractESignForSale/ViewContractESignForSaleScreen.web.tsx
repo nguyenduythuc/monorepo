@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
@@ -7,6 +7,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {Document, Page, pdfjs} from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
+import useViewContractESignForSale from '@lfvn-customer/shared/hooks/useViewContractESignForSale';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -19,11 +20,11 @@ const ViewContractESignForSaleScreen = ({uri}: {uri: string}) => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.0);
 
-  console.log('uri', uri);
-
   const onDocumentLoadSuccess = ({numPages}: {numPages: number}) => {
     setNumPages(numPages);
   };
+
+  const {onPressSubmit} = useViewContractESignForSale();
 
   return (
     <View style={tw.style('flex-1')}>
@@ -52,7 +53,7 @@ const ViewContractESignForSaleScreen = ({uri}: {uri: string}) => {
       </View>
       <View style={tw.style('absolute bottom-4 w-full')}>
         <CustomButton
-          onPress={() => {}}
+          onPress={onPressSubmit}
           color={'red'}
           buttonStyle={'mt-4 mx-4'}>
           {t('VerifyIdContractESignForSale.continue')}

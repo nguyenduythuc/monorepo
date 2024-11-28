@@ -13,8 +13,9 @@ import {
 } from '@lfvn-customer/shared/components';
 import useRNTrueId from '@lfvn-customer/shared/hooks/useRNTrueId';
 import {EkycType} from '@lfvn-customer/shared/utils/TrueId';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 
-export const VerifyCustomerInfo = () => {
+export const VerifyCustomerInfo = ({type}: {type?: OTPTypesEnum}) => {
   const t = useTranslations();
 
   const [selectedValue, setSelectedValue] = useState(EkycType.NFC);
@@ -25,7 +26,7 @@ export const VerifyCustomerInfo = () => {
     setSelectedValue(selectedOption);
   };
 
-  const {submitAction} = useRNTrueId();
+  const {submitAction} = useRNTrueId({type});
   const options = [
     {
       label: t('VerifyCustomer.screenNFC'),

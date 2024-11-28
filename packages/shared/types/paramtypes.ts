@@ -35,7 +35,11 @@ export type RootParamList = {
     phoneNumber: string;
     identityNumber: string;
   };
-  'verify-customer-info': undefined;
+  'verify-customer-info':
+    | {
+        type: OTPTypes;
+      }
+    | undefined;
   'review-customer-ekyc-info': undefined;
   'success-account-register': {
     phoneNumber: string;
@@ -205,4 +209,9 @@ export type VerifyIdContractEsignForSaleScreenRouteProps = RouteProp<
 export type ViewContractEsignForSaleScreenRouteProps = RouteProp<
   RootParamList,
   'view-contract-esign-for-sale'
+>;
+
+export type VerifyCustomerInfoRouteProps = RouteProp<
+  RootParamList,
+  'verify-customer-info'
 >;
