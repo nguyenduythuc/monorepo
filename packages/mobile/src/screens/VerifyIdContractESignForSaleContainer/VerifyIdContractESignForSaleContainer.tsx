@@ -21,6 +21,7 @@ const VerifyIdContractESignForSaleContainer = () => {
       <SafeAreaView style={tw.style('flex-1')}>
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={tw.style('flex-1')}
           keyboardShouldPersistTaps="handled">
           <VerifyIdContractESignForSaleScreen
             tokenEsign={tokenEsign}

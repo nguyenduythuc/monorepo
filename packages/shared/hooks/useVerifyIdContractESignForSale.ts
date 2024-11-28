@@ -7,8 +7,12 @@ import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {useDispatch} from 'react-redux';
-import {setDataSaleInfo} from '../redux/slices/eSignForSaleSlice';
-import downloadDraftContractApi from '../redux/slices/apiSlices/downloadDraftContractApi.web';
+import {setDataSaleInfo} from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
+import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi.web';
+import {
+  clearLoadingScreen,
+  setLoadingScreen,
+} from '../redux/slices/loadingSlices';
 
 const useVerifyIdContractESignForSale = ({
   tokenEsign,
@@ -38,6 +42,7 @@ const useVerifyIdContractESignForSale = ({
     Keyboard.dismiss();
     const {idCard, phoneNumber} = getValues();
     try {
+      dispatch(setLoadingScreen());
       if (Platform.OS === 'web') {
         const response = await downloadDraftContractApi({
           token: tokenEsign,
@@ -60,26 +65,35 @@ const useVerifyIdContractESignForSale = ({
             uri: pdfUri,
           });
         } else {
-          const response = await getESignDraft({
-            token: tokenEsign,
-            idCardNumber: idCard,
-            id: Number(saleImportId),
-            phoneNumber,
-          });
-          const pdfUri = `data:application/pdf;base64,${response}`;
-          appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-            uri: pdfUri,
+          handleShowToast({
+            msg: t('VerifyIdCardESignForSale.checkFail'),
+            type: 'error',
           });
         }
       } else {
-        handleShowToast({
-          msg: t('VerifyIdCardESignForSale.checkFail'),
-          type: 'error',
+        const response = await getESignDraft({
+          token: tokenEsign,
+          idCardNumber: idCard,
+          id: Number(saleImportId),
+          phoneNumber,
         });
+        if (response.data) {
+          const pdfUri = `data:application/pdf;base64,${response.data}`;
+          appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+            uri: pdfUri,
+          });
+        } else {
+          handleShowToast({
+            msg: t('VerifyIdCardESignForSale.checkFail'),
+            type: 'error',
+          });
+        }
       }
     } catch (err) {
       console.log(err);
       showCommonErrorToast();
+    } finally {
+      dispatch(clearLoadingScreen());
     }
   });
 

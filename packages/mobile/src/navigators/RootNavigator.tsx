@@ -376,7 +376,7 @@ const linkingWithoutAuthen = {
   config,
   getStateFromPath: (path: string) => {
     // we can check path and return special router for handle not authen case here
-    if (path.includes('verify-idcard-esign-for-sale')) {
+    if (path.includes('esign-for-sale')) {
       return getStateFromPath(path, config);
     }
     return {
