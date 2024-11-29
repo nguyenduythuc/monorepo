@@ -8,7 +8,7 @@ import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {useDispatch} from 'react-redux';
 import {setDataSaleInfo} from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
-import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi.web';
+import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 import {
   clearLoadingScreen,
   setLoadingScreen,
@@ -41,6 +41,14 @@ const useVerifyIdContractESignForSale = ({
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
     const {idCard, phoneNumber} = getValues();
+    dispatch(
+      setDataSaleInfo({
+        saleImportId,
+        tokenEsign,
+        idCardNumber: idCard,
+        phoneNumber,
+      }),
+    );
     try {
       dispatch(setLoadingScreen());
       if (Platform.OS === 'web') {
@@ -52,18 +60,8 @@ const useVerifyIdContractESignForSale = ({
         });
         // Read the file as a Blob
         if (response) {
-          const fileBlob = await response.blob();
-          dispatch(
-            setDataSaleInfo({
-              saleImportId,
-              tokenEsign,
-              idCardNumber: idCard,
-              phoneNumber,
-            }),
-          );
-          let pdfUri = URL.createObjectURL(fileBlob);
           appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-            uri: pdfUri,
+            uri: response,
           });
         } else {
           handleShowToast({
@@ -72,21 +70,16 @@ const useVerifyIdContractESignForSale = ({
           });
         }
       } else {
-        const response = await getESignDraft({
+        /// Handle view PDF mobile
+        const response = await downloadDraftContractApi({
           token: tokenEsign,
           idCardNumber: idCard,
           id: Number(saleImportId),
           phoneNumber,
         });
-        if (response.data) {
-          const pdfUri = `data:application/pdf;base64,${response.data}`;
+        if (response) {
           appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-            uri: pdfUri,
-          });
-        } else {
-          handleShowToast({
-            msg: t('VerifyIdCardESignForSale.checkFail'),
-            type: 'error',
+            uri: response,
           });
         }
       }

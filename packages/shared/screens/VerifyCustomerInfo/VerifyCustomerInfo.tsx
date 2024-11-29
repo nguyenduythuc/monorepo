@@ -110,22 +110,6 @@ export const VerifyCustomerInfo = ({type}: {type?: OTPTypesEnum}) => {
                 {options[1].renderContent}
               </View>
             )}
-            <View style={tw`flex-row items-center gap-3 justify-between`}>
-              {options.map((option, index) => (
-                <RadioButton
-                  // renderContent={option.renderContent}
-
-                  color="red"
-                  key={option.value}
-                  label={option.label}
-                  selected={selectedValue === option.value}
-                  onPress={() => handleSelect(option.value)}
-                />
-              ))}
-            </View>
-            <View style={tw.style('flex flex-row')}>
-              <FileOptionModal />
-            </View>
           </ScrollView>
         </View>
       </View>

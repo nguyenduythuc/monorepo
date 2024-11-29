@@ -80,9 +80,6 @@ const useCheckNapas = () => {
 
   const [bankAccount, bankName] = watch(['bankAccount', 'bankName']);
 
-  useEffect(() => {
-    console.log('bankAccount, bankName', bankAccount, bankName);
-  }, [bankAccount, bankName]);
   const onPressSubmit = async () => {
     const checkNapasForm = getValues();
     const {bankAccount, bankName} = checkNapasForm;
