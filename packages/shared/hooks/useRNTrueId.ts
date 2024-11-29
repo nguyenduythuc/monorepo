@@ -22,9 +22,10 @@ import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import useHandleSaveFile from './useHandleSaveFile';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 
 declare global {
   interface Window {
@@ -44,8 +45,6 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
   const {appNavigate} = useConfigRouting();
   const {showCommonErrorToast, handleShowToast} = useShowToast();
   const dispatch = useDispatch();
-
-  const [selfieImg, setSelfieImg] = useState<string>();
 
   const {handleUploadUserResouce, handleVerifyEKYCSubmit} = useHandleSaveFile();
 
@@ -79,8 +78,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
                   identityNumber,
                 });
               }
-              setSelfieImg(data?.passportImage);
-              handleEkycSubmit(data);
+              handleEkycSubmit(data, data?.passportImage);
             } else {
               // handle error
               console.log('errorMesssage : ', result.errorMessage);
@@ -118,7 +116,6 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
                 });
               }
               if (result?.rawImage?.selfie && identityNumber) {
-                setSelfieImg(result?.rawImage?.selfie);
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.selfie,
                   resourceType: 'IDCARD_SELFIE',
@@ -126,7 +123,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
                 });
               }
               const data: ekycDataType = result.idInfo;
-              handleEkycSubmit(data);
+              handleEkycSubmit(data, result.rawImage?.selfie);
             } else {
               // handle error
               console.log('errorMesssage : ', result.errorMessage);
@@ -167,7 +164,6 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
                 });
               }
               if (result?.rawImage?.selfie && identityNumber) {
-                setSelfieImg(result?.rawImage?.selfie);
                 await handleUploadUserResouce({
                   rawImage: result.rawImage?.selfie,
                   resourceType: 'IDCARD_SELFIE',
@@ -186,7 +182,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
                 origin: result.idInfo?.id_origin?.value,
                 oldIdNumber: result.idInfo?.id_old_number?.value,
               };
-              handleEkycSubmit(data);
+              handleEkycSubmit(data, result?.rawImage?.selfie);
               // console.log('final data', parsePassportData(result.nfcInfo));
             } else {
               // handle error
@@ -213,7 +209,10 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
     startEkyc(type);
   };
 
-  const handleEkycSubmit = async (ekycData: ekycDataType | webEkycDataType) => {
+  const handleEkycSubmit = async (
+    ekycData: ekycDataType | webEkycDataType,
+    selfieImg?: string,
+  ) => {
     dispatch(setVerifyAccount(ekycData));
     if (type === OTPTypesEnum.ESIGN) {
       try {
@@ -229,8 +228,25 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
           showCommonErrorToast();
           return;
         }
+        const responseContract = await downloadDraftContractApi({
+          token: dataSaleInfo?.tokenEsign ?? '',
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          id: Number(dataSaleInfo?.saleImportId ?? 0),
+          phoneNumber: dataSaleInfo?.phoneNumber ?? '',
+        });
+        if (responseContract) {
+          appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+            uri: responseContract,
+            isVerifyEKYC: true,
+          });
+        } else {
+          showCommonErrorToast();
+          return;
+        }
       } catch {
         showCommonErrorToast();
+      } finally {
+        dispatch(clearLoadingScreen());
       }
     } else {
       appNavigate(ScreenParamEnum.ReviewCustomerEKYCInfo);

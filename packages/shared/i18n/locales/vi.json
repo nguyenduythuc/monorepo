@@ -422,6 +422,18 @@
     "title": "Nhập thông tin hợp đồng",
     "desc": "Vui lòng cung cấp thêm thông tin để hoàn thiện đăng ký",
     "continue":"Tiếp theo",
-    "checkFail": "Thông tin CCCD hoặc Số điện thoại không chính xác, vui lòng kiểm tra lại"
+    "checkFail": "Thông tin CCCD hoặc Số điện thoại không chính xác, vui lòng kiểm tra lại",
+    "ok": "OK",
+    "contentPopup": "Bạn đã hoàn thành quá trình xác thực thông tin cá nhân. Vui lòng không thoát ứng dụng và tiếp tục các bước ký hợp đồng E-Contract"
+  },
+  "SignContractESignForSaleSuccess": {
+    "title": "E-Signing",
+    "desc": "Quá trình ký hợp đồng điện tử đã hoàn tất\n\nCảm ơn bạn đã tin tưởng và sử dụng dịch vụ của LOTTE Finance Vietnam\n\nHợp đồng điện tử sẽ được gửi tới hòm thư của bạn. Nếu không nhận được email, vui lòng tải hợp đồng về thiết bị của bạn. Mật khẩu của hợp đồng là số CCCD/CMND.\n\n\nXin cảm ơn!",
+    "downloadContract": "Tải hợp đồng",
+    "home": "Trang chủ"
+  },
+  "ViewContractESignForSale": {
+    "title": "Ký hợp đồng E-Sign",
+    "desc": "Quý khách vui lòng kiểm tra kỹ hợp đồng đã ký eSign"
   }
 }

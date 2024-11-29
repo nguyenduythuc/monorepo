@@ -1,7 +1,6 @@
 import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
 import {FieldESignForSale} from '@lfvn-customer/shared/components/Form/Form.utils';
-import {useGetESignDraftMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {Keyboard, Platform} from 'react-native';
+import {Keyboard} from 'react-native';
 import useShowToast from './useShowToast';
 import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
@@ -27,7 +26,6 @@ const useVerifyIdContractESignForSale = ({
     FieldESignForSale.ESignPhoneNumber,
   ];
   const {appNavigate} = useConfigRouting();
-  const [getESignDraft] = useGetESignDraftMutation();
   const {showCommonErrorToast, handleShowToast} = useShowToast();
 
   const dispatch = useDispatch();
@@ -51,37 +49,22 @@ const useVerifyIdContractESignForSale = ({
     );
     try {
       dispatch(setLoadingScreen());
-      if (Platform.OS === 'web') {
-        const response = await downloadDraftContractApi({
-          token: tokenEsign,
-          idCardNumber: idCard,
-          id: Number(saleImportId),
-          phoneNumber,
+      const response = await downloadDraftContractApi({
+        token: tokenEsign,
+        idCardNumber: idCard,
+        id: Number(saleImportId),
+        phoneNumber,
+      });
+      // Read the file as a Blob
+      if (response) {
+        appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+          uri: response,
         });
-        // Read the file as a Blob
-        if (response) {
-          appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-            uri: response,
-          });
-        } else {
-          handleShowToast({
-            msg: t('VerifyIdCardESignForSale.checkFail'),
-            type: 'error',
-          });
-        }
       } else {
-        /// Handle view PDF mobile
-        const response = await downloadDraftContractApi({
-          token: tokenEsign,
-          idCardNumber: idCard,
-          id: Number(saleImportId),
-          phoneNumber,
+        handleShowToast({
+          msg: t('VerifyIdCardESignForSale.checkFail'),
+          type: 'error',
         });
-        if (response) {
-          appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-            uri: response,
-          });
-        }
       }
     } catch (err) {
       console.log(err);

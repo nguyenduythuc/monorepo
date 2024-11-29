@@ -1,6 +1,7 @@
 import {
   useOtpResendBaseMutation,
   useResendOTPMutation,
+  useResendOTPSignContractMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
 import {API_SUCCESS_MESSAGE} from '@lfvn-customer/shared/utils/constants';
@@ -28,6 +29,7 @@ const useEnterOTP = ({
   const t = useTranslations();
   const [resendOTP, {error}] = useResendOTPMutation();
   const [resendOTPESign] = useOtpResendBaseMutation();
+  const [resendOTPSignContract] = useResendOTPSignContractMutation();
   const {handleShowToast, showCommonErrorToast} = useShowToast();
   const {goBack} = useConfigRouting();
 
@@ -88,6 +90,13 @@ const useEnterOTP = ({
           identityNumber: dataSaleInfo?.idCardNumber ?? '',
           authSeq,
           type: OTPTypesEnum.ESIGN,
+        });
+        break;
+      case OTPTypesEnum.CONFIRM_ESIGN:
+        result = await resendOTPSignContract({
+          id: Number(dataSaleInfo?.saleImportId ?? 0),
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
         });
         break;
       // eslint-disable-next-line sonarjs/no-duplicated-branches

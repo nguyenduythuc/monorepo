@@ -85,6 +85,11 @@ export type RootParamList = {
   };
   'view-contract-esign-for-sale': {
     uri: string;
+    isVerifyEKYC?: boolean;
+    isSignSuccess?: boolean;
+  };
+  'sign-contract-esign-for-sale-success': {
+    uri: string;
   };
 };
 
@@ -122,6 +127,7 @@ export enum ScreenParamEnum {
   CheckNapas = 'check-napas',
   VerifyIdContractEsignForSale = 'verify-idcontract-esign-for-sale',
   ViewContractEsignForSale = 'view-contract-esign-for-sale',
+  SignContractESignForSaleSuccess = 'sign-contract-esign-for-sale-success',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -214,4 +220,9 @@ export type ViewContractEsignForSaleScreenRouteProps = RouteProp<
 export type VerifyCustomerInfoRouteProps = RouteProp<
   RootParamList,
   'verify-customer-info'
+>;
+
+export type SignContractESignForSaleSuccessRouteProps = RouteProp<
+  RootParamList,
+  'sign-contract-esign-for-sale-success'
 >;

@@ -1,8 +1,8 @@
-import {VerifySaleContractRequestProps} from '../../../types/services/eSignForSaleTypes';
+import {VerifySaleContractRequestProps} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 
 const downloadDraftContractApi = async (
   body: VerifySaleContractRequestProps,
-): Promise<Response> => {
+): Promise<string> => {
   const url = `/api-app/api/sale-import/get-contract/draft`;
   // Fetch file from the server
   const {token, ...rest} = body;
@@ -18,7 +18,8 @@ const downloadDraftContractApi = async (
     throw new Error(`Download error: ${response.statusText}`);
   }
 
-  return response;
+  const fileBlob = await response.blob();
+  return URL.createObjectURL(fileBlob);
 };
 
 export default downloadDraftContractApi;

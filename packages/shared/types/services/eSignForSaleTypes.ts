@@ -107,6 +107,7 @@ export interface CheckEKYCResponseProps {
 export interface CheckEKYCRequestProps {
   id: number;
   idCardNumber: string;
+  tokenEsign: string;
 }
 
 export interface VerifyEKYCResponseProps {
@@ -145,7 +146,7 @@ export interface SaleSelfCertRequestProps {
 
 export interface SignContractResponseProps {
   agreementUUID: string;
-  billCode: string;
+  signedFileData: string;
 }
 export interface SignContractRequestProps {
   id: number;

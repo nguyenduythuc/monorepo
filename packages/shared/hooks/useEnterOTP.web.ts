@@ -3,6 +3,7 @@ import {
   useLazyActiveQuery,
   useOtpResendBaseMutation,
   useResendOTPMutation,
+  useResendOTPSignContractMutation,
   useVerifyOTPMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
@@ -35,6 +36,8 @@ const useEnterOTP = ({
   const [resendOTP, {isError: isResendError}] = useResendOTPMutation();
   const [resendOTPESign, {isError: isResendESignError}] =
     useOtpResendBaseMutation();
+  const [resendOTPSignContract, {isError: isResendOTPSignContracError}] =
+    useResendOTPSignContractMutation();
   const [active] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
 
@@ -64,13 +67,13 @@ const useEnterOTP = ({
   }, [isVerifyError]);
 
   useEffect(() => {
-    if (isResendError || isResendESignError) {
+    if (isResendError || isResendESignError || isResendOTPSignContracError) {
       handleShowToast({
         msg: t('EnterOTP.msgResendFail'),
         type: 'error',
       });
     }
-  }, [isResendError, isResendESignError]);
+  }, [isResendError, isResendESignError, isResendOTPSignContracError]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -168,6 +171,13 @@ const useEnterOTP = ({
           identityNumber: dataSaleInfo?.idCardNumber ?? '',
           authSeq,
           type: OTPTypesEnum.ESIGN,
+        });
+        break;
+      case OTPTypesEnum.CONFIRM_ESIGN:
+        result = await resendOTPSignContract({
+          id: Number(dataSaleInfo?.saleImportId ?? 0),
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
         });
         break;
       // eslint-disable-next-line sonarjs/no-duplicated-branches

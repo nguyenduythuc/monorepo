@@ -21,9 +21,21 @@ const useViewContractESignForSale = () => {
 
   const [generateOtp] = useOtpGenerateBaseMutation();
 
-  const onPressSubmit = async () => {
+  const onPressSubmit = async ({
+    isSignSuccess,
+    uri,
+  }: {
+    isSignSuccess?: boolean;
+    uri?: string;
+  }) => {
     Keyboard.dismiss();
     if (!dataSaleInfo) {
+      return;
+    }
+    if (isSignSuccess) {
+      appNavigate(ScreenParamEnum.SignContractESignForSaleSuccess, {
+        uri,
+      });
       return;
     }
     const {idCardNumber, phoneNumber} = dataSaleInfo;
@@ -54,8 +66,22 @@ const useViewContractESignForSale = () => {
     }
   };
 
+  const onHandleConfirmESign = () => {
+    if (!dataSaleInfo) {
+      return;
+    }
+    const {idCardNumber, phoneNumber} = dataSaleInfo;
+    appNavigate(ScreenParamEnum.EnterOtp, {
+      authSeq: '',
+      phoneNumber: phoneNumber ?? '',
+      identityNumber: idCardNumber ?? '',
+      type: OTPTypesEnum.CONFIRM_ESIGN,
+    });
+  };
+
   return {
     onPressSubmit,
+    onHandleConfirmESign,
   };
 };
 

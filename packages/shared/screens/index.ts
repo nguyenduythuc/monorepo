@@ -30,3 +30,4 @@ export * from './VerifyIdCardESignForSale';
 export * from './CheckNapasScreen';
 export * from './VerifyIdContractESignForSale';
 export * from './ViewContractESignForSale';
+export * from './SignContractESignForSaleSuccess';

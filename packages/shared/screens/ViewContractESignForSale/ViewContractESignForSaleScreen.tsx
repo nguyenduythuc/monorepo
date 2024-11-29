@@ -7,7 +7,15 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import PDFView from 'react-native-pdf';
 import useViewContractESignForSale from '../../hooks/useViewContractESignForSale';
 
-const ViewContractESignForSaleScreen = ({uri}: {uri: string}) => {
+const ViewContractESignForSaleScreen = ({
+  uri,
+  isVerifyEKYC,
+  isSignSuccess,
+}: {
+  uri: string;
+  isVerifyEKYC?: boolean;
+  isSignSuccess?: boolean;
+}) => {
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500} = theme;

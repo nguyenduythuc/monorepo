@@ -116,11 +116,17 @@ export const eSignForSaleAPI = (
     }),
   }),
   checkEKYC: builder.mutation<CheckEKYCResponseProps, CheckEKYCRequestProps>({
-    query: (body: CheckEKYCRequestProps) => ({
-      url: getPath('/sale-import/check-ekyc'),
-      method: 'post',
-      data: body,
-    }),
+    query: (body: CheckEKYCRequestProps) => {
+      const {tokenEsign, ...rest} = body;
+      return {
+        url: getPath('/sale-import/check-ekyc'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': tokenEsign,
+        },
+      };
+    },
   }),
   verifyEKYC: builder.mutation<void, VerifyEKYCRequestProps>({
     query: (body: VerifyEKYCRequestProps) => {
@@ -171,30 +177,48 @@ export const eSignForSaleAPI = (
     SaleSelfCertResponseProps,
     SaleSelfCertRequestProps
   >({
-    query: (body: SaleSelfCertRequestProps) => ({
-      url: getPath('/sale-import/esign/sale-cert'),
-      method: 'post',
-      data: body,
-    }),
+    query: (body: SaleSelfCertRequestProps) => {
+      const {tokenEsign, ...rest} = body;
+      return {
+        url: getPath('/sale-import/esign/sale-cert'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': tokenEsign,
+        },
+      };
+    },
   }),
   signContract: builder.mutation<
     SignContractResponseProps,
     SignContractRequestProps
   >({
-    query: (body: SignContractRequestProps) => ({
-      url: getPath('/sale-import/esign/sign-contract'),
-      method: 'post',
-      data: body,
-    }),
+    query: (body: SignContractRequestProps) => {
+      const {tokenEsign, ...rest} = body;
+      return {
+        url: getPath('/sale-import/esign/sign-contract'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': tokenEsign,
+        },
+      };
+    },
   }),
   resendOTPSignContract: builder.mutation<
     ResendOTPSignContractResponseProps,
     ResendOTPSignContractRequestProps
   >({
-    query: (body: ResendOTPSignContractRequestProps) => ({
-      url: getPath('/sale-import/esign/resend-otp'),
-      method: 'post',
-      data: body,
-    }),
+    query: (body: ResendOTPSignContractRequestProps) => {
+      const {tokenEsign, ...rest} = body;
+      return {
+        url: getPath('/sale-import/esign/resend-otp'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': tokenEsign,
+        },
+      };
+    },
   }),
 });

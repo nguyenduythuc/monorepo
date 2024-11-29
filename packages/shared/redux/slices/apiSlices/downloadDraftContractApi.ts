@@ -1,5 +1,5 @@
-import {VerifySaleContractRequestProps} from '../../../types/services/eSignForSaleTypes';
-import {handleEnvByPlatform} from '../../../utils/handleEnvByPlatform';
+import {VerifySaleContractRequestProps} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 import RNFS from 'react-native-fs';
 
 // Convert Blob to Base64
@@ -53,6 +53,7 @@ const downloadDraftContractApi = async (
   try {
     await RNFS.writeFile(filePath, base64Data, 'base64');
   } catch (error) {
+    console.error(`Failed to save file: ${error}`);
     // throw new Error(`Failed to save file: ${error.message}`);
   }
 
