@@ -16,7 +16,7 @@
     "mobile:start": "yarn workspace mobile start",
     "mobile:test": "yarn workspace mobile test",
     "pod-install": "cd packages/mobile/ios && pod install",
-    "postinstall": "yarn pod-install && git config core.hooksPath .husky/_ && patch-package",
+    "postinstall": "patch-package && pod-install && git config core.hooksPath .husky/_",
     "prepare": "husky",
     "lint": "eslint .",
     "format": "prettier --write .",
