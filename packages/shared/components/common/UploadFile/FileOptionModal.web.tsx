@@ -1,178 +1,90 @@
-import {View, Text, Platform} from 'react-native';
-import React, {useCallback, useRef} from 'react';
+import {View, Text} from 'react-native';
+import React, {useRef} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
-// import ImageCropPicker from 'react-native-image-crop-picker';
-// import DocumentPicker, {types} from 'react-native-document-picker';
-
-import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {BaseModal} from '../AppModal';
 import {SelectFileButton} from './SelectFileButton';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {UploadESignForSaleFile} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+import {useDispatch} from 'react-redux';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
+import moment from 'moment';
 
-const parseNumber = (text: string) => {
-  if (!text) return 0;
-  if (typeof text !== 'string') return text;
-  const cleandText = text.replaceAll(/[$đ,₫]/g, '');
-  return parseFloat(cleandText);
-};
-
-const sizeLarge = 15;
-const MAX_FILE = 10;
-
-const generateFileType = (path: string) => {
-  const arr = path.split?.('.');
-  const length = arr?.length || 0;
-  return arr![length - 1].toLowerCase();
-};
-
-export const FileOptionModal = ({}) => {
-  const fileOptionModalRef = useRef<any>(null);
-
-  const {appNavigate} = useConfigRouting();
-
+export const FileOptionModal = ({
+  doc,
+  setDoc,
+  handleOpenFolder,
+}: {
+  doc?: UploadESignForSaleFile;
+  setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+  handleOpenFolder: (doc: UploadESignForSaleFile) => void;
+}) => {
   const t = useTranslations();
+  const {theme} = useGetTheme();
+  const {textNegative500} = theme;
 
-  const onOpen = () => fileOptionModalRef.current?.open();
-  const onClose = () => fileOptionModalRef.current?.close();
+  const dispatch = useDispatch();
 
-  const checkFileLarge = useCallback(
-    (fileInfo: {
-      fileCopyUri: string | null;
-      name: string | null;
-      size: number | null;
-      type: string | null;
-      uri: string | null;
-    }) => {
-      const sizeInBytes = fileInfo.size ?? 1;
-      const sizeInMB = (sizeInBytes / (1024 * 1024)).toFixed(2);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-      if (parseNumber(sizeInMB) > sizeLarge) {
-        // showMessage({
-        //     type: 'danger',
-        //     message: t('warning_size', { sizeInMB: sizeInMB, sizeLarge: sizeLarge }),
-        //     duration: 2000,
-        // })
-        return false;
-      } else {
-        return true;
-      }
-    },
-    [sizeLarge, t],
-  );
-
-  const uploadFile = async () => {
-    // try {
-    //   console.log('uploadFile');
-    //   const pickerListResult = await DocumentPicker.pick({
-    //     allowMultiSelection: false,
-    //     presentationStyle: 'fullScreen',
-    //     copyTo: 'cachesDirectory',
-    //     type: [
-    //       types.doc,
-    //       types.docx,
-    //       types.pdf,
-    //       types.images,
-    //       types.xls,
-    //       types.xlsx,
-    //       types.ppt,
-    //       types.pptx,
-    //       types.zip,
-    //       types.csv,
-    //       types.plainText,
-    //       // types.video,
-    //       // types.audio,
-    //     ],
-    //   });
-    //   console.log('pickerListResult', pickerListResult);
-    //   onClose();
-    //   const filterPicker = pickerListResult.filter(i => checkFileLarge(i));
-    //   const path = decodeURI(filterPicker[0].fileCopyUri || '');
-    //   const fileType = generateFileType(path);
-    //   // let index = 0
-    //   console.log('fileType', fileType);
-    // } catch (e) {
-    //   console.log('bb error');
-    // }
+  // handle open lib image on web
+  const handleUploadWeb = () => {
+    fileInputRef?.current?.click();
   };
 
-  const handleSelectPicture = async () => {
-    // try {
-    //   // setloading(true)
-    //   const pickerListResult = await ImageCropPicker.openPicker({
-    //     multiple: true,
-    //     mediaType: 'photo',
-    //     // compressImageQuality: 0.8,
-    //     maxFiles: MAX_FILE,
-    //   });
-    //   onClose();
-    //   console.log('pickerListResult', pickerListResult);
-    //   const paths = pickerListResult.map(item => ({path: item.path}));
-    //   console.log(paths);
-    // } catch (error) {
-    //   // setloading(false)
-    //   console.log('bb error', error);
-    // }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && !!doc) {
+      const imageUrl = URL.createObjectURL(file);
+      dispatch(
+        setDoc({
+          ...doc,
+          links: [
+            ...doc.links,
+            {
+              id: moment().format(),
+              uri: imageUrl,
+            },
+          ],
+        }),
+      );
+    }
   };
 
-  const handleOpenCamera = async () => {
-    console.log('ScreenParamEnum.VisionCamera');
-    onClose();
-    appNavigate(ScreenParamEnum.VisionCamera);
-  };
+  if (!doc) {
+    return null;
+  }
 
   return (
-    <>
+    <View style={tw.style('mt-4')}>
+      <Text style={tw`${textNegative500} font-semibold text-base mb-2`}>
+        {doc.title}
+      </Text>
       <View style={tw.style('flex-1 flex-row justify-between gap-3')}>
         <SelectFileButton
           icon="upload-circle-icon"
-          title="AdditionalInfo.upload"
-          description="AdditionalInfo.uploadDes"
+          title={t('AdditionalInfo.upload')}
+          description={t('AdditionalInfo.uploadDes')}
           customStyle="border-dashed  border-blue-500"
-          onPress={onOpen}
+          onPress={handleUploadWeb}
         />
         <SelectFileButton
           icon="folder-icon"
-          title="AdditionalInfo.folder"
-          description="AdditionalInfo.files"
+          title={t('AdditionalInfo.folder')}
+          description={t('AdditionalInfo.files', {
+            length: doc.links.length ? doc.links.length + ' ' : '',
+          })}
           customStyle="bg-white"
+          onPress={() => handleOpenFolder(doc)}
         />
       </View>
-
-      <BaseModal ref={fileOptionModalRef}>
-        <View
-          style={tw.style(
-            'bg-white border items-center justify-center border-gray-300 bottom-0 rounded-t-2xl max-h-96 w-full pb-6',
-            {position: Platform.OS === 'web' ? 'fixed' : 'absolute'},
-          )}>
-          <View style={tw`py-2 justify-center items-center h-14`}>
-            <Text style={tw`font-semibold text-lg`}>
-              {t('AdditionalInfo.chooseUploadMethod')}
-            </Text>
-          </View>
-
-          <View style={tw.style('w-full px-4')}>
-            <View style={tw.style('flex-row justify-between gap-3 mb-3')}>
-              <SelectFileButton
-                icon="camera-icon"
-                title="AdditionalInfo.camera"
-                onPress={handleOpenCamera}
-              />
-              <SelectFileButton
-                icon="photo-icon"
-                title="AdditionalInfo.choosePhoto"
-                onPress={handleSelectPicture}
-              />
-            </View>
-            <SelectFileButton
-              icon="upload-icon"
-              title="AdditionalInfo.uploadFiles"
-              onPress={uploadFile}
-            />
-          </View>
-        </View>
-      </BaseModal>
-    </>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        style={{display: 'none'}}
+        onChange={handleFileChange}
+      />
+    </View>
   );
 };

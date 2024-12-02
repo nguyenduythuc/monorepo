@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
-import { ScreenParamEnum } from '@lfvn-customer/shared/types/paramtypes';
-import { useEffect, useRef } from 'react';
+import {useRouter} from 'next/navigation';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {useRef} from 'react';
 
 export const useConfigRouting = () => {
   const navigation = useRouter();
@@ -8,16 +8,15 @@ export const useConfigRouting = () => {
 
   const appNavigate = (
     nextScreen: ScreenParamEnum,
-    params?: { [key: string]: string | number | boolean } | undefined,
+    params?: {[key: string]: string | number | boolean} | undefined,
   ) => {
     if (!params) {
-      navigation.push(`${nextScreen}`);
+      navigation.push(`/${nextScreen}`);
     } else {
-      const queryString = params
-        ? '?' + new URLSearchParams(params as Record<string, string>).toString()
-        : '';
-
-      navigation.push(`${nextScreen}${queryString}`);
+      const queryString = new URLSearchParams(
+        params as Record<string, string>,
+      ).toString();
+      navigation.push(`/${nextScreen}?${queryString}`);
     }
   };
 
@@ -31,5 +30,5 @@ export const useConfigRouting = () => {
     return previousRouteRef.current;
   };
 
-  return { appNavigate, goBack, getPreviousRoute };
+  return {appNavigate, goBack, getPreviousRoute};
 };

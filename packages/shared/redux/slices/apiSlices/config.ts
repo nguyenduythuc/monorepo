@@ -37,11 +37,12 @@ const axiosBaseQuery =
       method: AxiosRequestConfig['method'];
       data?: AxiosRequestConfig['data'];
       params?: AxiosRequestConfig['params'];
+      headers?: AxiosRequestConfig['headers'];
     },
     unknown,
     unknown
   > =>
-  async ({url, method, data, params}) => {
+  async ({url, method, data, params, headers}) => {
     const savedToken = getToken();
     try {
       const result = await axios({
@@ -50,8 +51,8 @@ const axiosBaseQuery =
         data,
         params,
         headers: savedToken
-          ? {Authorization: `Bearer ${savedToken}`}
-          : undefined,
+          ? {Authorization: `Bearer ${savedToken}`, ...headers}
+          : headers,
       });
       return {data: result.data};
     } catch (axiosError) {

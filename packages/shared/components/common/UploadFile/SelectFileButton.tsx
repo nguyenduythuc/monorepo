@@ -3,8 +3,6 @@ import React from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
 
-import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-
 export const SelectFileButton = ({
   icon,
   title,
@@ -18,8 +16,6 @@ export const SelectFileButton = ({
   customStyle?: string;
   onPress?: () => void;
 }) => {
-  const t = useTranslations();
-
   return (
     <TouchableOpacity
       style={tw.style(
@@ -29,10 +25,10 @@ export const SelectFileButton = ({
       onPress={onPress}>
       <View style={tw.style('items-center px-3 py-4 flex-col')}>
         <Icon name={icon} disabled />
-        <Text style={tw.style('font-medium text-base mt-1')}>{t(title)}</Text>
+        <Text style={tw.style('font-medium text-base mt-1')}>{title}</Text>
         {!!description && (
           <Text style={tw.style('text-gray-400 text-center')}>
-            {t(description)}
+            {description}
           </Text>
         )}
       </View>

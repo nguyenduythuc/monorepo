@@ -1,5 +1,9 @@
 import React, {useEffect} from 'react';
-import {LinkingOptions, NavigationContainer} from '@react-navigation/native';
+import {
+  LinkingOptions,
+  NavigationContainer,
+  getStateFromPath,
+} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
@@ -29,6 +33,14 @@ import {
   CifAndAplInformationContainer,
   ReviewLoanOfferContainer,
   PreScoringPendingCheckContainer,
+  DetailFolderContainer,
+  ZoomRotateImageContainer,
+  VerifyIdCardESignForSaleContainer,
+  CheckNapasContainer,
+  VerifyIdContractESignForSaleContainer,
+  UploadDocsESignForSaleContainer,
+  ViewContractESignForSaleContainer,
+  SignContractESignForSaleSuccessContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -82,6 +94,12 @@ const config: LinkingOptions<RootParamList>['config'] = {
     },
     'create-loan-apl': {
       path: 'create-loan-apl',
+    },
+    'verify-idcard-esign-for-sale': {
+      path: 'verify-idcard-esign-for-sale/:saleImportId/:tokenEsign',
+    },
+    'verify-idcontract-esign-for-sale': {
+      path: 'verify-idcontract-esign-for-sale/:saleImportId/:tokenEsign',
     },
   },
 };
@@ -285,6 +303,62 @@ const RootStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="upload-docs-esign-for-sale"
+        component={UploadDocsESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="detail-folder"
+        component={DetailFolderContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="zoom-rotate-image"
+        component={ZoomRotateImageContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-idcard-esign-for-sale"
+        component={VerifyIdCardESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="check-napas"
+        component={CheckNapasContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-idcontract-esign-for-sale"
+        component={VerifyIdContractESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="view-contract-esign-for-sale"
+        component={ViewContractESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="sign-contract-esign-for-sale-success"
+        component={SignContractESignForSaleSuccessContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -310,6 +384,9 @@ const linkingWithoutAuthen = {
   config,
   getStateFromPath: (path: string) => {
     // we can check path and return special router for handle not authen case here
+    if (path.includes('esign-for-sale')) {
+      return getStateFromPath(path, config);
+    }
     return {
       routes: [
         {

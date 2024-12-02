@@ -3,15 +3,18 @@ import useShowToast from './useShowToast';
 import {
   useUploadDocumentEcmWebMutation,
   useUploadUserResourceWebMutation,
+  useVerifyEKYCWebMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {UploadUserResourceWebRequestProps} from '@lfvn-customer/shared/types/services/authTypes';
 import {UploadDocumentEcmResponseProps} from '@lfvn-customer/shared/types/services/loanTypes';
 import downloadFileApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadFileApi.web';
+import {VerifyEKYCRequestWebProps} from '../types/services/eSignForSaleTypes';
 
 const useHandleSaveFile = () => {
   const [uploadUserResource] = useUploadUserResourceWebMutation();
   const {showCommonErrorToast} = useShowToast();
   const [uploadDocumentEcmMutation] = useUploadDocumentEcmWebMutation();
+  const [verifyEKYC] = useVerifyEKYCWebMutation();
 
   const saveEKYCImageBase64ToFile = async (base64Data: string) => {
     try {
@@ -99,11 +102,45 @@ const useHandleSaveFile = () => {
     return uploadDocEcmResponse?.data;
   };
 
+  const handleVerifyEKYCSubmit = async ({
+    selfieImg,
+    id,
+    idCardNumber,
+    idCardIssuedAt,
+    idCardIssuedBy,
+    tokenEsign,
+  }: {
+    selfieImg: string;
+    id: string;
+    idCardNumber: string;
+    idCardIssuedAt: string;
+    idCardIssuedBy: string;
+    tokenEsign: string;
+  }) => {
+    const selfiePhoto = await saveEKYCImageBase64ToFile(selfieImg);
+    if (!selfiePhoto) {
+      showCommonErrorToast();
+      return false;
+    }
+    const body: VerifyEKYCRequestWebProps = {
+      id,
+      idCardNumber,
+      selfiePhoto,
+      fileName: `${id}_selfie.jpg`,
+      idCardIssuedAt,
+      idCardIssuedBy,
+      tokenEsign,
+    };
+    const result = await verifyEKYC(body);
+    return result?.data;
+  };
+
   return {
     saveEKYCImageBase64ToFile,
     removeFileAfterUpload,
     handleUploadUserResouce,
     handleUploadDocEcm,
+    handleVerifyEKYCSubmit,
   };
 };
 export default useHandleSaveFile;

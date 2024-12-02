@@ -24,6 +24,8 @@ import {
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
 import {useEffect} from 'react';
 import useHandleSaveFile from './useHandleSaveFile';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 
 declare global {
   interface Window {
@@ -36,14 +38,15 @@ declare global {
   }
 }
 
-const useRNTrueId = () => {
+const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
   const {identityNumber} = useAppSelector(state => state.auth);
+  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const {appNavigate} = useConfigRouting();
   const {showCommonErrorToast, handleShowToast} = useShowToast();
   const dispatch = useDispatch();
 
-  const {handleUploadUserResouce} = useHandleSaveFile();
+  const {handleUploadUserResouce, handleVerifyEKYCSubmit} = useHandleSaveFile();
 
   useEffect(() => {
     dispatch(clearLoadingScreen());
@@ -75,7 +78,7 @@ const useRNTrueId = () => {
                   identityNumber,
                 });
               }
-              handleEkycSubmit(data);
+              handleEkycSubmit(data, data?.passportImage);
             } else {
               // handle error
               console.log('errorMesssage : ', result.errorMessage);
@@ -120,7 +123,7 @@ const useRNTrueId = () => {
                 });
               }
               const data: ekycDataType = result.idInfo;
-              handleEkycSubmit(data);
+              handleEkycSubmit(data, result.rawImage?.selfie);
             } else {
               // handle error
               console.log('errorMesssage : ', result.errorMessage);
@@ -179,7 +182,7 @@ const useRNTrueId = () => {
                 origin: result.idInfo?.id_origin?.value,
                 oldIdNumber: result.idInfo?.id_old_number?.value,
               };
-              handleEkycSubmit(data);
+              handleEkycSubmit(data, result?.rawImage?.selfie);
               // console.log('final data', parsePassportData(result.nfcInfo));
             } else {
               // handle error
@@ -206,9 +209,48 @@ const useRNTrueId = () => {
     startEkyc(type);
   };
 
-  const handleEkycSubmit = (ekycData: ekycDataType | webEkycDataType) => {
+  const handleEkycSubmit = async (
+    ekycData: ekycDataType | webEkycDataType,
+    selfieImg?: string,
+  ) => {
     dispatch(setVerifyAccount(ekycData));
-    appNavigate(ScreenParamEnum.ReviewCustomerEKYCInfo);
+    if (type === OTPTypesEnum.ESIGN) {
+      try {
+        const result = await handleVerifyEKYCSubmit({
+          id: dataSaleInfo?.saleImportId ?? '',
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          selfieImg: selfieImg ?? '',
+          idCardIssuedAt: ekycData?.doi?.toString() ?? '',
+          idCardIssuedBy: ekycData?.givenPlace?.toString() ?? '',
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+        });
+        if (!result) {
+          showCommonErrorToast();
+          return;
+        }
+        const responseContract = await downloadDraftContractApi({
+          token: dataSaleInfo?.tokenEsign ?? '',
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          id: Number(dataSaleInfo?.saleImportId ?? 0),
+          phoneNumber: dataSaleInfo?.phoneNumber ?? '',
+        });
+        if (responseContract) {
+          appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+            uri: responseContract,
+            isVerifyEKYC: true,
+          });
+        } else {
+          showCommonErrorToast();
+          return;
+        }
+      } catch {
+        showCommonErrorToast();
+      } finally {
+        dispatch(clearLoadingScreen());
+      }
+    } else {
+      appNavigate(ScreenParamEnum.ReviewCustomerEKYCInfo);
+    }
   };
 
   return {

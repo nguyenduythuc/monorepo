@@ -299,6 +299,87 @@ export const FieldVerifyAccount: Record<string, FieldConfig> = {
   },
 };
 
+export const FieldESignForSale: Record<string, FieldConfig> = {
+  ESignPhoneNumber: {
+    label: 'ESign.phonenumber',
+    controlProps: {
+      name: 'phoneNumber',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        pattern: {
+          value: REGEX.phone,
+          message: 'Validation.phonenumber',
+        },
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+        },
+      },
+    },
+    keyboardType: 'numeric',
+    type: FieldType.TextInput,
+    placeholder: 'ESign.phonenumberPlaceholder',
+    containerStyle: 'mt-4',
+  },
+  ESignPersonalCard: {
+    label: 'ESign.idCard',
+    controlProps: {
+      name: 'idCard',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+          if (!validateIdentityNumber(value)) {
+            return 'Validation.idCard';
+          }
+        },
+      },
+    },
+    type: FieldType.TextInput,
+    keyboardType: 'numeric',
+    placeholder: 'ESign.idCardPlaceholder',
+    containerStyle: 'mt-4',
+  },
+};
+
+export const FieldCheckNapas: Record<string, FieldConfig> = {
+  CheckNapasBankList: {
+    label: 'ProfileInformation.bankName',
+    type: FieldType.SelectDropdown,
+    controlProps: {
+      name: 'bankName',
+      rules: {required: 'Validation.fieldIsRequirement'},
+    },
+    placeholder: 'Simulate.chooseLoanProduct',
+  },
+  CheckNapasBankAccount: {
+    label: 'ProfileInformation.bankAccountNum',
+    controlProps: {
+      name: 'bankAccount',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+        pattern: {
+          value: REGEX.phone,
+          message: 'Validation.phonenumber',
+        },
+        validate: (value: string) => {
+          if (!validateOnlyNumberFloat(value)) {
+            return 'Validation.mustBeANumber';
+          }
+        },
+      },
+    },
+    type: FieldType.TextInput,
+    keyboardType: 'numeric',
+    // placeholder: 'VerifyAccount.phonenumberPlaceholder',
+    containerStyle: 'mt-4',
+    // textInputStyle: 'text-xl font-medium',
+  },
+};
+
 export const FieldSimulateConfig: Record<string, FieldConfig> = {
   SimulateLoanAmount: {
     label: 'Simulate.loanAmount',

@@ -2,6 +2,8 @@
 import {OTPTypes} from '@lfvn-customer/shared/types';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {UploadESignForSaleFile} from './services/eSignForSaleTypes';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
 export type RootParamList = {
   home: undefined;
@@ -33,7 +35,11 @@ export type RootParamList = {
     phoneNumber: string;
     identityNumber: string;
   };
-  'verify-customer-info': undefined;
+  'verify-customer-info':
+    | {
+        type: OTPTypes;
+      }
+    | undefined;
   'review-customer-ekyc-info': undefined;
   'success-account-register': {
     phoneNumber: string;
@@ -46,7 +52,10 @@ export type RootParamList = {
     flowId: string;
     productCode: string;
   };
-  'vision-camera': undefined;
+  'vision-camera': {
+    doc: UploadESignForSaleFile;
+    setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+  };
   'change-password': {
     phoneNumber: string;
     identityNumber: string;
@@ -58,6 +67,30 @@ export type RootParamList = {
   'rbp-information': undefined;
   'review-loan-offer': undefined;
   'pre-scoring-pending-check': undefined;
+  'upload-docs-esign-for-sale': undefined;
+  'detail-folder': {
+    folderEncoded: string;
+  };
+  'zoom-rotate-image': {
+    uri: string;
+  };
+  'verify-idcard-esign-for-sale': {
+    saleImportId: string;
+    tokenEsign: string;
+  };
+  'check-napas': undefined;
+  'verify-idcontract-esign-for-sale': {
+    saleImportId: string;
+    tokenEsign: string;
+  };
+  'view-contract-esign-for-sale': {
+    uri: string;
+    isVerifyEKYC?: boolean;
+    isSignSuccess?: boolean;
+  };
+  'sign-contract-esign-for-sale-success': {
+    uri: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -87,6 +120,14 @@ export enum ScreenParamEnum {
   RBPInformation = 'rbp-information',
   ReviewLoanOffer = 'review-loan-offer',
   PreScoringPendingCheck = 'pre-scoring-pending-check',
+  UploadDocsEsignForSale = 'upload-docs-esign-for-sale',
+  DetailFolder = 'detail-folder',
+  ZoomRotateImage = 'zoom-rotate-image',
+  VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',
+  CheckNapas = 'check-napas',
+  VerifyIdContractEsignForSale = 'verify-idcontract-esign-for-sale',
+  ViewContractEsignForSale = 'view-contract-esign-for-sale',
+  SignContractESignForSaleSuccess = 'sign-contract-esign-for-sale-success',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -147,4 +188,41 @@ export type CifAndAplInformationRouteProps = RouteProp<
 export type SuccessAccountRegisterScreenRouteProps = RouteProp<
   RootParamList,
   'success-account-register'
+>;
+
+export type DetailFolderScreenRouteProps = RouteProp<
+  RootParamList,
+  'detail-folder'
+>;
+
+export type ZoomRotateImageScreenRouteProps = RouteProp<
+  RootParamList,
+  'zoom-rotate-image'
+>;
+
+export type VerifyIdCardEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'verify-idcard-esign-for-sale'
+>;
+
+export type VisionCameraRouteProps = RouteProp<RootParamList, 'vision-camera'>;
+
+export type VerifyIdContractEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'verify-idcontract-esign-for-sale'
+>;
+
+export type ViewContractEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'view-contract-esign-for-sale'
+>;
+
+export type VerifyCustomerInfoRouteProps = RouteProp<
+  RootParamList,
+  'verify-customer-info'
+>;
+
+export type SignContractESignForSaleSuccessRouteProps = RouteProp<
+  RootParamList,
+  'sign-contract-esign-for-sale-success'
 >;

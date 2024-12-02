@@ -12,6 +12,10 @@ const watchFolders = [
   path.resolve(rootPath, 'packages/shared'),
 ];
 
+const {
+  wrapWithReanimatedMetroConfig,
+} = require('react-native-reanimated/metro-config');
+
 // Resolver settings
 const resolver = {
   unstable_enableSymlinks: true, // Enable symlink support
@@ -22,4 +26,7 @@ const config = {
   resolver,
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(
+  getDefaultConfig(__dirname),
+  wrapWithReanimatedMetroConfig(config),
+);

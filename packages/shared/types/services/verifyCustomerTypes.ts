@@ -30,6 +30,7 @@ export type webEkycDataType = {
   id_number?: webEkycDetailObject;
   id_old_number?: webEkycDetailObject;
   dob?: webEkycDetailObject;
+  givenPlace?: webEkycDetailObject;
   doi?: webEkycDetailObject;
   due_date?: webEkycDetailObject;
   name?: webEkycDetailObject;

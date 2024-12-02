@@ -327,10 +327,10 @@
   },
   "AdditionalInfo": {
     "chooseUploadMethod": "Choose the upload method",
-    "upload": "Upload",
-    "uploadDes": "Click to choose file upload",
-    "folder": "Folder",
-    "files": "files",
+    "upload": "Tải lên",
+    "uploadDes": "Nhấn để chọn tệp tải lên",
+    "folder": "Thư mục tải lên",
+    "files": "{length}files",
     "camera": "Camera",
     "choosePhoto": "Choose Photo",
     "uploadFiles": "Upload Files"
@@ -357,5 +357,83 @@
     "confirmTitle": "Vui lòng xác nhận thông tin để tiếp tục hoàn thiện hồ sơ vay",
     "editLoanInfo": "Sửa thông tin vay",
     "confirm": "Xác nhận"
+  },
+  "UploadDocsESignForSale": {
+    "title": "Cung cấp hồ sơ",
+    "desc": "Danh sách tài liệu cần hoàn thiện trước khi nộp đơn",
+    "cccd": "Căn cước công dân mặt trước và mặt sau",
+    "avatar": "Ảnh chân dung",
+    "address": "Giấy tờ chứng minh cư trú hoặc chứng từ tương đương",
+    "degree": "Văn bằng",
+    "resume": "Sơ yếu lý lịch",
+    "bankInfo": "Ảnh thông tin tài khoản ngân hàng",
+    "upload": "Tải hồ sơ lên",
+    "missingFile": "Vui lòng tải lên tất cả các tài liệu cần thiết"
+  },
+  "DetailFolder": {
+    "selectedAll": "Chọn tất cả",
+    "removeAttachment": "Xóa tệp đính kèm",
+    "removeGuide": "Bạn có thể giữ chọn ảnh để xóa",
+    "removeAlertTitle": "Xóa tệp tin",
+    "removeAlertDesc": "Bạn chắc chắn muốn xóa những tệp tin đính kèm đã chọn?",
+    "cancel": "Hủy bỏ",
+    "confirm": "Gỡ tệp tin",
+    "file": "Tệp tin",
+    "choose": "Đã chọn"
+  },
+  "VerifyIdCardESignForSale": {
+    "title": "Nhập số CCCD",
+    "desc": "Vui lòng nhập thông tin CCCD để hoàn thiện đăng ký",
+    "continue": "Tiếp theo",
+    "checkFail": "Thông tin CCCD không chính xác, vui lòng kiểm tra lại",
+    "checkNapas": "Kiểm tra Napas",
+    "checkNapasDesc": "Vui lòng nhập thông tin tài khoản ngân hàng"
+  },
+  "ProfileInformation": {
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "ward": "Phường/Xã",
+    "detailAdd": "Địa chỉ chi tiết",
+    "occupation": "Nghề nghiệp",
+    "monthlyIncome": "Thu nhập hàng tháng",
+    "companyName": "Tên cơ quan",
+    "workplace": "Cơ quan/nơi làm việc",
+    "referralRelationship": "Quan hệ với người đăng ký",
+    "bankName": "Ngân hàng",
+    "bankAccountNum": "Số tài khoản",
+    "bankAccountName": "Tên tài khoản",
+    "residenceAddress": "Địa chỉ cư trú",
+    "registerAddress": "Địa chỉ đăng ký hộ khẩu",
+    "occupationInformation": "Thông tin việc làm",
+    "workPlaceInformation": "Thông tin nơi làm việc",
+    "companyAddress": "Địa chỉ nơi làm việc",
+    "beneficiary": "Ngân hàng",
+    "phoneNumber": "Số điện thoại"
+  },
+  "ESign": {
+    "phonenumber": "Số điện thoại",
+    "phonenumberPlaceholder": "Nhập số điện thoại",
+    "idCard": "Số CCCD",
+    "idCardPlaceholder": "Nhập số CCCD",
+    "idContract": "Mã APL",
+    "idContractPlaceholder": "Nhập mã APL"
+  },
+  "VerifyIdContractESignForSale": {
+    "title": "Nhập thông tin hợp đồng",
+    "desc": "Vui lòng cung cấp thêm thông tin để hoàn thiện đăng ký",
+    "continue":"Tiếp theo",
+    "checkFail": "Thông tin CCCD hoặc Số điện thoại không chính xác, vui lòng kiểm tra lại",
+    "ok": "OK",
+    "contentPopup": "Bạn đã hoàn thành quá trình xác thực thông tin cá nhân. Vui lòng không thoát ứng dụng và tiếp tục các bước ký hợp đồng E-Contract"
+  },
+  "SignContractESignForSaleSuccess": {
+    "title": "E-Signing",
+    "desc": "Quá trình ký hợp đồng điện tử đã hoàn tất\n\nCảm ơn bạn đã tin tưởng và sử dụng dịch vụ của LOTTE Finance Vietnam\n\nHợp đồng điện tử sẽ được gửi tới hòm thư của bạn. Nếu không nhận được email, vui lòng tải hợp đồng về thiết bị của bạn. Mật khẩu của hợp đồng là số CCCD/CMND.\n\n\nXin cảm ơn!",
+    "downloadContract": "Tải hợp đồng",
+    "home": "Trang chủ"
+  },
+  "ViewContractESignForSale": {
+    "title": "Ký hợp đồng E-Sign",
+    "desc": "Quý khách vui lòng kiểm tra kỹ hợp đồng đã ký eSign"
   }
 }

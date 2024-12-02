@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@use-gesture/react": "^10.3.1",
     "dotenv": "16.4.5",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
@@ -16,8 +17,12 @@
     "https": "^1.0.0",
     "next": "14.2.3",
     "next-intl": "^3.15.2",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.8.69",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-pdf": "^9.1.1",
+    "react-spring": "^9.7.4"
   },
   "devDependencies": {
     "@types/node": "^20",

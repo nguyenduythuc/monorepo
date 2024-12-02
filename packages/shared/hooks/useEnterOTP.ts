@@ -1,4 +1,8 @@
-import {useResendOTPMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {
+  useOtpResendBaseMutation,
+  useResendOTPMutation,
+  useResendOTPSignContractMutation,
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
 import {API_SUCCESS_MESSAGE} from '@lfvn-customer/shared/utils/constants';
 import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
@@ -8,12 +12,14 @@ import useTranslations from './useTranslations';
 import {useConfigRouting} from './routing';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 import {ErrorResponseProps} from '@lfvn-customer/shared/types/services';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 const CELL_COUNT = 6;
 const useEnterOTP = ({
   authSeq,
   phoneNumber,
   identityNumber,
+  type,
 }: {
   authSeq: string;
   phoneNumber: string;
@@ -22,8 +28,12 @@ const useEnterOTP = ({
 }) => {
   const t = useTranslations();
   const [resendOTP, {error}] = useResendOTPMutation();
+  const [resendOTPESign] = useOtpResendBaseMutation();
+  const [resendOTPSignContract] = useResendOTPSignContractMutation();
   const {handleShowToast, showCommonErrorToast} = useShowToast();
   const {goBack} = useConfigRouting();
+
+  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [counter, setCounter] = useState(180); // Đếm ngược từ 180 giây (3 phút)
@@ -64,12 +74,41 @@ const useEnterOTP = ({
 
   const onPressResendOTP = async () => {
     Keyboard.dismiss();
-    const result = await resendOTP({
-      phoneNumber,
-      identityNumber,
-      authSeq,
-      type: 'AUTH',
-    });
+    let result;
+    switch (type) {
+      case OTPTypesEnum.LOGIN_OTP:
+        result = await resendOTP({
+          phoneNumber,
+          identityNumber,
+          authSeq,
+          type: 'AUTH',
+        });
+        break;
+      case OTPTypesEnum.ESIGN:
+        result = await resendOTPESign({
+          phoneNumber: dataSaleInfo?.phoneNumber ?? '',
+          identityNumber: dataSaleInfo?.idCardNumber ?? '',
+          authSeq,
+          type: OTPTypesEnum.ESIGN,
+        });
+        break;
+      case OTPTypesEnum.CONFIRM_ESIGN:
+        result = await resendOTPSignContract({
+          id: Number(dataSaleInfo?.saleImportId ?? 0),
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+        });
+        break;
+      // eslint-disable-next-line sonarjs/no-duplicated-branches
+      default:
+        result = await resendOTP({
+          phoneNumber,
+          identityNumber,
+          authSeq,
+          type: 'AUTH',
+        });
+        break;
+    }
     if (result.data) {
       setIsModalVisible(true);
       setCounter(180);

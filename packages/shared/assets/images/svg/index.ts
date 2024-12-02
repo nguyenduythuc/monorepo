@@ -37,8 +37,8 @@ export * from './TimeMoneyIcon';
 export * from './PhoneOCRIcon';
 export * from './HintIcon';
 export * from './BgInProgressApplication';
-export * from './AddressCardIcon'
-export * from './UndoIcon'
+export * from './AddressCardIcon';
+export * from './UndoIcon';
 export * from './ProfileIcon';
 export * from './BeneficiaryIcon';
 export * from './OccupationIcon';
@@ -49,3 +49,7 @@ export * from './FolderIcon';
 export * from './UploadIcon';
 export * from './CameraIcon';
 export * from './PhotoIcon';
+export * from './PhotoIcon';
+export * from './TrashIcon';
+export * from './CloseIcon';
+export * from './RotatePhoneIcon';

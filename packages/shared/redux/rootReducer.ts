@@ -5,6 +5,7 @@ import authReducer from './slices/authSlice';
 import publicReducer from './slices/publicSlices';
 import productReducer from './slices/productSlices';
 import loadingSlices from './slices/loadingSlices';
+import eSignForSaleSlice from './slices/eSignForSaleSlice';
 import verifyAccountSlices from './slices/verifyAccountSlices';
 import LoanAplSlices from './slices/LoanAplSlices';
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   loading: loadingSlices,
   verifyAccount: verifyAccountSlices,
   loanApl: LoanAplSlices,
+  eSignForSale: eSignForSaleSlice,
 });
 
 export default rootReducer;

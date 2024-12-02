@@ -1,18 +1,22 @@
 import {useDispatch} from 'react-redux';
 import {
   useLazyActiveQuery,
+  useOtpResendBaseMutation,
   useResendOTPMutation,
+  useResendOTPSignContractMutation,
   useVerifyOTPMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useEffect, useState} from 'react';
-import {API_SUCCESS_MESSAGE} from '../utils/constants';
-import {handleResponseOTPGenerateAPI} from '../utils/handleResponseAPI';
+import {API_SUCCESS_MESSAGE} from '@lfvn-customer/shared/utils/constants';
+import {handleResponseOTPGenerateAPI} from '@lfvn-customer/shared/utils/handleResponseAPI';
 import {Keyboard} from 'react-native';
 import useAuth from './useAuth';
-import {setToken} from '../redux/slices/authSlice';
+import {setToken} from '@lfvn-customer/shared/redux/slices/authSlice';
 import {useConfigRouting} from './routing';
 import useShowToast from './useShowToast';
-import {VerifyOTPResponseProps} from '../types/services';
+import {VerifyOTPResponseProps} from '@lfvn-customer/shared/types/services';
+import {OTPTypesEnum} from '@lfvn-customer/shared/types';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 const CELL_COUNT = 6;
 const useEnterOTP = ({
@@ -30,8 +34,14 @@ const useEnterOTP = ({
 }) => {
   const [verifyOTP, {isError: isVerifyError}] = useVerifyOTPMutation();
   const [resendOTP, {isError: isResendError}] = useResendOTPMutation();
+  const [resendOTPESign, {isError: isResendESignError}] =
+    useOtpResendBaseMutation();
+  const [resendOTPSignContract, {isError: isResendOTPSignContracError}] =
+    useResendOTPSignContractMutation();
   const [active] = useLazyActiveQuery();
   const {onHandleGetUserProfile} = useAuth();
+
+  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [value, setValue] = useState('');
@@ -57,13 +67,13 @@ const useEnterOTP = ({
   }, [isVerifyError]);
 
   useEffect(() => {
-    if (isResendError) {
+    if (isResendError || isResendESignError || isResendOTPSignContracError) {
       handleShowToast({
         msg: t('EnterOTP.msgResendFail'),
         type: 'error',
       });
     }
-  }, [isResendError]);
+  }, [isResendError, isResendESignError, isResendOTPSignContracError]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -78,23 +88,32 @@ const useEnterOTP = ({
   useEffect(() => {
     (async () => {
       if (value.length === CELL_COUNT) {
-        const result =
-          type === 'LOGIN_OTP'
-            ? await verifyOTP({
-                authSeq,
-                code: value,
-                type: 'AUTH',
-              })
-            : type === 'SIGN_UP'
-              ? await active({
-                  key: authSeq,
-                  otp: value,
-                })
-              : await verifyOTP({
-                  authSeq,
-                  code: value,
-                  type: 'AUTH',
-                }); // TODO : handle case forgot password
+        let result;
+        switch (type) {
+          case OTPTypesEnum.LOGIN_OTP:
+            result = await verifyOTP({
+              authSeq,
+              code: value,
+              type: 'AUTH',
+            });
+            break;
+
+          case OTPTypesEnum.SIGN_UP:
+            result = await active({
+              key: authSeq,
+              otp: value,
+            });
+            break;
+
+          // eslint-disable-next-line sonarjs/no-duplicated-branches
+          default:
+            result = await verifyOTP({
+              authSeq,
+              code: value,
+              type: 'AUTH',
+            });
+            break;
+        }
         const responseCode = handleResponseOTPGenerateAPI(result.data?.code);
         if (responseCode.msg !== API_SUCCESS_MESSAGE) {
           if (responseCode.type === 'toast') {
@@ -104,17 +123,29 @@ const useEnterOTP = ({
             });
           }
         } else {
-          handleShowToast({
-            msg:
-              type === 'LOGIN_OTP'
-                ? 'Đăng nhập thành công'
-                : 'Đăng ký thành công', // TODO : handle case forgot password
-            type: 'success',
-          });
-          if (type === 'LOGIN_OTP') {
-            dispatch(setToken((result.data as VerifyOTPResponseProps)?.token));
-            onHandleGetUserProfile();
-            // navigation.popToTop();
+          let msgSuccess = '';
+          switch (type) {
+            case OTPTypesEnum.LOGIN_OTP:
+              msgSuccess = 'Login.loginSuccess';
+              dispatch(
+                setToken((result.data as VerifyOTPResponseProps)?.token),
+              );
+              onHandleGetUserProfile();
+              break;
+            case OTPTypesEnum.SIGN_UP:
+              msgSuccess = 'SignUp.signUpSuccess';
+              break;
+            case OTPTypesEnum.ESIGN:
+              break;
+            default:
+              msgSuccess = '';
+              break;
+          }
+          if (msgSuccess) {
+            handleShowToast({
+              msg: msgSuccess,
+              type: 'success',
+            });
           }
         }
       }
@@ -123,12 +154,42 @@ const useEnterOTP = ({
 
   const onPressResendOTP = async () => {
     Keyboard.dismiss();
-    const result = await resendOTP({
-      phoneNumber,
-      identityNumber,
-      authSeq,
-      type: 'AUTH',
-    });
+    let result;
+    switch (type) {
+      case OTPTypesEnum.LOGIN_OTP:
+        result = await resendOTP({
+          phoneNumber,
+          identityNumber,
+          authSeq,
+          type: 'AUTH',
+        });
+        break;
+
+      case OTPTypesEnum.ESIGN:
+        result = await resendOTPESign({
+          phoneNumber: dataSaleInfo?.phoneNumber ?? '',
+          identityNumber: dataSaleInfo?.idCardNumber ?? '',
+          authSeq,
+          type: OTPTypesEnum.ESIGN,
+        });
+        break;
+      case OTPTypesEnum.CONFIRM_ESIGN:
+        result = await resendOTPSignContract({
+          id: Number(dataSaleInfo?.saleImportId ?? 0),
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+        });
+        break;
+      // eslint-disable-next-line sonarjs/no-duplicated-branches
+      default:
+        result = await resendOTP({
+          phoneNumber,
+          identityNumber,
+          authSeq,
+          type: 'AUTH',
+        });
+        break;
+    }
     if (result.data) {
       setCounter(180);
       setIsCounting(true);

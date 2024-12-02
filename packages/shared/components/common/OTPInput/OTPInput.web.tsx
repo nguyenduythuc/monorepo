@@ -30,6 +30,7 @@ export const OTPInput = ({
       containerStyle={tw.style('justify-around mt-8')}
       inputStyle={tw.style('border-red-500 border rounded-10px w-50px h-50px')}
       renderInput={props => <input {...props} />}
+      inputType="number"
     />
   );
 };

@@ -10,6 +10,11 @@ import {BaseModal} from '../AppModal';
 import {SelectFileButton} from './SelectFileButton';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {UploadESignForSaleFile} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
+import {useGetTheme} from '../../../hooks/useGetTheme';
+import {useDispatch} from 'react-redux';
+import moment from 'moment';
 
 const parseNumber = (text: string) => {
   if (!text) return 0;
@@ -27,10 +32,21 @@ const generateFileType = (path: string) => {
   return arr![length - 1].toLowerCase();
 };
 
-export const FileOptionModal = ({}) => {
+export const FileOptionModal = ({
+  doc,
+  setDoc,
+  handleOpenFolder,
+}: {
+  doc?: UploadESignForSaleFile;
+  setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+  handleOpenFolder: (doc: UploadESignForSaleFile) => void;
+}) => {
   const fileOptionModalRef = useRef<any>(null);
 
   const {appNavigate} = useConfigRouting();
+  const {theme} = useGetTheme();
+
+  const {textNegative500} = theme;
 
   const t = useTranslations();
 
@@ -62,6 +78,10 @@ export const FileOptionModal = ({}) => {
     [sizeLarge, t],
   );
 
+  if (!doc) {
+    return null;
+  }
+
   const uploadFile = async () => {
     try {
       console.log('uploadFile');
@@ -85,13 +105,13 @@ export const FileOptionModal = ({}) => {
           // types.audio,
         ],
       });
-      console.log('pickerListResult', pickerListResult);
       onClose();
 
       const filterPicker = pickerListResult.filter(i => checkFileLarge(i));
       const path = decodeURI(filterPicker[0].fileCopyUri || '');
       const fileType = generateFileType(path);
       // let index = 0
+      handleFileChange(path);
       console.log('fileType', fileType);
     } catch (e) {
       console.log('bb error');
@@ -112,34 +132,60 @@ export const FileOptionModal = ({}) => {
       const paths = pickerListResult.map(item => ({path: item.path}));
 
       console.log(paths);
+      handleFileChange(paths[0].path);
     } catch (error) {
       // setloading(false)
       console.log('bb error', error);
     }
   };
 
+  const dispatch = useDispatch();
+
   const handleOpenCamera = async () => {
-    console.log('ScreenParamEnum.VisionCamera');
     onClose();
-    appNavigate(ScreenParamEnum.VisionCamera);
+    appNavigate(ScreenParamEnum.VisionCamera, {doc: doc, setDoc: setDoc});
+  };
+
+  const handleFileChange = (imageUrl: string) => {
+    // const imageUrl = URL.createObjectURL(file);
+    dispatch(
+      setDoc({
+        ...doc,
+        links: [
+          ...doc.links,
+          {
+            id: moment().format(),
+            uri: imageUrl,
+          },
+        ],
+      }),
+    );
   };
 
   return (
-    <>
-      <View style={tw.style('flex-1 flex-row justify-between gap-3')}>
-        <SelectFileButton
-          icon="upload-circle-icon"
-          title="AdditionalInfo.upload"
-          description="AdditionalInfo.uploadDes"
-          customStyle="border-dashed  border-blue-500"
-          onPress={onOpen}
-        />
-        <SelectFileButton
-          icon="folder-icon"
-          title="AdditionalInfo.folder"
-          description="AdditionalInfo.files"
-          customStyle="bg-white"
-        />
+    <View>
+      <View style={tw.style('mt-4')}>
+        <Text style={tw`${textNegative500} font-semibold text-base mb-2`}>
+          {doc.title}
+        </Text>
+        <View style={tw.style('flex-1 flex-row justify-between gap-3')}>
+          <SelectFileButton
+            icon="upload-circle-icon"
+            title={t('AdditionalInfo.upload')}
+            description={t('AdditionalInfo.uploadDes')}
+            customStyle="border-dashed  border-blue-500"
+            onPress={onOpen}
+          />
+          <SelectFileButton
+            icon="folder-icon"
+            title={t('AdditionalInfo.folder')}
+            description={t('AdditionalInfo.files', {
+              length: doc.links.length ? doc.links.length + ' ' : '0 ',
+            })}
+            customStyle="bg-white"
+            onPress={() => handleOpenFolder(doc)}
+          />
+        </View>
       </View>
 
       <BaseModal ref={fileOptionModalRef}>
@@ -158,23 +204,23 @@ export const FileOptionModal = ({}) => {
             <View style={tw.style('flex-row justify-between gap-3 mb-3')}>
               <SelectFileButton
                 icon="camera-icon"
-                title="AdditionalInfo.camera"
+                title={t('AdditionalInfo.camera')}
                 onPress={handleOpenCamera}
               />
               <SelectFileButton
                 icon="photo-icon"
-                title="AdditionalInfo.choosePhoto"
+                title={t('AdditionalInfo.choosePhoto')}
                 onPress={handleSelectPicture}
               />
             </View>
             <SelectFileButton
               icon="upload-icon"
-              title="AdditionalInfo.uploadFiles"
+              title={t('AdditionalInfo.uploadFiles')}
               onPress={uploadFile}
             />
           </View>
         </View>
       </BaseModal>
-    </>
+    </View>
   );
 };

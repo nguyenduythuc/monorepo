@@ -81,7 +81,7 @@ const useHandleInputAdditionalInfo = ({
   const dispatch = useDispatch();
 
   const [listBank] = useGetBankListDataMutation();
-  const [listBankOption, setListOption] = useState<
+  const [listBankOption, setListBankOption] = useState<
     {
       code: string;
       name: string;
@@ -106,7 +106,7 @@ const useHandleInputAdditionalInfo = ({
           });
         }
       });
-      setListOption(options);
+      setListBankOption(options);
     } else {
       console.log('error', result.error);
     }
