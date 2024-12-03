@@ -19,7 +19,6 @@
     "react-hook-form": "^7.52.0",
     "react-native": "0.75.4",
     "react-native-biometrics": "^3.0.1",
-    "react-native-blob-util": "0.17.3",
     "react-native-config": "^1.5.2",
     "react-native-confirmation-code-field": "^7.4.0",
     "react-native-date-picker": "^5.0.7",
