@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {CustomButton} from './BaseButton';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import eventEmitter from '@lfvn-customer/shared/utils/eventEmitter';

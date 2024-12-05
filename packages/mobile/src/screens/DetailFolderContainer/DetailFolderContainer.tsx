@@ -1,10 +1,7 @@
 import React from 'react';
-import {StatusBar, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {View} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import {Appbar} from '@lfvn-customer/shared/components';
 import {DetailFolderScreen} from '@lfvn-customer/shared/screens';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useRoute} from '@react-navigation/native';
 import {DetailFolderScreenRouteProps} from '@lfvn-customer/shared/types/paramtypes';
 

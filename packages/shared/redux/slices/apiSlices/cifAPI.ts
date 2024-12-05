@@ -4,7 +4,6 @@ import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
 import {
   GetLocalListRequestProps,
-  AddressLocalListResponseProps,
   BankListResponseProps,
   OccupationListResponseProps,
 } from '@lfvn-customer/shared/types/services/localAddressType';

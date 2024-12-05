@@ -8,11 +8,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import useHandleInputAdditionalInfo from '../../hooks/useHandleInputAdditionalInfo';
 // import useHandleInputAdditionalInfo from '../../hooks/useHandleInputAdditionalInfo';
 
-const AddOtherIdentificationDoc = ({
-  stepNumber,
-  control,
-  watch,
-}: QuestionField) => {
+const AddOtherIdentificationDoc = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

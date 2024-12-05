@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {CustomButton} from '../Button';

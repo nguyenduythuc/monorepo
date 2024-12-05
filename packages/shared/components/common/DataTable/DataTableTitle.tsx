@@ -15,7 +15,6 @@ export const DataTableTitle = ({
   width,
   textStyle = '',
   children,
-  ...rest
 }: DataTableTitleProps) => {
   const headerCellWidth = width ? `w-[${width}px]` : `w-auto`;
 

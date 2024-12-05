@@ -27,10 +27,10 @@ const loanAplSlice = createSlice({
     setAplAddressData: (state, action) => {
       state.aplAddressCode = action.payload;
     },
-    clearAplAddressData: (state, action) => {
+    clearAplAddressData: state => {
       state.aplAddressCode = undefined;
     },
-    clearAplData: (state, action) => {
+    clearAplData: state => {
       state.aplData = undefined;
     },
     clearDeviceInfo: state => {

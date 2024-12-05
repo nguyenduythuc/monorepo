@@ -2,7 +2,6 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {Icon, IconKeys} from '../Icon';
-import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {InfoDataCard} from '../InfoDataCard';
 import {LoanReviewInfoProps} from '@lfvn-customer/shared/types/services/loanTypes';
 
@@ -15,8 +14,6 @@ type InformationProps = {
 };
 
 export const InformationTab: React.FC<InformationProps> = ({tabData}) => {
-  const t = useTranslations();
-
   const [showTab, setShowTab] = useState(-1);
 
   const openCloseTab = (id: number) => {

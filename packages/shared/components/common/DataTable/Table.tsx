@@ -35,13 +35,8 @@ export const CustomTable: FC<CustomTableProps> = ({
   fixedLeftColumn,
   fixedRightColumn,
   columnStyles = [],
-  onRowPress,
-  hasAction,
 }) => {
   const totalResult = 50;
-  const getRowData = (rowData: TableColumn) => {
-    onRowPress(rowData);
-  };
 
   const [page, setPage] = useState(1);
 

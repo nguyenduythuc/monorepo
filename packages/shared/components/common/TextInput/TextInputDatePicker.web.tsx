@@ -1,6 +1,6 @@
 import React, {forwardRef, useMemo, useState} from 'react';
 import {ITextInputProps} from '@lfvn-customer/shared/types';
-import {View, Text, TextInput as NativeTextInput, Platform} from 'react-native';
+import {View, TextInput as NativeTextInput} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {TextInputBase} from './TextInputBase';
 import {Icon} from '../Icon';
@@ -38,7 +38,6 @@ export const TextInputDatePicker = forwardRef<NativeTextInput, ITextInputProps>(
       // Call the onChangeValue function with the formatted value
       onChangeValue(formattedValue);
     };
-    const [date, setDate] = useState(new Date()); // Default date is today's date
 
     const handleDateChange = (selectedDate: DateType) => {
       // Format the date to MM/YYYY

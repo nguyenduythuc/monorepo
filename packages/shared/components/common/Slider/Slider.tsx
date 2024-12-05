@@ -18,13 +18,11 @@ export interface BaseSliderProps {
 export const BaseSlider = ({
   maxValue = 1,
   minValue = 0,
-  defaultValue = minValue,
   step,
   sliderValue,
   disabled,
   color = 'red',
   onChangeSlider,
-  ...props
 }: BaseSliderProps) => {
   return (
     <View

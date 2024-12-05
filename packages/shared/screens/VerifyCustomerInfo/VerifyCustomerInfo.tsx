@@ -6,7 +6,6 @@ import {
   Appbar,
   Checkbox,
   CustomButton,
-  FileOptionModal,
   Icon,
   Image,
   RadioButton,

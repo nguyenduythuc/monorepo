@@ -27,7 +27,6 @@ export const SliderWithTextInput = ({
   value,
   defaultValue,
   onChangeText,
-  ...props
 }: SliderWithTextInputProps) => {
   const formatterVND = new Intl.NumberFormat('vn-VN', {
     style: 'currency',

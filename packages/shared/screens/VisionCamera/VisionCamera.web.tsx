@@ -5,7 +5,5 @@ export type ImageType = {
 };
 
 export const VisionCamera = () => {
-  const takePhoto = async () => {};
-
   return <></>;
 };

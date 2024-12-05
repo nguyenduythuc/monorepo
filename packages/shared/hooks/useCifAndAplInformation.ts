@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useConfigRouting} from './routing';
 import {
   //   useCheckTRAndProductMutation,
@@ -33,7 +33,7 @@ const useCifAndAplInformation = ({flowId}: {flowId: string}) => {
   const {handleShowToast} = useShowToast();
 
   const t = useTranslations();
-  const {appNavigate, goBack} = useConfigRouting();
+  const {appNavigate} = useConfigRouting();
   const {requestPendingMetadata} = useAppSelector(state => state.product);
   const {onHandleSaveDaftAPL} = useHandleRequestPending();
   //   const [getCifInfo] = useLazyGetCifInfoQuery();

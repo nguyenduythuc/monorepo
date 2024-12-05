@@ -7,7 +7,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
 import Answer from '../Answers';
 
-const LoanPurpose = ({stepNumber, control, watch}: QuestionField) => {
+const LoanPurpose = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

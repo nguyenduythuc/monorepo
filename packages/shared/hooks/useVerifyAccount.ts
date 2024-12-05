@@ -35,13 +35,10 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
     FieldVerifyAccount.IdCard,
   ];
 
-  const [
-    verifyAccount,
-    {isLoading: verifyAccountLoading, error: verifyAccountError},
-  ] = useVerifyAccountMutation();
+  const [verifyAccount, {isLoading: verifyAccountLoading}] =
+    useVerifyAccountMutation();
 
-  const [register, {isError: errorRegister, isLoading: loadingRegister}] =
-    useRegisterMutation();
+  const [register, {isLoading: loadingRegister}] = useRegisterMutation();
 
   const [
     generateOTP,
@@ -67,13 +64,14 @@ const useVerifyAccount = ({type}: {type: OTPTypesEnum}) => {
         const data = (generateOTPError as ErrorResponseProps)?.data;
         const errorCode = JSON.parse(data.detail).code;
         const responseCode = handleResponseOTPGenerateAPI(errorCode);
-        if (responseCode.msg !== API_SUCCESS_MESSAGE) {
-          if (responseCode.type === 'toast') {
-            handleShowToast({
-              msg: t(responseCode.msg),
-              type: 'error',
-            });
-          }
+        if (
+          responseCode.msg !== API_SUCCESS_MESSAGE &&
+          responseCode.type === 'toast'
+        ) {
+          handleShowToast({
+            msg: t(responseCode.msg),
+            type: 'error',
+          });
         }
       } catch {
         // handle cannot parse error

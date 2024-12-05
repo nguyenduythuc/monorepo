@@ -37,12 +37,10 @@ const useVerifyCustomerEkycInfo = ({ekycData}: {ekycData: ekycDataType}) => {
     appNavigate(ScreenParamEnum.Home);
   };
 
-  const [login, {isError, isLoading}] = useLoginMutation();
+  const [login, {isLoading}] = useLoginMutation();
 
-  const [
-    updateAccount,
-    {isError: updateAccountError, isLoading: updateAccountLoading},
-  ] = useUpdateAccountMutation();
+  const [updateAccount, {isLoading: updateAccountLoading}] =
+    useUpdateAccountMutation();
 
   const onInvalidInfoConfirm = () => {
     setIsModalInvalidInfo(false);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {CustomButton} from '@lfvn-customer/shared/components';
@@ -19,6 +19,9 @@ const ViewContractESignForSaleScreen = ({
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
+
+  console.log('isVerifyEKYC', isVerifyEKYC);
+  console.log('isSignSuccess', isSignSuccess);
 
   const {onPressSubmit} = useViewContractESignForSale();
 

@@ -7,7 +7,7 @@ import Answer from '../Answers';
 import useHandleLoanInformation from '@lfvn-customer/shared/hooks/useHandleLoanInformation';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
-const IncomePerMonth = ({stepNumber, control, watch}: QuestionField) => {
+const IncomePerMonth = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

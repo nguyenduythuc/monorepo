@@ -2,26 +2,13 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   AnswerType,
   InputAdditionalInfo,
-  LoanInformationAnswerName,
   StepProps,
 } from '@lfvn-customer/shared/types/models/stepModel';
 import {Control, FieldValues, useWatch} from 'react-hook-form';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
-import {ProductScheme} from '../types/services/productTypes';
-import useSimulateScreen from './useSimulateScreen';
 import eventEmitter, {
   EventEmitterEnum,
 } from '@lfvn-customer/shared/utils/eventEmitter';
-import {
-  marriedStatusOption,
-  residentSameAsID,
-  lifeInsuranceDuration,
-  defaultSelectProductInfo,
-} from '@lfvn-customer/shared/data/data';
-import {getVerifyAccountInfo} from '../utils/commonFunction';
-import {DEVICE_INFO} from '../utils/constants';
-import {useDispatch} from 'react-redux';
-import {setProductSelected} from '@lfvn-customer/shared/redux/slices/productSlices';
+import {residentSameAsID} from '@lfvn-customer/shared/data/data';
 import {useGetBankListDataMutation} from '../redux/slices/apiSlices';
 
 const idDocType = [
@@ -78,8 +65,6 @@ const useHandleInputAdditionalInfo = ({
   control: Control<FieldValues>;
   stepNumber: number;
 }) => {
-  const dispatch = useDispatch();
-
   const [listBank] = useGetBankListDataMutation();
   const [listBankOption, setListBankOption] = useState<
     {
@@ -111,6 +96,8 @@ const useHandleInputAdditionalInfo = ({
       console.log('error', result.error);
     }
   };
+
+  const descriptionDefault = 'JobInformation.desc';
 
   useEffect(() => {
     if (stepNumber === 1) {
@@ -169,10 +156,7 @@ const useHandleInputAdditionalInfo = ({
   });
 
   const selectAddressType = useMemo(() => {
-    if (infoHouseholdBookAddress === residentSameAsID[1].code) {
-      return false;
-    }
-    return true;
+    return infoHouseholdBookAddress !== residentSameAsID[1].code;
   }, [infoHouseholdBookAddress]);
 
   useEffect(() => {
@@ -297,7 +281,7 @@ const useHandleInputAdditionalInfo = ({
           return {
             id: 3,
             name: 'JobInformation.title',
-            description: 'JobInformation.desc',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',
@@ -305,7 +289,7 @@ const useHandleInputAdditionalInfo = ({
                   {
                     name: InputAdditionalInfo.JobInformation,
                     type: AnswerType.RadioButton,
-                    title: 'JobInformation.desc',
+                    title: descriptionDefault,
                     options: occupationList ?? [],
                   },
                 ],
@@ -316,7 +300,7 @@ const useHandleInputAdditionalInfo = ({
           return {
             id: 4,
             name: 'WorkingCompanyInformation.title',
-            description: 'JobInformation.desc',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',
@@ -349,7 +333,7 @@ const useHandleInputAdditionalInfo = ({
           return {
             id: 5,
             name: 'WorkingCompanyAddress.title',
-            description: 'JobInformation.desc',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',

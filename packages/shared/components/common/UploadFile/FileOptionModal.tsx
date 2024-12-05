@@ -64,16 +64,7 @@ export const FileOptionModal = ({
       const sizeInBytes = fileInfo.size ?? 1;
       const sizeInMB = (sizeInBytes / (1024 * 1024)).toFixed(2);
 
-      if (parseNumber(sizeInMB) > sizeLarge) {
-        // showMessage({
-        //     type: 'danger',
-        //     message: t('warning_size', { sizeInMB: sizeInMB, sizeLarge: sizeLarge }),
-        //     duration: 2000,
-        // })
-        return false;
-      } else {
-        return true;
-      }
+      return parseNumber(sizeInMB) <= sizeLarge;
     },
     [sizeLarge, t],
   );
@@ -114,7 +105,7 @@ export const FileOptionModal = ({
       handleFileChange(path);
       console.log('fileType', fileType);
     } catch (e) {
-      console.log('bb error');
+      console.log('bb error', e);
     }
   };
 

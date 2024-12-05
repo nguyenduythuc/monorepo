@@ -18,7 +18,6 @@ export const DataTableCell = ({
   width,
   children,
   onPress,
-  ...rest
 }: DataTableCellProps) => {
   const cellWidth = width ? `w-[${width}px]` : `w-auto`;
 

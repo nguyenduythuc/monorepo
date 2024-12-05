@@ -2,7 +2,6 @@ import React from 'react';
 import {AnswerProps} from '@lfvn-customer/shared/types/models/stepModel';
 import {Control, Controller} from 'react-hook-form';
 import {TextInputDatePicker} from '../common';
-import {View} from 'react-native';
 
 const CalendarDatePickerAnswer = ({
   answer,

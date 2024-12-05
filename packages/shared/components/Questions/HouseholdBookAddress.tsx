@@ -8,7 +8,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import useHandleInputAdditionalInfo from '../../hooks/useHandleInputAdditionalInfo';
 // import useHandleInputAdditionalInfo from '../../hooks/useHandleInputAdditionalInfo';
 
-const HouseholdBookAddress = ({stepNumber, control, watch}: QuestionField) => {
+const HouseholdBookAddress = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 
