@@ -30,6 +30,9 @@ import {
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
 import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 import {SignContractResponseProps} from '../types/services/eSignForSaleTypes';
+import {Platform} from 'react-native';
+import RNFS from 'react-native-fs';
+import moment from 'moment';
 
 const useHandleVerifyOTP = ({
   value,
@@ -218,20 +221,36 @@ const useHandleVerifyOTP = ({
               const pdfBase64 = (result.data as SignContractResponseProps)
                 ?.signedFileData;
               const prefixedBase64 = `data:application/pdf;base64,${pdfBase64}`;
-              fetch(prefixedBase64)
-                .then(res => res.blob())
-                .then(blob => {
-                  const url = URL.createObjectURL(blob);
-                  // create url from blob
-                  const uri = URL.createObjectURL(blob);
-                  appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-                    uri,
-                    isSignSuccess: true,
-                  });
 
-                  // Hủy URL khi component bị unmount
-                  return () => URL.revokeObjectURL(url);
+              if (Platform.OS === 'web') {
+                fetch(prefixedBase64)
+                  .then(res => res.blob())
+                  .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    // create url from blob
+                    const uri = URL.createObjectURL(blob);
+                    appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+                      uri,
+                      isSignSuccess: true,
+                    });
+
+                    // Hủy URL khi component bị unmount
+                    return () => URL.revokeObjectURL(url);
+                  });
+              } else {
+                const fileName = `signed-contract-${moment().format('YYYYMMDDHHmmss')}.pdf`;
+
+                const path =
+                  Platform.OS === 'android'
+                    ? `${RNFS.DownloadDirectoryPath}/${fileName}`
+                    : `${RNFS.DocumentDirectoryPath}/${fileName}`;
+
+                await RNFS.writeFile(path, pdfBase64, 'base64');
+                appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+                  uri: path,
+                  isSignSuccess: true,
                 });
+              }
 
               break;
             default:

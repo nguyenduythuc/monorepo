@@ -23,7 +23,7 @@ app.prepare().then(() => {
       changeOrigin: true,
       pathRewrite: { '^/api-app': '' },
       logger: console,
-    })
+    }),
   );
 
   // Proxy setup for /trueidapi
@@ -33,7 +33,7 @@ app.prepare().then(() => {
       target: 'https://api.trueid.ai',
       changeOrigin: true,
       pathRewrite: { '^/trueidapi': '' },
-    })
+    }),
   );
 
   // Handle all other requests

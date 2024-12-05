@@ -6,6 +6,8 @@ import {CustomButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import Share from 'react-native-share';
+import moment from 'moment';
 
 const SignContractESignForSaleSuccessScreen = ({uri}: {uri: string}) => {
   const t = useTranslations();
@@ -18,6 +20,29 @@ const SignContractESignForSaleSuccessScreen = ({uri}: {uri: string}) => {
     appNavigate(ScreenParamEnum.Home);
   };
 
+  const downloadBase64PDF = () => {
+    if (uri) {
+      try {
+        const options = {
+          title: `signed-contract-${moment().format('YYYYMMDDHHmmss')}.pdf`,
+          message: null,
+          url: `file://${uri}`,
+        };
+        // @ts-ignore
+        Share.open(options)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            err && console.log(err);
+          });
+        // }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const onPressDownloadContract = () => {
     if (Platform.OS === 'web') {
       const link = document.createElement('a');
@@ -25,7 +50,7 @@ const SignContractESignForSaleSuccessScreen = ({uri}: {uri: string}) => {
       link.download = 'contract.pdf';
       link.click();
     } else {
-      // todo: mobile
+      downloadBase64PDF();
     }
   };
 
