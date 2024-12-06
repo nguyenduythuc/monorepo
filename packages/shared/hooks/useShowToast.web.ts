@@ -5,6 +5,8 @@ import useTranslations from './useTranslations';
 const useShowToast = () => {
   const t = useTranslations();
 
+  const positionTop = 'top-center';
+
   const handleShowToast = ({
     msg,
     type,
@@ -14,7 +16,7 @@ const useShowToast = () => {
   }) => {
     type === 'success'
       ? toast.success(msg, {
-          position: 'top-center',
+          position: positionTop,
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
@@ -26,7 +28,7 @@ const useShowToast = () => {
         })
       : type === 'info'
         ? toast.warn(msg, {
-            position: 'top-center',
+            position: positionTop,
             autoClose: 5000,
             hideProgressBar: true,
             closeOnClick: false,
@@ -37,7 +39,7 @@ const useShowToast = () => {
             transition: Bounce,
           })
         : toast.error(msg, {
-            position: 'top-center',
+            position: positionTop,
             autoClose: 5000,
             hideProgressBar: true,
             closeOnClick: false,

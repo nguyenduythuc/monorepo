@@ -45,7 +45,7 @@ export const RadioButton: FC<RadioButtonProps> = ({
         ]}
         disabled={disabled}
         onPress={onPress}>
-        {!!renderContent ? (
+        {renderContent ? (
           renderContent
         ) : (
           <Text

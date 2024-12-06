@@ -3,7 +3,6 @@ import React from 'react';
 import { View } from 'react-native';
 import tw from 'twrnc';
 import { CheckNapasScreen } from '@lfvn-customer/shared/screens';
-import { useSearchParams } from 'next/navigation';
 
 export default function CifAndAplInformationScreen() {
   return (

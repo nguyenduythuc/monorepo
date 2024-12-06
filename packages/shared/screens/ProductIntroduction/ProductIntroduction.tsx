@@ -1,11 +1,5 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useEffect, useMemo} from 'react';
+import {View, Text, Pressable, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {
@@ -15,8 +9,6 @@ import {
   ProductCardProp,
   ProductCard,
   InformationTab,
-  RadioButton,
-  Image,
 } from '@lfvn-customer/shared/components';
 import {ProductIntroDataType} from '@lfvn-customer/shared/types/services/productTypes';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
@@ -117,61 +109,6 @@ const ProductIntroductionScreen = ({t}: {t: any}) => {
     {name: 'Residence', icon: 'residence-icon', data: displayEkycData},
     // { name: 'Referral contact', icon: 'referral-contact-icon', data: displayEkycData },
     // { name: 'Beneficiary', icon: 'beneficiary-icon', data: displayEkycData }
-  ];
-
-  const [selectedValue, setSelectedValue] = useState('123');
-
-  const handleSelect = (selectedOption: any) => {
-    setSelectedValue(selectedOption);
-  };
-
-  const options = [
-    {
-      label: t('VerifyCustomer.screenNFC'),
-      value: 'EkycType.NFC,',
-      renderContent: (
-        <View style={tw.style('flex-row items-center justify-center py-2')}>
-          <View style={tw.style('px-3')}>
-            {/* <Icon name="phone-ocr-icon"></Icon> */}
-            <Image iconName="phone_nfc_icon" style={tw.style('h-18 w-11')} />
-          </View>
-          <View style={tw.style('flex-col flex-1')}>
-            <View style={tw.style('flex-row items-center mb-1.5')}>
-              <Text style={tw.style('text-lg font-semibold text-red-500')}>
-                {t('VerifyCustomer.screenNFC') + ' '}
-              </Text>
-              <Text style={tw.style('text-lg mr-2')}>
-                {t('VerifyCustomer.recommend')}
-              </Text>
-              <Icon name="info-icon" size={18} color="#2F6BFF" disabled />
-            </View>
-            <Text>{t('VerifyCustomer.screenNFCDes')}</Text>
-          </View>
-        </View>
-      ),
-    },
-    {
-      label: t('VerifyCustomer.screenOCR'),
-      value: 'EkycType.OCR',
-      renderContent: (
-        <View style={tw.style('flex-row items-center justify-center py-2')}>
-          <View style={tw.style('px-3')}>
-            <Icon name="phone-ocr-icon"></Icon>
-          </View>
-          <View style={tw.style('flex-col flex-1')}>
-            <View style={tw.style('flex-row items-center mb-1.5')}>
-              <Text style={tw.style('text-lg font-semibold text-red-500 mr-2')}>
-                {t('VerifyCustomer.screenOCR')}
-              </Text>
-
-              <Icon name="info-icon" size={18} color="#2F6BFF" disabled />
-            </View>
-
-            <Text>{t('VerifyCustomer.screenOCRDes')}</Text>
-          </View>
-        </View>
-      ),
-    },
   ];
 
   return (

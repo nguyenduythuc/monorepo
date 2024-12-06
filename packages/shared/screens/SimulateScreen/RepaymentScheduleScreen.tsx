@@ -4,12 +4,14 @@ import {
   CustomTable,
   CustomTableProps,
 } from '@lfvn-customer/shared/components';
-import React, { useMemo } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, {useMemo} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 
-export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
+export const RepaymentScheduleScreen = ({t}: {t: any}) => {
   const headers = ['Id', 'Name', 'Age', 'Job', 'Address', 'Action'];
+
+  const addressDefault = 'Ba Dinh, Hanoi, Vietnam';
 
   const tableData = [
     {
@@ -17,7 +19,7 @@ export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: addressDefault,
       showDetail: {
         type: 'action',
         styleWrapper: 'flex flex-row',
@@ -36,7 +38,7 @@ export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: addressDefault,
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -55,7 +57,7 @@ export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: addressDefault,
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -74,7 +76,7 @@ export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: addressDefault,
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -93,7 +95,7 @@ export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
       name: 'John',
       age: '22',
       job: 'DEV',
-      address: 'Ba Dinh, Hanoi, Vietnam',
+      address: addressDefault,
       showDetail: {
         type: 'action',
         styleWrapper: 'flex-row',
@@ -146,7 +148,7 @@ export const RepaymentScheduleScreen = ({ t }: { t: any }) => {
         </View>
       </ScrollView>
       <View style={tw`bg-white px-4 pt-3 pb-1 border-t border-gray-200`}>
-        <CustomButton onPress={() => { }}>
+        <CustomButton onPress={() => {}}>
           {t('Simulate.exportTable')}
         </CustomButton>
       </View>

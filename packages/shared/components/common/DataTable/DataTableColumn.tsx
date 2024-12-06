@@ -28,6 +28,7 @@ export const DataTableColumn: FC<DataTableColumnProp> = ({
   columnWidth,
 }) => {
   const [scrollX, setScrollX] = useState(0);
+  console.log('scrollX', scrollX);
 
   return (
     <View style={tw`flex flex-row`}>

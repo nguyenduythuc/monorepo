@@ -23,7 +23,6 @@ export const CustomButton: FC<BaseButtonProps> = ({
   styleTextLeft,
   textCustomStyle = '',
   buttonStyle = '',
-  textColor,
 }) => {
   const getDefaultStyle = () => {
     if (variant === 'outlined') {

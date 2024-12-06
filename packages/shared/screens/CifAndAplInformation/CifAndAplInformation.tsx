@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {
@@ -14,17 +14,11 @@ import {
   formatGenderInfo,
   formatNationalityInfo,
 } from '@lfvn-customer/shared/utils/commonFunction';
-import {useDispatch} from 'react-redux';
-import {
-  clearLoadingScreen,
-  setLoadingScreen,
-} from '../../redux/slices/loadingSlices';
 import useTranslations from '../../hooks/useTranslations';
 import useCifAndAplInformation from '../../hooks/useCifAndAplInformation';
 
 const CifAndAplInformation = ({flowId}: {flowId: string}) => {
   const {appNavigate} = useConfigRouting();
-  const dispatch = useDispatch();
   const t = useTranslations();
 
   const {cifData, aplData, onHandleGetAplData, onHandleGetCifData} =
@@ -33,22 +27,19 @@ const CifAndAplInformation = ({flowId}: {flowId: string}) => {
     });
 
   const displayData = useMemo(() => {
-    const displayCustomerData = aplData
-      ? {
-          fullname: aplData.customer?.name,
-          dob: formatDate(aplData.customer?.demographic.dob || ''),
-          gender: formatGenderInfo(aplData.customer?.gender, 'display'),
-          idNumber: aplData.customer?.nric,
-          doi: formatDate(aplData.customer?.nricDate || ''),
-          nationality: formatNationalityInfo(
-            aplData.customer?.demographic.nationality || '',
-          ),
-          oldIdNumber: aplData.customer?.oldNric,
-          origin: aplData.customer?.demographic.placeOfOrigin,
-          marriedStatus: aplData.customer?.demographic.maritalStatus,
-        }
-      : aplData;
-    return displayCustomerData;
+    return {
+      fullname: aplData?.customer?.name,
+      dob: formatDate(aplData?.customer?.demographic.dob || ''),
+      gender: formatGenderInfo(aplData?.customer?.gender, 'display'),
+      idNumber: aplData?.customer?.nric,
+      doi: formatDate(aplData?.customer?.nricDate || ''),
+      nationality: formatNationalityInfo(
+        aplData?.customer?.demographic.nationality || '',
+      ),
+      oldIdNumber: aplData?.customer?.oldNric,
+      origin: aplData?.customer?.demographic.placeOfOrigin,
+      marriedStatus: aplData?.customer?.demographic.maritalStatus,
+    };
   }, [aplData]);
 
   useEffect(() => {

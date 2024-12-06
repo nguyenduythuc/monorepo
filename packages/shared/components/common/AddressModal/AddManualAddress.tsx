@@ -1,5 +1,5 @@
-import React, {use, useEffect, useRef, useState} from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {CustomButton} from '../Button';
 import {BaseProcess} from '../Process/Process';
@@ -9,10 +9,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import useAddAddress from '@lfvn-customer/shared/hooks/useAddAddress';
 import {SubmitType} from './AddAutoAddress';
 import {useDispatch} from 'react-redux';
-import {
-  setAplAddressData,
-  clearAplAddressData,
-} from '../../../redux/slices/LoanAplSlices';
+import {setAplAddressData} from '../../../redux/slices/LoanAplSlices';
 type ManualAddressModalProps = {
   value?: string;
   manualSubmit: (type: SubmitType, value?: string) => void;
@@ -25,6 +22,12 @@ export const AddManualAddress: React.FC<ManualAddressModalProps> = ({
   const t = useTranslations();
   const dispatch = useDispatch();
 
+  const addressAddCityLabel = t('AddAddress.city');
+  const addressChooseCityLabel = t('AddAddress.chooseCity');
+  const addressChooseDistrictLabel = t('AddAddress.chooseDistrict');
+  const addressChooseWardLabel = t('AddAddress.chooseWard');
+  const addressNoteStreetLabel = t('AddAddress.noteStreet');
+
   const [completeAddress, setCompleteAddress] = useState(value);
   const {listCityData, listDistrictData, listWardData, onSelectGetData} =
     useAddAddress();
@@ -32,22 +35,22 @@ export const AddManualAddress: React.FC<ManualAddressModalProps> = ({
   const [detailAddress, setDetailAddress] = useState('');
   const [chooseStep, setChooseStep] = useState({
     step: 1,
-    name: t('AddAddress.city'),
+    name: addressAddCityLabel,
     data: listCityData,
   });
 
   const defaultLoanStep = [
-    {title: t('AddAddress.chooseCity')},
-    {title: t('AddAddress.chooseDistrict')},
-    {title: t('AddAddress.chooseWard')},
-    {title: t('AddAddress.noteStreet')},
+    {title: addressChooseCityLabel},
+    {title: addressChooseDistrictLabel},
+    {title: addressChooseWardLabel},
+    {title: addressNoteStreetLabel},
   ];
 
   const defaultAddressCode = [
-    {code: t('AddAddress.chooseCity')},
-    {code: t('AddAddress.chooseDistrict')},
-    {code: t('AddAddress.chooseWard')},
-    {code: t('AddAddress.noteStreet')},
+    {code: addressChooseCityLabel},
+    {code: addressChooseDistrictLabel},
+    {code: addressChooseWardLabel},
+    {code: addressNoteStreetLabel},
   ];
   const [loanStep, setLoanStep] = useState(defaultLoanStep);
 
@@ -91,23 +94,23 @@ export const AddManualAddress: React.FC<ManualAddressModalProps> = ({
       manualSubmit(SubmitType.Reset);
       setLoanStep(defaultLoanStep);
       setAddressCode(defaultAddressCode);
-      setChooseStep({step: 1, name: t('AddAddress.city'), data: listCityData});
+      setChooseStep({step: 1, name: addressAddCityLabel, data: listCityData});
     } else {
       setChooseStep(prevChooseStep => {
         switch (chooseStep.step - 1) {
           case 0:
-            updateLoanStepTitle(0, t('AddAddress.chooseCity'));
-          // return { ...prevChooseStep, step: 1, name: t('AddAddress.city'), data: cityData };
+            updateLoanStepTitle(0, addressChooseCityLabel);
+          // return { ...prevChooseStep, step: 1, name: addressAddCityLabel, data: cityData };
           case 1:
-            updateLoanStepTitle(1, t('AddAddress.chooseDistrict'));
+            updateLoanStepTitle(1, addressChooseDistrictLabel);
             return {
               ...prevChooseStep,
               step: 1,
-              name: t('AddAddress.city'),
+              name: addressAddCityLabel,
               data: listCityData,
             };
           case 2:
-            updateLoanStepTitle(2, t('AddAddress.chooseWard'));
+            updateLoanStepTitle(2, addressChooseWardLabel);
             return {
               ...prevChooseStep,
               step: 2,
@@ -115,7 +118,7 @@ export const AddManualAddress: React.FC<ManualAddressModalProps> = ({
               data: listDistrictData,
             };
           case 3:
-            updateLoanStepTitle(3, t('AddAddress.noteStreet'));
+            updateLoanStepTitle(3, addressNoteStreetLabel);
             return {
               ...prevChooseStep,
               step: 3,
@@ -138,7 +141,7 @@ export const AddManualAddress: React.FC<ManualAddressModalProps> = ({
           // Add 'Choose City' to loanStep and update chooseStep for City selection
           setChooseStep({
             step: 1,
-            name: t('AddAddress.city'),
+            name: addressAddCityLabel,
             data: listCityData,
           });
           break;
@@ -223,7 +226,7 @@ export const AddManualAddress: React.FC<ManualAddressModalProps> = ({
       title: location.trim(),
     }));
     setLoanStep(reverseAddress);
-    reverseAddress.push({title: t('AddAddress.noteStreet')});
+    reverseAddress.push({title: addressNoteStreetLabel});
 
     setDetailAddress(noteStreetAddress);
 

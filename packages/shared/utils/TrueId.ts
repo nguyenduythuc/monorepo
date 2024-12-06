@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import RNTrueID from 'react-native-true-id';
 import Config from 'react-native-config';
 

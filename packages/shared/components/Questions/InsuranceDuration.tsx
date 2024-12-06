@@ -7,7 +7,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
 import Answer from '../Answers';
 
-const InsuranceDuration = ({stepNumber, control, watch}: QuestionField) => {
+const InsuranceDuration = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

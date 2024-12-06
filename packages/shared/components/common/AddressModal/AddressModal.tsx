@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Text, TouchableOpacity, ScrollView, Platform} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {BaseModal} from '../AppModal';
 import {Icon} from '../Icon';
@@ -16,7 +16,6 @@ type AddressModalProps = {
 };
 
 export const AddressModal: React.FC<AddressModalProps> = ({
-  label,
   onChange,
   value,
 }) => {
@@ -25,7 +24,8 @@ export const AddressModal: React.FC<AddressModalProps> = ({
   const autoAddressModalRef = useRef<any>(null);
 
   const [addressAuto, setAddressType] = useState(true);
-  const [address, setAddress] = useState(t('AddAddress.inputAddress'));
+  const inputAddress = t('AddAddress.inputAddress');
+  const descriptionDefault = '54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội';
 
   const onOpen = () => autoAddressModalRef.current?.open();
   const onCloseAutoAddress = () => autoAddressModalRef.current?.close();
@@ -34,25 +34,25 @@ export const AddressModal: React.FC<AddressModalProps> = ({
     {
       _id: 1,
       name: 'Lotte Center Hà Nội',
-      description: '54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội',
+      description: descriptionDefault,
       code: '1',
     },
     {
       _id: 2,
       name: 'Test 1',
-      description: '54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội',
+      description: descriptionDefault,
       code: '2',
     },
     {
       _id: 3,
       name: 'Test 2',
-      description: '54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội',
+      description: descriptionDefault,
       code: '3',
     },
     {
       _id: 4,
       name: 'Test 3',
-      description: '54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội',
+      description: descriptionDefault,
       code: '4',
     },
   ];
@@ -62,7 +62,7 @@ export const AddressModal: React.FC<AddressModalProps> = ({
       onChange(value || '');
       onCloseAutoAddress();
     } else {
-      onChange(t('AddAddress.inputAddress'));
+      onChange(inputAddress);
     }
   };
 
@@ -120,12 +120,12 @@ export const AddressModal: React.FC<AddressModalProps> = ({
             <AddAutoAddress
               onChange={onChange}
               listAutoAddress={listAddress}
-              value={value === t('AddAddress.inputAddress') ? '' : value}
+              value={value === inputAddress ? '' : value}
               changeMode={() => setAddressType(!addressAuto)}
               autoSubmit={fillAddress}
             />
           ) : (
-            <AddManualAddress value={address} manualSubmit={fillAddress} />
+            <AddManualAddress value={inputAddress} manualSubmit={fillAddress} />
           )}
         </View>
       </BaseModal>

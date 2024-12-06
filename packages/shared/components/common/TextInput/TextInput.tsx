@@ -7,15 +7,7 @@ import {Icon} from '../Icon';
 
 export const TextInput = forwardRef<NativeTextInput, ITextInputProps>(
   (
-    {
-      value,
-      containerStyle,
-      onChangeValue,
-      secureTextEntry,
-      watch,
-      touched,
-      ...props
-    },
+    {value, containerStyle, onChangeValue, secureTextEntry, watch, ...props},
     ref,
   ) => {
     const [isHideSecureText, setIsHideSecureText] = useState(secureTextEntry);

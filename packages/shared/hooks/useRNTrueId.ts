@@ -52,6 +52,8 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
     dispatch(clearLoadingScreen());
   }, []);
 
+  const closeEkycLabel = 'Close EKYC';
+
   const startEkyc = (type: EkycType) => {
     try {
       if (Platform.OS !== 'web') {
@@ -62,7 +64,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
             if (result.code == 0) {
               // user close sdk
               handleShowToast({
-                msg: 'Close EKYC',
+                msg: closeEkycLabel,
                 type: 'info',
               });
             } else if (result.code == 1) {
@@ -81,7 +83,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
               handleEkycSubmit(data, data?.passportImage);
             } else {
               // handle error
-              console.log('errorMesssage : ', result.errorMessage);
+              console.log('errorMesssage 1: ', result.errorMessage);
               handleShowToast({
                 msg: result.errorMessage,
                 type: 'error',
@@ -94,7 +96,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
             if (result.code == 0) {
               // user close sdk
               handleShowToast({
-                msg: 'Close EKYC',
+                msg: closeEkycLabel,
                 type: 'info',
               });
             } else if (result.code == 1) {
@@ -142,7 +144,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
             if (result.code == 0) {
               // user close sdk
               handleShowToast({
-                msg: 'Close EKYC',
+                msg: closeEkycLabel,
                 type: 'info',
               });
             } else if (result.code == 1) {

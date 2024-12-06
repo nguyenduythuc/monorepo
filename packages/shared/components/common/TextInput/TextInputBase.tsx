@@ -15,7 +15,6 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
   (
     {
-      touched,
       errorMessage,
       isFocus,
       rightComponent,
@@ -60,7 +59,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
             `flex-row border rounded-10px px-4 items-center bg-white h-14`,
             disabled
               ? 'border-neutral-200 bg-neutral-50 border-1'
-              : !!errorMessage
+              : errorMessage
                 ? 'border-red-600'
                 : focus
                   ? borderUseful500

@@ -1,8 +1,6 @@
 import React from 'react';
 import {AnswerProps} from '@lfvn-customer/shared/types/models/stepModel';
 import {Control, Controller} from 'react-hook-form';
-import {TextInputDatePicker} from '../common';
-import {View} from 'react-native';
 import {AddressModal} from '../common/AddressModal';
 
 const AddressInputModalAnswer = ({
@@ -17,7 +15,7 @@ const AddressInputModalAnswer = ({
       key={answer.name}
       control={control}
       name={answer.name}
-      render={({field: {onChange, onBlur, value, ref}}) => (
+      render={({field: {onChange, value}}) => (
         <AddressModal label={answer.title} value={value} onChange={onChange} />
       )}
     />

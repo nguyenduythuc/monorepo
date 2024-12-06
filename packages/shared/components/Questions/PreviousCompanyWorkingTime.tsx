@@ -7,11 +7,7 @@ import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {QuestionField} from '@lfvn-customer/shared/types/formTypes';
 import Answer from '../Answers';
 
-const PreviousCompanyWorkingTime = ({
-  stepNumber,
-  control,
-  watch,
-}: QuestionField) => {
+const PreviousCompanyWorkingTime = ({stepNumber, control}: QuestionField) => {
   const {theme} = useGetTheme();
   const {textNegative300, textNegative500} = theme;
 

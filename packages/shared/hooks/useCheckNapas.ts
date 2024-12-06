@@ -5,13 +5,11 @@ import {
   useCheckNapasAccountMutation,
   useGetBankListDataMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
-import {useDispatch} from 'react-redux';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {useConfigRouting} from '.';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 const useCheckNapas = () => {
-  const dispatch = useDispatch();
   const [listBank] = useGetBankListDataMutation();
   const [checkNapasAccount] = useCheckNapasAccountMutation();
 
@@ -66,19 +64,16 @@ const useCheckNapas = () => {
     ];
   }, [listBankOption]);
 
-  const {reset, renderFrom, handleSubmit, watch, control, setValue, getValues} =
-    useCustomForm({
-      fields,
-      defaultValues: {},
-    });
+  const {renderFrom, handleSubmit, watch, setValue, getValues} = useCustomForm({
+    fields,
+    defaultValues: {},
+  });
 
   useEffect(() => {
     if (listBankOption && listBankOption.length > 0) {
       setValue('bankName', listBankOption[0]?.code); // Update the bankName field with the first option
     }
   }, [listBankOption, setValue]);
-
-  const [bankAccount, bankName] = watch(['bankAccount', 'bankName']);
 
   const onPressSubmit = async () => {
     const checkNapasForm = getValues();

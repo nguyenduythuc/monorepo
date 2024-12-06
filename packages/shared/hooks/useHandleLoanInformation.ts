@@ -139,6 +139,8 @@ const useHandleLoanInformation = ({
     return '0';
   }, [selectProduct]);
 
+  const descriptionDefault = 'Step.addMoreInformation';
+
   const getDuration = (date: string) => {
     const [startMonth, startYear] = date.split('/').map(Number);
 
@@ -289,7 +291,7 @@ const useHandleLoanInformation = ({
           return {
             id: 2,
             name: 'IncomePerMonth.title',
-            description: 'Step.addMoreInformation',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',
@@ -310,7 +312,7 @@ const useHandleLoanInformation = ({
           return {
             id: 3,
             name: 'LoanPurpose.title',
-            description: 'Step.addMoreInformation',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',
@@ -330,7 +332,7 @@ const useHandleLoanInformation = ({
           return {
             id: 4,
             name: 'PreviousCompanyWorkingTime.title',
-            description: 'Step.addMoreInformation',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',
@@ -350,7 +352,7 @@ const useHandleLoanInformation = ({
           return {
             id: 5,
             name: 'LifeInsuranceDuration.title',
-            description: 'Step.addMoreInformation',
+            description: descriptionDefault,
             questions: [
               {
                 title: '',

@@ -61,6 +61,9 @@ export const ReviewCustomerEKYCInfo = () => {
       dispatch(clearLoadingScreen());
     }
   }, [isLoading]);
+
+  const confirmLabel = t('VerifyCustomer.confirm');
+
   return (
     <>
       <Appbar
@@ -88,7 +91,7 @@ export const ReviewCustomerEKYCInfo = () => {
       </ScrollView>
       <View style={tw`bg-white px-4 pt-3 pb-4 border-gray-200`}>
         <CustomButton onPress={handleSubmit} color="red">
-          {t('VerifyCustomer.confirm')}
+          {confirmLabel}
         </CustomButton>
       </View>
       <ConfirmModal
@@ -109,7 +112,7 @@ export const ReviewCustomerEKYCInfo = () => {
         }
         onButtonLeftPress={onCustomerCancel}
         onButtonRightPress={onCustomerConfirm}
-        labelButtonRight={t('VerifyCustomer.confirm')}
+        labelButtonRight={confirmLabel}
       />
       <ConfirmModal
         disabled
@@ -118,7 +121,7 @@ export const ReviewCustomerEKYCInfo = () => {
         content={msgRequestInvalidInfoError}
         singleButton
         onButtonRightPress={onInvalidInfoConfirm}
-        labelButtonRight={t('VerifyCustomer.confirm')}
+        labelButtonRight={confirmLabel}
       />
     </>
   );

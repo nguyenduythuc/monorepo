@@ -1,23 +1,15 @@
 // import { ICON_TYPE, IconX } from 'components/Icon'
-import React, {Dispatch, SetStateAction} from 'react';
+import React from 'react';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Linking,
   Platform,
-  Image,
-  Text,
 } from 'react-native';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
-// import { color } from 'theme'
 import {useIsFocused} from '@react-navigation/native';
-// import TopControl from './TopControl'
-// import { Box } from 'components/styled'
-// import PinLocation from './PinLocation'
-import moment from 'moment';
 import {Appbar} from '../Appbar';
-// import { ImageType } from '.'
 
 // TODO: Components is still in implement progress
 export const generatePath = (path: string) =>
@@ -26,30 +18,13 @@ export const generatePath = (path: string) =>
 interface CameraVisionProps {
   camera: React.LegacyRef<Camera>;
   takePhoto: () => void;
-  // imagePaths: ImageType[]
   flash: boolean;
   setFlash: () => void;
-  // onBack: () => void
-  // onPressImage: () => void
-  // isPinGPS: boolean
-  // onPinGPS?: Dispatch<SetStateAction<boolean>>
-  // currentAddress?: string
 }
 
 export const ON_IMAGE_SAVED = 'ON_IMAGE_SAVED';
-const CameraVision = ({
-  camera,
-  takePhoto,
-  setFlash,
-  flash,
-  // // imagePaths,
-  // onBack,
-  // onPressImage,
-  // isPinGPS,
-  // onPinGPS,
-  // currentAddress,
-}: CameraVisionProps) => {
-  const [backCamera, setBackCamera] = React.useState(true);
+const CameraVision = ({camera, takePhoto}: CameraVisionProps) => {
+  const backCamera = true;
   const availableDevices = useCameraDevice(backCamera ? 'back' : 'front');
   const isFocused = useIsFocused();
   // const lastImage = imagePaths.length - 1
@@ -67,17 +42,6 @@ const CameraVision = ({
 
   return (
     <View style={{flex: 1}}>
-      {/* <TopControl
-                style={{ flex: 1 }}
-                flash={flash}
-                setFlash={setFlash}
-                isPinGPS={isPinGPS}
-                onPinGPS={onPinGPS}
-                onBack={onBack}
-            />
-            {isPinGPS && !!currentAddress && (
-                <PinLocation address={currentAddress || ''} time={moment().format('DD/MM/YYYY HH:mm')} />
-            )} */}
       <Appbar backIconColor="white" />
       <View style={{flex: 7, marginTop: 30}}>
         {availableDevices && isFocused && (
@@ -88,7 +52,6 @@ const CameraVision = ({
               ref={camera}
               photo={true}
               style={{width: '100%', height: '100%'}}
-              // enableHighQualityPhotos={true}
             />
           </View>
         )}
@@ -104,12 +67,9 @@ const CameraVision = ({
 
 const styles = StyleSheet.create({
   textButton: {
-    // color: color.palette.white,
     fontSize: Platform.OS === 'ios' ? 24 : 20,
   },
   buttonCapture: {
-    // marginStart: -22,
-    // backgroundColor: color.palette.white,
     backgroundColor: 'white',
     width: 67,
     height: 67,
@@ -117,7 +77,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   viewCapture: {
-    // borderColor: color.palette.pureGrey,
     borderRadius: 50,
     borderWidth: 1.5,
     width: 58,
@@ -127,7 +86,6 @@ const styles = StyleSheet.create({
   cameraButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: color.palette.pureBlack,
     flex: 2,
     flexDirection: 'row',
     paddingHorizontal: 20,
