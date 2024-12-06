@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { View, Text } from 'react-native';
+import React, {FC} from 'react';
+import {View, Text} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-import { ArrowButton } from './ArrowButton';
-import { PageSelectButton } from './PageSelectButton';
+import {ArrowButton} from './ArrowButton';
+import {PageSelectButton} from './PageSelectButton';
 
 type PaginationProps = {
   page: number;
@@ -43,7 +43,7 @@ export const Pagination: FC<PaginationProps> = ({
         <View style={tw`mx-2`}>
           <PageSelectButton
             label={page}
-            items={[...Array(numberOfPages).keys()]}
+            items={[...Array.from(Array(numberOfPages).keys())]}
             onChange={page => onPageChange(page)}
           />
         </View>
