@@ -5,7 +5,6 @@ import {PreCheckResponseSocketProps} from '../types/services/loanTypes';
 import {useConfigRouting} from './routing';
 import {ScreenParamEnum} from '../types/paramtypes';
 import {checkErrorPrecheckResult} from '../utils';
-import {getToken} from '../redux/slices/apiSlices/config';
 import {handleEnvByPlatform} from '../utils/handleEnvByPlatform';
 
 const TIME_WAITING_SOCKET_RESPONSE = 40000;
@@ -23,9 +22,10 @@ const usePrecheck = () => {
     `${handleEnvByPlatform('SOCKET_URL')}?room=${user?.login}`,
     {
       transports: ['websocket'],
-      extraHeaders: {
-        token: getToken(),
-      },
+      // todo: try to another way to send token to socket
+      // extraHeaders: {
+      //   token: getToken(),
+      // },
     },
   );
 
