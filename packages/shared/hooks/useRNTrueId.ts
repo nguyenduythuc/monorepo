@@ -18,7 +18,7 @@ import {useEffect} from 'react';
 import useHandleSaveFile from './useHandleSaveFile';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
-import useHandleStartEkyc from './usehandleStartEkyc';
+import useHandleStartEkyc from './useHandleStartEkyc';
 
 declare global {
   interface Window {
