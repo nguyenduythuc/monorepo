@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google';
 import './globals.css';
 import StoreProvider from './StoreProvider';
 
@@ -9,7 +9,8 @@ import { ToastContainer } from 'react-toastify';
 import { LoadingOverlay } from '@lfvn-customer/shared';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ['latin'] });
+// Disable this font cause by security issue, The LFVN internal network is blocking request to outside
+// const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'LFVN Customer App',
@@ -30,7 +31,7 @@ export default async function RootLayout({
       <head>
         <Script src="/trueidsdk/TrueIDSDK.js" strategy="lazyOnload" />
       </head>
-      <body className={inter.className}>
+      <body>
         <StoreProvider>
           <NextIntlClientProvider messages={messages}>
             {children}
