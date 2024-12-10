@@ -1,9 +1,9 @@
 const express = require('express');
 const next = require('next');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const https = require('https');
+// const https = require('https');
 const http = require('http');
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 
 const port = 3000;
@@ -41,22 +41,22 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  if (dev) {
-    // Use HTTPS in development
-    const httpsOptions = {
-      key: fs.readFileSync(path.join(__dirname, '', 'localhost-key.pem')),
-      cert: fs.readFileSync(path.join(__dirname, '', 'localhost.pem')),
-    };
+  // if (dev) {
+  //   // Use HTTPS in development
+  //   const httpsOptions = {
+  //     key: fs.readFileSync(path.join(__dirname, '', 'localhost-key.pem')),
+  //     cert: fs.readFileSync(path.join(__dirname, '', 'localhost.pem')),
+  //   };
 
-    https.createServer(httpsOptions, server).listen(port, (err) => {
-      if (err) throw err;
-      console.log(`> Ready on https://localhost:${port}`);
-    });
-  } else {
-    // Use HTTP in production
-    http.createServer(server).listen(port, (err) => {
-      if (err) throw err;
-      console.log(`> Ready on http://localhost:${port}`);
-    });
-  }
+  //   https.createServer(httpsOptions, server).listen(port, (err) => {
+  //     if (err) throw err;
+  //     console.log(`> Ready on https://localhost:${port}`);
+  //   });
+  // } else {
+  // Use HTTP in production
+  http.createServer(server).listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+  // }
 });
