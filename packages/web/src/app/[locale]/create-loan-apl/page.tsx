@@ -1,14 +1,11 @@
 'use client';
 import React from 'react';
-import { useTranslations } from 'next-intl';
-
 import { View } from 'react-native';
-
 import tw from 'twrnc';
 import { CreateLoanAPLScreen } from '@lfvn-customer/shared/screens';
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 
 export default function CreateLoanApl() {
-
   const t = useTranslations();
 
   return (

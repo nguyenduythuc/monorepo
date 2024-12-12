@@ -8,13 +8,23 @@ import {
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {useConfigRouting} from '.';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
+import {useDispatch} from 'react-redux';
+import {
+  clearLoadingScreen,
+  setLoadingScreen,
+} from '@lfvn-customer/shared/redux/slices/loadingSlices';
+import useShowToast from './useShowToast';
+import {clearDataESignForSale} from '../redux/slices/eSignForSaleSlice';
 
 const useCheckNapas = () => {
   const [listBank] = useGetBankListDataMutation();
   const [checkNapasAccount] = useCheckNapasAccountMutation();
 
+  const dispatch = useDispatch();
+
   const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
   const {appNavigate} = useConfigRouting();
+  const {showCommonErrorToast} = useShowToast();
 
   const getBankList = async () => {
     const result = await listBank({
@@ -86,17 +96,23 @@ const useCheckNapas = () => {
       idCardNumber: dataSaleInfo?.idCardNumber ?? '017097000089',
       tokenEsign: dataSaleInfo?.tokenEsign ?? '',
     };
-
-    const result = await checkNapasAccount(checkNapasBody);
-
-    if (result.data) {
-      if (result.data.result) {
-        appNavigate(ScreenParamEnum.Home);
+    try {
+      dispatch(setLoadingScreen());
+      const result = await checkNapasAccount(checkNapasBody);
+      if (result.data) {
+        if (result.data.result) {
+          dispatch(clearDataESignForSale());
+          appNavigate(ScreenParamEnum.Home);
+        } else {
+          showCommonErrorToast();
+        }
       } else {
-        console.log('error', result.data.result);
+        showCommonErrorToast();
       }
-    } else {
-      console.log('error');
+    } catch {
+      showCommonErrorToast();
+    } finally {
+      dispatch(clearLoadingScreen());
     }
   };
 

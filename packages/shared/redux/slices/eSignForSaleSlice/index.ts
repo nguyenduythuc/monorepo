@@ -41,7 +41,15 @@ const eSignForSaleSlice = createSlice({
     setDataSaleInfo: (state, action) => {
       state.dataSaleInfo = action.payload;
     },
-    clearDataEsingForSale: state => {
+    clearFolderESignForSale: state => {
+      state.cccdInfo = undefined;
+      state.avatarInfo = undefined;
+      state.addressInfo = undefined;
+      state.degreeInfo = undefined;
+      state.resumeInfo = undefined;
+      state.bankInfo = undefined;
+    },
+    clearDataESignForSale: state => {
       state.cccdInfo = undefined;
       state.avatarInfo = undefined;
       state.addressInfo = undefined;
@@ -61,6 +69,7 @@ export const {
   setResumeInfo,
   setBankInfo,
   setDataSaleInfo,
-  clearDataEsingForSale,
+  clearDataESignForSale,
+  clearFolderESignForSale,
 } = eSignForSaleSlice.actions;
 export default eSignForSaleSlice.reducer;

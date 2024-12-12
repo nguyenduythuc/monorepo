@@ -1,9 +1,7 @@
 'use client';
 import React from 'react';
-import { useTranslations } from 'next-intl';
-
+import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import { Platform, View } from 'react-native';
-
 import tw from 'twrnc';
 import { ProductDetailScreen } from '@lfvn-customer/shared/screens/ProductDetail';
 import { useSearchParams } from 'next/navigation';

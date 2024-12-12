@@ -1,12 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
+
 import {configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
 import rootReducer from './rootReducer';
 import {apiSlice} from './slices/apiSlices';
 import {persistStore, persistReducer} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
-// Web store
+const createNoopStorage = () => ({
+  getItem: (_key: string) => Promise.resolve(null),
+  setItem: (_key: string, _value: string) => Promise.resolve(),
+  removeItem: (_key: string) => Promise.resolve(),
+});
+
+const storage =
+  typeof window !== 'undefined'
+    ? createWebStorage('local')
+    : createNoopStorage();
+
 const persistConfigWeb = {
   key: 'root',
   storage,

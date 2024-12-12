@@ -11,7 +11,7 @@ import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlic
 import {
   clearLoadingScreen,
   setLoadingScreen,
-} from '../redux/slices/loadingSlices';
+} from '@lfvn-customer/shared/redux/slices/loadingSlices';
 
 const useVerifyIdContractESignForSale = ({
   tokenEsign,

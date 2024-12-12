@@ -103,55 +103,50 @@ const useUploadDocsESignForSale = () => {
   }, [cccdInfo, avatarInfo, addressInfo, degreeInfo, resumeInfo, bankInfo]);
 
   const onPressSubmit = () => {
-    try {
-      if (
-        !!cccdInfo &&
-        !!avatarInfo &&
-        !!addressInfo &&
-        !!degreeInfo &&
-        !!resumeInfo &&
-        !!bankInfo
-      ) {
-        dispatch(setLoadingScreen());
-        const files = [
-          cccdInfo,
-          avatarInfo,
-          addressInfo,
-          degreeInfo,
-          resumeInfo,
-          bankInfo,
-        ];
-        const pdfs = files.map(file => createPdfFromImages(file));
-        Promise.all(pdfs).then(async pdfFiles => {
-          // Upload pdfFiles to server
-          const res = await uploadDocs({
-            saleImportId: dataSaleInfo?.saleImportId ?? '',
-            idCardNumber: dataSaleInfo?.idCardNumber ?? '',
-            docIdCard: pdfFiles[0],
-            docSelfie: pdfFiles[1],
-            docGtct: pdfFiles[2],
-            docVb: pdfFiles[3],
-            docSyll: pdfFiles[4],
-            docBank: pdfFiles[5],
-            tokenEsign: dataSaleInfo?.tokenEsign ?? '',
-          });
-          if (res.data) {
-            // navigate to check NAPAS
-            appNavigate(ScreenParamEnum.CheckNapas);
-          } else {
-            showCommonErrorToast();
-          }
+    if (
+      !cccdInfo?.links?.length ||
+      !avatarInfo?.links?.length ||
+      !addressInfo?.links?.length ||
+      !degreeInfo?.links?.length ||
+      !resumeInfo?.links?.length ||
+      !bankInfo?.links?.length
+    ) {
+      handleShowToast({
+        msg: t('UploadDocsESignForSale.missingFile'),
+        type: 'error',
+      });
+    } else {
+      const files = [
+        cccdInfo,
+        avatarInfo,
+        addressInfo,
+        degreeInfo,
+        resumeInfo,
+        bankInfo,
+      ];
+      const pdfs = files.map(file => createPdfFromImages(file));
+      dispatch(setLoadingScreen());
+      Promise.all(pdfs).then(async pdfFiles => {
+        // Upload pdfFiles to server
+        const res = await uploadDocs({
+          saleImportId: dataSaleInfo?.saleImportId ?? '',
+          idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+          docIdCard: pdfFiles[0],
+          docSelfie: pdfFiles[1],
+          docGtct: pdfFiles[2],
+          docVb: pdfFiles[3],
+          docSyll: pdfFiles[4],
+          docBank: pdfFiles[5],
+          tokenEsign: dataSaleInfo?.tokenEsign ?? '',
         });
-      } else {
-        handleShowToast({
-          msg: t('UploadDocsESignForSale.missingFile'),
-          type: 'error',
-        });
-      }
-    } catch {
-      showCommonErrorToast();
-    } finally {
-      dispatch(clearLoadingScreen());
+        dispatch(clearLoadingScreen());
+        if (res.data) {
+          // navigate to check NAPAS
+          appNavigate(ScreenParamEnum.CheckNapas);
+        } else {
+          showCommonErrorToast();
+        }
+      });
     }
   };
 

@@ -7,7 +7,14 @@ import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {useDispatch} from 'react-redux';
-import {setDataSaleInfo} from '../redux/slices/eSignForSaleSlice';
+import {
+  clearFolderESignForSale,
+  setDataSaleInfo,
+} from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
+import {
+  setLoadingScreen,
+  clearLoadingScreen,
+} from '@lfvn-customer/shared/redux/slices/loadingSlices';
 
 const useVerifyIdCardESignForSale = ({
   tokenEsign,
@@ -34,6 +41,7 @@ const useVerifyIdCardESignForSale = ({
     Keyboard.dismiss();
     const {idCard} = getValues();
     try {
+      dispatch(setLoadingScreen());
       const response = await verifySale({
         token: tokenEsign,
         idCardNumber: idCard,
@@ -47,6 +55,7 @@ const useVerifyIdCardESignForSale = ({
             idCardNumber: idCard,
           }),
         );
+        dispatch(clearFolderESignForSale());
         appNavigate(ScreenParamEnum.UploadDocsEsignForSale, {
           saleImportId,
           tokenEsign,
@@ -59,6 +68,8 @@ const useVerifyIdCardESignForSale = ({
       }
     } catch {
       showCommonErrorToast();
+    } finally {
+      dispatch(clearLoadingScreen());
     }
   });
 

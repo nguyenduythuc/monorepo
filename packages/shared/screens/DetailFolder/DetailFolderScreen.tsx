@@ -149,7 +149,7 @@ const DetailFolderScreen = ({folderEncoded}: {folderEncoded: string}) => {
 
   const renderHeader = () => {
     return (
-      <View style={tw.style('pt-16 pb-4')}>
+      <View style={tw.style('py-4')}>
         {!selectedImages.length ? (
           <View style={tw.style('flex-row items-center px-4')}>
             <Icon name={'arrow-left'} color={'black'} onPress={goBack} />
