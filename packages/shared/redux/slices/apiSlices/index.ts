@@ -2,7 +2,6 @@ import {createApi} from '@reduxjs/toolkit/query/react';
 import axiosBaseQuery from './config';
 import {loginAPI} from './loginAPI';
 import Config from 'react-native-config';
-import {Platform} from 'react-native';
 import {simulateAPI} from './simulateAPI';
 import {publicAPI} from './publicAPI';
 import {productAPI} from './productAPI';
@@ -16,11 +15,12 @@ import {localAddressAPI} from './localAddress';
 import {fileAPI} from './fileAPI';
 import {cifAPI} from './cifAPI';
 import {eSignForSaleAPI} from './eSignForSaleAPI';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 export const apiSlice = createApi({
   reducerPath: 'LFVN-API',
   baseQuery: axiosBaseQuery({
-    baseUrl: (Platform.OS !== 'web' ? Config.BASE_API_URL : '') ?? '',
+    baseUrl: handleEnvByPlatform('BASE_API_URL') ?? '',
   }),
   tagTypes: ['Product'],
   endpoints: builder => ({

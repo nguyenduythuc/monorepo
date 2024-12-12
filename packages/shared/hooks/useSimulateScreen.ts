@@ -34,7 +34,7 @@ const useSimulateScreen = () => {
 
   if (!metadataError) {
     useEffect(() => {
-      dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
+      dispatch(setSimulate(metaData?.data?.simulate.jsFunctionContent));
     }, []);
   } else {
     const defaultSimulate = handleEnvByPlatform(

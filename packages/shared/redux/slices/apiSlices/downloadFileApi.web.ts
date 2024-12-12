@@ -5,7 +5,7 @@ const downloadFileApi = async ({
 }: {
   fileName: string;
 }): Promise<Response> => {
-  const url = `/api-app/api/files/download/${fileName}`;
+  const url = `/api/files/download/${fileName}`;
   // Fetch file from the server
   const response = await fetch(url, {
     method: 'GET',

@@ -46,7 +46,7 @@ export const configInfo = (type: EkycType) => {
 };
 
 export const webConfigInfo = {
-  domain: '/trueidapi',
+  domain: 'https://api.trueid.ai/trueidapi',
   configEndpoint: {
     ...configEndPoint,
     nfcbshield: '/ekyc/v1.2/nfcqr/upload',

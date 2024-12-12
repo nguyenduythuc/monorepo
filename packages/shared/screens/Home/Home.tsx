@@ -67,7 +67,7 @@ export const HomeScreen = () => {
   const {onHandleGetUserProfile} = useAuth();
 
   useEffect(() => {
-    dispatch(setSimulate(metaData?.data.simulate.jsFunctionContent));
+    dispatch(setSimulate(metaData?.data?.simulate.jsFunctionContent));
   }, [metaData, metadataLoading]);
 
   const listFeature: ListFeatureType[] = [

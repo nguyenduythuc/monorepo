@@ -1,6 +1,5 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import axios, {AxiosRequestConfig, AxiosError} from 'axios';
-import {Platform} from 'react-native';
 
 export enum ApiType {
   Public = 'public',
@@ -8,9 +7,7 @@ export enum ApiType {
 }
 
 export const getPath = (path: string, type?: ApiType) => {
-  let newPath = type === 'public' ? `/public${path}` : `/api${path}`;
-  newPath = Platform.OS === 'web' ? `/api-app${newPath}` : newPath;
-  return newPath;
+  return type === 'public' ? `/public${path}` : `/api${path}`;
 };
 
 let token = '';

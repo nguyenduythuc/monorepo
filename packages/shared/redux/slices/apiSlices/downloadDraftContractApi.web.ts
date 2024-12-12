@@ -1,9 +1,10 @@
 import {VerifySaleContractRequestProps} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {handleEnvByPlatform} from '@lfvn-customer/shared/utils/handleEnvByPlatform';
 
 const downloadDraftContractApi = async (
   body: VerifySaleContractRequestProps,
 ): Promise<string> => {
-  const url = `/api-app/api/sale-import/get-contract/draft`;
+  const url = `${handleEnvByPlatform('BASE_API_URL')}/api/sale-import/get-contract/draft`;
   // Fetch file from the server
   const {token, ...rest} = body;
   const response = await fetch(url, {
