@@ -1,8 +1,8 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import {CustomButton} from '@lfvn-customer/shared/components';
+import {ConfirmModal, CustomButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import PDFView from 'react-native-pdf';
 import useViewContractESignForSale from '../../hooks/useViewContractESignForSale';
@@ -20,10 +20,28 @@ const ViewContractESignForSaleScreen = ({
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
 
-  console.log('isVerifyEKYC', isVerifyEKYC);
-  console.log('isSignSuccess', isSignSuccess);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const {onPressSubmit} = useViewContractESignForSale();
+  const {onPressSubmit, onHandleConfirmESign} = useViewContractESignForSale();
+
+  useEffect(() => {
+    if (isVerifyEKYC) {
+      setIsModalVisible(true);
+    }
+  }, [isVerifyEKYC]);
+
+  const onPressConfirmModal = () => {
+    setIsModalVisible(false);
+    onHandleConfirmESign();
+  };
+
+  const onHandleSubmit = () => {
+    console.log('uri142341', uri);
+    onPressSubmit({
+      isSignSuccess,
+      uri,
+    });
+  };
 
   const renderFile = () => {
     if (uri) {
@@ -56,12 +74,21 @@ const ViewContractESignForSaleScreen = ({
       </View>
       <View style={tw`pb-4 border-t border-gray-200 bg-white`}>
         <CustomButton
-          onPress={onPressSubmit}
+          onPress={onHandleSubmit}
           color={'red'}
           buttonStyle={'mt-4 mx-4'}>
           {t('VerifyIdContractESignForSale.continue')}
         </CustomButton>
       </View>
+      <ConfirmModal
+        visible={isModalVisible}
+        setVisible={setIsModalVisible}
+        content={t('VerifyIdContractESignForSale.contentPopup')}
+        labelButtonRight={t('VerifyIdContractESignForSale.ok')}
+        singleButton
+        onButtonRightPress={onPressConfirmModal}
+        disabledPressBackdrop
+      />
     </>
   );
 };

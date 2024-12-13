@@ -421,7 +421,7 @@
   "VerifyIdContractESignForSale": {
     "title": "Nhập thông tin hợp đồng",
     "desc": "Vui lòng cung cấp thêm thông tin để hoàn thiện đăng ký",
-    "continue":"Tiếp theo",
+    "continue": "Tiếp theo",
     "checkFail": "Thông tin CCCD hoặc Số điện thoại không chính xác, vui lòng kiểm tra lại",
     "ok": "OK",
     "contentPopup": "Bạn đã hoàn thành quá trình xác thực thông tin cá nhân. Vui lòng không thoát ứng dụng và tiếp tục các bước ký hợp đồng E-Contract"
@@ -435,5 +435,8 @@
   "ViewContractESignForSale": {
     "title": "Ký hợp đồng E-Sign",
     "desc": "Quý khách vui lòng kiểm tra kỹ hợp đồng đã ký eSign"
+  },
+  "CheckNapas": {
+    "chooseBank": "Vui lòng chọn ngân hàng"
   }
 }

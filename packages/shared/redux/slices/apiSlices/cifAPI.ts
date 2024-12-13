@@ -6,6 +6,7 @@ import {
   GetLocalListRequestProps,
   BankListResponseProps,
   OccupationListResponseProps,
+  BankListNapasType,
 } from '@lfvn-customer/shared/types/services/localAddressType';
 
 export const cifAPI = (
@@ -21,6 +22,20 @@ export const cifAPI = (
       data: body,
     }),
   }),
+  getBankListNapasData: builder.query<BankListNapasType[], void>({
+    query: () => ({
+      url: getPath('/banks/get-all'),
+      method: 'get',
+    }),
+  }),
+
+  getOneBankNapasData: builder.query<BankListNapasType, {bankId: number}>({
+    query: bankId => ({
+      url: getPath(`/banks/${bankId}`),
+      method: 'get',
+    }),
+  }),
+
   getOccupationListData: builder.mutation<
     OccupationListResponseProps,
     GetLocalListRequestProps

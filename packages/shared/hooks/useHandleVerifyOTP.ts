@@ -30,6 +30,8 @@ import {
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
 import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 import {SignContractResponseProps} from '../types/services/eSignForSaleTypes';
+import moment from 'moment';
+import {convertBase64ToFile} from '../utils/handleConvertBase64ToFile';
 
 const useHandleVerifyOTP = ({
   value,
@@ -217,22 +219,16 @@ const useHandleVerifyOTP = ({
             case OTPTypesEnum.CONFIRM_ESIGN:
               const pdfBase64 = (result.data as SignContractResponseProps)
                 ?.signedFileData;
-              const prefixedBase64 = `data:application/pdf;base64,${pdfBase64}`;
-              fetch(prefixedBase64)
-                .then(res => res.blob())
-                .then(blob => {
-                  const url = URL.createObjectURL(blob);
-                  // create url from blob
-                  const uri = URL.createObjectURL(blob);
-                  appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
-                    uri,
-                    isSignSuccess: true,
-                  });
 
-                  // Hủy URL khi component bị unmount
-                  return () => URL.revokeObjectURL(url);
-                });
-
+              const uri = convertBase64ToFile({
+                base64: pdfBase64,
+                fileName: `signed-contract-${moment().format('YYYYMMDDHHmmss')}.pdf`,
+                mimeType: 'application/pdf',
+              });
+              appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
+                uri,
+                isSignSuccess: true,
+              });
               break;
             default:
               msgSuccess = 'SignUp.signUpSuccess';
