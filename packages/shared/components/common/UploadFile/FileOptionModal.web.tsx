@@ -33,19 +33,22 @@ export const FileOptionModal = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && !!doc) {
-      const imageUrl = URL.createObjectURL(file);
+    if (event.target.files?.length && !!doc) {
+      const newLinks = [];
+      for (let i = 0; i < event.target.files.length; i++) {
+        let file = event.target.files[i];
+        if (file) {
+          const imageUrl = URL.createObjectURL(file);
+          newLinks.push({
+            id: moment().format() + `_${i}`,
+            uri: imageUrl,
+          });
+        }
+      }
       dispatch(
         setDoc({
           ...doc,
-          links: [
-            ...doc.links,
-            {
-              id: moment().format(),
-              uri: imageUrl,
-            },
-          ],
+          links: [...doc.links, ...newLinks],
         }),
       );
     }
@@ -81,6 +84,7 @@ export const FileOptionModal = ({
       <input
         ref={fileInputRef}
         type="file"
+        multiple
         accept="image/*"
         style={{display: 'none'}}
         onChange={handleFileChange}
