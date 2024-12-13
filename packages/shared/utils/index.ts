@@ -31,14 +31,3 @@ export const convertNumberToCurrency = (number?: string) => {
     currency: 'VND',
   }).format(parseInt(number || '') ?? 0);
 };
-
-export const base64ToBlob = (
-  base64: string,
-  mimeType: string = 'image/jpeg',
-) => {
-  const prefix = `data:${mimeType};base64,`;
-  const validBase64 = base64.startsWith(prefix) ? base64 : `${prefix}${base64}`;
-
-  // use fetch to convert base64 to blob
-  return fetch(validBase64).then(res => res.blob());
-};
