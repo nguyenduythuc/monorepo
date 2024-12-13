@@ -3,7 +3,7 @@ import {useCustomForm} from '@lfvn-customer/shared/components/Form/Form.hook';
 import {FieldCheckNapas} from '@lfvn-customer/shared/components/Form/Form.utils';
 import {
   useCheckNapasAccountMutation,
-  useGetBankListDataMutation,
+  useLazyGetBankListNapasDataQuery,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 import {useConfigRouting} from '.';
@@ -17,7 +17,7 @@ import useShowToast from './useShowToast';
 import {clearDataESignForSale} from '../redux/slices/eSignForSaleSlice';
 
 const useCheckNapas = () => {
-  const [listBank] = useGetBankListDataMutation();
+  const [listBank] = useLazyGetBankListNapasDataQuery();
   const [checkNapasAccount] = useCheckNapasAccountMutation();
 
   const dispatch = useDispatch();
@@ -27,20 +27,15 @@ const useCheckNapas = () => {
   const {showCommonErrorToast} = useShowToast();
 
   const getBankList = async () => {
-    const result = await listBank({
-      queryInput: {},
-      limit: 100,
-      skip: 0,
-      sort: [],
-    });
+    const result = await listBank();
 
     if (result.data) {
       const options: {code: string; name: string}[] = [];
-      result.data.data.map(item => {
+      result.data.map(item => {
         if (item.code) {
           options.push({
-            name: item.bankName,
-            code: item.code,
+            name: item.name,
+            code: item.bankCode,
           });
         }
       });

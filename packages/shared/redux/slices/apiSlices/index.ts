@@ -111,6 +111,7 @@ export const {
   useSaleSelfCertMutation,
   useSignContractMutation,
   useResendOTPSignContractMutation,
+  useLazyGetBankListNapasDataQuery,
 } = apiSlice;
 
 export const {useLazyGetPlaceAutoCompleteQuery} = ggMapApiSlice;

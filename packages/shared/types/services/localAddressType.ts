@@ -44,6 +44,14 @@ export type BankListType = {
   //   updatedBy?: string;
 };
 
+export type BankListNapasType = {
+  id: string;
+  name: string;
+  code: string;
+  bankCode: string;
+  shortName: string;
+};
+
 export interface AddressLocalListResponseProps {
   count: number;
   data: AddressListType[];

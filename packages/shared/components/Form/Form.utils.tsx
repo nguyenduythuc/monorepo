@@ -353,7 +353,7 @@ export const FieldCheckNapas: Record<string, FieldConfig> = {
       name: 'bankName',
       rules: {required: 'Validation.fieldIsRequirement'},
     },
-    placeholder: 'Simulate.chooseLoanProduct',
+    placeholder: 'CheckNapas.chooseBank',
   },
   CheckNapasBankAccount: {
     label: 'ProfileInformation.bankAccountNum',
