@@ -3,17 +3,17 @@ import { getRequestConfig } from 'next-intl/server';
 // Can be imported from a shared config
 const locales = ['en', 'vi'];
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  let locale = await requestLocale;
+export default getRequestConfig(async ({ locale }) => {
+  let currentLocale = locale;
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) {
-    locale = 'vi';
+  if (!locales.includes(currentLocale as any)) {
+    currentLocale = 'vi';
   }
 
   return {
-    locale,
+    currentLocale,
     messages: (
-      await import(`@lfvn-customer/shared/i18n/locales/${locale}.json`)
+      await import(`@lfvn-customer/shared/i18n/locales/${currentLocale}.json`)
     ).default,
   };
 });
