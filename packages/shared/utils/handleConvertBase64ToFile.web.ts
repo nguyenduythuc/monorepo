@@ -4,7 +4,7 @@ export const convertBase64ToFile = async ({
 }: {
   base64: string;
   fileName?: string;
-  mimeType: string;
+  mimeType?: string;
 }) => {
   const prefix = `data:${mimeType};base64,`;
   const validBase64 = base64.startsWith(prefix) ? base64 : `${prefix}${base64}`;

@@ -55,6 +55,11 @@ import PhotoIcon from '@lfvn-customer/shared/assets/images/svg/PhotoIcon';
 import TrashIcon from '@lfvn-customer/shared/assets/images/svg/TrashIcon';
 import CloseIcon from '@lfvn-customer/shared/assets/images/svg/CloseIcon';
 import RotatePhoneIcon from '@lfvn-customer/shared/assets/images/svg/RotatePhoneIcon';
+import FileIcon from '@lfvn-customer/shared/assets/images/svg/FileIcon';
+import ExtendIcon from '@lfvn-customer/shared/assets/images/svg/ExtendIcon';
+import ChangeCameraIcon from '@lfvn-customer/shared/assets/images/svg/ChangeCameraIcon';
+import FlashIcon from '@lfvn-customer/shared/assets/images/svg/FlashIcon';
+import CameraIphoneIcon from '@lfvn-customer/shared/assets/images/svg/CameraIphoneIcon';
 
 const iconList = (props: IconProps) => ({
   search: <SearchIcon {...props} />,
@@ -111,6 +116,11 @@ const iconList = (props: IconProps) => ({
   'trash-icon': <TrashIcon {...props} />,
   'close-icon': <CloseIcon {...props} />,
   'rotate-phone-icon': <RotatePhoneIcon {...props} />,
+  'file-icon': <FileIcon {...props} />,
+  'extend-icon': <ExtendIcon {...props} />,
+  'change-camera-icon': <ChangeCameraIcon {...props} />,
+  'flash-icon': <FlashIcon {...props} />,
+  'camera-iphone-icon': <CameraIphoneIcon {...props} />,
 });
 
 type IconList = ReturnType<typeof iconList>;

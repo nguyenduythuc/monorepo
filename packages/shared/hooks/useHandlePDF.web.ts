@@ -1,11 +1,11 @@
 import {PDFDocument} from 'pdf-lib';
 import {
-  UploadESignForSaleFile,
+  DraftImagesESignForSale,
   UploadFile,
 } from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 
 const useHandlePDF = () => {
-  const createPdfFromImages = async (doc: UploadESignForSaleFile) => {
+  const createPdfFromImages = async (doc: DraftImagesESignForSale) => {
     const imageUrls = doc.links;
     const pdfDoc = await PDFDocument.create();
     // Fetch all images in parallel
@@ -46,6 +46,7 @@ const useHandlePDF = () => {
     return {
       file: pdfBlob,
       fileName: `${new Date().toISOString()}_${doc.type}`,
+      id: new Date().toISOString() + '_' + Math.random(),
     } as UploadFile;
   };
 

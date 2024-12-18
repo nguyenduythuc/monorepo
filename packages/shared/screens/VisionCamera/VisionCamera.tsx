@@ -1,11 +1,11 @@
 import React from 'react';
 import {Camera} from 'react-native-vision-camera';
-import {useDispatch} from 'react-redux';
+// import {useDispatch} from 'react-redux';
 import CameraVision from '@lfvn-customer/shared/components/common/CameraVision/CameraVision';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {UploadESignForSaleFile} from '../../types/services/eSignForSaleTypes';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
-import moment from 'moment';
+// import moment from 'moment';
 
 export type ImageType = {
   path: string;
@@ -14,7 +14,7 @@ export type ImageType = {
 export const VisionCamera = ({
   // getPath,
   doc,
-  setDoc,
+  // setDoc,
 }: {
   // getPath: void;
   doc?: UploadESignForSaleFile;
@@ -25,7 +25,7 @@ export const VisionCamera = ({
   const {goBack} = useConfigRouting();
 
   const [isFlash, setIsFlash] = React.useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const takePhoto = async () => {
     try {
@@ -51,19 +51,20 @@ export const VisionCamera = ({
 
   const handleFileChange = (imageUrl: string) => {
     // const imageUrl = URL.createObjectURL(file);
-    doc &&
-      dispatch(
-        setDoc({
-          ...doc,
-          links: [
-            ...doc.links,
-            {
-              id: moment().format(),
-              uri: imageUrl,
-            },
-          ],
-        }),
-      );
+    // doc &&
+    //   dispatch(
+    //     setDoc({
+    //       ...doc,
+    //       links: [
+    //         ...doc.links,
+    //         {
+    //           id: moment().format(),
+    //           uri: imageUrl,
+    //         },
+    //       ],
+    //     }),
+    //   );
+    console.log('imageUrl', imageUrl);
   };
 
   return (

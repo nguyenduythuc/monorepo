@@ -13,8 +13,6 @@ import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {UploadESignForSaleFile} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {useGetTheme} from '../../../hooks/useGetTheme';
-import {useDispatch} from 'react-redux';
-import moment from 'moment';
 
 const parseNumber = (text: string) => {
   if (!text) return 0;
@@ -35,11 +33,12 @@ const generateFileType = (path: string) => {
 export const FileOptionModal = ({
   doc,
   setDoc,
-  handleOpenFolder,
 }: {
   doc?: UploadESignForSaleFile;
-  setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
-  handleOpenFolder: (doc: UploadESignForSaleFile) => void;
+  setDoc?: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
+  handleOpenFolder?: (doc: UploadESignForSaleFile) => void;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
 }) => {
   const fileOptionModalRef = useRef<any>(null);
 
@@ -130,27 +129,26 @@ export const FileOptionModal = ({
     }
   };
 
-  const dispatch = useDispatch();
-
   const handleOpenCamera = async () => {
     onClose();
     appNavigate(ScreenParamEnum.VisionCamera, {doc: doc, setDoc: setDoc});
   };
 
   const handleFileChange = (imageUrl: string) => {
-    // const imageUrl = URL.createObjectURL(file);
-    dispatch(
-      setDoc({
-        ...doc,
-        links: [
-          ...doc.links,
-          {
-            id: moment().format(),
-            uri: imageUrl,
-          },
-        ],
-      }),
-    );
+    // // const imageUrl = URL.createObjectURL(file);
+    // dispatch(
+    //   setDoc({
+    //     ...doc,
+    //     links: [
+    //       ...doc.links,
+    //       {
+    //         id: moment().format(),
+    //         uri: imageUrl,
+    //       },
+    //     ],
+    //   }),
+    // );
+    console.log('imageUrl', imageUrl);
   };
 
   return (
@@ -171,10 +169,11 @@ export const FileOptionModal = ({
             icon="folder-icon"
             title={t('AdditionalInfo.folder')}
             description={t('AdditionalInfo.files', {
-              length: doc.links.length ? doc.links.length + ' ' : '0 ',
+              length: doc?.links ? 1 + ' ' : '0 ',
             })}
             customStyle="bg-white"
-            onPress={() => handleOpenFolder(doc)}
+            // onPress={() => handleOpenFolder(doc)}
+            onPress={() => {}}
           />
         </View>
       </View>

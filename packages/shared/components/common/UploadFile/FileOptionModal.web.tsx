@@ -1,30 +1,33 @@
 import {View, Text} from 'react-native';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import tw from '@lfvn-customer/shared/themes/tailwind';
-
 import {SelectFileButton} from './SelectFileButton';
-import {UploadESignForSaleFile} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
-import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
+import {
+  DraftImagesESignForSale,
+  UploadESignForSaleFile,
+} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {useDispatch} from 'react-redux';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import moment from 'moment';
+import {BaseModal} from '../AppModal';
+import {useConfigRouting} from '@lfvn-customer/shared/hooks';
+import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 
 export const FileOptionModal = ({
   doc,
-  setDoc,
-  handleOpenFolder,
+  visible,
+  setVisible,
 }: {
   doc?: UploadESignForSaleFile;
   setDoc: ActionCreatorWithPayload<UploadESignForSaleFile, string>;
-  handleOpenFolder: (doc: UploadESignForSaleFile) => void;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
 }) => {
   const t = useTranslations();
-  const {theme} = useGetTheme();
-  const {textNegative500} = theme;
 
-  const dispatch = useDispatch();
+  const {appNavigate} = useConfigRouting();
 
+  const fileOptionModalRef = useRef<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // handle open lib image on web
@@ -45,41 +48,65 @@ export const FileOptionModal = ({
           });
         }
       }
-      dispatch(
-        setDoc({
-          ...doc,
-          links: [...doc.links, ...newLinks],
-        }),
-      );
+      const draftImages: DraftImagesESignForSale = {
+        type: doc.type,
+        links: newLinks,
+      };
+      const encodedData = encodeURIComponent(JSON.stringify(draftImages));
+      setVisible(false);
+      appNavigate(ScreenParamEnum.ImageSelected, {
+        folderEncoded: encodedData,
+      });
     }
   };
 
-  if (!doc) {
-    return null;
-  }
+  useEffect(() => {
+    if (visible) {
+      fileOptionModalRef.current?.open();
+    } else {
+      fileOptionModalRef.current?.close();
+    }
+  }, [visible]);
+
+  const onPressCustomCamera = () => {
+    setVisible(false);
+    appNavigate(ScreenParamEnum.CustomCamera, {
+      docType: doc?.type,
+    });
+  };
 
   return (
-    <View style={tw.style('mt-4')}>
-      <Text style={tw`${textNegative500} font-semibold text-base mb-2`}>
-        {doc.title}
-      </Text>
-      <View style={tw.style('flex-1 flex-row justify-between gap-3')}>
-        <SelectFileButton
-          icon="upload-circle-icon"
-          title={t('AdditionalInfo.upload')}
-          description={t('AdditionalInfo.uploadDes')}
-          customStyle="border-dashed  border-blue-500"
-          onPress={handleUploadWeb}
-        />
-        <SelectFileButton
-          icon="folder-icon"
-          title={t('AdditionalInfo.folder')}
-          description={t('AdditionalInfo.files', {
-            length: doc.links.length ? doc.links.length + ' ' : '',
-          })}
-          customStyle="bg-white"
-          onPress={() => handleOpenFolder(doc)}
-        />
+    <BaseModal ref={fileOptionModalRef} disabledPressBackdrop>
+      <View
+        style={tw.style(
+          'bg-white border items-center justify-center border-gray-300 bottom-0 rounded-t-2xl max-h-96 w-full pb-6',
+          {position: 'fixed'},
+        )}>
+        <View style={tw`py-2 justify-center items-center h-14`}>
+          <Text style={tw`font-semibold text-lg`}>
+            {t('AdditionalInfo.chooseUploadMethod')}
+          </Text>
+        </View>
+
+        <View style={tw.style('w-full px-4')}>
+          <View style={tw.style('flex-row justify-between gap-3 mb-3')}>
+            <SelectFileButton
+              icon="camera-icon"
+              title={t('AdditionalInfo.camera')}
+              onPress={onPressCustomCamera}
+            />
+            <SelectFileButton
+              icon="photo-icon"
+              title={t('AdditionalInfo.choosePhoto')}
+              onPress={handleUploadWeb}
+            />
+          </View>
+          <SelectFileButton
+            icon="upload-icon"
+            title={t('AdditionalInfo.uploadFiles')}
+            onPress={handleUploadWeb}
+          />
+        </View>
       </View>
       <input
         ref={fileInputRef}
@@ -89,6 +116,6 @@ export const FileOptionModal = ({
         style={{display: 'none'}}
         onChange={handleFileChange}
       />
-    </View>
+    </BaseModal>
   );
 };

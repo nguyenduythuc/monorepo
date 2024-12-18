@@ -9,7 +9,7 @@ export const convertBase64ToFile = async ({
 }: {
   base64: string;
   fileName?: string;
-  mimeType: string;
+  mimeType?: string;
 }) => {
   try {
     const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;

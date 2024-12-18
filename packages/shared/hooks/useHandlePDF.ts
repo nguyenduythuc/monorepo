@@ -1,13 +1,13 @@
 import {
-  UploadESignForSaleFile,
+  DraftImagesESignForSale,
   UploadFile,
 } from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 
 const useHandlePDF = () => {
-  const createPdfFromImages = async (doc: UploadESignForSaleFile) => {
+  const createPdfFromImages = async (doc: DraftImagesESignForSale) => {
     return {
       file: new Blob(),
-      fileName: `${new Date().toISOString()}_${doc.title}.pdf`,
+      fileName: `${new Date().toISOString()}_${doc.type}.pdf`,
     } as UploadFile;
   };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
-import {CustomButton, FileOptionModal} from '@lfvn-customer/shared/components';
+import {CustomButton, UploadFileButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import useUploadDocsESignForSale from '@lfvn-customer/shared/hooks/useUploadDocsESignForSale';
 
@@ -20,12 +20,6 @@ const UploadDocsESignForSaleScreen = () => {
     degreeInfo,
     resumeInfo,
     bankInfo,
-    setAddressInfo,
-    setAvatarInfo,
-    setBankInfo,
-    setCccdInfo,
-    setDegreeInfo,
-    setResumeInfo,
     handleOpenFolder,
   } = useUploadDocsESignForSale();
 
@@ -41,35 +35,29 @@ const UploadDocsESignForSaleScreen = () => {
         <Text style={tw.style(`text-base pb-1 ${textNegative500} mb-2`)}>
           {t('UploadDocsESignForSale.desc')}
         </Text>
-        <FileOptionModal
+        <UploadFileButton
           doc={cccdInfo}
-          setDoc={setCccdInfo}
-          handleOpenFolder={handleOpenFolder}
+          onPress={() => handleOpenFolder(cccdInfo)}
         />
-        <FileOptionModal
+        <UploadFileButton
           doc={avatarInfo}
-          setDoc={setAvatarInfo}
-          handleOpenFolder={handleOpenFolder}
+          onPress={() => handleOpenFolder(avatarInfo)}
         />
-        <FileOptionModal
+        <UploadFileButton
           doc={addressInfo}
-          setDoc={setAddressInfo}
-          handleOpenFolder={handleOpenFolder}
+          onPress={() => handleOpenFolder(addressInfo)}
         />
-        <FileOptionModal
+        <UploadFileButton
           doc={degreeInfo}
-          setDoc={setDegreeInfo}
-          handleOpenFolder={handleOpenFolder}
+          onPress={() => handleOpenFolder(degreeInfo)}
         />
-        <FileOptionModal
+        <UploadFileButton
           doc={resumeInfo}
-          setDoc={setResumeInfo}
-          handleOpenFolder={handleOpenFolder}
+          onPress={() => handleOpenFolder(resumeInfo)}
         />
-        <FileOptionModal
+        <UploadFileButton
           doc={bankInfo}
-          setDoc={setBankInfo}
-          handleOpenFolder={handleOpenFolder}
+          onPress={() => handleOpenFolder(bankInfo)}
         />
       </ScrollView>
       <View style={tw.style('absolute bottom-4 w-full')}>

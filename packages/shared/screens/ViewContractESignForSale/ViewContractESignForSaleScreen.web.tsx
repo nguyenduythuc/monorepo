@@ -9,7 +9,7 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import useViewContractESignForSale from '@lfvn-customer/shared/hooks/useViewContractESignForSale';
 import * as pdfjs from 'pdfjs-dist';
-pdfjs.GlobalWorkerOptions.workerSrc = `/scripts/pdf.worker.min.mjs`;
+pdfjs.GlobalWorkerOptions.workerSrc = '/scripts/pdf.worker.min.mjs';
 
 const ViewContractESignForSaleScreen = ({
   uri,

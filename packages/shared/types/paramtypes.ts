@@ -1,7 +1,10 @@
 import {OTPTypes} from '@lfvn-customer/shared/types';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {UploadESignForSaleFile} from './services/eSignForSaleTypes';
+import {
+  ESignForSaleDocType,
+  UploadESignForSaleFile,
+} from './services/eSignForSaleTypes';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
 export type RootParamList = {
@@ -67,8 +70,8 @@ export type RootParamList = {
   'review-loan-offer': undefined;
   'pre-scoring-pending-check': undefined;
   'upload-docs-esign-for-sale': undefined;
-  'detail-folder': {
-    folderEncoded: string;
+  'detail-folder-esign-for-sale': {
+    docType: ESignForSaleDocType;
   };
   'zoom-rotate-image': {
     uri: string;
@@ -89,6 +92,15 @@ export type RootParamList = {
   };
   'sign-contract-esign-for-sale-success': {
     uri: string;
+  };
+  'image-selected': {
+    folderEncoded: string;
+  };
+  'custom-camera': {
+    docType: ESignForSaleDocType;
+  };
+  'pdf-view-esign-for-sale': {
+    docType: ESignForSaleDocType;
   };
 };
 
@@ -120,13 +132,16 @@ export enum ScreenParamEnum {
   ReviewLoanOffer = 'review-loan-offer',
   PreScoringPendingCheck = 'pre-scoring-pending-check',
   UploadDocsEsignForSale = 'upload-docs-esign-for-sale',
-  DetailFolder = 'detail-folder',
+  DetailFolderESignForSale = 'detail-folder-esign-for-sale',
   ZoomRotateImage = 'zoom-rotate-image',
   VerifyIdCardEsignForSale = 'verify-idcard-esign-for-sale',
   CheckNapas = 'check-napas',
   VerifyIdContractEsignForSale = 'verify-idcontract-esign-for-sale',
   ViewContractEsignForSale = 'view-contract-esign-for-sale',
   SignContractESignForSaleSuccess = 'sign-contract-esign-for-sale-success',
+  ImageSelected = 'image-selected',
+  CustomCamera = 'custom-camera',
+  PDFViewESignForSale = 'pdf-view-esign-for-sale',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -189,9 +204,9 @@ export type SuccessAccountRegisterScreenRouteProps = RouteProp<
   'success-account-register'
 >;
 
-export type DetailFolderScreenRouteProps = RouteProp<
+export type DetailFolderEsignForSaleScreenRouteProps = RouteProp<
   RootParamList,
-  'detail-folder'
+  'detail-folder-esign-for-sale'
 >;
 
 export type ZoomRotateImageScreenRouteProps = RouteProp<
@@ -224,4 +239,19 @@ export type VerifyCustomerInfoRouteProps = RouteProp<
 export type SignContractESignForSaleSuccessRouteProps = RouteProp<
   RootParamList,
   'sign-contract-esign-for-sale-success'
+>;
+
+export type ImageSelectedScreenRouteProps = RouteProp<
+  RootParamList,
+  'image-selected'
+>;
+
+export type CustomCameraScreenRouteProps = RouteProp<
+  RootParamList,
+  'custom-camera'
+>;
+
+export type PDFViewScreenRouteProps = RouteProp<
+  RootParamList,
+  'pdf-view-esign-for-sale'
 >;

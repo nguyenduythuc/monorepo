@@ -33,7 +33,7 @@ import {
   CifAndAplInformationContainer,
   ReviewLoanOfferContainer,
   PreScoringPendingCheckContainer,
-  DetailFolderContainer,
+  DetailFolderEsignForSaleContainer,
   ZoomRotateImageContainer,
   VerifyIdCardESignForSaleContainer,
   CheckNapasContainer,
@@ -41,6 +41,9 @@ import {
   UploadDocsESignForSaleContainer,
   ViewContractESignForSaleContainer,
   SignContractESignForSaleSuccessContainer,
+  ImageSelectedContainer,
+  CustomCameraContainer,
+  PDFViewEsignForSaleContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -311,8 +314,8 @@ const RootStack = () => {
         }}
       />
       <Stack.Screen
-        name="detail-folder"
-        component={DetailFolderContainer}
+        name="detail-folder-esign-for-sale"
+        component={DetailFolderEsignForSaleContainer}
         options={{
           headerShown: false,
         }}
@@ -355,6 +358,27 @@ const RootStack = () => {
       <Stack.Screen
         name="sign-contract-esign-for-sale-success"
         component={SignContractESignForSaleSuccessContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="image-selected"
+        component={ImageSelectedContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="custom-camera"
+        component={CustomCameraContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="pdf-view-esign-for-sale"
+        component={PDFViewEsignForSaleContainer}
         options={{
           headerShown: false,
         }}
