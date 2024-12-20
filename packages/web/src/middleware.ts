@@ -9,6 +9,8 @@ export default createMiddleware({
 });
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images/|fonts/|trueidsdk/).*)'],
+  // Match only internationalized pathnames, excluding static assets like scripts
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|images/|fonts/|trueidsdk/|scripts/).*)',
+  ],
 };

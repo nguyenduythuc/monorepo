@@ -4,12 +4,12 @@ import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
 import {ConfirmModal, CustomButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
-import {Document, Page, pdfjs} from 'react-pdf';
+import {Document, Page} from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import useViewContractESignForSale from '@lfvn-customer/shared/hooks/useViewContractESignForSale';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+import * as pdfjs from 'pdfjs-dist';
+pdfjs.GlobalWorkerOptions.workerSrc = `/scripts/pdf.worker.min.mjs`;
 
 const ViewContractESignForSaleScreen = ({
   uri,
