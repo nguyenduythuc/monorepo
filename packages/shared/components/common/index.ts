@@ -16,3 +16,4 @@ export * from './Calendar';
 export * from './LoadingOverlay';
 export * from './InformationTab';
 export * from './UploadFile';
+export * from './UploadFileButton';

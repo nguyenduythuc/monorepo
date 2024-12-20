@@ -1,5 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {UploadESignForSaleFile} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
+import {
+  DraftImagesESignForSale,
+  UploadESignForSaleFile,
+} from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 
 const initialState: {
   cccdInfo?: UploadESignForSaleFile;
@@ -14,6 +17,7 @@ const initialState: {
     idCardNumber: string;
     phoneNumber?: string;
   };
+  draftImages?: DraftImagesESignForSale;
 } = {};
 
 const eSignForSaleSlice = createSlice({
@@ -57,6 +61,10 @@ const eSignForSaleSlice = createSlice({
       state.resumeInfo = undefined;
       state.bankInfo = undefined;
       state.dataSaleInfo = undefined;
+      state.draftImages = undefined;
+    },
+    setDraftImages: (state, action) => {
+      state.draftImages = action.payload;
     },
   },
 });
@@ -71,5 +79,6 @@ export const {
   setDataSaleInfo,
   clearDataESignForSale,
   clearFolderESignForSale,
+  setDraftImages,
 } = eSignForSaleSlice.actions;
 export default eSignForSaleSlice.reducer;

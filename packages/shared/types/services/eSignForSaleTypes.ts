@@ -13,6 +13,11 @@ export enum ESignForSaleDocType {
 export interface UploadESignForSaleFile {
   title: string;
   type: ESignForSaleDocType;
+  links?: UploadFile;
+}
+
+export interface DraftImagesESignForSale {
+  type: ESignForSaleDocType;
   links: {
     id: string;
     uri: string;
@@ -22,6 +27,7 @@ export interface UploadESignForSaleFile {
 export interface UploadFile {
   file: Blob;
   fileName: string;
+  id: string;
 }
 
 export interface SaleimportDocsUploadWebRequestProps {

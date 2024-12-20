@@ -366,7 +366,8 @@
     "resume": "Sơ yếu lý lịch",
     "bankInfo": "Ảnh thông tin tài khoản ngân hàng",
     "upload": "Tải hồ sơ lên",
-    "missingFile": "Vui lòng tải lên tất cả các tài liệu cần thiết"
+    "missingFile": "Vui lòng tải lên tất cả các tài liệu cần thiết",
+    "file": "{count} tài liệu"
   },
   "DetailFolder": {
     "selectedAll": "Chọn tất cả",
@@ -435,6 +436,14 @@
     "desc": "Quý khách vui lòng kiểm tra kỹ hợp đồng đã ký eSign"
   },
   "CheckNapas": {
-    "chooseBank": "Choose Bank"
+    "chooseBank": "Choose Bank",
+    "uploadSuccess": "Cập nhật thông tin đăng ký thành công"
+  },
+  "ImageSelected": {
+    "cancel": "Huỷ",
+    "unSelected": "Bỏ chọn",
+    "selected": "Đã chọn {count}",
+    "confirm": "Xác nhận",
+    "selectAll": "Chọn tất cả"
   }
 }

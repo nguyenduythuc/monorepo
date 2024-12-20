@@ -53,3 +53,8 @@ export * from './PhotoIcon';
 export * from './TrashIcon';
 export * from './CloseIcon';
 export * from './RotatePhoneIcon';
+export * from './FileIcon';
+export * from './ExtendIcon';
+export * from './ChangeCameraIcon';
+export * from './FlashIcon';
+export * from './CameraIphoneIcon';
