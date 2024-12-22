@@ -193,7 +193,11 @@ const useHandleVerifyOTP = ({
                 idCardNumber: dataSaleInfo?.idCardNumber ?? '',
                 tokenEsign: dataSaleInfo?.tokenEsign ?? '',
               });
-              if (resultCheckEKYC?.data) {
+              if (!resultCheckEKYC?.data) {
+                showCommonErrorToast();
+                return;
+              }
+              if (resultCheckEKYC?.data?.action === 'ESIGN') {
                 // verified eKYC -> sign contract
                 const responseContract = await downloadDraftContractApi({
                   token: dataSaleInfo?.tokenEsign ?? '',

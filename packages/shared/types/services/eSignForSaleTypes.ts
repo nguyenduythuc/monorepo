@@ -105,10 +105,8 @@ export interface ResendOTPRequestProps {
 }
 
 export interface CheckEKYCResponseProps {
-  authSeq: string;
-  code: string;
+  action: 'EKYC' | 'ESIGN';
   message: string;
-  status: boolean;
 }
 export interface CheckEKYCRequestProps {
   id: number;
