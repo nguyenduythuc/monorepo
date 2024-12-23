@@ -211,9 +211,15 @@ const useHandleVerifyOTP = ({
                     isVerifyEKYC: true,
                   });
                 } else {
-                  showCommonErrorToast();
+                  handleShowToast({
+                    type: 'error',
+                    msg: t('VerifyIdCardESignForSale.verifyFail'),
+                  });
                   return;
                 }
+              } else if (resultCheckEKYC?.data?.action === 'REJECT') {
+                showCommonErrorToast();
+                return;
               } else {
                 appNavigate(ScreenParamEnum.VerifyCustomerInfo, {
                   type: OTPTypesEnum.ESIGN,

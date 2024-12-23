@@ -388,7 +388,8 @@
     "continue": "Tiếp theo",
     "checkFail": "Thông tin CCCD không chính xác, vui lòng kiểm tra lại",
     "checkNapas": "Kiểm tra Napas",
-    "checkNapasDesc": "Vui lòng nhập thông tin tài khoản ngân hàng"
+    "checkNapasDesc": "Vui lòng nhập thông tin tài khoản ngân hàng",
+    "verifyFail": "Sale không hợp lệ, vui lòng kiểm tra lại thông tin"
   },
   "ProfileInformation": {
     "province": "Tỉnh/Thành phố",

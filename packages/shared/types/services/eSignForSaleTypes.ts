@@ -105,7 +105,7 @@ export interface ResendOTPRequestProps {
 }
 
 export interface CheckEKYCResponseProps {
-  action: 'EKYC' | 'ESIGN';
+  action: 'EKYC' | 'ESIGN' | 'REJECT';
   message: string;
 }
 export interface CheckEKYCRequestProps {
