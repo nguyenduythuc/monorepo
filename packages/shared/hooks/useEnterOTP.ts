@@ -25,6 +25,8 @@ const useEnterOTP = ({
   phoneNumber: string;
   identityNumber: string;
   type: OTPTypesEnum;
+  value: string;
+  setValue: (value: string) => void;
 }) => {
   const t = useTranslations();
   const [resendOTP, {error}] = useResendOTPMutation();

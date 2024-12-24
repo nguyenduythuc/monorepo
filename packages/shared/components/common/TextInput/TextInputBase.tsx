@@ -74,7 +74,7 @@ export const TextInputBase = forwardRef<TextInput, ITextInputBaseProps>(
             ref={ref}
             editable={!disabled}
             style={tw.style([
-              `flex-1 h-14, border-0 ${textNegative500}`,
+              `flex-1 h-14, border-0 text-base ${textNegative500}`,
               textInputStyle,
             ])}
             onFocus={handleFocus}

@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {
   useBlurOnFulfill,
   useClearByFocusCell,
@@ -13,14 +12,16 @@ const useInputOTP = ({
   type,
   newPassword,
   currentPassword,
+  value,
+  setValue,
 }: {
   authSeq: string;
   type: OTPTypesEnum;
   newPassword?: string;
   currentPassword?: string;
+  value: string;
+  setValue: (value: string) => void;
 }) => {
-  const [value, setValue] = useState('');
-
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -37,8 +38,6 @@ const useInputOTP = ({
   });
 
   return {
-    value,
-    setValue,
     ref,
     props,
     getCellOnLayoutHandler,

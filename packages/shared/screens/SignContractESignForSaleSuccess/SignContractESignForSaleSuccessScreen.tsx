@@ -6,7 +6,7 @@ import {CustomButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {downloadBase64PDF} from '../../utils/handleConvertBase64ToFile';
+import {downloadBase64PDF} from '@lfvn-customer/shared/utils/handleConvertBase64ToFile';
 
 const SignContractESignForSaleSuccessScreen = ({uri}: {uri: string}) => {
   const t = useTranslations();

@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import useHandleVerifyOTP from './useHandleVerifyOTP';
 import {OTPTypesEnum} from '../types';
 const CELL_COUNT = 6;
@@ -8,14 +7,15 @@ const useInputOTP = ({
   type,
   newPassword,
   currentPassword,
+  value,
 }: {
   authSeq: string;
   type: OTPTypesEnum;
   newPassword?: string;
   currentPassword?: string;
+  value: string;
+  setValue: (value: string) => void;
 }) => {
-  const [value, setValue] = useState('');
-
   useHandleVerifyOTP({
     value,
     maxLengthOTP: CELL_COUNT,
@@ -26,8 +26,6 @@ const useInputOTP = ({
   });
 
   return {
-    value,
-    setValue,
     CELL_COUNT,
   };
 };

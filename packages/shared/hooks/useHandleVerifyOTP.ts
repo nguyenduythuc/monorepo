@@ -32,6 +32,7 @@ import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlic
 import {SignContractResponseProps} from '../types/services/eSignForSaleTypes';
 import moment from 'moment';
 import {convertBase64ToFile} from '../utils/handleConvertBase64ToFile';
+import {Keyboard} from 'react-native';
 
 const useHandleVerifyOTP = ({
   value,
@@ -53,7 +54,7 @@ const useHandleVerifyOTP = ({
     useResetPasswordFinishMutation();
   const [verifyChangePassword, {error: verifyChangePasswordError}] =
     useVerifyChangePasswordMutation();
-  const [verifyOTPESign, {isError: isVerifyErrorESign}] =
+  const [verifyOTPESign, {error: verifyErrorESign}] =
     useOtpVerifyBaseMutation();
   const [checkEKYC] = useCheckEKYCMutation();
   const [active, {error: activeError}] = useLazyActiveQuery();
@@ -70,19 +71,28 @@ const useHandleVerifyOTP = ({
   const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const error = useMemo(() => {
-    return (
-      verifyOTPError ||
-      resetPasswordFinishError ||
-      activeError ||
-      verifyChangePasswordError ||
-      isVerifyErrorESign
-    );
+    if (verifyOTPError) {
+      return verifyOTPError;
+    }
+    if (resetPasswordFinishError) {
+      return resetPasswordFinishError;
+    }
+    if (activeError) {
+      return activeError;
+    }
+    if (verifyChangePasswordError) {
+      return verifyChangePasswordError;
+    }
+    if (verifyErrorESign) {
+      return verifyErrorESign;
+    }
+    return null;
   }, [
     verifyOTPError,
     resetPasswordFinishError,
     activeError,
     verifyChangePasswordError,
-    isVerifyErrorESign,
+    verifyErrorESign,
   ]);
 
   useEffect(() => {
@@ -114,6 +124,7 @@ const useHandleVerifyOTP = ({
     try {
       if (value.length === maxLengthOTP) {
         dispatch(setLoadingScreen());
+        Keyboard.dismiss();
         let result;
         switch (type) {
           case OTPTypesEnum.LOGIN_OTP:

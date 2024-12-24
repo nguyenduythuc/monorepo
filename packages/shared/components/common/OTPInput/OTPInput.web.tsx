@@ -9,17 +9,23 @@ export const OTPInput = ({
   type,
   newPassword,
   currentPassword,
+  value,
+  setValue,
 }: {
   authSeq: string;
   type: OTPTypesEnum;
   newPassword?: string;
   currentPassword?: string;
+  value: string;
+  setValue: (value: string) => void;
 }) => {
-  const {value, setValue, CELL_COUNT} = useInputOTP({
+  const {CELL_COUNT} = useInputOTP({
     authSeq,
     type,
     newPassword,
     currentPassword,
+    value,
+    setValue,
   });
 
   return (

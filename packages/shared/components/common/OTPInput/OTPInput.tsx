@@ -11,22 +11,27 @@ export const OTPInput = ({
   type,
   newPassword,
   currentPassword,
+  value,
+  setValue,
 }: {
   authSeq: string;
   type: OTPTypesEnum;
   newPassword?: string;
   currentPassword?: string;
+  value: string;
+  setValue: (value: string) => void;
 }) => {
   const {theme} = useGetTheme();
   const {textNegative500, borderDanger500} = theme;
 
-  const {ref, props, value, setValue, getCellOnLayoutHandler, CELL_COUNT} =
-    useInputOTP({
-      authSeq,
-      type,
-      newPassword,
-      currentPassword,
-    });
+  const {ref, props, getCellOnLayoutHandler, CELL_COUNT} = useInputOTP({
+    authSeq,
+    type,
+    newPassword,
+    currentPassword,
+    value,
+    setValue,
+  });
 
   return (
     <CodeField

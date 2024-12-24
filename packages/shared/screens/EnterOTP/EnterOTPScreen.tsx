@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
 import {useGetTheme} from '@lfvn-customer/shared/hooks/useGetTheme';
@@ -27,6 +27,7 @@ const EnterOTPScreen = ({
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500, textDanger500, textNegative200} = theme;
+  const [value, setValue] = useState('');
   const {
     onPressResendOTP,
     counter,
@@ -34,7 +35,14 @@ const EnterOTPScreen = ({
     isModalVisible,
     setIsModalVisible,
     msgRequestError,
-  } = useEnterOTP({authSeq, phoneNumber, identityNumber, type});
+  } = useEnterOTP({
+    authSeq,
+    phoneNumber,
+    identityNumber,
+    type,
+    value,
+    setValue,
+  });
 
   return (
     <View style={tw.style('flex-1')}>
@@ -60,6 +68,8 @@ const EnterOTPScreen = ({
         type={type}
         newPassword={newPassword}
         currentPassword={currentPassword}
+        value={value}
+        setValue={setValue}
       />
       <View style={tw.style('flex-row items-center justify-between mt-6 mx-4')}>
         <View style={tw.style('flex-row items-center')}>
