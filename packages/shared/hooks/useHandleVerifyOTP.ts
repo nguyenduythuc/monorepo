@@ -4,7 +4,6 @@ import {
   useLazyActiveQuery,
   useOtpVerifyBaseMutation,
   useResetPasswordFinishMutation,
-  useSaleSelfCertMutation,
   useSignContractMutation,
   useVerifyChangePasswordMutation,
   useVerifyOTPMutation,
@@ -58,7 +57,7 @@ const useHandleVerifyOTP = ({
     useOtpVerifyBaseMutation();
   const [checkEKYC] = useCheckEKYCMutation();
   const [active, {error: activeError}] = useLazyActiveQuery();
-  const [saleSelfCert] = useSaleSelfCertMutation();
+
   const [signContract] = useSignContractMutation();
 
   const dispatch = useDispatch();
@@ -163,20 +162,13 @@ const useHandleVerifyOTP = ({
             });
             break;
           case OTPTypesEnum.CONFIRM_ESIGN:
-            const resultSaleSelfCert = await saleSelfCert({
+            result = await signContract({
               id: Number(dataSaleInfo?.saleImportId ?? 0),
               idCardNumber: dataSaleInfo?.idCardNumber ?? '',
               tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+              otp: value,
+              billCode: dataSaleInfo?.billCode ?? '',
             });
-            if (resultSaleSelfCert?.data) {
-              result = await signContract({
-                id: Number(dataSaleInfo?.saleImportId ?? 0),
-                idCardNumber: dataSaleInfo?.idCardNumber ?? '',
-                tokenEsign: dataSaleInfo?.tokenEsign ?? '',
-                otp: value,
-                billCode: resultSaleSelfCert.data.billCode,
-              });
-            }
             break;
           default:
             break;

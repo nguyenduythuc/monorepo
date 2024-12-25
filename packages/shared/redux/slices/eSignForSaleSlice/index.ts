@@ -16,6 +16,7 @@ const initialState: {
     tokenEsign: string;
     idCardNumber: string;
     phoneNumber?: string;
+    billCode?: string;
   };
   draftImages?: DraftImagesESignForSale;
 } = {};

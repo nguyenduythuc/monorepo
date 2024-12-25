@@ -86,7 +86,7 @@ const ViewContractESignForSaleScreen = ({
               onPress={onHandleSubmit}
               color={'red'}
               buttonStyle={'mt-4 mx-4'}>
-              {t('VerifyIdContractESignForSale.continue')}
+              {t('VerifyIdContractESignForSale.signContract')}
             </CustomButton>
           </View>
         )}

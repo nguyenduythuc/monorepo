@@ -74,6 +74,7 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
     dispatch(setVerifyAccount(ekycData));
     if (type === OTPTypesEnum.ESIGN) {
       try {
+        dispatch(setLoadingScreen());
         const result = await handleVerifyEKYCSubmit({
           id: dataSaleInfo?.saleImportId ?? '',
           idCardNumber: dataSaleInfo?.idCardNumber ?? '',

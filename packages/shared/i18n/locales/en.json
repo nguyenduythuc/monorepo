@@ -424,7 +424,8 @@
     "continue": "Tiếp theo",
     "checkFail": "Thông tin CCCD hoặc Số điện thoại không chính xác, vui lòng kiểm tra lại",
     "ok": "OK",
-    "contentPopup": "Bạn đã hoàn thành quá trình xác thực thông tin cá nhân. Vui lòng không thoát ứng dụng và tiếp tục các bước ký hợp đồng E-Contract"
+    "contentPopup": "Bạn đã hoàn thành quá trình xác thực thông tin cá nhân. Vui lòng không thoát ứng dụng và tiếp tục các bước ký hợp đồng E-Contract",
+    "signContract": "Ký hợp đồng"
   },
   "SignContractESignForSaleSuccess": {
     "title": "E-Signing",

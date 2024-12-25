@@ -1,7 +1,10 @@
 import {Keyboard} from 'react-native';
 import {useConfigRouting} from './routing';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {useOtpGenerateBaseMutation} from '../redux/slices/apiSlices';
+import {
+  useOtpGenerateBaseMutation,
+  useSaleSelfCertMutation,
+} from '@lfvn-customer/shared/redux/slices/apiSlices';
 import useShowToast from './useShowToast';
 import {useAppSelector} from '../redux/store';
 import {OTPTypesEnum} from '../types';
@@ -10,6 +13,7 @@ import {
   clearLoadingScreen,
   setLoadingScreen,
 } from '@lfvn-customer/shared/redux/slices/loadingSlices';
+import {setDataSaleInfo} from '../redux/slices/eSignForSaleSlice';
 
 const useViewContractESignForSale = () => {
   const {appNavigate} = useConfigRouting();
@@ -20,6 +24,7 @@ const useViewContractESignForSale = () => {
   const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const [generateOtp] = useOtpGenerateBaseMutation();
+  const [saleSelfCert] = useSaleSelfCertMutation();
 
   const onPressSubmit = async ({
     isSignSuccess,
@@ -66,17 +71,31 @@ const useViewContractESignForSale = () => {
     }
   };
 
-  const onHandleConfirmESign = () => {
+  const onHandleConfirmESign = async () => {
     if (!dataSaleInfo) {
       return;
     }
-    const {idCardNumber, phoneNumber} = dataSaleInfo;
-    appNavigate(ScreenParamEnum.EnterOtp, {
-      authSeq: '',
-      phoneNumber: phoneNumber ?? '',
-      identityNumber: idCardNumber ?? '',
-      type: OTPTypesEnum.CONFIRM_ESIGN,
+    const {idCardNumber, phoneNumber, saleImportId, tokenEsign} = dataSaleInfo;
+    const resultSaleSelfCert = await saleSelfCert({
+      id: Number(saleImportId ?? 0),
+      idCardNumber: idCardNumber ?? '',
+      tokenEsign: tokenEsign ?? '',
     });
+    if (resultSaleSelfCert?.data) {
+      const billCode = resultSaleSelfCert.data.billCode;
+      dispatch(
+        setDataSaleInfo({
+          ...dataSaleInfo,
+          billCode,
+        }),
+      );
+      appNavigate(ScreenParamEnum.EnterOtp, {
+        authSeq: '',
+        phoneNumber: phoneNumber ?? '',
+        identityNumber: idCardNumber ?? '',
+        type: OTPTypesEnum.CONFIRM_ESIGN,
+      });
+    }
   };
 
   return {
