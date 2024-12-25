@@ -123,6 +123,8 @@ export interface VerifyEKYCRequestProps {
   id: string;
   idCardNumber: string;
   selfiePhoto: FileProps;
+  frontSidePhoto: FileProps;
+  backSidePhoto: FileProps;
   tokenEsign: string;
   idCardIssuedAt: string;
   idCardIssuedBy: string;
@@ -132,7 +134,11 @@ export interface VerifyEKYCRequestWebProps {
   id: string;
   idCardNumber: string;
   selfiePhoto: Blob;
-  fileName: string;
+  frontSidePhoto: Blob;
+  backSidePhoto: Blob;
+  selfieFileName: string;
+  frontSideFileName: string;
+  backSideFileName: string;
   tokenEsign: string;
   idCardIssuedAt: string;
   idCardIssuedBy: string;

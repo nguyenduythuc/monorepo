@@ -68,6 +68,8 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
   const handleEkycSubmit = async (
     ekycData: ekycDataType | webEkycDataType,
     selfieImg?: string,
+    frontSide?: string,
+    backSide?: string,
   ) => {
     dispatch(setVerifyAccount(ekycData));
     if (type === OTPTypesEnum.ESIGN) {
@@ -76,6 +78,8 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
           id: dataSaleInfo?.saleImportId ?? '',
           idCardNumber: dataSaleInfo?.idCardNumber ?? '',
           selfieImg: selfieImg ?? '',
+          frontSide: frontSide ?? '',
+          backSide: backSide ?? '',
           idCardIssuedAt: ekycData?.doi?.toString() ?? '',
           idCardIssuedBy: ekycData?.givenPlace?.toString() ?? '',
           tokenEsign: dataSaleInfo?.tokenEsign ?? '',

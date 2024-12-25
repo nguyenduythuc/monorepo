@@ -110,6 +110,8 @@ const useHandleSaveFile = () => {
 
   const handleVerifyEKYCSubmit = async ({
     selfieImg,
+    frontSide,
+    backSide,
     id,
     idCardNumber,
     idCardIssuedAt,
@@ -117,16 +119,37 @@ const useHandleSaveFile = () => {
     tokenEsign,
   }: {
     selfieImg: string;
+    frontSide: string;
+    backSide: string;
     id: string;
     idCardNumber: string;
     idCardIssuedAt: string;
     idCardIssuedBy: string;
     tokenEsign: string;
   }) => {
-    const fileName =
+    const selfieFileName =
       idCardNumber + `_SELFIE_` + moment().format('YYYYMMDDHHmmss') + '.jpg';
-    const filePath = await saveEKYCImageBase64ToFile(selfieImg, fileName);
-    if (!filePath) {
+    const selfieFileNameFilePath = await saveEKYCImageBase64ToFile(
+      selfieImg,
+      selfieFileName,
+    );
+    const frontSideFileName =
+      idCardNumber + `_FRONT_` + moment().format('YYYYMMDDHHmmss') + '.jpg';
+    const frontSideFileNameFilePath = await saveEKYCImageBase64ToFile(
+      frontSide,
+      frontSideFileName,
+    );
+    const backSideFileName =
+      idCardNumber + `_BACK_` + moment().format('YYYYMMDDHHmmss') + '.jpg';
+    const backSideFileNameFilePath = await saveEKYCImageBase64ToFile(
+      backSide,
+      backSideFileName,
+    );
+    if (
+      !selfieFileNameFilePath ||
+      !frontSideFileNameFilePath ||
+      !backSideFileNameFilePath
+    ) {
       showCommonErrorToast();
       return false;
     }
@@ -136,14 +159,26 @@ const useHandleSaveFile = () => {
       idCardIssuedAt,
       idCardIssuedBy,
       selfiePhoto: {
-        uri: filePath,
+        uri: selfieFileNameFilePath,
         type: 'image/jpeg',
-        name: fileName,
+        name: selfieFileName,
+      },
+      frontSidePhoto: {
+        uri: frontSideFileNameFilePath,
+        type: 'image/jpeg',
+        name: frontSideFileName,
+      },
+      backSidePhoto: {
+        uri: backSideFileNameFilePath,
+        type: 'image/jpeg',
+        name: backSideFileName,
       },
       tokenEsign,
     };
     const result = await verifyEKYC(body);
-    removeFileAfterUpload(filePath);
+    removeFileAfterUpload(selfieFileNameFilePath);
+    removeFileAfterUpload(frontSideFileNameFilePath);
+    removeFileAfterUpload(backSideFileNameFilePath);
     return result?.data;
   };
 

@@ -21,6 +21,8 @@ const useHandleStartEkyc = () => {
     handleEkycSubmit: (
       ekycData: ekycDataType | webEkycDataType,
       selfieImg?: string,
+      frontSide?: string,
+      backSide?: string,
     ) => void;
   }) => {
     // Todo set up true id web
@@ -68,7 +70,12 @@ const useHandleStartEkyc = () => {
             origin: result.idInfo?.id_origin?.value,
             oldIdNumber: result.idInfo?.id_old_number?.value,
           };
-          handleEkycSubmit(data, result?.rawImage?.selfie);
+          handleEkycSubmit(
+            data,
+            result?.rawImage?.selfie,
+            result?.rawImage?.front,
+            result?.rawImage?.back,
+          );
           // console.log('final data', parsePassportData(result.nfcInfo));
         } else {
           // handle error

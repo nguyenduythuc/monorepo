@@ -104,6 +104,8 @@ const useHandleSaveFile = () => {
 
   const handleVerifyEKYCSubmit = async ({
     selfieImg,
+    frontSide,
+    backSide,
     id,
     idCardNumber,
     idCardIssuedAt,
@@ -111,6 +113,8 @@ const useHandleSaveFile = () => {
     tokenEsign,
   }: {
     selfieImg: string;
+    frontSide: string;
+    backSide: string;
     id: string;
     idCardNumber: string;
     idCardIssuedAt: string;
@@ -118,7 +122,9 @@ const useHandleSaveFile = () => {
     tokenEsign: string;
   }) => {
     const selfiePhoto = await saveEKYCImageBase64ToFile(selfieImg);
-    if (!selfiePhoto) {
+    const frontSidePhoto = await saveEKYCImageBase64ToFile(frontSide);
+    const backSidePhoto = await saveEKYCImageBase64ToFile(backSide);
+    if (!selfiePhoto || !frontSidePhoto || !backSidePhoto) {
       showCommonErrorToast();
       return false;
     }
@@ -126,7 +132,11 @@ const useHandleSaveFile = () => {
       id,
       idCardNumber,
       selfiePhoto,
-      fileName: `${id}_selfie.jpg`,
+      frontSidePhoto,
+      backSidePhoto,
+      selfieFileName: `${id}_selfie.jpg`,
+      frontSideFileName: `${id}_front.jpg`,
+      backSideFileName: `${id}_back.jpg`,
       idCardIssuedAt,
       idCardIssuedBy,
       tokenEsign,

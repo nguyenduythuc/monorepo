@@ -145,6 +145,26 @@ export const eSignForSaleAPI = (
           }),
         ),
       );
+      form.append(
+        'frontSide',
+        JSON.parse(
+          JSON.stringify({
+            uri: body.frontSidePhoto.uri,
+            name: body.frontSidePhoto.name,
+            type: body.frontSidePhoto.type,
+          }),
+        ),
+      );
+      form.append(
+        'backSide',
+        JSON.parse(
+          JSON.stringify({
+            uri: body.backSidePhoto.uri,
+            name: body.backSidePhoto.name,
+            type: body.backSidePhoto.type,
+          }),
+        ),
+      );
       return {
         url: getPath('/sale-import/verify-ekyc'),
         method: 'post',
@@ -162,7 +182,9 @@ export const eSignForSaleAPI = (
       form.append('idCardNumber', body.idCardNumber);
       form.append('idCardIssuedAt', body.idCardIssuedAt);
       form.append('idCardIssuedBy', body.idCardIssuedBy);
-      form.append('selfiePhoto', body.selfiePhoto, body.fileName);
+      form.append('selfiePhoto', body.selfiePhoto, body.selfieFileName);
+      form.append('frontSide', body.frontSidePhoto, body.frontSideFileName);
+      form.append('backSide', body.backSidePhoto, body.backSideFileName);
       return {
         url: getPath('/sale-import/verify-ekyc'),
         method: 'post',

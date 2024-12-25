@@ -26,6 +26,8 @@ const useHandleStartEkyc = () => {
     handleEkycSubmit: (
       ekycData: ekycDataType | webEkycDataType,
       selfieImg?: string,
+      frontSide?: string,
+      backSide?: string,
     ) => void;
     type?: EkycType;
   }) => {
@@ -51,7 +53,7 @@ const useHandleStartEkyc = () => {
               identityNumber,
             });
           }
-          handleEkycSubmit(data, data?.passportImage);
+          handleEkycSubmit(data, data?.passportImage); // todo: add front and back image
         } else {
           // handle error
           console.log('errorMesssage 1: ', result.errorMessage);
@@ -94,7 +96,12 @@ const useHandleStartEkyc = () => {
             });
           }
           const data: ekycDataType = result.idInfo;
-          handleEkycSubmit(data, result.rawImage?.selfie);
+          handleEkycSubmit(
+            data,
+            result.rawImage?.selfie,
+            result.rawImage?.front,
+            result.rawImage?.back,
+          );
         } else {
           // handle error
           console.log('errorMesssage : ', result.errorMessage);
