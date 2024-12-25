@@ -64,6 +64,8 @@ export interface CheckNapasRequestProps {
   bankCode: string;
   accountNo: string;
   idCardNumber: string;
+  accountName: string;
+  accountBranch: string;
   tokenEsign: string;
 }
 

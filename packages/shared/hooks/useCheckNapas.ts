@@ -17,6 +17,7 @@ import {
 import useShowToast from './useShowToast';
 import {clearDataESignForSale} from '../redux/slices/eSignForSaleSlice';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
+import {Keyboard} from 'react-native';
 
 const useCheckNapas = () => {
   const [listBank] = useLazyGetBankListNapasDataQuery();
@@ -79,6 +80,14 @@ const useCheckNapas = () => {
         ...FieldCheckNapas.CheckNapasBankAccount,
         value: '',
       },
+      {
+        ...FieldCheckNapas.CheckNapasAccountName,
+        value: '',
+      },
+      {
+        ...FieldCheckNapas.CheckNapasAccountBranch,
+        value: '',
+      },
     ];
   }, [listBankOption]);
 
@@ -93,14 +102,16 @@ const useCheckNapas = () => {
     }
   }, [listBankOption, setValue]);
 
-  const onPressSubmit = async () => {
+  const onPressSubmit = handleSubmit(async () => {
+    Keyboard.dismiss();
     const checkNapasForm = getValues();
-    const {bankAccount, bankName} = checkNapasForm;
-
+    const {bankAccount, bankName, accountName, accountBranch} = checkNapasForm;
     const checkNapasBody = {
       id: dataSaleInfo?.saleImportId ?? '3',
       bankCode: bankName,
       accountNo: bankAccount,
+      accountName,
+      accountBranch,
       idCardNumber: dataSaleInfo?.idCardNumber ?? '017097000089',
       tokenEsign: dataSaleInfo?.tokenEsign ?? '',
     };
@@ -153,12 +164,11 @@ const useCheckNapas = () => {
     } finally {
       dispatch(clearLoadingScreen());
     }
-  };
+  });
 
   return {
     renderFrom,
     watch,
-    handleSubmit,
     onPressSubmit,
   };
 };

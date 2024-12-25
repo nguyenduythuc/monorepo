@@ -441,7 +441,13 @@
   },
   "CheckNapas": {
     "chooseBank": "Vui lòng chọn ngân hàng",
-    "uploadSuccess": "Cập nhật thông tin đăng ký thành công"
+    "uploadSuccess": "Cập nhật thông tin đăng ký thành công",
+    "accountName": "Tên chủ tài khoản",
+    "accountNamePlaceholder": "Nhập tên chủ tài khoản",
+    "accountBranch": "Chi nhánh",
+    "accountBranchPlaceholder": "Nhập chi nhánh",
+    "accountNumber": "Số tài khoản",
+    "accountNumberPlaceholder": "Nhập số tài khoản"
   },
   "ImageSelected": {
     "cancel": "Huỷ",

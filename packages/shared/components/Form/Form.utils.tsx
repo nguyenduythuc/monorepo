@@ -356,7 +356,7 @@ export const FieldCheckNapas: Record<string, FieldConfig> = {
     placeholder: 'CheckNapas.chooseBank',
   },
   CheckNapasBankAccount: {
-    label: 'ProfileInformation.bankAccountNum',
+    label: 'CheckNapas.accountNumber',
     controlProps: {
       name: 'bankAccount',
       rules: {
@@ -374,9 +374,33 @@ export const FieldCheckNapas: Record<string, FieldConfig> = {
     },
     type: FieldType.TextInput,
     keyboardType: 'numeric',
-    // placeholder: 'VerifyAccount.phonenumberPlaceholder',
+    placeholder: 'CheckNapas.accountNumberPlaceholder',
     containerStyle: 'mt-4',
     // textInputStyle: 'text-xl font-medium',
+  },
+  CheckNapasAccountName: {
+    label: 'CheckNapas.accountName',
+    controlProps: {
+      name: 'accountName',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+      },
+    },
+    type: FieldType.TextInput,
+    placeholder: 'CheckNapas.accountNamePlaceholder',
+    containerStyle: 'mt-4',
+  },
+  CheckNapasAccountBranch: {
+    label: 'CheckNapas.accountBranch',
+    controlProps: {
+      name: 'accountBranch',
+      rules: {
+        required: 'Validation.fieldIsRequirement',
+      },
+    },
+    type: FieldType.TextInput,
+    placeholder: 'CheckNapas.accountBranchPlaceholder',
+    containerStyle: 'mt-4',
   },
 };
 
