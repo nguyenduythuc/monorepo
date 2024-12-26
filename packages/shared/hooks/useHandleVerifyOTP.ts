@@ -233,7 +233,7 @@ const useHandleVerifyOTP = ({
               const pdfBase64 = (result.data as SignContractResponseProps)
                 ?.signedFileData;
 
-              const uri = convertBase64ToFile({
+              const uri = await convertBase64ToFile({
                 base64: pdfBase64,
                 fileName: `signed-contract-${moment().format('YYYYMMDDHHmmss')}.pdf`,
                 mimeType: 'application/pdf',

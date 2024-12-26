@@ -75,7 +75,7 @@ const useViewContractESignForSale = () => {
     if (!dataSaleInfo) {
       return;
     }
-    const {idCardNumber, phoneNumber, saleImportId, tokenEsign} = dataSaleInfo;
+    const {idCardNumber, saleImportId, tokenEsign} = dataSaleInfo;
     const resultSaleSelfCert = await saleSelfCert({
       id: Number(saleImportId ?? 0),
       idCardNumber: idCardNumber ?? '',
@@ -89,13 +89,9 @@ const useViewContractESignForSale = () => {
           billCode,
         }),
       );
-      appNavigate(ScreenParamEnum.EnterOtp, {
-        authSeq: '',
-        phoneNumber: phoneNumber ?? '',
-        identityNumber: idCardNumber ?? '',
-        type: OTPTypesEnum.CONFIRM_ESIGN,
-      });
+      return true;
     }
+    return false;
   };
 
   return {
