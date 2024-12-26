@@ -453,5 +453,9 @@
     "selected": "Đã chọn {count}",
     "confirm": "Xác nhận",
     "selectAll": "Chọn tất cả"
+  },
+  "UploadDocsRollbackESignForSale": {
+    "title": "Bổ sung hồ sơ rollback",
+    "desc": "Danh sách tài liệu cần cung cấp lại trước khi nộp đơn"
   }
 }

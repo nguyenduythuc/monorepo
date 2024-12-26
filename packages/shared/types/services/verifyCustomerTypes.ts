@@ -95,7 +95,10 @@ export type WebOCRResultType = {
   clientId: string;
   errorMessage: string;
   code: number;
-  decision: object;
+  decision: {
+    code: number;
+    decision: 'AUTO_APPROVED' | 'REJECTED' | 'MANUAL';
+  };
   idInfo: webEkycDataType;
   ekycResult: {kyc_result: {back: {given_date: {value: string}}}};
   rawImage?: {

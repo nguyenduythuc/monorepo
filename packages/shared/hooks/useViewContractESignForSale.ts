@@ -75,23 +75,34 @@ const useViewContractESignForSale = () => {
     if (!dataSaleInfo) {
       return;
     }
-    const {idCardNumber, saleImportId, tokenEsign} = dataSaleInfo;
-    const resultSaleSelfCert = await saleSelfCert({
-      id: Number(saleImportId ?? 0),
-      idCardNumber: idCardNumber ?? '',
-      tokenEsign: tokenEsign ?? '',
-    });
-    if (resultSaleSelfCert?.data) {
-      const billCode = resultSaleSelfCert.data.billCode;
-      dispatch(
-        setDataSaleInfo({
-          ...dataSaleInfo,
-          billCode,
-        }),
-      );
-      return true;
+    const {idCardNumber, saleImportId, tokenEsign, phoneNumber} = dataSaleInfo;
+    try {
+      dispatch(setLoadingScreen());
+      const resultSaleSelfCert = await saleSelfCert({
+        id: Number(saleImportId ?? 0),
+        idCardNumber: idCardNumber ?? '',
+        tokenEsign: tokenEsign ?? '',
+      });
+      if (resultSaleSelfCert?.data) {
+        const billCode = resultSaleSelfCert.data.billCode;
+        dispatch(
+          setDataSaleInfo({
+            ...dataSaleInfo,
+            billCode,
+          }),
+        );
+        appNavigate(ScreenParamEnum.EnterOtp, {
+          authSeq: '',
+          phoneNumber: phoneNumber ?? '',
+          identityNumber: idCardNumber ?? '',
+          type: OTPTypesEnum.CONFIRM_ESIGN,
+        });
+      }
+    } catch {
+      showCommonErrorToast();
+    } finally {
+      dispatch(clearLoadingScreen());
     }
-    return false;
   };
 
   return {

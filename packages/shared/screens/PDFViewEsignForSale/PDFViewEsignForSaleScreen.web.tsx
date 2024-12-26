@@ -34,9 +34,6 @@ const PDFViewEsignForSaleScreen = ({
     setIsLoadingPDF(false);
   };
 
-  console.log('docType', docType);
-  console.log('doc', doc);
-
   const onHandleSubmit = () => {
     if (doc) {
       appNavigate(ScreenParamEnum.DetailFolderESignForSale, {

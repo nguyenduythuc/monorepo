@@ -21,6 +21,7 @@ import {
   ResendOTPSignContractRequestProps,
   ResendOTPSignContractResponseProps,
   VerifyEKYCRequestWebProps,
+  UpdateEKYCRequestProps,
 } from '@lfvn-customer/shared/types/services/eSignForSaleTypes';
 import {getPath} from './config';
 import {ApiTagType} from '@lfvn-customer/shared/types';
@@ -36,12 +37,24 @@ export const eSignForSaleAPI = (
       const form = new FormData();
       form.append('saleImportId', body.saleImportId);
       form.append('idCardNumber', body.idCardNumber);
-      form.append('docIdCard', body.docIdCard.file, body.docIdCard.fileName);
-      form.append('docSelfie', body.docSelfie.file, body.docSelfie.fileName);
-      form.append('docGtct', body.docGtct.file, body.docGtct.fileName);
-      form.append('docVb', body.docVb.file, body.docVb.fileName);
-      form.append('docSyll', body.docSyll.file, body.docSyll.fileName);
-      form.append('docBank', body.docBank.file, body.docBank.fileName);
+      if (body?.docIdCard?.file) {
+        form.append('docIdCard', body.docIdCard.file, body.docIdCard.fileName);
+      }
+      if (body?.docSelfie?.file) {
+        form.append('docSelfie', body.docSelfie.file, body.docSelfie.fileName);
+      }
+      if (body?.docGtct?.file) {
+        form.append('docGtct', body.docGtct.file, body.docGtct.fileName);
+      }
+      if (body?.docVb?.file) {
+        form.append('docVb', body.docVb.file, body.docVb.fileName);
+      }
+      if (body?.docSyll?.file) {
+        form.append('docSyll', body.docSyll.file, body.docSyll.fileName);
+      }
+      if (body?.docBank?.file) {
+        form.append('docBank', body.docBank.file, body.docBank.fileName);
+      }
       return {
         url: getPath('/sale-import/docs/upload'),
         method: 'post',
@@ -76,14 +89,17 @@ export const eSignForSaleAPI = (
     CheckNapasResponseProps,
     CheckNapasRequestProps
   >({
-    query: (body: CheckNapasRequestProps) => ({
-      url: getPath('/sale-import/check-napas'),
-      method: 'post',
-      data: body,
-      headers: {
-        'sale-import-token': body.tokenEsign,
-      },
-    }),
+    query: (body: CheckNapasRequestProps) => {
+      const {tokenEsign, ...rest} = body;
+      return {
+        url: getPath('/sale-import/check-napas'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': tokenEsign,
+        },
+      };
+    },
   }),
   otpGenerateBase: builder.mutation<
     GenerateOTPResponseProps,
@@ -133,38 +149,46 @@ export const eSignForSaleAPI = (
       const form = new FormData();
       form.append('id', body.id);
       form.append('idCardNumber', body.idCardNumber);
-      form.append('idCardIssuedAt', body.idCardIssuedAt);
-      form.append('idCardIssuedBy', body.idCardIssuedBy);
-      form.append(
-        'selfiePhoto',
-        JSON.parse(
-          JSON.stringify({
-            uri: body.selfiePhoto.uri,
-            name: body.selfiePhoto.name,
-            type: body.selfiePhoto.type,
-          }),
-        ),
-      );
-      form.append(
-        'frontSide',
-        JSON.parse(
-          JSON.stringify({
-            uri: body.frontSidePhoto.uri,
-            name: body.frontSidePhoto.name,
-            type: body.frontSidePhoto.type,
-          }),
-        ),
-      );
-      form.append(
-        'backSide',
-        JSON.parse(
-          JSON.stringify({
-            uri: body.backSidePhoto.uri,
-            name: body.backSidePhoto.name,
-            type: body.backSidePhoto.type,
-          }),
-        ),
-      );
+      if (
+        body?.idCardIssuedAt &&
+        body?.idCardIssuedBy &&
+        body?.selfiePhoto &&
+        body?.frontSidePhoto &&
+        body?.backSidePhoto
+      ) {
+        form.append('idCardIssuedAt', body.idCardIssuedAt);
+        form.append('idCardIssuedBy', body.idCardIssuedBy);
+        form.append(
+          'selfiePhoto',
+          JSON.parse(
+            JSON.stringify({
+              uri: body.selfiePhoto.uri,
+              name: body.selfiePhoto.name,
+              type: body.selfiePhoto.type,
+            }),
+          ),
+        );
+        form.append(
+          'frontSide',
+          JSON.parse(
+            JSON.stringify({
+              uri: body.frontSidePhoto.uri,
+              name: body.frontSidePhoto.name,
+              type: body.frontSidePhoto.type,
+            }),
+          ),
+        );
+        form.append(
+          'backSide',
+          JSON.parse(
+            JSON.stringify({
+              uri: body.backSidePhoto.uri,
+              name: body.backSidePhoto.name,
+              type: body.backSidePhoto.type,
+            }),
+          ),
+        );
+      }
       return {
         url: getPath('/sale-import/verify-ekyc'),
         method: 'post',
@@ -180,11 +204,22 @@ export const eSignForSaleAPI = (
       const form = new FormData();
       form.append('id', body.id);
       form.append('idCardNumber', body.idCardNumber);
-      form.append('idCardIssuedAt', body.idCardIssuedAt);
-      form.append('idCardIssuedBy', body.idCardIssuedBy);
-      form.append('selfiePhoto', body.selfiePhoto, body.selfieFileName);
-      form.append('frontSide', body.frontSidePhoto, body.frontSideFileName);
-      form.append('backSide', body.backSidePhoto, body.backSideFileName);
+      if (
+        body?.selfiePhoto &&
+        body?.frontSidePhoto &&
+        body?.backSidePhoto &&
+        body?.selfieFileName &&
+        body?.frontSideFileName &&
+        body?.backSideFileName &&
+        body?.idCardIssuedAt &&
+        body?.idCardIssuedBy
+      ) {
+        form.append('idCardIssuedAt', body.idCardIssuedAt);
+        form.append('idCardIssuedBy', body.idCardIssuedBy);
+        form.append('selfiePhoto', body.selfiePhoto, body.selfieFileName);
+        form.append('frontSide', body.frontSidePhoto, body.frontSideFileName);
+        form.append('backSide', body.backSidePhoto, body.backSideFileName);
+      }
       return {
         url: getPath('/sale-import/verify-ekyc'),
         method: 'post',
@@ -235,6 +270,19 @@ export const eSignForSaleAPI = (
       const {tokenEsign, ...rest} = body;
       return {
         url: getPath('/sale-import/esign/resend-otp'),
+        method: 'post',
+        data: rest,
+        headers: {
+          'sale-import-token': tokenEsign,
+        },
+      };
+    },
+  }),
+  updateEKYC: builder.mutation<void, UpdateEKYCRequestProps>({
+    query: (body: UpdateEKYCRequestProps) => {
+      const {tokenEsign, ...rest} = body;
+      return {
+        url: getPath('/sale-import/update-ekyc'),
         method: 'post',
         data: rest,
         headers: {

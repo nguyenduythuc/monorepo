@@ -34,7 +34,7 @@ const useUploadDocsESignForSale = () => {
       dispatch(
         setCccdInfo({
           title: t('UploadDocsESignForSale.cccd'),
-          type: ESignForSaleDocType.CARD,
+          type: ESignForSaleDocType.DOC_CCCD,
           links: [],
         }),
       );
@@ -43,7 +43,7 @@ const useUploadDocsESignForSale = () => {
       dispatch(
         setAvatarInfo({
           title: t('UploadDocsESignForSale.avatar'),
-          type: ESignForSaleDocType.SELFIE,
+          type: ESignForSaleDocType.DOC_SELFIE,
           links: [],
         }),
       );
@@ -52,7 +52,7 @@ const useUploadDocsESignForSale = () => {
       dispatch(
         setAddressInfo({
           title: t('UploadDocsESignForSale.address'),
-          type: ESignForSaleDocType.ADDRESS,
+          type: ESignForSaleDocType.DOC_GTCT,
           links: [],
         }),
       );
@@ -61,7 +61,7 @@ const useUploadDocsESignForSale = () => {
       dispatch(
         setDegreeInfo({
           title: t('UploadDocsESignForSale.degree'),
-          type: ESignForSaleDocType.DEGREE,
+          type: ESignForSaleDocType.DOC_VB,
           links: [],
         }),
       );
@@ -70,7 +70,7 @@ const useUploadDocsESignForSale = () => {
       dispatch(
         setResumeInfo({
           title: t('UploadDocsESignForSale.resume'),
-          type: ESignForSaleDocType.RESUME,
+          type: ESignForSaleDocType.DOC_SYLL,
           links: [],
         }),
       );
@@ -86,25 +86,75 @@ const useUploadDocsESignForSale = () => {
     }
   }, [cccdInfo, avatarInfo, addressInfo, degreeInfo, resumeInfo, bankInfo]);
 
-  const onPressSubmit = () => {
-    if (
-      !cccdInfo?.links?.id ||
-      !avatarInfo?.links?.id ||
-      !addressInfo?.links?.id ||
-      !degreeInfo?.links?.id ||
-      !resumeInfo?.links?.id ||
-      !bankInfo?.links?.id
-    ) {
-      handleShowToast({
-        msg: t('UploadDocsESignForSale.missingFile'),
-        type: 'error',
-      });
+  const showPopupMissingFile = () => {
+    handleShowToast({
+      msg: t('UploadDocsESignForSale.missingFile'),
+      type: 'error',
+    });
+  };
+
+  const onPressSubmit = (rollbackDocsTypes?: ESignForSaleDocType[]) => {
+    if (!rollbackDocsTypes?.length) {
+      if (
+        !cccdInfo?.links?.id ||
+        !avatarInfo?.links?.id ||
+        !addressInfo?.links?.id ||
+        !degreeInfo?.links?.id ||
+        !resumeInfo?.links?.id ||
+        !bankInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+      } else {
+        appNavigate(ScreenParamEnum.CheckNapas);
+      }
     } else {
+      if (
+        rollbackDocsTypes.includes(ESignForSaleDocType.DOC_CCCD) &&
+        !cccdInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+        return;
+      }
+      if (
+        rollbackDocsTypes.includes(ESignForSaleDocType.DOC_SELFIE) &&
+        !avatarInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+        return;
+      }
+      if (
+        rollbackDocsTypes.includes(ESignForSaleDocType.DOC_GTCT) &&
+        !addressInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+        return;
+      }
+      if (
+        rollbackDocsTypes.includes(ESignForSaleDocType.DOC_VB) &&
+        !degreeInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+        return;
+      }
+      if (
+        rollbackDocsTypes.includes(ESignForSaleDocType.DOC_SYLL) &&
+        !resumeInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+        return;
+      }
+      if (
+        rollbackDocsTypes.includes(ESignForSaleDocType.BANK_INFO) &&
+        !bankInfo?.links?.id
+      ) {
+        showPopupMissingFile();
+        return;
+      }
       appNavigate(ScreenParamEnum.CheckNapas);
     }
   };
 
-  const handleOpenFolder = (doc?: UploadESignForSaleFile) => {
+  const handleOpenFolder = ({doc}: {doc?: UploadESignForSaleFile}) => {
     if (!doc) {
       return;
     }

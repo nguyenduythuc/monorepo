@@ -34,3 +34,5 @@ export * from './SignContractESignForSaleSuccess';
 export * from './ImageSelected';
 export * from './CustomCamera';
 export * from './PDFViewEsignForSale';
+export * from './UploadDocsRollbackESignForSale';
+export * from './VerifyDocsRollbackESignForSale';

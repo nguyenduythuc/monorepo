@@ -11,15 +11,15 @@ const useHandleDocEsignForSale = (docType?: ESignForSaleDocType) => {
       return undefined;
     }
     switch (docType) {
-      case ESignForSaleDocType.CARD:
+      case ESignForSaleDocType.DOC_CCCD:
         return cccdInfo;
-      case ESignForSaleDocType.SELFIE:
+      case ESignForSaleDocType.DOC_SELFIE:
         return avatarInfo;
-      case ESignForSaleDocType.DEGREE:
-        return degreeInfo;
-      case ESignForSaleDocType.ADDRESS:
+      case ESignForSaleDocType.DOC_GTCT:
         return addressInfo;
-      case ESignForSaleDocType.RESUME:
+      case ESignForSaleDocType.DOC_VB:
+        return degreeInfo;
+      case ESignForSaleDocType.DOC_SYLL:
         return resumeInfo;
       case ESignForSaleDocType.BANK_INFO:
         return bankInfo;

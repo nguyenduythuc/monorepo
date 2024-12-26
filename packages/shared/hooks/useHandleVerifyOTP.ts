@@ -6,6 +6,7 @@ import {
   useResetPasswordFinishMutation,
   useSignContractMutation,
   useVerifyChangePasswordMutation,
+  useVerifyEKYCMutation,
   useVerifyOTPMutation,
 } from '@lfvn-customer/shared/redux/slices/apiSlices';
 import useTranslations from './useTranslations';
@@ -59,6 +60,7 @@ const useHandleVerifyOTP = ({
   const [active, {error: activeError}] = useLazyActiveQuery();
 
   const [signContract] = useSignContractMutation();
+  const [verifyEKYC] = useVerifyEKYCMutation();
 
   const dispatch = useDispatch();
 
@@ -209,6 +211,11 @@ const useHandleVerifyOTP = ({
                   phoneNumber: dataSaleInfo?.phoneNumber ?? '',
                 });
                 if (responseContract) {
+                  await verifyEKYC({
+                    id: dataSaleInfo?.saleImportId ?? '',
+                    idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+                    tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+                  });
                   appNavigate(ScreenParamEnum.ViewContractEsignForSale, {
                     uri: responseContract,
                     isVerifyEKYC: true,
@@ -221,7 +228,10 @@ const useHandleVerifyOTP = ({
                   return;
                 }
               } else if (resultCheckEKYC?.data?.action === 'REJECT') {
-                showCommonErrorToast();
+                handleShowToast({
+                  type: 'error',
+                  msg: t('VerifyIdCardESignForSale.verifyFail'),
+                });
                 return;
               } else {
                 appNavigate(ScreenParamEnum.VerifyCustomerInfo, {

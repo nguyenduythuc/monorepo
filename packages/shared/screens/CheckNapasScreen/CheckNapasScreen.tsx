@@ -11,7 +11,6 @@ const CheckNapasScreen = () => {
 
   return (
     <>
-      {/* <Appbar labelContent={t('Simulate.simulate')} /> */}
       <ScrollView style={tw`flex-1`}>
         <View style={tw`px-4 mt-4`}>
           <Text style={tw`text-3xl font-bold`}>

@@ -44,6 +44,8 @@ import {
   ImageSelectedContainer,
   CustomCameraContainer,
   PDFViewEsignForSaleContainer,
+  UploadDocsRollbackESignForSaleContainer,
+  VerifyDocsRollbackESignForSaleContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -103,6 +105,9 @@ const config: LinkingOptions<RootParamList>['config'] = {
     },
     'verify-idcontract-esign-for-sale': {
       path: 'verify-idcontract-esign-for-sale/:saleImportId/:tokenEsign',
+    },
+    'verify-docs-rollback-esign-for-sale': {
+      path: 'verify-docs-rollback-esign-for-sale/:saleImportId/:tokenEsign/:docTypes',
     },
   },
 };
@@ -379,6 +384,20 @@ const RootStack = () => {
       <Stack.Screen
         name="pdf-view-esign-for-sale"
         component={PDFViewEsignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="upload-docs-rollback-esign-for-sale"
+        component={UploadDocsRollbackESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="verify-docs-rollback-esign-for-sale"
+        component={VerifyDocsRollbackESignForSaleContainer}
         options={{
           headerShown: false,
         }}

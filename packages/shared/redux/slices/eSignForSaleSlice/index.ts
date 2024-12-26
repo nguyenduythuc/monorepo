@@ -17,6 +17,7 @@ const initialState: {
     idCardNumber: string;
     phoneNumber?: string;
     billCode?: string;
+    rollbackDocsTypes?: string;
   };
   draftImages?: DraftImagesESignForSale;
 } = {};

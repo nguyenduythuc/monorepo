@@ -31,3 +31,5 @@ export * from './SignContractESignForSaleSuccessContainer';
 export * from './ImageSelectedContainer';
 export * from './CustomCameraContainer';
 export * from './PDFViewEsignForSaleContainer';
+export * from './UploadDocsRollbackESignForSaleContainer';
+export * from './VerifyDocsRollbackESignForSaleContainer';

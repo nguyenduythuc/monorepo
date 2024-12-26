@@ -102,6 +102,12 @@ export type RootParamList = {
   'pdf-view-esign-for-sale': {
     docType: ESignForSaleDocType;
   };
+  'upload-docs-rollback-esign-for-sale': undefined;
+  'verify-docs-rollback-esign-for-sale': {
+    saleImportId: string;
+    tokenEsign: string;
+    docTypes: string;
+  };
 };
 
 export enum ScreenParamEnum {
@@ -142,6 +148,7 @@ export enum ScreenParamEnum {
   ImageSelected = 'image-selected',
   CustomCamera = 'custom-camera',
   PDFViewESignForSale = 'pdf-view-esign-for-sale',
+  UploadDocsRollbackEsignForSale = 'upload-docs-rollback-esign-for-sale',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;
@@ -254,4 +261,14 @@ export type CustomCameraScreenRouteProps = RouteProp<
 export type PDFViewScreenRouteProps = RouteProp<
   RootParamList,
   'pdf-view-esign-for-sale'
+>;
+
+export type UploadDocsRollbackEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'upload-docs-rollback-esign-for-sale'
+>;
+
+export type VerifyDocsRollbackEsignForSaleScreenRouteProps = RouteProp<
+  RootParamList,
+  'verify-docs-rollback-esign-for-sale'
 >;

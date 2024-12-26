@@ -24,6 +24,8 @@ import {useConfigRouting} from '@lfvn-customer/shared/hooks';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import useHandlePDF from '@lfvn-customer/shared/hooks/useHandlePDF';
 
+const MAX_IMAGE_SELECTED = 20;
+
 const ImageSelectedScreen = ({folderEncoded}: {folderEncoded: string}) => {
   const {theme} = useGetTheme();
   const {textUseful500} = theme;
@@ -53,13 +55,23 @@ const ImageSelectedScreen = ({folderEncoded}: {folderEncoded: string}) => {
   }, [folder]);
 
   const toggleImageSelection = (id: string) => {
-    setSelectedImages(prev =>
-      prev.includes(id) ? prev.filter(imgId => imgId !== id) : [...prev, id],
-    );
+    // select max 20 images
+    if (selectedImages.length < MAX_IMAGE_SELECTED) {
+      setSelectedImages(prev =>
+        prev.includes(id) ? prev.filter(imgId => imgId !== id) : [...prev, id],
+      );
+    } else if (selectedImages.includes(id)) {
+      setSelectedImages(prev => prev.filter(imgId => imgId !== id));
+    }
   };
 
   const selectAllImages = () => {
-    setSelectedImages(images.map(img => img.id));
+    // select max 20 images
+    setSelectedImages(
+      images
+        .filter((_, index) => index < MAX_IMAGE_SELECTED)
+        .map(img => img.id),
+    );
   };
 
   const onPressImage = (item: {id: string; uri: string}) => {
@@ -88,7 +100,7 @@ const ImageSelectedScreen = ({folderEncoded}: {folderEncoded: string}) => {
         links: pdf,
       } as UploadESignForSaleFile;
       switch (folder.type) {
-        case ESignForSaleDocType.CARD:
+        case ESignForSaleDocType.DOC_CCCD:
           dispatch(
             setCccdInfo({
               ...newDocs,
@@ -96,7 +108,7 @@ const ImageSelectedScreen = ({folderEncoded}: {folderEncoded: string}) => {
             }),
           );
           break;
-        case ESignForSaleDocType.SELFIE:
+        case ESignForSaleDocType.DOC_SELFIE:
           dispatch(
             setAvatarInfo({
               ...newDocs,
@@ -104,15 +116,7 @@ const ImageSelectedScreen = ({folderEncoded}: {folderEncoded: string}) => {
             }),
           );
           break;
-        case ESignForSaleDocType.DEGREE:
-          dispatch(
-            setDegreeInfo({
-              ...newDocs,
-              title: t('UploadDocsESignForSale.degree'),
-            }),
-          );
-          break;
-        case ESignForSaleDocType.ADDRESS:
+        case ESignForSaleDocType.DOC_GTCT:
           dispatch(
             setAddressInfo({
               ...newDocs,
@@ -120,7 +124,15 @@ const ImageSelectedScreen = ({folderEncoded}: {folderEncoded: string}) => {
             }),
           );
           break;
-        case ESignForSaleDocType.RESUME:
+        case ESignForSaleDocType.DOC_VB:
+          dispatch(
+            setDegreeInfo({
+              ...newDocs,
+              title: t('UploadDocsESignForSale.degree'),
+            }),
+          );
+          break;
+        case ESignForSaleDocType.DOC_SYLL:
           dispatch(
             setResumeInfo({
               ...newDocs,

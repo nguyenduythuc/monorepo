@@ -121,35 +121,24 @@ const useCheckNapas = () => {
       if (result.data) {
         if (result.data.result) {
           // upload docs esign
-          if (
-            cccdInfo?.links?.file &&
-            avatarInfo?.links?.file &&
-            addressInfo?.links?.file &&
-            degreeInfo?.links?.file &&
-            resumeInfo?.links?.file &&
-            bankInfo?.links?.file
-          ) {
-            const uploadDocsResult = await uploadDocs({
-              saleImportId: dataSaleInfo?.saleImportId ?? '',
-              idCardNumber: dataSaleInfo?.idCardNumber ?? '',
-              docIdCard: cccdInfo.links,
-              docSelfie: avatarInfo.links,
-              docGtct: addressInfo.links,
-              docVb: degreeInfo.links,
-              docSyll: resumeInfo.links,
-              docBank: bankInfo.links,
-              tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+          const uploadDocsResult = await uploadDocs({
+            saleImportId: dataSaleInfo?.saleImportId ?? '',
+            idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+            docIdCard: cccdInfo?.links,
+            docSelfie: avatarInfo?.links,
+            docGtct: addressInfo?.links,
+            docVb: degreeInfo?.links,
+            docSyll: resumeInfo?.links,
+            docBank: bankInfo?.links,
+            tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+          });
+          if (uploadDocsResult.data) {
+            dispatch(clearDataESignForSale());
+            handleShowToast({
+              type: 'success',
+              msg: t('CheckNapas.uploadSuccess'),
             });
-            if (uploadDocsResult.data) {
-              dispatch(clearDataESignForSale());
-              handleShowToast({
-                type: 'success',
-                msg: t('CheckNapas.uploadSuccess'),
-              });
-              appNavigate(ScreenParamEnum.Home);
-            } else {
-              showCommonErrorToast();
-            }
+            appNavigate(ScreenParamEnum.Home);
           } else {
             showCommonErrorToast();
           }

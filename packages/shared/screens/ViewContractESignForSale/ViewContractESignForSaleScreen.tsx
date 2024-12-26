@@ -6,10 +6,6 @@ import {ConfirmModal, CustomButton} from '@lfvn-customer/shared/components';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import PDFView from 'react-native-pdf';
 import useViewContractESignForSale from '@lfvn-customer/shared/hooks/useViewContractESignForSale';
-import {OTPTypesEnum} from '@lfvn-customer/shared/types';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 
 const ViewContractESignForSaleScreen = ({
   uri,
@@ -23,13 +19,10 @@ const ViewContractESignForSaleScreen = ({
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
-  const {appNavigate} = useConfigRouting();
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const {onPressSubmit, onHandleConfirmESign} = useViewContractESignForSale();
-
-  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   useEffect(() => {
     if (isVerifyEKYC) {
@@ -37,18 +30,9 @@ const ViewContractESignForSaleScreen = ({
     }
   }, [isVerifyEKYC]);
 
-  const onPressConfirmModal = async () => {
-    const result = await onHandleConfirmESign();
-    if (result && dataSaleInfo) {
-      const {idCardNumber, phoneNumber} = dataSaleInfo;
-      setIsModalVisible(false);
-      appNavigate(ScreenParamEnum.EnterOtp, {
-        authSeq: '',
-        phoneNumber: phoneNumber ?? '',
-        identityNumber: idCardNumber ?? '',
-        type: OTPTypesEnum.CONFIRM_ESIGN,
-      });
-    }
+  const onPressConfirmModal = () => {
+    setIsModalVisible(false);
+    onHandleConfirmESign();
   };
 
   const onHandleSubmit = () => {

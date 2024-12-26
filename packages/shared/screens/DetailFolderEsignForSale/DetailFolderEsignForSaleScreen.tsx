@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React, {useState} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import tw from '@lfvn-customer/shared/themes/tailwind';
@@ -75,10 +77,17 @@ const DetailFolderEsignForSaleScreen = ({
   };
 
   const onPressGoBack = () => {
-    appNavigate(ScreenParamEnum.UploadDocsEsignForSale, {
-      saleImportId: dataSaleInfo?.saleImportId,
-      tokenEsign: dataSaleInfo?.tokenEsign,
-    });
+    const rollbackDocsTypes = dataSaleInfo?.rollbackDocsTypes;
+    const saleImportId = dataSaleInfo?.saleImportId;
+    const tokenEsign = dataSaleInfo?.tokenEsign;
+    if (!rollbackDocsTypes) {
+      appNavigate(ScreenParamEnum.UploadDocsEsignForSale, {
+        saleImportId,
+        tokenEsign,
+      });
+    } else {
+      appNavigate(ScreenParamEnum.UploadDocsRollbackEsignForSale);
+    }
   };
 
   const renderImage = ({item}: {item: UploadESignForSaleFile}) => (
@@ -120,19 +129,19 @@ const DetailFolderEsignForSaleScreen = ({
       links: undefined,
     } as UploadESignForSaleFile;
     switch (typeImage) {
-      case ESignForSaleDocType.CARD:
+      case ESignForSaleDocType.DOC_CCCD:
         dispatch(setCccdInfo(newDocs));
         break;
-      case ESignForSaleDocType.SELFIE:
+      case ESignForSaleDocType.DOC_SELFIE:
         dispatch(setAvatarInfo(newDocs));
         break;
-      case ESignForSaleDocType.DEGREE:
-        dispatch(setDegreeInfo(newDocs));
-        break;
-      case ESignForSaleDocType.ADDRESS:
+      case ESignForSaleDocType.DOC_GTCT:
         dispatch(setAddressInfo(newDocs));
         break;
-      case ESignForSaleDocType.RESUME:
+      case ESignForSaleDocType.DOC_VB:
+        dispatch(setDegreeInfo(newDocs));
+        break;
+      case ESignForSaleDocType.DOC_SYLL:
         dispatch(setResumeInfo(newDocs));
         break;
       case ESignForSaleDocType.BANK_INFO:

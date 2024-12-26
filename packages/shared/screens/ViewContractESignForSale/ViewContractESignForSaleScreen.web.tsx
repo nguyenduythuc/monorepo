@@ -9,10 +9,6 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import useViewContractESignForSale from '@lfvn-customer/shared/hooks/useViewContractESignForSale';
 import * as pdfjs from 'pdfjs-dist';
-import {OTPTypesEnum} from '@lfvn-customer/shared/types';
-import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
-import {useConfigRouting} from '@lfvn-customer/shared/hooks';
-import {useAppSelector} from '@lfvn-customer/shared/redux/store';
 pdfjs.GlobalWorkerOptions.workerSrc = '/scripts/pdf.worker.min.mjs';
 
 const ViewContractESignForSaleScreen = ({
@@ -27,13 +23,10 @@ const ViewContractESignForSaleScreen = ({
   const t = useTranslations();
   const {theme} = useGetTheme();
   const {textNegative500} = theme;
-  const {appNavigate} = useConfigRouting();
 
   const [numPages, setNumPages] = useState<number>(0);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isLoadingPDF, setIsLoadingPDF] = useState<boolean>(true);
-
-  const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const onDocumentLoadSuccess = ({numPages}: {numPages: number}) => {
     setNumPages(numPages);
@@ -48,18 +41,9 @@ const ViewContractESignForSaleScreen = ({
     }
   }, [isVerifyEKYC]);
 
-  const onPressConfirmModal = async () => {
-    const result = await onHandleConfirmESign();
-    if (result && dataSaleInfo) {
-      setIsModalVisible(false);
-      const {idCardNumber, phoneNumber} = dataSaleInfo;
-      appNavigate(ScreenParamEnum.EnterOtp, {
-        authSeq: '',
-        phoneNumber: phoneNumber ?? '',
-        identityNumber: idCardNumber ?? '',
-        type: OTPTypesEnum.CONFIRM_ESIGN,
-      });
-    }
+  const onPressConfirmModal = () => {
+    setIsModalVisible(false);
+    onHandleConfirmESign();
   };
 
   const onHandleSubmit = () => {

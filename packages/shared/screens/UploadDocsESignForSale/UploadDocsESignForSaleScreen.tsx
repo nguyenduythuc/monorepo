@@ -37,32 +37,56 @@ const UploadDocsESignForSaleScreen = () => {
         </Text>
         <UploadFileButton
           doc={cccdInfo}
-          onPress={() => handleOpenFolder(cccdInfo)}
+          onPress={() =>
+            handleOpenFolder({
+              doc: cccdInfo,
+            })
+          }
         />
         <UploadFileButton
           doc={avatarInfo}
-          onPress={() => handleOpenFolder(avatarInfo)}
+          onPress={() =>
+            handleOpenFolder({
+              doc: avatarInfo,
+            })
+          }
         />
         <UploadFileButton
           doc={addressInfo}
-          onPress={() => handleOpenFolder(addressInfo)}
+          onPress={() =>
+            handleOpenFolder({
+              doc: addressInfo,
+            })
+          }
         />
         <UploadFileButton
           doc={degreeInfo}
-          onPress={() => handleOpenFolder(degreeInfo)}
+          onPress={() =>
+            handleOpenFolder({
+              doc: degreeInfo,
+            })
+          }
         />
         <UploadFileButton
           doc={resumeInfo}
-          onPress={() => handleOpenFolder(resumeInfo)}
+          onPress={() =>
+            handleOpenFolder({
+              doc: resumeInfo,
+            })
+          }
         />
         <UploadFileButton
           doc={bankInfo}
-          onPress={() => handleOpenFolder(bankInfo)}
+          onPress={() =>
+            handleOpenFolder({
+              doc: bankInfo,
+            })
+          }
         />
       </ScrollView>
       <View style={tw.style('absolute bottom-4 w-full')}>
         <CustomButton
-          onPress={onPressSubmit}
+          onPress={() => onPressSubmit([])}
           color={'red'}
           buttonStyle={'mt-4 mx-4'}>
           {t('UploadDocsESignForSale.upload')}

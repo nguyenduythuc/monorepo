@@ -8,7 +8,7 @@ import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {useDispatch} from 'react-redux';
 import {
-  clearFolderESignForSale,
+  clearDataESignForSale,
   setDataSaleInfo,
 } from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
 import {
@@ -19,9 +19,11 @@ import {
 const useVerifyIdCardESignForSale = ({
   tokenEsign,
   saleImportId,
+  docTypes,
 }: {
   tokenEsign: string;
   saleImportId: string;
+  docTypes?: string;
 }) => {
   const t = useTranslations();
   const fields = [FieldTestConfig.SignUpPersonalCard];
@@ -40,6 +42,7 @@ const useVerifyIdCardESignForSale = ({
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
     const {idCard} = getValues();
+    dispatch(clearDataESignForSale());
     try {
       dispatch(setLoadingScreen());
       const response = await verifySale({
@@ -53,13 +56,17 @@ const useVerifyIdCardESignForSale = ({
             saleImportId,
             tokenEsign,
             idCardNumber: idCard,
+            rollbackDocsTypes: docTypes,
           }),
         );
-        dispatch(clearFolderESignForSale());
-        appNavigate(ScreenParamEnum.UploadDocsEsignForSale, {
-          saleImportId,
-          tokenEsign,
-        });
+        if (!docTypes) {
+          appNavigate(ScreenParamEnum.UploadDocsEsignForSale, {
+            saleImportId,
+            tokenEsign,
+          });
+        } else {
+          appNavigate(ScreenParamEnum.UploadDocsRollbackEsignForSale);
+        }
       } else {
         handleShowToast({
           msg: t('VerifyIdCardESignForSale.checkFail'),

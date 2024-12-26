@@ -361,10 +361,6 @@ export const FieldCheckNapas: Record<string, FieldConfig> = {
       name: 'bankAccount',
       rules: {
         required: 'Validation.fieldIsRequirement',
-        pattern: {
-          value: REGEX.phone,
-          message: 'Validation.phonenumber',
-        },
         validate: (value: string) => {
           if (!validateOnlyNumberFloat(value)) {
             return 'Validation.mustBeANumber';
@@ -394,9 +390,6 @@ export const FieldCheckNapas: Record<string, FieldConfig> = {
     label: 'CheckNapas.accountBranch',
     controlProps: {
       name: 'accountBranch',
-      rules: {
-        required: 'Validation.fieldIsRequirement',
-      },
     },
     type: FieldType.TextInput,
     placeholder: 'CheckNapas.accountBranchPlaceholder',

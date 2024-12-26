@@ -2,12 +2,12 @@ import {OTPTypes} from '@lfvn-customer/shared/types';
 import {FileProps} from '../models/loanModel';
 
 export enum ESignForSaleDocType {
-  CARD = 'docIdCard',
-  SELFIE = 'docSelfie',
-  ADDRESS = 'docGtct',
-  DEGREE = 'docVb',
-  RESUME = 'docSyll',
-  BANK_INFO = 'docBank',
+  DOC_CCCD = 'DOC_CCCD',
+  DOC_SELFIE = 'DOC_SELFIE',
+  DOC_GTCT = 'DOC_GTCT',
+  DOC_VB = 'DOC_VB',
+  DOC_SYLL = 'DOC_SYLL',
+  BANK_INFO = 'DOC_BANK',
 }
 
 export interface UploadESignForSaleFile {
@@ -33,12 +33,12 @@ export interface UploadFile {
 export interface SaleimportDocsUploadWebRequestProps {
   saleImportId: string;
   idCardNumber: string;
-  docIdCard: UploadFile;
-  docSelfie: UploadFile;
-  docGtct: UploadFile;
-  docVb: UploadFile;
-  docSyll: UploadFile;
-  docBank: UploadFile;
+  docIdCard?: UploadFile;
+  docSelfie?: UploadFile;
+  docGtct?: UploadFile;
+  docVb?: UploadFile;
+  docSyll?: UploadFile;
+  docBank?: UploadFile;
   tokenEsign: string;
 }
 
@@ -124,26 +124,26 @@ export interface VerifyEKYCResponseProps {
 export interface VerifyEKYCRequestProps {
   id: string;
   idCardNumber: string;
-  selfiePhoto: FileProps;
-  frontSidePhoto: FileProps;
-  backSidePhoto: FileProps;
+  selfiePhoto?: FileProps;
+  frontSidePhoto?: FileProps;
+  backSidePhoto?: FileProps;
   tokenEsign: string;
-  idCardIssuedAt: string;
-  idCardIssuedBy: string;
+  idCardIssuedAt?: string;
+  idCardIssuedBy?: string;
 }
 
 export interface VerifyEKYCRequestWebProps {
   id: string;
   idCardNumber: string;
-  selfiePhoto: Blob;
-  frontSidePhoto: Blob;
-  backSidePhoto: Blob;
-  selfieFileName: string;
-  frontSideFileName: string;
-  backSideFileName: string;
+  selfiePhoto?: Blob;
+  frontSidePhoto?: Blob;
+  backSidePhoto?: Blob;
+  selfieFileName?: string;
+  frontSideFileName?: string;
+  backSideFileName?: string;
   tokenEsign: string;
-  idCardIssuedAt: string;
-  idCardIssuedBy: string;
+  idCardIssuedAt?: string;
+  idCardIssuedBy?: string;
 }
 
 export interface SaleSelfCertResponseProps {
@@ -176,4 +176,11 @@ export interface ResendOTPSignContractRequestProps {
   id: number;
   idCardNumber: string;
   tokenEsign: string;
+}
+
+export interface UpdateEKYCRequestProps {
+  id: string;
+  idCardNumber: string;
+  tokenEsign: string;
+  ekycResult: boolean;
 }

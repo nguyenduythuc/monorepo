@@ -6,7 +6,10 @@ import {useConfigRouting} from './routing';
 import useTranslations from './useTranslations';
 import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import {useDispatch} from 'react-redux';
-import {setDataSaleInfo} from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
+import {
+  clearDataESignForSale,
+  setDataSaleInfo,
+} from '@lfvn-customer/shared/redux/slices/eSignForSaleSlice';
 import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 import {
   clearLoadingScreen,
@@ -38,6 +41,7 @@ const useVerifyIdContractESignForSale = ({
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();
+    dispatch(clearDataESignForSale());
     const {idCard, phoneNumber} = getValues();
     dispatch(
       setDataSaleInfo({
