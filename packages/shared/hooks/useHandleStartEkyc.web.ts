@@ -58,8 +58,10 @@ const useHandleStartEkyc = () => {
             return;
           } else {
             if (
-              dataSaleInfo?.idCardNumber !== result.idInfo?.id_number?.value
+              dataSaleInfo?.idCardNumber &&
+              dataSaleInfo.idCardNumber !== result.idInfo?.id_number?.value
             ) {
+              // case: esign for sale (have data in dataSaleInfo)
               handleShowToast({
                 msg: t('VerifyIdCardESignForSale.notMatch'),
                 type: 'error',

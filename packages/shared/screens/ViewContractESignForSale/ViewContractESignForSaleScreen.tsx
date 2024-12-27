@@ -76,7 +76,9 @@ const ViewContractESignForSaleScreen = ({
           onPress={onHandleSubmit}
           color={'red'}
           buttonStyle={'mt-4 mx-4'}>
-          {t('VerifyIdContractESignForSale.signContract')}
+          {isSignSuccess
+            ? t('VerifyIdContractESignForSale.complete')
+            : t('VerifyIdContractESignForSale.signContract')}
         </CustomButton>
       </View>
       <ConfirmModal
