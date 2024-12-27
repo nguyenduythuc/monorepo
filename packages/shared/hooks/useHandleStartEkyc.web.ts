@@ -5,14 +5,17 @@ import {
 } from '@lfvn-customer/shared/types/services/verifyCustomerTypes';
 import useShowToast from './useShowToast';
 import useHandleSaveFile from './useHandleSaveFile';
-import {webConfigInfo} from '../utils/TrueId';
-import {useUpdateEKYCMutation} from '../redux/slices/apiSlices';
-import {useAppSelector} from '../redux/store';
+import {webConfigInfo} from '@lfvn-customer/shared/utils/TrueId';
+import {useUpdateEKYCMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import {useAppSelector} from '@lfvn-customer/shared/redux/store';
+import useTranslations from './useTranslations';
 
 const useHandleStartEkyc = () => {
   const {handleShowToast} = useShowToast();
   const {handleUploadUserResouce} = useHandleSaveFile();
   const [updateEKYC] = useUpdateEKYCMutation();
+
+  const t = useTranslations();
 
   const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
@@ -40,28 +43,30 @@ const useHandleStartEkyc = () => {
             msg: closeEkycLabel,
             type: 'info',
           });
+        } else if (result.code == 1) {
           await updateEKYC({
             id: dataSaleInfo?.saleImportId ?? '',
             idCardNumber: dataSaleInfo?.idCardNumber ?? '',
             tokenEsign: dataSaleInfo?.tokenEsign ?? '',
-            ekycResult: false,
+            ekycResult: result.decision.decision !== 'REJECTED',
           });
-        } else if (result.code == 1) {
           if (result.decision.decision === 'REJECTED') {
-            await updateEKYC({
-              id: dataSaleInfo?.saleImportId ?? '',
-              idCardNumber: dataSaleInfo?.idCardNumber ?? '',
-              tokenEsign: dataSaleInfo?.tokenEsign ?? '',
-              ekycResult: false,
+            handleShowToast({
+              msg: t('VerifyIdCardESignForSale.notMatch'),
+              type: 'error',
             });
+            return;
           } else {
+            if (
+              dataSaleInfo?.idCardNumber !== result.idInfo?.id_number?.value
+            ) {
+              handleShowToast({
+                msg: t('VerifyIdCardESignForSale.notMatch'),
+                type: 'error',
+              });
+              return;
+            }
             // success
-            await updateEKYC({
-              id: dataSaleInfo?.saleImportId ?? '',
-              idCardNumber: dataSaleInfo?.idCardNumber ?? '',
-              tokenEsign: dataSaleInfo?.tokenEsign ?? '',
-              ekycResult: true,
-            });
             if (result?.rawImage?.front && identityNumber) {
               await handleUploadUserResouce({
                 rawImage: result.rawImage?.front,
@@ -112,7 +117,7 @@ const useHandleStartEkyc = () => {
           });
           console.log('errorMesssage : ', result.errorMessage);
           handleShowToast({
-            msg: result.errorMessage,
+            msg: t('VerifyIdCardESignForSale.cccdFail'),
             type: 'error',
           });
         }
