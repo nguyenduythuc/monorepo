@@ -101,6 +101,7 @@ const useHandleStartEkyc = () => {
               nationality: result.idInfo?.nationality?.value,
               origin: result.idInfo?.id_origin?.value,
               oldIdNumber: result.idInfo?.id_old_number?.value,
+              givenPlace: result.ekycResult?.kyc_result.back?.given_place.value,
             };
             handleEkycSubmit(
               data,

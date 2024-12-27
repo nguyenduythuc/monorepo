@@ -19,6 +19,8 @@ import useHandleSaveFile from './useHandleSaveFile';
 import {OTPTypesEnum} from '@lfvn-customer/shared/types';
 import downloadDraftContractApi from '@lfvn-customer/shared/redux/slices/apiSlices/downloadDraftContractApi';
 import useHandleStartEkyc from './useHandleStartEkyc';
+import {useCheckEKYCMutation} from '@lfvn-customer/shared/redux/slices/apiSlices';
+import useTranslations from './useTranslations';
 
 declare global {
   interface Window {
@@ -36,19 +38,38 @@ const useRNTrueId = ({type}: {type?: OTPTypesEnum}) => {
   const {dataSaleInfo} = useAppSelector(state => state.eSignForSale);
 
   const {appNavigate} = useConfigRouting();
-  const {showCommonErrorToast} = useShowToast();
+  const {showCommonErrorToast, handleShowToast} = useShowToast();
   const dispatch = useDispatch();
+
+  const t = useTranslations();
 
   const {handleVerifyEKYCSubmit} = useHandleSaveFile();
   const {startEkyc} = useHandleStartEkyc();
+  const [checkEKYC] = useCheckEKYCMutation();
 
   useEffect(() => {
     dispatch(clearLoadingScreen());
   }, []);
 
-  const onPressStartEkyc = (type: EkycType) => {
+  const onPressStartEkyc = async (type: EkycType) => {
     dispatch(setLoadingScreen());
     try {
+      const resultCheckEKYC = await checkEKYC({
+        id: Number(dataSaleInfo?.saleImportId ?? 0),
+        idCardNumber: dataSaleInfo?.idCardNumber ?? '',
+        tokenEsign: dataSaleInfo?.tokenEsign ?? '',
+      });
+      if (!resultCheckEKYC?.data) {
+        showCommonErrorToast();
+        return;
+      }
+      if (resultCheckEKYC?.data?.action !== 'EKYC') {
+        handleShowToast({
+          type: 'error',
+          msg: t('VerifyIdCardESignForSale.verifyFail'),
+        });
+        return;
+      }
       startEkyc({
         identityNumber: identityNumber ?? '',
         handleEkycSubmit,

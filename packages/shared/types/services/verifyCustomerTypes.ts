@@ -100,7 +100,11 @@ export type WebOCRResultType = {
     decision: 'AUTO_APPROVED' | 'REJECTED' | 'MANUAL';
   };
   idInfo: webEkycDataType;
-  ekycResult: {kyc_result: {back: {given_date: {value: string}}}};
+  ekycResult: {
+    kyc_result: {
+      back: {given_date: {value: string}; given_place: {value: string}};
+    };
+  };
   rawImage?: {
     selfie?: string;
     front?: string;
