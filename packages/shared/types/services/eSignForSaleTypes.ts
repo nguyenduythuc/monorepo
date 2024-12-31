@@ -184,3 +184,8 @@ export interface UpdateEKYCRequestProps {
   tokenEsign: string;
   ekycResult: boolean;
 }
+
+export interface NapasBankProps {
+  code: string;
+  name: string;
+}

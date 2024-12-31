@@ -8,6 +8,7 @@ import loadingSlices from './slices/loadingSlices';
 import eSignForSaleSlice from './slices/eSignForSaleSlice';
 import verifyAccountSlices from './slices/verifyAccountSlices';
 import LoanAplSlices from './slices/LoanAplSlices';
+import napasBankSlice from './slices/napasBankSlices';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   verifyAccount: verifyAccountSlices,
   loanApl: LoanAplSlices,
   eSignForSale: eSignForSaleSlice,
+  napasBank: napasBankSlice,
 });
 
 export default rootReducer;

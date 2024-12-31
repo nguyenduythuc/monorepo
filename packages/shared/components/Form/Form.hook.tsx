@@ -140,6 +140,7 @@ export const useCustomForm = ({fields, defaultValues}: FormProps) => {
                   }
                   placeholder={field.placeholder}
                   leftComponent={field.leftComponent}
+                  onPressSearchDropdown={field.onPressSearchDropdown}
                 />
               );
             }}

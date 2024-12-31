@@ -18,6 +18,8 @@ import useShowToast from './useShowToast';
 import {clearDataESignForSale} from '../redux/slices/eSignForSaleSlice';
 import useTranslations from '@lfvn-customer/shared/hooks/useTranslations';
 import {Keyboard} from 'react-native';
+import {useWatch} from 'react-hook-form';
+import {setBankNapas} from '@lfvn-customer/shared/redux/slices/napasBankSlices';
 
 const useCheckNapas = () => {
   const [listBank] = useLazyGetBankListNapasDataQuery();
@@ -37,6 +39,8 @@ const useCheckNapas = () => {
     bankInfo,
     dataSaleInfo,
   } = useAppSelector(state => state.eSignForSale);
+  const {bankSelected} = useAppSelector(state => state.napasBank);
+
   const {appNavigate} = useConfigRouting();
   const {showCommonErrorToast, handleShowToast} = useShowToast();
 
@@ -45,7 +49,7 @@ const useCheckNapas = () => {
 
     if (result.data) {
       const options: {code: string; name: string}[] = [];
-      result.data.map(item => {
+      result.data.forEach(item => {
         if (item.code) {
           options.push({
             name: item.name,
@@ -75,6 +79,9 @@ const useCheckNapas = () => {
       {
         ...FieldCheckNapas.CheckNapasBankList,
         options: listBankOption,
+        onPressSearchDropdown: () => {
+          appNavigate(ScreenParamEnum.ListNapasBank);
+        },
       },
       {
         ...FieldCheckNapas.CheckNapasBankAccount,
@@ -91,16 +98,36 @@ const useCheckNapas = () => {
     ];
   }, [listBankOption]);
 
-  const {renderFrom, handleSubmit, watch, setValue, getValues} = useCustomForm({
-    fields,
-    defaultValues: {},
-  });
+  const {renderFrom, handleSubmit, watch, setValue, getValues, control} =
+    useCustomForm({
+      fields,
+      defaultValues: {},
+    });
 
   useEffect(() => {
     if (listBankOption && listBankOption.length > 0) {
-      setValue('bankName', listBankOption[0]?.code); // Update the bankName field with the first option
+      setValue(
+        'bankName',
+        bankSelected.code ? bankSelected.code : listBankOption[0]?.code,
+      ); // Update the bankName field with the first option
     }
-  }, [listBankOption, setValue]);
+  }, [listBankOption, setValue, bankSelected]);
+
+  const bankValue = useWatch({
+    control,
+    name: 'bankName',
+  });
+
+  useEffect(() => {
+    if (bankValue) {
+      const selectedBank = listBankOption?.find(
+        bank => bank.code === bankValue,
+      );
+      if (selectedBank) {
+        dispatch(setBankNapas(selectedBank));
+      }
+    }
+  }, [bankValue]);
 
   const onPressSubmit = handleSubmit(async () => {
     Keyboard.dismiss();

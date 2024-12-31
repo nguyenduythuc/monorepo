@@ -46,6 +46,7 @@ import {
   PDFViewEsignForSaleContainer,
   UploadDocsRollbackESignForSaleContainer,
   VerifyDocsRollbackESignForSaleContainer,
+  ListNapasBankContainer,
 } from '../screens';
 import {Linking} from 'react-native';
 import {
@@ -398,6 +399,13 @@ const RootStack = () => {
       <Stack.Screen
         name="verify-docs-rollback-esign-for-sale"
         component={VerifyDocsRollbackESignForSaleContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="list-napas-bank"
+        component={ListNapasBankContainer}
         options={{
           headerShown: false,
         }}

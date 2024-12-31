@@ -33,3 +33,4 @@ export * from './CustomCameraContainer';
 export * from './PDFViewEsignForSaleContainer';
 export * from './UploadDocsRollbackESignForSaleContainer';
 export * from './VerifyDocsRollbackESignForSaleContainer';
+export * from './ListNapasBankContainer';

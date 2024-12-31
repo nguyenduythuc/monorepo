@@ -27,7 +27,6 @@ import {ScreenParamEnum} from '@lfvn-customer/shared/types/paramtypes';
 import BgInProgressApplication from '@lfvn-customer/shared/assets/images/svg/BgInProgressApplication';
 import {setDeeplinkPath} from '@lfvn-customer/shared/redux/slices/authSlice';
 import {transformUniversalToNative} from '@lfvn-customer/shared/utils/deeplink';
-import useAuth from '../../hooks/useAuth';
 import {convertNumberToCurrency} from '@lfvn-customer/shared/utils';
 import moment from 'moment';
 
@@ -64,8 +63,6 @@ export const HomeScreen = () => {
 
   const deeplinkProcessedRef = useRef(false); // Use ref to avoid re-renders
 
-  const {onHandleGetUserProfile} = useAuth();
-
   useEffect(() => {
     dispatch(setSimulate(metaData?.data?.simulate.jsFunctionContent));
   }, [metaData, metadataLoading]);
@@ -95,7 +92,6 @@ export const HomeScreen = () => {
   ];
 
   useEffect(() => {
-    onHandleGetUserProfile();
     if (Platform.OS !== 'web') {
       Linking.getInitialURL().then(url => {
         if (url) {

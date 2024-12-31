@@ -108,6 +108,7 @@ export type RootParamList = {
     tokenEsign: string;
     docTypes: string;
   };
+  'list-napas-bank': undefined;
 };
 
 export enum ScreenParamEnum {
@@ -149,6 +150,7 @@ export enum ScreenParamEnum {
   CustomCamera = 'custom-camera',
   PDFViewESignForSale = 'pdf-view-esign-for-sale',
   UploadDocsRollbackEsignForSale = 'upload-docs-rollback-esign-for-sale',
+  ListNapasBank = 'list-napas-bank',
 }
 
 export type HomeRouteProps = RouteProp<RootParamList, 'home'>;

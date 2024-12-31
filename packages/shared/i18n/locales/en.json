@@ -4,7 +4,8 @@
   "Modal": {
     "notSuccess": "Không thành công",
     "agree": "Đồng ý",
-    "cancel": "Huỷ"
+    "cancel": "Huỷ",
+    "placeholderSearch": "Tìm kiếm thông tin"
   },
   "CongratulationModal": {
     "congratulation": "Chúc mừng!",
@@ -448,7 +449,8 @@
     "accountBranch": "Chi nhánh",
     "accountBranchPlaceholder": "Nhập chi nhánh",
     "accountNumber": "Số tài khoản",
-    "accountNumberPlaceholder": "Nhập số tài khoản"
+    "accountNumberPlaceholder": "Nhập số tài khoản",
+    "searchBankPlaceholder": "Nhập tên ngân hàng"
   },
   "ImageSelected": {
     "cancel": "Huỷ",

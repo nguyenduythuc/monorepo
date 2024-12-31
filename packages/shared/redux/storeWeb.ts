@@ -22,7 +22,7 @@ const storage =
 const persistConfigWeb = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'loading', 'product', 'eSignForSaleSlice'],
+  blacklist: ['auth', 'loading', 'product', 'eSignForSaleSlice', 'napasBank'],
 };
 
 const persistedReducerWeb = persistReducer(persistConfigWeb, rootReducer);

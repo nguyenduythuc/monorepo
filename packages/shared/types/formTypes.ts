@@ -40,6 +40,7 @@ export type FieldConfig = {
   checkboxColor?: string;
   colorIcon?: string;
   validations?: InputValidationKeys[];
+  onPressSearchDropdown?: () => void;
 };
 
 export type FormProps = {
