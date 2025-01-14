@@ -64,7 +64,7 @@ export const HomeScreen = () => {
   const deeplinkProcessedRef = useRef(false); // Use ref to avoid re-renders
 
   useEffect(() => {
-    dispatch(setSimulate(metaData?.data?.simulate.jsFunctionContent));
+    dispatch(setSimulate(metaData?.data?.simulate?.jsFunctionContent ?? null));
   }, [metaData, metadataLoading]);
 
   const listFeature: ListFeatureType[] = [
@@ -146,7 +146,7 @@ export const HomeScreen = () => {
             <Text style={tw.style(`text-2xl font-semibold ${textDanger500}`)}>
               {t('Home.lfvn')}
             </Text>
-            <View style={tw.style('flex-row mt-5')}>
+            {/* <View style={tw.style('flex-row mt-5')}>
               <View style={tw.style('flex-1 mr-3')}>
                 <CustomButton onPress={onPressLogin} color={'red'}>
                   {t('Home.login')}
@@ -160,7 +160,7 @@ export const HomeScreen = () => {
                   {t('Home.registerNow')}
                 </CustomButton>
               </View>
-            </View>
+            </View> */}
           </>
         )}
       </>
@@ -265,7 +265,7 @@ export const HomeScreen = () => {
     <View style={tw.style('mt-10 mx-4')}>
       {renderHeaderComponent()}
       {renderInProgressApplication}
-      <View
+      {/* <View
         style={tw.style(
           'flex-row  bg-white rounded-2xl px-4 py-3 shadow-md mt-8 justify-between',
         )}>
@@ -287,7 +287,7 @@ export const HomeScreen = () => {
             </TouchableOpacity>
           </View>
         ))}
-      </View>
+      </View> */}
       <ConfirmModal
         visible={isModalVisible}
         setVisible={setIsModalVisible}
